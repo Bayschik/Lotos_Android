@@ -62,4 +62,6 @@ dependencies {
     implementation (libs.retrofit)
     // Gson
     implementation (libs.gson)
+    // Glide
+    implementation (libs.glide)
 }
