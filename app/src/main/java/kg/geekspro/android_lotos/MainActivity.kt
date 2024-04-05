@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
             // my first pr
         }
     }
-    /////////
+    ///////////
     //////////////////////////////////
 }
 //
