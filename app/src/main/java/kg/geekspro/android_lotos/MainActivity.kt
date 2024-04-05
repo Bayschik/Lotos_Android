@@ -17,7 +17,5 @@ class MainActivity : AppCompatActivity() {
             insets
         }
     }
-    // check check check
-    // second my test
-    // one more
+    // new test one more
 }
