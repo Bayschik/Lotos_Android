@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
             //dkjsflkjsdlkjlfkjs
             // fix my bag
             // my first pr
+            // test new arch
         }
     }
     ////////
