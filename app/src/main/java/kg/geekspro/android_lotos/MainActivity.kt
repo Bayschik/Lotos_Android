@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
             // fix my bag
             // my first pr
             // test new arch
-            // ololo ololo lo
+            // test arch
         }
     }
     ////////
