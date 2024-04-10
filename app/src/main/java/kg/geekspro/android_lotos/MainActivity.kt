@@ -12,5 +12,8 @@ class MainActivity : AppCompatActivity() {
 
         println("Это MainActivity")
         // добавил println()
+
+        // это код Кадырбека
+        println("Квдырбек")
     }
 }
