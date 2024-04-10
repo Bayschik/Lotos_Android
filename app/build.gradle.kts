@@ -64,4 +64,6 @@ dependencies {
     implementation (libs.gson)
     // Glide
     implementation (libs.glide)
+    // circle Image
+    implementation (libs.circleimageview)
 }

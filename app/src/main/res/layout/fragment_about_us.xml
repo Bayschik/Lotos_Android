@@ -1,14 +1,332 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.ui.AboutUsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/ivMainBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="245dp"
+        android:background="@drawable/ic_main_background_about_us" />
+
+    <ImageView
+        android:id="@+id/ivMainLogo"
+        app:layout_constraintBottom_toBottomOf="@+id/ivMainBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="172dp"
+        android:layout_height="184dp"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/ic_main_logo" />
+
     <TextView
+        android:id="@+id/tvMisson"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivMainBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_marginTop="16dp"
+        android:background="#8006D8F3"
+        android:fontFamily="@font/Roboto"
+        android:padding="5dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:text="Миссия и цели компании:"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/tvLorem"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvMisson"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="14dp"
+        android:fontFamily="@font/Roboto"
+        android:padding="12dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:text="Lorem ipsum dolor sit amet consectetur. Sed accumsan molestie vulputate sed pellentesque sit. In vestibulum etiam sed id tristique et ut. Ultrices orci nunc dignissim morbi at arcu. In id vitae dignissim nisi non lacus scelerisque."
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvThreeReasons"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLorem"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="18dp"
+        android:background="#8006D8F3"
+        android:fontFamily="@font/Roboto"
+        android:padding="5dp"
+        android:paddingStart="16dp"
+        android:text="3 причины почему стоит выбрать нас:"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/carViewMain"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvThreeReasons"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ci_first"
+            app:civ_border_color="#F803F623"
+            app:civ_border_width="2dp"
+            app:layout_constraintEnd_toStartOf="@id/ci_second"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_story_img_first">
+
+        </de.hdodenhof.circleimageview.CircleImageView>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ci_second"
+            app:civ_border_color="#F803F623"
+            app:civ_border_width="2dp"
+            app:layout_constraintEnd_toStartOf="@+id/ci_third"
+            app:layout_constraintStart_toEndOf="@+id/ci_first"
+            app:layout_constraintTop_toTopOf="@+id/ci_first"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:orientation="horizontal"
+            android:src="@drawable/ic_story_img_first">
+
+
+        </de.hdodenhof.circleimageview.CircleImageView>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ci_third"
+            app:civ_border_color="#F803F623"
+            app:civ_border_width="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ci_second"
+            app:layout_constraintTop_toTopOf="@+id/ci_second"
+            android:layout_width="78dp"
+            android:layout_height="78dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_story_img_first">
+
+        </de.hdodenhof.circleimageview.CircleImageView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <TextView
+        android:id="@+id/tvOurWork"
+        app:layout_constraintTop_toBottomOf="@+id/carViewMain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="18dp"
+        android:background="#8006D8F3"
+        android:fontFamily="@font/Roboto"
+        android:padding="5dp"
+        android:paddingStart="16dp"
+        android:text="Наши работы:"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+
+    <ImageView
+        android:id="@+id/img_videPlay1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvOurWork"
+        android:layout_width="460dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="0dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_video_play" />
+
+    <TextView
+        android:id="@+id/tVCleaningAfter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_videPlay1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="14dp"
+        android:fontFamily="@font/Roboto"
+        android:padding="5dp"
+        android:paddingStart="16dp"
+        android:text="Уборка после ремонта:"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/img_videPlay2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tVCleaningAfter"
+        android:layout_width="460dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_video_play" />
+
+
+    <TextView
+        android:id="@+id/tvWetCleaning"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_videPlay2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/Roboto"
+        android:padding="5dp"
+        android:paddingStart="16dp"
+        android:text="Влажная уборка:"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/img_videPlay3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvWetCleaning"
+        android:layout_width="460dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="0dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_video_play" />
+
+    <TextView
+        android:id="@+id/tvGeneralCleaning"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_videPlay3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="14dp"
+        android:fontFamily="@font/Roboto"
+        android:padding="5dp"
+        android:paddingStart="16dp"
+        android:text="Генеральная уборка:"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvContacts"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvGeneralCleaning"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="60"
+        android:background="#8006D8F3"
+        android:fontFamily="@font/Roboto"
+        android:padding="5dp"
+        android:paddingStart="16dp"
+        android:text="Контакты:"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/iconsContainer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvContacts"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp"
+        android:orientation="horizontal">
+
+
+        <ImageView
+            android:id="@+id/ivWhatsApp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ivTelephone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="150dp"
+            android:orientation="horizontal"
+            android:src="@drawable/ic_whatsApp" />
+
+
+        <ImageView
+            android:id="@+id/ivTelephone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/icInstagram"
+            app:layout_constraintStart_toEndOf="@+id/ivWhatsApp"
+            app:layout_constraintTop_toTopOf="@+id/ivWhatsApp"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="60dp"
+            android:orientation="horizontal"
+            android:src="@drawable/ic_telephone" />
+
+        <ImageView
+            android:id="@+id/icInstagram"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivTelephone"
+            app:layout_constraintTop_toTopOf="@+id/ivTelephone"
+            app:layout_goneMarginStart="60dp"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginEnd="150dp"
+            android:orientation="horizontal"
+            android:src="@drawable/ic_instagram" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.core.widget.NestedScrollView>
