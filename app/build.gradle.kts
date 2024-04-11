@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    kotlin("kapt")
 }
 
 android {
@@ -65,4 +66,13 @@ dependencies {
     // Glide
     implementation (libs.glide)
     // circle Image
+    implementation(libs.circelImage)
+    //circle indicator
+    implementation(libs.circelIndicator)
+    //room
+    implementation(libs.room)
+    implementation(libs.roomCompiler)
+    //kapt(libs.roomCompiler)
+
+    implementation(libs.glide)
 }
