@@ -21,4 +21,5 @@
         app:ci_height="10dp"
         app:ci_drawable="@drawable/circle_indicator" />
 
+
 </FrameLayout>

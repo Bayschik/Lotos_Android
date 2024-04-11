@@ -40,6 +40,7 @@ class OnBoardingFragment : Fragment() {
             lifecycle
         )
         binding.viewPager.adapter = adapter
+        binding.indicator.setViewPager(binding.viewPager)
     }
 
 }

@@ -158,4 +158,10 @@
             app:destination="@id/signOrLogFragment" />
     </fragment>
 
+    <fragment
+        android:id="@+id/passwordCreateFragment"
+        android:name="kg.geekspro.android_lotos.presentation.ui.PasswordCreateFragment"
+        android:label="fragment_password_create"
+        tools:layout="@layout/fragment_password_create" />
+
 </navigation>

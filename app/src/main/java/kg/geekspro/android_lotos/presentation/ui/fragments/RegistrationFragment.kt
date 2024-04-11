@@ -28,6 +28,8 @@ class RegistrationFragment : Fragment() {
             btnContinue.setOnClickListener {
                 if (etOfficialPhoneNumber.text.toString().isEmpty()){
                     Toast.makeText(requireContext(), "Введите ваш номер телефона", Toast.LENGTH_SHORT).show()
+                }else if(etOfficialPhoneNumber.text?.length != 9){
+                    Toast.makeText(requireContext(), "Введите подный номер телефона", Toast.LENGTH_SHORT).show()
                 }else{
                     findNavController().navigate(R.id.verificationCodeFragment, bundleOf("PHONE_NUMBER" to etOfficialPhoneNumber.text.toString()))
                 }

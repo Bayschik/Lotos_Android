@@ -47,7 +47,7 @@ class FillDataFragment : Fragment() {
                         password = etFillPassword.text.toString()
                     )
                     App.db.appDao().insert(data)
-                    findNavController().navigate(R.id.mainFragment)
+                    findNavController().navigate(R.id.passwordCreateFragment)
                 }
             }
         }

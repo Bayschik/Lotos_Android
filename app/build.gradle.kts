@@ -71,8 +71,7 @@ dependencies {
     implementation(libs.circelIndicator)
     //room
     implementation(libs.room)
-    implementation(libs.roomCompiler)
-    //kapt(libs.roomCompiler)
+    kapt(libs.roomCompiler)
 
-    implementation(libs.glide)
+    //implementation(libs.glide)
 }

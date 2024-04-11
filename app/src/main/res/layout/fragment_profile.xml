@@ -96,6 +96,24 @@
             app:layout_constraintTop_toBottomOf="@id/btn_personal_data" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_change_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="18dp"
+            android:drawableLeft="@drawable/ic_change_password"
+            android:drawableRight="@drawable/ic_arrow_forward"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:paddingRight="16dp"
+            android:text="       Изменить пароль"
+            android:textAlignment="textStart"
+            app:cornerRadius="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_order_history" />
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_exit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -111,7 +129,7 @@
             app:cornerRadius="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_order_history" />
+            app:layout_constraintTop_toBottomOf="@id/btn_change_password" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

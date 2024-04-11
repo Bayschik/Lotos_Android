@@ -28,8 +28,8 @@ class RefactorDataFragment : Fragment() {
             if (result.resultCode == Activity.RESULT_OK) {
                 val selectedFileUri = result.data?.data
                 pref.saveImage(selectedFileUri.toString())
-                Glide.with(binding.imageProfile).load(selectedFileUri.toString())
-                    .into(binding.imageProfile)
+                /*Glide.with(binding.imageProfile).load(selectedFileUri.toString())
+                    .into(binding.imageProfile)*/
             }
         }
 
@@ -65,7 +65,7 @@ class RefactorDataFragment : Fragment() {
                         address = etAddress.text.toString(),
                         password = etPassword.text.toString()
                     )
-                    App.db.appDao().update(ownData)
+                    //App.db.appDao().update(ownData)
                     findNavController().navigateUp()
                 }
             } else {
@@ -79,19 +79,22 @@ class RefactorDataFragment : Fragment() {
                         address = etAddress.text.toString(),
                         password = etPassword.text.toString()
                     )
-                    App.db.appDao().insert(data)
+                    //App.db.appDao().insert(data)
                     findNavController().navigateUp()
                 }
             }
+        }
+    }
+}
 
-            Glide.with(imageProfile).load(pref.getImage())
+          /*  *//*Glide.with(imageProfile).load(pref.getImage())
                 .placeholder(R.drawable.ic_profile_placeholder).into(imageProfile)
 
             imageProfile.setOnClickListener {
                 val intent = Intent(Intent.ACTION_PICK)
                 intent.type = "image/*"
                 getCommentMedia.launch(intent)
-            }
+            }*//*
         }
     }
-}
+}*/

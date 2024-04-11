@@ -29,8 +29,8 @@ class PersonalDataFragment : Fragment() {
             if (result.resultCode == Activity.RESULT_OK) {
                 val selectedFileUri = result.data?.data
                 pref.saveImage(selectedFileUri.toString())
-                Glide.with(binding.imgPersonalDataProfile).load(selectedFileUri.toString())
-                    .into(binding.imgPersonalDataProfile)
+//                Glide.with(binding.imgPersonalDataProfile).load(selectedFileUri.toString())
+//                    .into(binding.imgPersonalDataProfile)
             }
         }
 
@@ -44,8 +44,10 @@ class PersonalDataFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+    }
+}
 
-        binding.apply {
+        /*binding.apply {
 
             val data = App.db.appDao().getAll()
             Toast.makeText(requireContext(), "$data", Toast.LENGTH_SHORT).show()
@@ -75,8 +77,11 @@ class PersonalDataFragment : Fragment() {
                 intent.type = "image/*"
                 getCommentMedia.launch(intent)
             }
+
+
         }
 
 
     }
-}
+
+         */
