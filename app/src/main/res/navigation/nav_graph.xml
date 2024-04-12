@@ -98,7 +98,7 @@
 
     <fragment
         android:id="@+id/verificationCodeFragment"
-        android:name="kg.geekspro.android_lotos.presentation.ui.fragments.VerificationCodeFragment"
+        android:name="kg.geekspro.android_lotos.presentation.ui.fragments.verificationCode.VerificationCodeFragment"
         android:label="fragment_verification_code"
         tools:layout="@layout/fragment_verification_code">
 
@@ -160,7 +160,7 @@
 
     <fragment
         android:id="@+id/passwordCreateFragment"
-        android:name="kg.geekspro.android_lotos.presentation.ui.profile.password.PasswordCreateFragment"
+        android:name="kg.geekspro.android_lotos.presentation.ui.profile.password.create.PasswordCreateFragment"
         android:label="fragment_password_create"
         tools:layout="@layout/fragment_password_create" />
     <fragment

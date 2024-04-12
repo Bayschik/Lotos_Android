@@ -36,20 +36,19 @@ class RegistrationFragment : Fragment() {
                 if (etOfficialPhoneNumber.text.toString().isEmpty()) {
                     Toast.makeText(
                         requireContext(),
-                        "Введите ваш номер телефона",
+                        "Введите вашу почту",
                         Toast.LENGTH_SHORT
                     ).show()
-                }else {
+                } else {
                     val email = Registration(
                         email = etOfficialPhoneNumber.text.toString()
                     )
-                    viewModel.verifyEmail(etOfficialPhoneNumber.text.toString()).observe(viewLifecycleOwner){
-                        if (it.equals("\nСообщение отправлено\n")){
-                            findNavController().navigate(
-                                R.id.verificationCodeFragment,
-                                bundleOf("PHONE_NUMBER" to etOfficialPhoneNumber.text.toString())
-                            )
-                        }
+                    viewModel.verifyEmail(email).observe(viewLifecycleOwner) {
+                        Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
+                        findNavController().navigate(
+                            R.id.verificationCodeFragment,
+                            bundleOf("PHONE_NUMBER" to etOfficialPhoneNumber.text.toString())
+                        )
                     }
                 }
             }

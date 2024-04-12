@@ -1,6 +1,5 @@
-package kg.geekspro.android_lotos.presentation.ui.fragments.registration
+package kg.geekspro.android_lotos.presentation.ui.data
 
-import kg.geekspro.android_lotos.presentation.ui.data.ApiService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

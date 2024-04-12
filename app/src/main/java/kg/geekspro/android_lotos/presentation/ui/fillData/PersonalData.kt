@@ -1,4 +1,4 @@
-package kg.geekspro.android_lotos.presentation.ui.model
+package kg.geekspro.android_lotos.presentation.ui.fillData
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -19,5 +19,4 @@ data class PersonalData(
     val phoneNumber:String,
     val email:String,
     val address:String,
-    //val password:String,
 ):Serializable

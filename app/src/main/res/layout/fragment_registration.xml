@@ -58,7 +58,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_official_phone_number"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:inputType="textEmailAddress" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -115,8 +116,8 @@
         android:id="@+id/tv_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="60dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="60dp"
         android:fontFamily="sans-serif-medium"
         android:text="Если у вас уже есть аккаунт,"
         app:layout_constraintEnd_toEndOf="parent"

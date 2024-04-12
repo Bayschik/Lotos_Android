@@ -10,12 +10,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentFillDataBinding
-import kg.geekspro.android_lotos.presentation.ui.fragments.registration.RegistrationViewModel
-import kg.geekspro.android_lotos.presentation.ui.model.PersonalData
 
 class FillDataFragment : Fragment() {
     private lateinit var binding: FragmentFillDataBinding
-    private val viewModel: RegistrationViewModel by viewModels()
+    private val viewModel: FillDataViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,7 +33,6 @@ class FillDataFragment : Fragment() {
                     etFillPhoneNumber.text.toString().isEmpty() ||
                     etFillEmail.text.toString().isEmpty() ||
                     etFillAddress.text.toString().isEmpty()
-                //etFillPassword.text.toString().isEmpty()
                 ) {
                     Toast.makeText(requireContext(), "Введите ваши данные", Toast.LENGTH_SHORT)
                         .show()
@@ -44,14 +41,13 @@ class FillDataFragment : Fragment() {
                         name = etFillName.text.toString(),
                         surName = etFillSurname.text.toString(),
                         dateOfBirth = etFillDateOfBirth.text.toString(),
-                        phoneNumber = etFillPhoneNumber.text.toString(),
+                        phoneNumber = "+996${etFillPhoneNumber.text.toString()}",
                         email = etFillEmail.text.toString(),
                         address = etFillAddress.text.toString(),
-                        //password = etFillPassword.text.toString()
                     )
-                    //App.db.appDao().insert(data)
+                    Toast.makeText(requireContext(), data.phoneNumber, Toast.LENGTH_SHORT).show()
                     viewModel.clientCreate(data).observe(viewLifecycleOwner){
-                        if (it == "\"Личные данные сохранены, переход к следующему шагу\""){
+                        if (it != "\"Личные данные сохранены, переход к следующему шагу\""){
                             findNavController().navigate(R.id.passwordCreateFragment)
                         }
                     }

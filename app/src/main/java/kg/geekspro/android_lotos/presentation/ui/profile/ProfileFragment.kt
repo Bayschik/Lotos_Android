@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -30,6 +31,7 @@ class ProfileFragment : Fragment() {
     }
     private lateinit var dialog: BottomSheetDialog
     private val adapter = OrderHistoryAdapter()
+    private val viewModel:ProfileViewModel by viewModels()
 
     private val getCommentMedia =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -60,6 +62,9 @@ class ProfileFragment : Fragment() {
             btnExit.setOnClickListener {showLogOut()}
             btnChangePassword.setOnClickListener {
                 findNavController().navigate(R.id.changePasswordFragment)
+            }
+            viewModel.getProfile().observe(viewLifecycleOwner){
+                tvUserFullName.text = "${it.lastName} ${it.firstName}"
             }
         }
     }

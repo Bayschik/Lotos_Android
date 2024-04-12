@@ -9,7 +9,7 @@ import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentPersonalInfoBinding
-import kg.geekspro.android_lotos.presentation.ui.model.PersonalData
+import kg.geekspro.android_lotos.presentation.ui.fillData.PersonalData
 
 class PersonalInfoFragment : Fragment() {
     private lateinit var binding:FragmentPersonalInfoBinding

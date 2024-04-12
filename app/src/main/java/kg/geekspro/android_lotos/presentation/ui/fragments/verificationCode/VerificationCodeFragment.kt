@@ -1,4 +1,4 @@
-package kg.geekspro.android_lotos.presentation.ui.fragments
+package kg.geekspro.android_lotos.presentation.ui.fragments.verificationCode
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,12 +11,11 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentVerificationCodeBinding
-import kg.geekspro.android_lotos.presentation.ui.fragments.registration.RegistrationViewModel
 
 class VerificationCodeFragment : Fragment() {
 
     private lateinit var binding: FragmentVerificationCodeBinding
-    private val viewModel:RegistrationViewModel by viewModels()
+    private val viewModel:VerificationViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,7 +42,7 @@ class VerificationCodeFragment : Fragment() {
                         code = etOfficialCode.text.toString()
                     )
                     viewModel.confirmCode(data).observe(viewLifecycleOwner){
-                        if (it.equals("\nСообщение отправлено\n")){
+                        if (it != "\"You can registration\""){
                             findNavController().navigate(R.id.fillDataFragment)
                         }else{
                             Toast.makeText(requireContext(), "ошибка", Toast.LENGTH_SHORT).show()

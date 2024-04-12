@@ -2,12 +2,11 @@ package kg.geekspro.android_lotos.presentation.ui.fillData
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import kg.geekspro.android_lotos.presentation.ui.model.PersonalData
+import kg.geekspro.android_lotos.presentation.ui.data.repository.Repository
 
 class FillDataViewModel:ViewModel() {
-    /*private val repository =
-    fun clientCreate():LiveData<PersonalData>{
-
+    private val repository = Repository()
+    fun clientCreate(data: PersonalData):LiveData<String>{
+        return repository.clientCreate(data)
     }
-     */
 }
