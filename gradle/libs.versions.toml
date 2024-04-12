@@ -19,6 +19,7 @@ glide = "4.16.0"
 circleImage = "3.1.0"
 circleIndicator = "2.1.6"
 room = "2.6.1"
+googleApiClient = "21.0.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -32,6 +33,7 @@ circelIndicator = {module ="me.relex:circleindicator", version.ref = "circleIndi
 room = {module ="androidx.room:room-runtime", version.ref = "room"}
 roomCompiler = {module ="androidx.room:room-compiler", version.ref = "room"}
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+googleApiClient = { module = "com.google.android.gms:play-services-auth", version.ref = "googleApiClient" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

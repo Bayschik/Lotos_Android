@@ -1,4 +1,4 @@
-package kg.geekspro.android_lotos.presentation.ui
+package kg.geekspro.android_lotos.presentation.ui.profile.password
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -26,8 +26,10 @@ class PasswordCreateFragment : Fragment() {
         binding.apply {
             btnContinue.setOnClickListener {
                 if (etOfficialConfirmPassword.text.toString().isEmpty() || etOfficialPasswordCreate.text.toString().isEmpty()){
-                    Toast.makeText(requireContext(), "Ввндите ваши данные", Toast.LENGTH_SHORT).show()
-                }else{
+                    Toast.makeText(requireContext(), "Придумайте пароль", Toast.LENGTH_SHORT).show()
+                }else if(etOfficialConfirmPassword.text.toString() != etOfficialPasswordCreate.text?.toString()){
+                    Toast.makeText(requireContext(), "Пароли должны совпадать", Toast.LENGTH_SHORT).show()
+                } else{
                     findNavController().navigate(R.id.mainFragment)
                 }
             }

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/alert_dialog">
 
     <TextView
@@ -18,18 +19,51 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/status_card_view"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_margin="24dp"
+        app:cardCornerRadius="12dp"
+        tools:backgroundTint="@color/purple"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:padding="2dp"
+            android:background="@drawable/bg_status"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="В ожидании"
+                android:layout_marginHorizontal="8dp"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
         android:id="@+id/top_card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="@id/tv_date_of_order"
         app:layout_constraintTop_toBottomOf="@id/tv_date_of_order">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:background="@drawable/top_order_history_bg"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/top_order_history_bg">
 
             <TextView
                 android:id="@+id/tv_type_of_cleaning"
@@ -40,9 +74,9 @@
                 android:text="Уборка после ремонта"
                 android:textColor="#505050"
                 android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -57,9 +91,9 @@
         app:layout_constraintTop_toBottomOf="@id/top_card_view">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:background="@drawable/bottom_order_history_bg"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/bottom_order_history_bg">
 
             <TextView
                 android:id="@+id/tv_home_address"
@@ -70,9 +104,9 @@
                 android:text="Чуй проспекти 12, блок 3, квартира 33"
                 android:textColor="#505050"
                 android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

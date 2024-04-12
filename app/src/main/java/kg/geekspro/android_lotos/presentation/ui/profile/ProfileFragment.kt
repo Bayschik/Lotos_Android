@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.fragment.findNavController
@@ -57,6 +58,9 @@ class ProfileFragment : Fragment() {
             setImageFromPhone()
             btnOrderHistory.setOnClickListener {showBottomNavSheet()}
             btnExit.setOnClickListener {showLogOut()}
+            btnChangePassword.setOnClickListener {
+                findNavController().navigate(R.id.changePasswordFragment)
+            }
         }
     }
 
@@ -89,7 +93,6 @@ class ProfileFragment : Fragment() {
             Toast.makeText(requireContext(), "Не вышли из аккаунта", Toast.LENGTH_SHORT).show()
             alertShow.dismiss()
         }
-
         alertShow.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         alertShow.show()
@@ -98,6 +101,10 @@ class ProfileFragment : Fragment() {
     private fun showBottomNavSheet() {
         val bottomSheet = layoutInflater.inflate(R.layout.bottom_sheet_layout, null)
         val rvOrder = bottomSheet.findViewById<RecyclerView>(R.id.rv_order_history)
+        val imgArrowBack = bottomSheet.findViewById<ImageView>(R.id.img_order_back)
+        imgArrowBack?.setOnClickListener{
+            dialog.hide()
+        }
         rvOrder.adapter = adapter
         dialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
         dialog.setContentView(bottomSheet)

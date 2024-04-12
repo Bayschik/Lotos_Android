@@ -21,8 +21,8 @@ class Pref(context: Context) {
     }
 
     companion object{
-        const val PREF_NAME = "prefffffffffffff.name"
-        const val SHOWED_KEY = "showeddddddddddddd.key"
-        const val SHOW_IMAGE = "showwwwwwwwwwwww.image"
+        const val PREF_NAME = "preffffffffffffffff.name"
+        const val SHOWED_KEY = "showedddddddddddddddd.key"
+        const val SHOW_IMAGE = "showwwwwwwwwwwwwwww.image"
     }
 }

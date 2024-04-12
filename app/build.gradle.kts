@@ -72,6 +72,7 @@ dependencies {
     //room
     implementation(libs.room)
     kapt(libs.roomCompiler)
-
+    //Google API Client
+    implementation (libs.googleApiClient)
     //implementation(libs.glide)
 }

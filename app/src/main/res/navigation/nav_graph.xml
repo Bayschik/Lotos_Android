@@ -160,8 +160,23 @@
 
     <fragment
         android:id="@+id/passwordCreateFragment"
-        android:name="kg.geekspro.android_lotos.presentation.ui.PasswordCreateFragment"
+        android:name="kg.geekspro.android_lotos.presentation.ui.profile.password.PasswordCreateFragment"
         android:label="fragment_password_create"
         tools:layout="@layout/fragment_password_create" />
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="kg.geekspro.android_lotos.presentation.ui.profile.password.ChangePasswordFragment"
+        android:label="fragment_change_password"
+        tools:layout="@layout/fragment_change_password" />
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="kg.geekspro.android_lotos.presentation.ui.profile.password.ForgotPasswordFragment"
+        android:label="fragment_forgot_password"
+        tools:layout="@layout/fragment_forgot_password" />
+    <fragment
+        android:id="@+id/confirmPasswordFragment"
+        android:name="kg.geekspro.android_lotos.presentation.ui.profile.password.ConfirmPasswordFragment"
+        android:label="fragment_confirm_password"
+        tools:layout="@layout/fragment_confirm_password" />
 
 </navigation>
