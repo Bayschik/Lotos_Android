@@ -9,11 +9,5 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show()
-
-        println("Это MainActivity")
-        // добавил println()
-
-        // это код Кадырбека
-        println("Квдырбек")
     }
 }

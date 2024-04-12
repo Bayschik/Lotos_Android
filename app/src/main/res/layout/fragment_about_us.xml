@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="245dp"
-        android:background="@drawable/ic_main_background_about_us" />
+        android:background="@drawable/ic_main_backgraoung_about_us" />
 
     <ImageView
         android:id="@+id/ivMainLogo"
@@ -44,7 +44,6 @@
         android:layout_height="match_parent"
         android:layout_marginTop="16dp"
         android:background="#8006D8F3"
-        android:fontFamily="@font/Roboto"
         android:padding="5dp"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
@@ -60,7 +59,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="14dp"
-        android:fontFamily="@font/Roboto"
         android:padding="12dp"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
@@ -78,7 +76,6 @@
         android:layout_height="match_parent"
         android:layout_marginTop="18dp"
         android:background="#8006D8F3"
-        android:fontFamily="@font/Roboto"
         android:padding="5dp"
         android:paddingStart="16dp"
         android:text="3 причины почему стоит выбрать нас:"
@@ -124,7 +121,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:orientation="horizontal"
-            android:src="@drawable/ic_story_img_first">
+            android:src="@drawable/ic_story_img_second">
 
 
         </de.hdodenhof.circleimageview.CircleImageView>
@@ -154,7 +151,6 @@
         android:layout_height="match_parent"
         android:layout_marginTop="18dp"
         android:background="#8006D8F3"
-        android:fontFamily="@font/Roboto"
         android:padding="5dp"
         android:paddingStart="16dp"
         android:text="Наши работы:"
@@ -168,7 +164,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvOurWork"
-        android:layout_width="460dp"
+        android:layout_width="380dp"
         android:layout_height="150dp"
         android:layout_marginStart="0dp"
         android:layout_marginTop="20dp"
@@ -184,7 +180,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="14dp"
-        android:fontFamily="@font/Roboto"
         android:padding="5dp"
         android:paddingStart="16dp"
         android:text="Уборка после ремонта:"
@@ -197,7 +192,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tVCleaningAfter"
-        android:layout_width="460dp"
+        android:layout_width="380dp"
         android:layout_height="150dp"
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
@@ -214,7 +209,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="16dp"
-        android:fontFamily="@font/Roboto"
         android:padding="5dp"
         android:paddingStart="16dp"
         android:text="Влажная уборка:"
@@ -227,7 +221,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvWetCleaning"
-        android:layout_width="460dp"
+        android:layout_width="380dp"
         android:layout_height="150dp"
         android:layout_marginStart="0dp"
         android:layout_marginTop="20dp"
@@ -243,7 +237,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="14dp"
-        android:fontFamily="@font/Roboto"
         android:padding="5dp"
         android:paddingStart="16dp"
         android:text="Генеральная уборка:"
@@ -260,9 +253,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="60"
+        android:layout_marginBottom="60dp"
         android:background="#8006D8F3"
-        android:fontFamily="@font/Roboto"
         android:padding="5dp"
         android:paddingStart="16dp"
         android:text="Контакты:"
@@ -295,7 +287,7 @@
             android:layout_height="26dp"
             android:layout_marginStart="150dp"
             android:orientation="horizontal"
-            android:src="@drawable/ic_whatsApp" />
+            android:src="@drawable/ic_whatsapp" />
 
 
         <ImageView

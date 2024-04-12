@@ -63,6 +63,6 @@ dependencies {
     // Gson
     implementation (libs.gson)
     // Glide
-    implementation (libs.glide)
     // circle Image
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
 }
