@@ -1,13 +1,14 @@
-package kg.geekspro.android_lotos.presentation.ui.fragments
+package kg.geekspro.android_lotos.presentation.ui.fragments.registration
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -17,7 +18,8 @@ import kg.geekspro.android_lotos.databinding.FragmentRegistrationBinding
 
 class RegistrationFragment : Fragment() {
     private lateinit var binding: FragmentRegistrationBinding
-    private lateinit var googleApiClient:GoogleApiClient
+    private lateinit var googleApiClient: GoogleApiClient
+    private val viewModel: RegistrationViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,12 +33,24 @@ class RegistrationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
             btnContinue.setOnClickListener {
-                if (etOfficialPhoneNumber.text.toString().isEmpty()){
-                    Toast.makeText(requireContext(), "Введите ваш номер телефона", Toast.LENGTH_SHORT).show()
-                }else if(etOfficialPhoneNumber.text?.length != 9){
-                    Toast.makeText(requireContext(), "Введите ваш полный номер телефона", Toast.LENGTH_SHORT).show()
-                }else{
-                    findNavController().navigate(R.id.verificationCodeFragment, bundleOf("PHONE_NUMBER" to etOfficialPhoneNumber.text.toString()))
+                if (etOfficialPhoneNumber.text.toString().isEmpty()) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Введите ваш номер телефона",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }else {
+                    val email = Registration(
+                        email = etOfficialPhoneNumber.text.toString()
+                    )
+                    viewModel.verifyEmail(etOfficialPhoneNumber.text.toString()).observe(viewLifecycleOwner){
+                        if (it.equals("\nСообщение отправлено\n")){
+                            findNavController().navigate(
+                                R.id.verificationCodeFragment,
+                                bundleOf("PHONE_NUMBER" to etOfficialPhoneNumber.text.toString())
+                            )
+                        }
+                    }
                 }
             }
             btnGoogle.setOnClickListener {
@@ -45,14 +59,18 @@ class RegistrationFragment : Fragment() {
         }
     }
 
-    private fun googleSignIn() = with(binding){
+    private fun googleSignIn() = with(binding) {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
             .build()
 
         googleApiClient = GoogleApiClient.Builder(requireContext())
             .enableAutoManage(requireContext() as FragmentActivity) { connectionResult ->
-                Toast.makeText(requireContext(), "Ошибка авторизации: ${connectionResult.errorMessage}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Ошибка авторизации: ${connectionResult.errorMessage}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
             .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
             .build()
@@ -61,10 +79,10 @@ class RegistrationFragment : Fragment() {
         btnGoogle.setOnClickListener {
             val signInIntent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient)
             startActivityForResult(signInIntent, RC_SIGN_IN)
+        }
     }
-}
 
-    companion object{
+    companion object {
         private const val RC_SIGN_IN = 9001
     }
 }

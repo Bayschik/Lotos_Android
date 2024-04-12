@@ -50,6 +50,8 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    // Gson
+    implementation (libs.gson)
     // val nav_version = "2.7.7"
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
@@ -61,8 +63,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.livedata.ktx)
     // Retrofit
     implementation (libs.retrofit)
-    // Gson
-    implementation (libs.gson)
     // Glide
     implementation (libs.glide)
     // circle Image

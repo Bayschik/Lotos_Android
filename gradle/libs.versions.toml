@@ -32,7 +32,6 @@ circelImage = {module ="de.hdodenhof:circleimageview", version.ref = "circleImag
 circelIndicator = {module ="me.relex:circleindicator", version.ref = "circleIndicator"}
 room = {module ="androidx.room:room-runtime", version.ref = "room"}
 roomCompiler = {module ="androidx.room:room-compiler", version.ref = "room"}
-gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 googleApiClient = { module = "com.google.android.gms:play-services-auth", version.ref = "googleApiClient" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -43,6 +42,7 @@ androidx-activity = { group = "androidx.activity", name = "activity", version.re
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

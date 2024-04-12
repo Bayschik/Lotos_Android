@@ -53,7 +53,7 @@ class RefactorDataFragment : Fragment() {
                 etPhoneNumber.setText(data.phoneNumber)
                 etEmail.setText(data.email)
                 etAddress.setText(data.address)
-                etPassword.setText(data.password)
+                //etPassword.setText(data.password)
 
                 btnSaveData.setOnClickListener {
                     val ownData = data.copy(
@@ -63,7 +63,7 @@ class RefactorDataFragment : Fragment() {
                         phoneNumber = etPhoneNumber.text.toString(),
                         email = etEmail.text.toString(),
                         address = etAddress.text.toString(),
-                        password = etPassword.text.toString()
+                        //password = etPassword.text.toString()
                     )
                     //App.db.appDao().update(ownData)
                     findNavController().navigateUp()
@@ -77,7 +77,7 @@ class RefactorDataFragment : Fragment() {
                         phoneNumber = etPhoneNumber.text.toString(),
                         email = etEmail.text.toString(),
                         address = etAddress.text.toString(),
-                        password = etPassword.text.toString()
+                        //password = etPassword.text.toString()
                     )
                     //App.db.appDao().insert(data)
                     findNavController().navigateUp()

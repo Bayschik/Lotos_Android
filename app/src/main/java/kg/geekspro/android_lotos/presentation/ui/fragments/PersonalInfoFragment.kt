@@ -32,7 +32,7 @@ class PersonalInfoFragment : Fragment() {
                 phoneNumber = etPhoneNumber.text.toString(),
                 email = etEmail.text.toString(),
                 address = etAddress.text.toString(),
-                password = etPassword.text.toString()
+                //password = etPassword.text.toString()
             )
             findNavController().navigate(R.id.mainFragment, bundleOf("PERSONAL_DATA" to data))
         }
