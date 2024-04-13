@@ -47,9 +47,7 @@ class FillDataFragment : Fragment() {
                     )
                     Toast.makeText(requireContext(), data.phoneNumber, Toast.LENGTH_SHORT).show()
                     viewModel.clientCreate(data).observe(viewLifecycleOwner){
-                        if (it != "\"Личные данные сохранены, переход к следующему шагу\""){
                             findNavController().navigate(R.id.passwordCreateFragment)
-                        }
                     }
                 }
             }
