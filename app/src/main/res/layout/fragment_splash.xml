@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context="kg.geekspro.android_lotos.presentation.ui.SplashFragment">
+    tools:context="kg.geekspro.android_lotos.ui.fragments.splashFragment.SplashFragment">
 
     <ImageView
         android:id="@+id/img_lotos_logo"

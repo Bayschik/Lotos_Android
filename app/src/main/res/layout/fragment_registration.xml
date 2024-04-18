@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTint="@color/white"
-    tools:context=".presentation.ui.fragments.registration.RegistrationFragment">
+    tools:context=".ui.fragments.registration.RegistrationFragment">
 
     <ImageView
         android:id="@+id/img_top_blue"
