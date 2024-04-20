@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragments.mainfragments.">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <TextView
+            android:id="@+id/tv_lotos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="28dp"
+            android:text="Lotos"
+            android:textColor="#C67A94"
+            android:textSize="26sp"
+            app:layout_constraintStart_toStartOf="@id/img_slider"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btn_notification"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:background="@drawable/ic_notifications"
+            app:layout_constraintBottom_toBottomOf="@id/tv_lotos"
+            app:layout_constraintEnd_toEndOf="@id/img_slider"
+            app:layout_constraintTop_toTopOf="@id/tv_lotos" />
+
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/img_slider"
+            android:layout_width="328dp"
+            android:layout_height="198dp"
+            android:layout_margin="16dp"
+            android:layout_marginHorizontal="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_notification" />
+
+        <ImageButton
+            android:id="@+id/btn_slide"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/ic_btn_slide"
+            android:elevation="10dp"
+            app:layout_constraintBottom_toBottomOf="@id/img_slider"
+            app:layout_constraintEnd_toEndOf="@id/img_slider"
+            app:layout_constraintTop_toTopOf="@id/img_slider" />
+
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/slideDotLL"
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_margin="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/img_slider"
+            app:tabBackground="@color/white"
+            app:tabIndicatorHeight="0dp" />
+
+
+        <TextView
+            android:id="@+id/tv_services"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/uslugy"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@id/img_slider"
+            app:layout_constraintTop_toBottomOf="@id/slideDotLL" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/main_card_cleaning_after"
+            android:layout_width="158dp"
+            android:layout_height="158dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_card"
+            android:elevation="16dp"
+            app:layout_constraintStart_toStartOf="@id/tv_services"
+            app:layout_constraintTop_toBottomOf="@id/tv_services">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/card_1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/blue_white"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="58dp"
+                    android:layout_height="58dp"
+                    android:layout_margin="20dp"
+                    android:background="@drawable/img_cleaning_after"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_cleaning_after"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="Уборка после ремонта"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/card_1" />
+
+            <TextView
+                android:id="@+id/tv_cleaning_after_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/_5000"
+                android:textColor="@color/black_blue"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/tv_cleaning_after"
+                app:layout_constraintTop_toBottomOf="@id/tv_cleaning_after" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/main_card_general_cleaning"
+            android:layout_width="158dp"
+            android:layout_height="158dp"
+            android:layout_margin="16dp"
+            android:background="@drawable/bg_card"
+            android:elevation="16dp"
+            app:layout_constraintStart_toEndOf="@id/main_card_cleaning_after"
+            app:layout_constraintTop_toBottomOf="@id/tv_services">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/card_2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/blue_white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="58dp"
+                    android:layout_height="58dp"
+                    android:layout_margin="20dp"
+                    android:background="@drawable/img_general_services"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_general_cleaning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="Генеральная уборка"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/card_2" />
+
+            <TextView
+                android:id="@+id/tv_general_cleaning_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/_5000"
+                android:textColor="@color/black_blue"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/tv_general_cleaning"
+                app:layout_constraintTop_toBottomOf="@id/tv_general_cleaning" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/main_card_spring_cleaning"
+            android:layout_width="158dp"
+            android:layout_height="158dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_card"
+            android:elevation="16dp"
+            app:layout_constraintStart_toStartOf="@id/main_card_cleaning_after"
+            app:layout_constraintTop_toBottomOf="@id/main_card_cleaning_after">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/card_3"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/blue_white"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="58dp"
+                    android:layout_height="58dp"
+                    android:layout_margin="20dp"
+                    android:background="@drawable/img_spring_cleaning"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_spring_cleaning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="Влажная уборка"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/card_3" />
+
+            <TextView
+                android:id="@+id/tv_spring_cleaning_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/_5000"
+                android:textColor="@color/black_blue"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/tv_spring_cleaning"
+                app:layout_constraintTop_toBottomOf="@id/tv_spring_cleaning" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/main_card_additional_services"
+            android:layout_width="158dp"
+            android:layout_height="158dp"
+            android:layout_margin="16dp"
+            android:background="@drawable/bg_card"
+            android:elevation="16dp"
+            app:layout_constraintStart_toEndOf="@id/main_card_spring_cleaning"
+            app:layout_constraintTop_toBottomOf="@id/main_card_general_cleaning">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/card_4"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/blue_white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="58dp"
+                    android:layout_height="58dp"
+                    android:layout_margin="20dp"
+                    android:background="@drawable/img_main_additional_cleaning"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_additional_cleaning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="Дополнительные услуги"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/card_4" />
+
+            <TextView
+                android:id="@+id/tv_additional_cleaning_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/_5000"
+                android:textColor="@color/black_blue"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/tv_additional_cleaning"
+                app:layout_constraintTop_toBottomOf="@id/tv_additional_cleaning" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>

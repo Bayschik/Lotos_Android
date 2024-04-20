@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.fragments.filldatafragment.FillDataFragment"
+    android:fitsSystemWindows="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/img_top_blue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:src="@drawable/sign_blue_top"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/img_lotos_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="28dp"
+            android:src="@drawable/lotos_logo"
+            app:layout_constraintBottom_toBottomOf="@id/img_top_blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/img_top_blue" />
+
+        <TextView
+            android:id="@+id/tv_lotos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="serif"
+            android:text="Lotos Cleaning"
+            android:textColor="#FF8086"
+            android:textSize="28sp"
+            app:layout_constraintEnd_toEndOf="@id/img_lotos_logo"
+            app:layout_constraintStart_toStartOf="@id/img_lotos_logo"
+            app:layout_constraintTop_toBottomOf="@id/img_lotos_logo" />
+
+        <TextView
+            android:id="@+id/tv_personal_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="Введите ваши личные данные"
+            android:textColor="#505050"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_lotos" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/et_fill_name_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="20dp"
+            android:hint="Имя"
+            app:placeholderText="Введите ваше имя"
+            android:textColorHint="@color/black"
+            app:boxCornerRadiusBottomEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusTopStart="12dp"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_personal_data">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_fill_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/black" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/et_fill_surname_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="28dp"
+            android:hint="Фамилия"
+            app:placeholderText="Введите вашу фамилию"
+            android:textColorHint="@color/black"
+            app:boxCornerRadiusBottomEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusTopStart="12dp"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_fill_name_layout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_fill_surname"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/black" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/et_date_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="28dp"
+            android:hint="Дата рождения"
+            android:textColorHint="@color/black"
+            app:boxCornerRadiusBottomEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusTopStart="12dp"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_fill_surname_layout"
+            app:placeholderText="ГГГГ-ММ-ДД">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_fill_date_of_birth"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="date"
+                android:textColor="@color/black" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/et_fill_phone_number_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="28dp"
+            android:hint="Номер телефона"
+            android:textColorHint="@color/black"
+            app:boxCornerRadiusBottomEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusTopStart="12dp"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_date_layout"
+            app:prefixTextColor="@color/black"
+            app:prefixText="+996">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_fill_phone_number"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="number"
+                android:textColor="@color/black" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/et_fill_email_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="28dp"
+            android:hint="Электронная почта"
+            android:textColorHint="@color/black"
+            app:boxCornerRadiusBottomEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusTopStart="12dp"
+            app:placeholderText="Введите ваш электронный адрес"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_fill_phone_number_layout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_fill_email"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/black" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/et_fill_address_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="28dp"
+            android:hint="Адрес"
+            android:textColorHint="@color/black"
+            app:boxCornerRadiusBottomEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusTopStart="12dp"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/blue"
+            app:placeholderText="Введите ваш адрес проживания"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_fill_email_layout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_fill_address"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/black" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_save_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="32dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="Сохранить"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_fill_address_layout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

@@ -1,0 +1,25 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context="kg.geekspro.android_lotos.ui.fragments.splashfragment.SplashFragment">
+
+    <ImageView
+        android:id="@+id/img_lotos_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
+        android:src="@drawable/lotos_logo" />
+
+    <TextView
+        android:id="@+id/tv_lotos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="serif"
+        android:text="Lotos Cleaning"
+        android:textColor="#FF8086"
+        android:textSize="28sp"/>
+
+</LinearLayout>

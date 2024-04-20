@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".ui.fragments.profile.ProfileFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_weight="0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img_top_blue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:src="@drawable/top_blue_bg_profile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_user_full_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:text="Иван Иванов"
+            android:textColor="@color/white"
+            android:textSize="40sp"
+            app:layout_constraintBottom_toTopOf="@id/img_card_profile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/img_card_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/img_top_blue"
+            app:layout_constraintEnd_toEndOf="@id/img_top_blue"
+            app:layout_constraintStart_toStartOf="@id/img_top_blue"
+            app:cardCornerRadius="100dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_profile"
+                android:layout_width="148dp"
+                android:layout_height="148dp"
+                android:src="@drawable/ic_profile_placeholder" />
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_personal_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="60dp"
+            android:drawableLeft="@drawable/ic_profile"
+            android:drawableRight="@drawable/ic_arrow_forward"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:paddingRight="16dp"
+            android:text="        Личные данные"
+            android:textAlignment="textStart"
+            app:cornerRadius="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_order_history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="18dp"
+            android:drawableLeft="@drawable/ic_history"
+            android:drawableRight="@drawable/ic_arrow_forward"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:paddingRight="16dp"
+            android:text="       История заказов"
+            android:textAlignment="textStart"
+            app:cornerRadius="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_personal_data" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_change_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="18dp"
+            android:drawableLeft="@drawable/ic_change_password"
+            android:drawableRight="@drawable/ic_arrow_forward"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:paddingRight="16dp"
+            android:text="       Изменить пароль"
+            android:textAlignment="textStart"
+            app:cornerRadius="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_order_history" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_exit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="18dp"
+            android:drawableLeft="@drawable/ic_exit"
+            android:drawableRight="@drawable/ic_arrow_forward"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:paddingRight="16dp"
+            android:text="       Выйти"
+            android:textAlignment="textStart"
+            app:cornerRadius="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_change_password" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

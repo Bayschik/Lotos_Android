@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    kotlin("kapt")
 }
 
 android {
@@ -45,10 +46,13 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.room.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    // Gson
+    implementation (libs.gson)
     // val nav_version = "2.7.7"
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
@@ -60,9 +64,16 @@ dependencies {
     implementation(libs.androidx.lifecycle.livedata.ktx)
     // Retrofit
     implementation (libs.retrofit)
-    // Gson
-    implementation (libs.gson)
     // Glide
+    implementation (libs.glide)
     // circle Image
-    implementation ("de.hdodenhof:circleimageview:3.1.0")
+    implementation(libs.circelImage)
+    //circle indicator
+    implementation(libs.circelIndicator)
+    //room
+    implementation(libs.room)
+    kapt(libs.roomCompiler)
+    //Google API Client
+    implementation (libs.googleApiClient)
+    //implementation(libs.glide)
 }
