@@ -20,15 +20,15 @@ import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import kg.geekspro.android_lotos.R
-import kg.geekspro.android_lotos.activites.profileViewModel.ProfileViewModel
+import kg.geekspro.android_lotos.viewmodels.profileviewmodels.ProfileViewModel
 import kg.geekspro.android_lotos.databinding.FragmentProfileBinding
-import kg.geekspro.android_lotos.ui.repositories.repoProfile.Pref
-import kg.geekspro.android_lotos.adapters.orderHistory.OrderHistoryAdapter
+import kg.geekspro.android_lotos.ui.adapters.orderhistory.OrderHistoryAdapter
+import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
 
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
     private val pref by lazy {
-        kg.geekspro.android_lotos.ui.repositories.repoProfile.Pref(requireContext())
+        Pref(requireContext())
     }
     private lateinit var dialog: BottomSheetDialog
     private val adapter = OrderHistoryAdapter()

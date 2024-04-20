@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentThirdScreenBinding
-import kg.geekspro.android_lotos.ui.repositories.repoProfile.Pref
+import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
 
 
 class ThirdScreenFragment : Fragment() {

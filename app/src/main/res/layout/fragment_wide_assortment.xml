@@ -1,14 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.aboutUs.WideAssortmentFragment">
+    android:background="@color/white_blue"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.fragments.aboutus.WideAssortmentFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <ImageView
+        android:id="@+id/img_arrow_left_second"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/ic_arrow_left"
+        app:layout_constraintBottom_toBottomOf="@+id/tvWideAssortment"
+        app:layout_constraintEnd_toStartOf="@+id/tvWideAssortment"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvWideAssortment" />
+
     <TextView
+        android:id="@+id/tvWideAssortment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="88dp"
+        android:layout_marginBottom="18dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Широкий ассортимент средств для уборки"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/tvWeAreUse"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/tvWeAreUse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="540dp"
+        android:fontFamily="@font/roboto_light"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:text="Мы не используем бытовую химию из масс-маркета, по скольку  они вызывают аллергические реакции и не подходят для профессиональной уборки. Мы выбираем сертифицированные экологичные средства, безопасные для людей и животных!
+После уборки вы заметите, на сколько легче стало дышать, ведь мы уничтожаем не только грязь, но и болезнетворные бактерии и аллергены."
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvWideAssortment" />
+
+    <ImageView
+        android:id="@+id/icImgWideAssortment"
+        android:layout_width="256dp"
+        android:layout_height="256dp"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/ic_wide_assortment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvWeAreUse" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

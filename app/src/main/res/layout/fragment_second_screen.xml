@@ -52,6 +52,8 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="24dp"
             android:fontFamily="@font/roboto_bold"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             android:text="Мы предлагаем полный спектр
  услуг по уборке, включая уборку
  помещений, ковров, мебели и

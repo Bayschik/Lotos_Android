@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import kg.geekspro.android_lotos.R
-import kg.geekspro.android_lotos.activites.profileViewModel.create.PasswordCreateViewModel
+import kg.geekspro.android_lotos.viewmodels.profileviewmodels.create.PasswordCreateViewModel
 import kg.geekspro.android_lotos.databinding.FragmentPasswordCreateBinding
 import kg.geekspro.android_lotos.models.profile.Password
 

@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="blue">#39cce8</color>
     <color name="red">#f72626</color>
-    <color name="gray">#949494</color>
     <color name="pink">#FF8086</color>
     <color name="on_boarding_blue_color">#39CCE8</color>
     <color name="dark_gray">#545454</color>
@@ -13,4 +9,14 @@
     <color name="orange">#FFA654</color>
     <color name="green">#40E725</color>
     <color name="dark_black">#616161</color>
+    <color name="white_blue">#EEB9EAF1</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="blue">#39cce8</color>
+    <color name="rad">#f72626</color>
+    <color name="blue_white">#e4fdff</color>
+    <color name="black_blue">#2e8697</color>
+    <color name="gray">#6e83b7</color>
+    <color name="gray_">#949494</color>
+    <color name="white_">#f0f5fb</color>
 </resources>

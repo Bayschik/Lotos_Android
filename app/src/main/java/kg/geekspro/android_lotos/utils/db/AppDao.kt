@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import kg.geekspro.android_lotos.models.orderHistoryModel.PersonalData
+import kg.geekspro.android_lotos.models.orderhistorymodels.PersonalData
 
 @Dao
 interface AppDao {

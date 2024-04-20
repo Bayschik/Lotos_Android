@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="kg.geekspro.android_lotos.ui.fragments.mainFragments.MainFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.mainfragments.MainFragment"
         android:label="Home"
         tools:layout="@layout/fragment_main">
         <action
@@ -27,13 +27,13 @@
 
     <fragment
         android:id="@+id/aboutUsFragment"
-        android:name="kg.geekspro.android_lotos.ui.fragments.aboutUs.AboutUsFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.aboutus.AboutUsFragment"
         android:label="Search"
         tools:layout="@layout/fragment_about_us" />
 
     <fragment
         android:id="@+id/onBoardingFragment"
-        android:name="kg.geekspro.android_lotos.ui.fragments.onBoardingFragment.OnBoardingFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.onboardingfragment.OnBoardingFragment"
         android:label="fragment_on_boarding"
         tools:layout="@layout/fragment_on_boarding">
         <action
@@ -43,7 +43,7 @@
 
     <fragment
         android:id="@+id/personalDataFragment"
-        android:name="kg.geekspro.android_lotos.ui.fragments.pesonalData.personalInfoFragment.PersonalDataFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.pesonaldata.personalInfoFragment.PersonalDataFragment"
         android:label="fragment_personal_data"
         tools:layout="@layout/fragment_personal_data">
         <action
@@ -53,13 +53,13 @@
 
     <fragment
         android:id="@+id/refactorDataFragment"
-        android:name="kg.geekspro.android_lotos.ui.fragments.pesonalData.RefactorDataFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.pesonaldata.RefactorDataFragment"
         android:label="fragment_refactor_data"
         tools:layout="@layout/fragment_refactor_data" />
 
     <fragment
         android:id="@+id/signOrLogFragment"
-        android:name="kg.geekspro.android_lotos.ui.fragments.signOrLog.SignOrLogFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.signorlog.SignOrLogFragment"
         android:label="fragment_sign_or_log"
         tools:layout="@layout/fragment_sign_or_log">
         <action
@@ -72,7 +72,7 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="kg.geekspro.android_lotos.ui.fragments.splashFragment.SplashFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.splashfragment.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash">
         <action
@@ -82,7 +82,7 @@
 
     <fragment
         android:id="@+id/personalInfoFragment"
-        android:name="kg.geekspro.android_lotos.ui.fragments.pesonalData.personalInfoFragment.PersonalInfoFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.pesonaldata.personalInfoFragment.PersonalInfoFragment"
         android:label="fragment_personal_info"
         tools:layout="@layout/fragment_personal_info" />
 
@@ -98,7 +98,7 @@
 
     <fragment
         android:id="@+id/verificationCodeFragment"
-        android:name="kg.geekspro.android_lotos.ui.fragments.verificationCode.VerificationCodeFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.verificationcode.VerificationCodeFragment"
         android:label="fragment_verification_code"
         tools:layout="@layout/fragment_verification_code">
 
@@ -119,7 +119,7 @@
 
     <fragment
         android:id="@+id/fillDataFragment"
-        android:name="kg.geekspro.android_lotos.ui.fragments.fillDataFragment.FillDataFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.filldatafragment.FillDataFragment"
         android:label="fragment_fill_data"
         tools:layout="@layout/fragment_fill_data">
         <action

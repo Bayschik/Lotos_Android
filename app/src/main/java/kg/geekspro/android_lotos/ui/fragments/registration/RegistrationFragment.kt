@@ -14,9 +14,9 @@ import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.GoogleApiClient
 import kg.geekspro.android_lotos.R
-import kg.geekspro.android_lotos.activites.registrationViewModel.RegistrationViewModel
+import kg.geekspro.android_lotos.viewmodels.registrationviewmodel.RegistrationViewModel
 import kg.geekspro.android_lotos.databinding.FragmentRegistrationBinding
-import kg.geekspro.android_lotos.models.registrationModel.Registration
+import kg.geekspro.android_lotos.models.registrationmodel.Registration
 
 class RegistrationFragment : Fragment() {
     private lateinit var binding: FragmentRegistrationBinding

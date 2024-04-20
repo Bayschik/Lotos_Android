@@ -51,6 +51,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="24dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             android:fontFamily="@font/roboto_bold"
             android:text="Мы дорожим репутацией поэтому
  строим свою работу так, чтобы
