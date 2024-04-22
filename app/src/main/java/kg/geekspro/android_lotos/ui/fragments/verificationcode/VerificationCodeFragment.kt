@@ -10,9 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import kg.geekspro.android_lotos.R
-import kg.geekspro.android_lotos.viewmodels.verifyviewmodel.VerificationViewModel
 import kg.geekspro.android_lotos.databinding.FragmentVerificationCodeBinding
 import kg.geekspro.android_lotos.models.verifycode.VerificationCode
+import kg.geekspro.android_lotos.viewmodels.verifyviewmodel.VerificationViewModel
 
 class VerificationCodeFragment : Fragment() {
 
@@ -36,21 +36,27 @@ class VerificationCodeFragment : Fragment() {
                 /*if (inputCode1.text.toString().isEmpty() ||
                     inputCode2.text.toString().isEmpty() ||
                     inputCode3.text.toString().isEmpty() ||
-                    inputCode4.text.toString().isEmpty() ){
-                    Toast.makeText(requireContext(), "Введите 4-значный код", Toast.LENGTH_SHORT).show()
-                }else{*/
+                    inputCode4.text.toString().isEmpty()
+                ) {
+                    Toast.makeText(requireContext(), "Введите 4-значный код", Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                 */
+                val code =
+                    "${inputCode1.text}${inputCode2.text}${inputCode3.text}${inputCode4.text}"
+                Toast.makeText(requireContext(), code, Toast.LENGTH_SHORT).show()
                 val data = VerificationCode(
-                    email = etOfficialPhoneNumber.text.toString(),
-                    code = etOfficialCode.text.toString()
+                    code = etCode.text.toString()
                 )
                 viewModel.confirmCode(data).observe(viewLifecycleOwner) {
                     Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
-                    findNavController().navigate(R.id.fillDataFragment)
                 }
+                findNavController().navigate(R.id.fillDataFragment)
 
             }
+            //}
             tvVerifyCode.text =
-                "Вставьте 4-значный код, отправленный в SMS \nпо номеру +996${phoneNumber}"
+                "Вставьте 4-значный код,отправленный в Gmail \nпо адресу ${phoneNumber}"
         }
     }
 

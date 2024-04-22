@@ -48,13 +48,12 @@ class FillDataFragment : Fragment() {
                         address = etFillAddress.text.toString(),
                     )
                     Toast.makeText(requireContext(), data.phoneNumber, Toast.LENGTH_SHORT).show()
-                    viewModel.clientCreate(data).observe(viewLifecycleOwner){
-                            findNavController().navigate(R.id.passwordCreateFragment)
+                    viewModel.clientCreate(data).observe(viewLifecycleOwner) {
+                        findNavController().navigate(R.id.passwordCreateFragment)
                     }
                 }
             }
         }
     }
-
 
 }

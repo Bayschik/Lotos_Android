@@ -15,13 +15,13 @@ interface ApiService {
     @POST("api/v1/client_create/")
     fun verifyEmail(@Body email: Registration):Call<String>
 
-    @POST("api/v1/confirm_code/")
+    @POST("api/v1/client_create/confirm/")
     fun confirmCode(@Body code: VerificationCode):Call<String>
 
-    @POST("api/v1/client_create/")
+    @POST("api/v1/client_create/set_data/")
     fun clientCreate(@Body code: PersonalData):Call<String>
 
-    @POST("api/v1/set_password/")
+    @POST("api/v1/client_create/set_password/")
     fun setPassword(@Body password: Password):Call<String>
 
     @GET("api/v1/profile/")

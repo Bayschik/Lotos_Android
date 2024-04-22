@@ -47,6 +47,9 @@ class Repository {
                         Log.d("onSuccessCode", it.toString())
                     }
                 }
+                else{
+                    Log.d("onCode", "Что-то пошло не так")
+                }
             }
 
             override fun onFailure(call: Call<String>, t: Throwable) {

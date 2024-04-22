@@ -37,6 +37,9 @@ class LogInFragment : Fragment() {
                     findNavController().navigate(R.id.mainFragment)
                 }
             }
+            tvSignIn.setOnClickListener {
+                findNavController().navigate(R.id.signOrLogFragment)
+            }
         }
     }
 
