@@ -39,7 +39,7 @@ class PasswordCreateFragment : Fragment() {
                 } else {
                     val password = Password(
                         password = etOfficialPasswordCreate.text.toString(),
-                        re_password = etOfficialConfirmPassword.text.toString()
+                        rePassword = etOfficialConfirmPassword.text.toString()
                     )
                     viewModel.setPassword(password)
                         findNavController().navigate(R.id.mainFragment)

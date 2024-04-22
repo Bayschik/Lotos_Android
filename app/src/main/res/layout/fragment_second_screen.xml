@@ -10,9 +10,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.2"
-        android:background="@drawable/blue_background"
-        android:padding="24dp">
+        android:layout_weight="0.3"
+        android:background="@drawable/blue_background">
 
         <ImageView
             android:id="@+id/img_second_icon"
@@ -22,17 +21,18 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginBottom="16dp"/>
 
         <TextView
             android:id="@+id/tv_second_skip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_bold"
-            android:padding="8dp"
+            android:padding="4dp"
             android:text="@string/tv_skip"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="16sp"
+            android:layout_margin="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

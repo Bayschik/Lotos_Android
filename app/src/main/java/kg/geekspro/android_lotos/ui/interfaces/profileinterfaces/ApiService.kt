@@ -12,7 +12,7 @@ import retrofit2.http.POST
 
 interface ApiService {
 
-    @POST("api/v1/verify_email/")
+    @POST("api/v1/client_create/")
     fun verifyEmail(@Body email: Registration):Call<String>
 
     @POST("api/v1/confirm_code/")
