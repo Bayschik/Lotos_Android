@@ -48,6 +48,7 @@
             android:text="Миссия и цели компании:"
             android:textColor="@color/black"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/tvLorem"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ivMainBackground" />
@@ -65,6 +66,7 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/tvThreeReasons"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvMisson" />
@@ -82,6 +84,7 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/carViewMain"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvLorem" />
@@ -93,6 +96,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="16dp"
             android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/tvOurWork"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvThreeReasons">
@@ -103,10 +107,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 android:src="@drawable/ic_story_img_first"
                 app:civ_border_color="#F803F623"
                 app:civ_border_width="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/ci_second"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -118,10 +123,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:orientation="horizontal"
                 android:src="@drawable/ic_story_img_second"
                 app:civ_border_color="#F803F623"
                 app:civ_border_width="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/ci_third"
                 app:layout_constraintStart_toEndOf="@+id/ci_first"
                 app:layout_constraintTop_toTopOf="@+id/ci_first">
@@ -138,6 +145,7 @@
                 android:src="@drawable/ic_story_img_third"
                 app:civ_border_color="#F803F623"
                 app:civ_border_width="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/ci_second"
                 app:layout_constraintTop_toTopOf="@+id/ci_second">
@@ -160,6 +168,9 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/img_videPlay1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/carViewMain" />
 
 
@@ -172,12 +183,13 @@
             android:layout_marginEnd="0dp"
             android:scaleType="fitXY"
             android:src="@drawable/ic_video_play"
+            app:layout_constraintBottom_toTopOf="@+id/tvCleaningAfter"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvOurWork" />
 
         <TextView
-            android:id="@+id/tVCleaningAfter"
+            android:id="@+id/tvCleaningAfter"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="14dp"
@@ -188,6 +200,7 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/img_videPlay2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/img_videPlay1" />
@@ -197,13 +210,14 @@
             android:layout_width="380dp"
             android:layout_height="150dp"
             android:layout_marginStart="0dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="0dp"
             android:scaleType="fitXY"
             android:src="@drawable/ic_video_play"
+            app:layout_constraintBottom_toTopOf="@+id/tvWetCleaning"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tVCleaningAfter" />
+            app:layout_constraintTop_toBottomOf="@+id/tvCleaningAfter" />
 
 
         <TextView
@@ -218,6 +232,7 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/img_videPlay3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/img_videPlay2" />
@@ -231,6 +246,7 @@
             android:layout_marginEnd="0dp"
             android:scaleType="fitXY"
             android:src="@drawable/ic_video_play"
+            app:layout_constraintBottom_toTopOf="@+id/tvGeneralCleaning"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvWetCleaning" />
@@ -247,6 +263,7 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/tvContacts"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/img_videPlay3" />
@@ -256,7 +273,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="60dp"
             android:background="#8006D8F3"
             android:fontFamily="@font/roboto_bold"
             android:padding="5dp"
@@ -265,7 +281,7 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/iconsContainer"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvGeneralCleaning" />
