@@ -30,7 +30,7 @@ class PasswordCreateFragment : Fragment() {
         binding.apply {
             btnContinue.setOnClickListener {
                 if (etOfficialConfirmPassword.text.toString()
-                        .isEmpty() || etOfficialPasswordCreate.text.toString().isEmpty()
+                    .isEmpty() || etOfficialPasswordCreate.text.toString().isEmpty()
                 ) {
                     Toast.makeText(requireContext(), "Придумайте пароль", Toast.LENGTH_SHORT).show()
                 } else if (etOfficialConfirmPassword.text.toString() != etOfficialPasswordCreate.text?.toString()) {
@@ -41,8 +41,9 @@ class PasswordCreateFragment : Fragment() {
                         password = etOfficialPasswordCreate.text.toString(),
                         rePassword = etOfficialConfirmPassword.text.toString()
                     )
-                    viewModel.setPassword(password)
+                    viewModel.setPassword(password).observe(viewLifecycleOwner){
                         findNavController().navigate(R.id.mainFragment)
+                    }
                 }
             }
         }

@@ -41,13 +41,12 @@ class RefactorDataFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val data = arguments?.getSerializable("REFACTOR_DATA") as PersonalData?
         Toast.makeText(requireContext(), "$data", Toast.LENGTH_SHORT).show()
-        binding.apply {
+        /*binding.apply {
             if (data != null) {
                 etName.setText(data.name)
                 etSurname.setText(data.surName)
                 etDateOfBirth.setText(data.dateOfBirth)
                 etPhoneNumber.setText(data.phoneNumber)
-                etEmail.setText(data.email)
                 etAddress.setText(data.address)
                 //etPassword.setText(data.password)
 
@@ -57,7 +56,6 @@ class RefactorDataFragment : Fragment() {
                         surName = etSurname.text.toString(),
                         dateOfBirth = etDateOfBirth.text.toString(),
                         phoneNumber = etPhoneNumber.text.toString(),
-                        email = etEmail.text.toString(),
                         address = etAddress.text.toString(),
                         //password = etPassword.text.toString()
                     )
@@ -71,7 +69,6 @@ class RefactorDataFragment : Fragment() {
                         surName = etSurname.text.toString(),
                         dateOfBirth = etDateOfBirth.text.toString(),
                         phoneNumber = etPhoneNumber.text.toString(),
-                        email = etEmail.text.toString(),
                         address = etAddress.text.toString(),
                         //password = etPassword.text.toString()
                     )
@@ -80,6 +77,7 @@ class RefactorDataFragment : Fragment() {
                 }
             }
         }
+         */
     }
 }
 

@@ -30,10 +30,10 @@ class VerificationCodeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val phoneNumber = arguments?.getString("PHONE_NUMBER")
-        //setUpCodeInput()
+        setUpCodeInput()
         binding.apply {
             btnCodeContinue.setOnClickListener {
-                /*if (inputCode1.text.toString().isEmpty() ||
+                if (inputCode1.text.toString().isEmpty() ||
                     inputCode2.text.toString().isEmpty() ||
                     inputCode3.text.toString().isEmpty() ||
                     inputCode4.text.toString().isEmpty()
@@ -41,20 +41,18 @@ class VerificationCodeFragment : Fragment() {
                     Toast.makeText(requireContext(), "Введите 4-значный код", Toast.LENGTH_SHORT)
                         .show()
                 } else {
-                 */
-                val code =
-                    "${inputCode1.text}${inputCode2.text}${inputCode3.text}${inputCode4.text}"
-                Toast.makeText(requireContext(), code, Toast.LENGTH_SHORT).show()
-                val data = VerificationCode(
-                    code = etCode.text.toString()
-                )
-                viewModel.confirmCode(data).observe(viewLifecycleOwner) {
-                    Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
-                }
-                findNavController().navigate(R.id.fillDataFragment)
+                    val code =
+                        inputCode1.text.toString() + inputCode2.text.toString() + inputCode3.text.toString() + inputCode4.text.toString()
+                    Toast.makeText(requireContext(), code, Toast.LENGTH_SHORT).show()
 
+                    val data = VerificationCode(code = code)
+
+                    viewModel.confirmCode(data).observe(viewLifecycleOwner) {
+                        Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
+                        findNavController().navigate(R.id.fillDataFragment)
+                    }
+                }
             }
-            //}
             tvVerifyCode.text =
                 "Вставьте 4-значный код,отправленный в Gmail \nпо адресу ${phoneNumber}"
         }

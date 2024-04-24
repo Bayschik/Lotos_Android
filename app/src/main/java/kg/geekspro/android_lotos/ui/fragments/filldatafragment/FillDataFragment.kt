@@ -33,22 +33,22 @@ class FillDataFragment : Fragment() {
                     etFillSurname.text.toString().isEmpty() ||
                     etFillDateOfBirth.text.toString().isEmpty() ||
                     etFillPhoneNumber.text.toString().isEmpty() ||
-                    etFillEmail.text.toString().isEmpty() ||
                     etFillAddress.text.toString().isEmpty()
                 ) {
                     Toast.makeText(requireContext(), "Введите ваши данные", Toast.LENGTH_SHORT)
                         .show()
                 } else {
                     val data = PersonalData(
-                        name = etFillName.text.toString(),
-                        surName = etFillSurname.text.toString(),
-                        dateOfBirth = etFillDateOfBirth.text.toString(),
+                        first_name = etFillName.text.toString(),
+                        last_name = etFillSurname.text.toString(),
+                        date_of_birth = etFillDateOfBirth.text.toString(),
                         phoneNumber = "+996${etFillPhoneNumber.text.toString()}",
-                        email = etFillEmail.text.toString(),
                         address = etFillAddress.text.toString(),
                     )
-                    Toast.makeText(requireContext(), data.phoneNumber, Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(requireContext(), data.phoneNumber, Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(requireContext(), etFillDateOfBirth.text.toString(), Toast.LENGTH_SHORT).show()
                     viewModel.clientCreate(data).observe(viewLifecycleOwner) {
+                        Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
                         findNavController().navigate(R.id.passwordCreateFragment)
                     }
                 }

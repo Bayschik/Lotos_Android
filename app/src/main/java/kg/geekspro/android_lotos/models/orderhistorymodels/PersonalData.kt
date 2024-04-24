@@ -10,13 +10,12 @@ data class PersonalData(
     @PrimaryKey(autoGenerate = true)
     var id:Int?=null,
     @SerializedName("first_name")
-    val name:String,
+    val first_name:String,
     @SerializedName("last_name")
-    val surName:String,
+    val last_name:String,
     @SerializedName("date_of_birth")
-    val dateOfBirth:String,
+    val date_of_birth:String,
     @SerializedName("phone")
     val phoneNumber:String,
-    val email:String,
     val address:String,
 ):Serializable

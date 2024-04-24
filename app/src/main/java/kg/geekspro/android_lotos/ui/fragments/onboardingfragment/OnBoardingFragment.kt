@@ -12,9 +12,6 @@ import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
 class OnBoardingFragment : Fragment() {
 
     private lateinit var binding: FragmentOnBoardingBinding
-    private val pref by lazy {
-        Pref(requireContext())
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,7 +19,6 @@ class OnBoardingFragment : Fragment() {
     ): View {
         binding = FragmentOnBoardingBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
