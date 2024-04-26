@@ -19,17 +19,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
+import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.viewmodels.profileviewmodels.ProfileViewModel
 import kg.geekspro.android_lotos.databinding.FragmentProfileBinding
 import kg.geekspro.android_lotos.ui.adapters.orderhistory.OrderHistoryAdapter
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
-    private val pref by lazy {
-        Pref(requireContext())
-    }
+    @Inject
+    lateinit var pref: Pref
     private lateinit var dialog: BottomSheetDialog
     private val adapter = OrderHistoryAdapter()
     private val viewModel: ProfileViewModel by viewModels()

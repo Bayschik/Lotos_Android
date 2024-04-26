@@ -8,16 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.databinding.FragmentRefactorDataBinding
 import kg.geekspro.android_lotos.models.orderhistorymodels.PersonalData
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class RefactorDataFragment : Fragment() {
     private lateinit var binding: FragmentRefactorDataBinding
-    private val pref by lazy {
-        Pref(requireContext())
-    }
+    @Inject
+    lateinit var pref: Pref
 
     private val getCommentMedia =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->

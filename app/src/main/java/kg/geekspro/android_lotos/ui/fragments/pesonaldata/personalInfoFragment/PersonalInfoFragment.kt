@@ -7,10 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentPersonalInfoBinding
 import kg.geekspro.android_lotos.models.orderhistorymodels.PersonalData
 
+@AndroidEntryPoint
 class PersonalInfoFragment : Fragment() {
     private lateinit var binding:FragmentPersonalInfoBinding
 

@@ -6,18 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentThirdScreenBinding
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class ThirdScreenFragment : Fragment() {
 
     private lateinit var binding:FragmentThirdScreenBinding
-    private val pref by lazy {
-        Pref(requireContext())
-    }
-
+    @Inject
+    lateinit var pref: Pref
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

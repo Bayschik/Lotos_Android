@@ -7,15 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.databinding.FragmentPersonalDataBinding
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class PersonalDataFragment : Fragment() {
     private lateinit var binding: FragmentPersonalDataBinding
-    private val pref by lazy {
-        Pref(requireContext())
-    }
+    @Inject
+    lateinit var pref: Pref
 
     private val getCommentMedia =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->

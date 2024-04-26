@@ -2,10 +2,13 @@ package kg.geekspro.android_lotos.viewmodels.profileviewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kg.geekspro.android_lotos.models.profile.Profile
+import kg.geekspro.android_lotos.ui.repositories.reposprofile.Repository
+import javax.inject.Inject
 
-class ProfileViewModel:ViewModel() {
-    private val repository = kg.geekspro.android_lotos.ui.repositories.reposprofile.Repository()
+@HiltViewModel
+class ProfileViewModel @Inject constructor(private val repository: Repository) :ViewModel() {
 
     fun getProfile():LiveData<Profile>{
         return repository.getProfile()

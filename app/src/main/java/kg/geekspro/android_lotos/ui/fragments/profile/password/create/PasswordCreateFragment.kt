@@ -8,11 +8,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.viewmodels.profileviewmodels.create.PasswordCreateViewModel
 import kg.geekspro.android_lotos.databinding.FragmentPasswordCreateBinding
 import kg.geekspro.android_lotos.models.profile.Password
 
+@AndroidEntryPoint
 class PasswordCreateFragment : Fragment() {
     private lateinit var binding: FragmentPasswordCreateBinding
     private val viewModel: PasswordCreateViewModel by viewModels()

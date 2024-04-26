@@ -163,6 +163,7 @@
         android:name="kg.geekspro.android_lotos.ui.fragments.profile.password.create.PasswordCreateFragment"
         android:label="fragment_password_create"
         tools:layout="@layout/fragment_password_create" />
+
     <fragment
         android:id="@+id/changePasswordFragment"
         android:name="kg.geekspro.android_lotos.ui.fragments.profile.password.ChangePasswordFragment"

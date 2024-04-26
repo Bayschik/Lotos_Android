@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
+import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentFirstScreenBinding
 
+@AndroidEntryPoint
 class FirstScreenFragment : Fragment() {
     private lateinit var binding:FragmentFirstScreenBinding
 

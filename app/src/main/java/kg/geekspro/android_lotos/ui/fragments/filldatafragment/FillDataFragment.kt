@@ -8,11 +8,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentFillDataBinding
 import kg.geekspro.android_lotos.models.orderhistorymodels.PersonalData
 import kg.geekspro.android_lotos.viewmodels.filldata.FillDataViewModel
 
+@AndroidEntryPoint
 class FillDataFragment : Fragment() {
     private lateinit var binding: FragmentFillDataBinding
     private val viewModel: FillDataViewModel by viewModels()

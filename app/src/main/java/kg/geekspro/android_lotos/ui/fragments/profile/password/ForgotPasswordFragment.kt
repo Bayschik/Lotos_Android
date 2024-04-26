@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentForgotPasswordBinding
 
+@AndroidEntryPoint
 class ForgotPasswordFragment : Fragment() {
     private lateinit var binding:FragmentForgotPasswordBinding
 

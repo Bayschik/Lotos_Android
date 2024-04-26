@@ -81,4 +81,6 @@ dependencies {
     implementation(libs.daggerHiltImpl)
     kapt(libs.daggerHiltKapt)
     //OkHttpClient
+    implementation(libs.okHttpClient)
+    implementation(libs.loggingInterceptor)
 }

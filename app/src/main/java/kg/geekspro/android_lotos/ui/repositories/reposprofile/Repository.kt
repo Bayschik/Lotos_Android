@@ -8,13 +8,14 @@ import kg.geekspro.android_lotos.models.registrationmodel.Registration
 import kg.geekspro.android_lotos.models.orderhistorymodels.PersonalData
 import kg.geekspro.android_lotos.models.profile.Profile
 import kg.geekspro.android_lotos.models.profile.Password
+import kg.geekspro.android_lotos.ui.interfaces.profileinterfaces.ApiService
 import kg.geekspro.android_lotos.ui.retrofitservices.retrofitservicesprofile.RetrofitService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class Repository {
-    private val api = RetrofitService.api
+class Repository @Inject constructor(private val api:ApiService) {
     fun verifyEmail(emailAddress: Registration):LiveData<String>{
         val email = MutableLiveData<String>()
 
