@@ -9,12 +9,17 @@ import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Headers
 import retrofit2.http.POST
 
 interface ApiService {
 
+    @Headers("Content-Type: application/json")
     @POST("api/v1/client_create/")
-    fun verifyEmail(@Body email: Registration):Call<String>
+    fun verifyEmail(
+        //@Header("Cookie") sessionId:String,
+        @Body email: Registration
+    ):Call<String>
 
     @POST("api/v1/client_create/confirm/")
     fun confirmCode(

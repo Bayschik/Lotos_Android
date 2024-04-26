@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     kotlin("kapt")
+    alias(libs.plugins.daggerHiltPlugin)
 }
 
 android {
@@ -76,4 +77,8 @@ dependencies {
     //Google API Client
     implementation (libs.googleApiClient)
     //implementation(libs.glide)
+    //Dagger Hilt
+    implementation(libs.daggerHiltImpl)
+    kapt(libs.daggerHiltKapt)
+    //OkHttpClient
 }
