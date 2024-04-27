@@ -14,29 +14,28 @@ import retrofit2.http.POST
 
 interface ApiService {
 
-    @Headers("Content-Type: application/json")
+    //@Headers("Content-Type: application/json")
     @POST("api/v1/client_create/")
     fun verifyEmail(
-        //@Header("Cookie") sessionId:String,
         @Body email: Registration
     ):Call<String>
 
     @POST("api/v1/client_create/confirm/")
     fun confirmCode(
         @Body code: VerificationCode,
-        @Header("Cookie") sessionId:String = "sessionid=9ipq3j4nk75bhz6c5scf03dv6mbzf9gy"
+        @Header("Cookie") sessionId:String
     ):Call<String>
 
     @POST("api/v1/client_create/set_data/")
     fun clientCreate(
         @Body code: PersonalData,
-        //@Header("Cookie") sessionId:String = "sessionid=9ipq3j4nk75bhz6c5scf03dv6mbzf9gy"
+        @Header("Cookie") sessionId:String
     ):Call<String>
 
     @POST("api/v1/client_create/set_password/")
     fun setPassword(
         @Body password: Password,
-        @Header("Cookie") sessionId:String = "sessionid=9ipq3j4nk75bhz6c5scf03dv6mbzf9gy"
+        @Header("Cookie") sessionId:String
     ):Call<String>
 
     @GET("api/v1/profile/")
