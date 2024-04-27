@@ -10,19 +10,16 @@ import kg.geekspro.android_lotos.models.registrationmodel.Registration
 import kg.geekspro.android_lotos.models.verifycode.VerificationCode
 import kg.geekspro.android_lotos.ui.interfaces.profileinterfaces.ApiService
 import okhttp3.Headers
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.internal.http2.Header
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
 class Repository @Inject constructor(private val api: ApiService) {
-    private var sessionId: String = ""
     @Inject
     lateinit var client: OkHttpClient
+    private var sessionId:String = ""
 
     fun verifyEmail(emailAddress: Registration): LiveData<String> {
         val email = MutableLiveData<String>()
@@ -30,20 +27,21 @@ class Repository @Inject constructor(private val api: ApiService) {
         api.verifyEmail(emailAddress).enqueue(object : Callback<String> {
             override fun onResponse(call: Call<String>, response: Response<String>) {
 
-                val headerList: Headers = response.headers()
-                for (header in headerList) {
-                    if (header.first == "Set-Cookie"){
-                        if (header.second == "sessionid"){
-                            sessionId = header.second
+                if (response.isSuccessful) {
+                    val headerList: Headers = response.headers()
+                    for (header in headerList) {
+                        if (header.first == "Set-Cookie") {
+                            val pattern = "sessionid=([^;]+)".toRegex()
+                            val matchResult = pattern.find(header.second)
+
+                            val extractedSessionId = matchResult?.groupValues?.get(1)
+                            sessionId = "sessionid=$extractedSessionId"
+                            break
                         }
                     }
-                }
-
-                if (response.isSuccessful) {
                     response.body().let {
                         email.postValue(sessionId)
                         Log.d("onSuccessEmail", it.toString())
-                        //Log.d("sessionId", client)
                     }
                 }
             }
@@ -59,11 +57,12 @@ class Repository @Inject constructor(private val api: ApiService) {
     fun confirmCode(code: VerificationCode): LiveData<String> {
         val codde = MutableLiveData<String>()
 
-        api.confirmCode(code, sessionId).enqueue(object : Callback<String> {
+        api.confirmCode(sessionId, code).enqueue(object : Callback<String> {
             override fun onResponse(call: Call<String>, response: Response<String>) {
                 if (response.isSuccessful) {
                     response.body().let {
                         codde.postValue(it)
+                        Log.d("отправка данных", it.toString())
                         Log.d("onSuccessCode", it.toString())
                     }
                 } else {

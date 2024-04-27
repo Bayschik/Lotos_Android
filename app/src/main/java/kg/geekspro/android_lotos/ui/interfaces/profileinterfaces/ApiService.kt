@@ -22,8 +22,8 @@ interface ApiService {
 
     @POST("api/v1/client_create/confirm/")
     fun confirmCode(
-        @Body code: VerificationCode,
-        @Header("Cookie") sessionId:String
+        @Header("Cookie") sessionId:String,
+        @Body code: VerificationCode
     ):Call<String>
 
     @POST("api/v1/client_create/set_data/")

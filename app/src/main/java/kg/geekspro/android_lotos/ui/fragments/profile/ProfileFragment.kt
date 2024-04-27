@@ -63,8 +63,8 @@ class ProfileFragment : Fragment() {
             setImageFromPhone()
             btnOrderHistory.setOnClickListener {showBottomNavSheet()}
             btnExit.setOnClickListener {showLogOut()}
-            btnChangePassword.setOnClickListener {
-                findNavController().navigate(R.id.changePasswordFragment)
+            btnSafetyPassword.setOnClickListener {
+                findNavController().navigate(R.id.safetyFragment)
             }
             viewModel.getProfile().observe(viewLifecycleOwner){
                 tvUserFullName.text = "${it.lastName} ${it.firstName}"

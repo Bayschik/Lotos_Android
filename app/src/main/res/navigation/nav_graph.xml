@@ -169,15 +169,76 @@
         android:name="kg.geekspro.android_lotos.ui.fragments.profile.password.ChangePasswordFragment"
         android:label="fragment_change_password"
         tools:layout="@layout/fragment_change_password" />
+
     <fragment
         android:id="@+id/forgotPasswordFragment"
         android:name="kg.geekspro.android_lotos.ui.fragments.profile.password.ForgotPasswordFragment"
         android:label="fragment_forgot_password"
         tools:layout="@layout/fragment_forgot_password" />
+
     <fragment
         android:id="@+id/confirmPasswordFragment"
         android:name="kg.geekspro.android_lotos.ui.fragments.profile.password.ConfirmPasswordFragment"
         android:label="fragment_confirm_password"
         tools:layout="@layout/fragment_confirm_password" />
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="kg.geekspro.android_lotos.presentation.ui.fragments.main.SearchFragment"
+        android:label="SearchFragment" />
+
+    <fragment
+        android:id="@+id/additionalServicesFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.mainfragments.AdditionalServicesFragment"
+        android:label="fragment_additional_services"
+        tools:layout="@layout/fragment_additional_services" />
+
+    <fragment
+        android:id="@+id/calenderFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.calendarfragment.CalenderFragment"
+        android:label="fragment_calender"
+        tools:layout="@layout/fragment_calender" />
+
+    <fragment
+        android:id="@+id/cleaningAfterFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.mainfragments.CleaningAfterFragment"
+        android:label="fragment_cleaning_after"
+        tools:layout="@layout/fragment_cleaning_after" />
+
+    <fragment
+        android:id="@+id/generalCleaningFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.mainfragments.GeneralCleaningFragment"
+        android:label="fragment_general_cleaning"
+        tools:layout="@layout/fragment_general_cleaning" />
+
+    <fragment
+        android:id="@+id/professionalMachAndEquipmentFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.aboutus.ProfessionalMachAndEquipmentFragment"
+        android:label="fragment_professional_mach_and_equipment"
+        tools:layout="@layout/fragment_professional_mach_and_equipment" />
+
+    <fragment
+        android:id="@+id/safetyFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.safety.SafetyFragment"
+        android:label="fragment_safety"
+        tools:layout="@layout/fragment_safety" />
+
+    <fragment
+        android:id="@+id/teamOfProfessionalsFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.aboutus.TeamOfProfessionalsFragment"
+        android:label="fragment_team_of_professionals"
+        tools:layout="@layout/fragment_team_of_professionals" />
+
+    <fragment
+        android:id="@+id/wetCleaningFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.mainfragments.WetCleaningFragment"
+        android:label="fragment_wet_cleaning"
+        tools:layout="@layout/fragment_wet_cleaning" />
+
+    <fragment
+        android:id="@+id/wideAssortmentFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.aboutus.WideAssortmentFragment"
+        android:label="fragment_wide_assortment"
+        tools:layout="@layout/fragment_wide_assortment" />
 
 </navigation>

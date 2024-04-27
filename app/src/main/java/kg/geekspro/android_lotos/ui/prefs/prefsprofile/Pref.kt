@@ -21,8 +21,8 @@ class Pref @Inject constructor(private val pref:SharedPreferences) {
     }
 
     companion object{
-        const val PREF_NAME = "preffffffffff.name"
-        const val SHOWED_KEY = "showedddddddddd.key"
-        const val SHOW_IMAGE = "showwwwwwwwww.image"
+        const val PREF_NAME = "preffffffffffffffffffff.name"
+        const val SHOWED_KEY = "showedddddddddddddddddddd.key"
+        const val SHOW_IMAGE = "showwwwwwwwwwwwwwwwwwww.image"
     }
 }
