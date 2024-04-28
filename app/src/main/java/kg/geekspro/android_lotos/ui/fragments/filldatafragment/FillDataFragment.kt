@@ -1,5 +1,6 @@
 package kg.geekspro.android_lotos.ui.fragments.filldatafragment
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentFillDataBinding
 import kg.geekspro.android_lotos.models.orderhistorymodels.PersonalData
 import kg.geekspro.android_lotos.viewmodels.filldata.FillDataViewModel
+import java.util.Calendar
 
 @AndroidEntryPoint
 class FillDataFragment : Fragment() {
@@ -54,6 +56,22 @@ class FillDataFragment : Fragment() {
                         findNavController().navigate(R.id.passwordCreateFragment)
                     }
                 }
+            }
+
+            etFillDateOfBirth.setOnClickListener{
+                val calendar = Calendar.getInstance()
+                val year = calendar.get(Calendar.YEAR)
+                val month = calendar.get(Calendar.MONTH)
+                val dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
+
+                val dialog = DatePickerDialog(
+                    requireContext(),
+                    R.style.CustomDatePickerDialog, { _, year, month, dayOfMonth ->
+                        binding.etFillDateOfBirth.setText("$year-${month + 1}-$dayOfMonth")
+                    }, year, month, dayOfMonth
+
+                )
+                dialog.show()
             }
         }
     }

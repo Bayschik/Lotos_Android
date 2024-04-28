@@ -14,7 +14,6 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class ThirdScreenFragment : Fragment() {
-
     private lateinit var binding:FragmentThirdScreenBinding
     @Inject
     lateinit var pref: Pref
@@ -33,6 +32,7 @@ class ThirdScreenFragment : Fragment() {
             findNavController().navigate(R.id.signOrLogFragment)
         }
         binding.tvThirdSkip.setOnClickListener {
+            pref.onShowed()
             findNavController().navigate(R.id.signOrLogFragment)
         }
     }

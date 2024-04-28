@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentSafetyBinding
 
@@ -21,6 +22,16 @@ class SafetyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.apply {
+            cvPassword.setOnClickListener {
+                findNavController().navigate(R.id.changePasswordFragment)
+            }
+            cvPhoneNumber.setOnClickListener {
 
+            }
+            cvEmail.setOnClickListener {
+
+            }
+        }
     }
 }

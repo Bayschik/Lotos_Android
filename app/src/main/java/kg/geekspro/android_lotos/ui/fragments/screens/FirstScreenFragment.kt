@@ -10,9 +10,13 @@ import androidx.viewpager2.widget.ViewPager2
 import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentFirstScreenBinding
+import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class FirstScreenFragment : Fragment() {
+    @Inject
+    lateinit var pref:Pref
     private lateinit var binding:FragmentFirstScreenBinding
 
     override fun onCreateView(
@@ -30,6 +34,7 @@ class FirstScreenFragment : Fragment() {
             viewPager?.currentItem = 1
         }
         binding.tvSkip.setOnClickListener {
+            pref.onShowed()
             findNavController().navigate(R.id.signOrLogFragment)
         }
     }
