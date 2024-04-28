@@ -103,17 +103,16 @@ class OrderHistoryAdapter : Adapter<OrderHistoryAdapter.OrderHistoryViewHolder>(
             tvHomeAddress.text = orderHistoryModel.homeAddress
             tvTypeOfCleaning.text = orderHistoryModel.typeOfCleaning
             tvStatus.text = orderHistoryModel.status
-            statusCardView.radius = 12f
             if (orderHistoryModel.status == "В ожидании"){
-                statusCardView.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.yellow))
+                statusCardView.setCardBackgroundColor(itemView.context.resources.getColor(R.color.yellow))
             }else if (orderHistoryModel.status == "Принято в обработку"){
-                statusCardView.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.orange))
+                statusCardView.setCardBackgroundColor(itemView.context.resources.getColor(R.color.orange))
             }else if (orderHistoryModel.status == "В работе"){
-                statusCardView.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.purple))
+                statusCardView.setCardBackgroundColor(itemView.context.resources.getColor(R.color.purple))
             }else if (orderHistoryModel.status == "Завершено"){
-                statusCardView.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.green))
+                statusCardView.setCardBackgroundColor(itemView.context.resources.getColor(R.color.green))
             }else if (orderHistoryModel.status == "Отменен"){
-                statusCardView.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.dark_black))
+                statusCardView.setCardBackgroundColor(itemView.context.resources.getColor(R.color.dark_black))
             }
         }
 

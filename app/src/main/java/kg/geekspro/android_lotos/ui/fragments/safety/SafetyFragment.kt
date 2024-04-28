@@ -27,10 +27,10 @@ class SafetyFragment : Fragment() {
                 findNavController().navigate(R.id.changePasswordFragment)
             }
             cvPhoneNumber.setOnClickListener {
-
+                findNavController().navigate(R.id.safetyPhoneNumberFragment)
             }
             cvEmail.setOnClickListener {
-
+                findNavController().navigate(R.id.safetyEmailFragment)
             }
         }
     }

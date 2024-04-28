@@ -241,4 +241,28 @@
         android:label="fragment_wide_assortment"
         tools:layout="@layout/fragment_wide_assortment" />
 
+    <fragment
+        android:id="@+id/safetyPhoneNumberFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.safetyPhone.SafetyPhoneNumberFragment"
+        android:label="fragment_safety_phone_number"
+        tools:layout="@layout/fragment_safety_phone_number" />
+
+    <fragment
+        android:id="@+id/safetyUpdatePhoneFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.safetyPhone.SafetyUpdatePhoneFragment"
+        android:label="fragment_safety_update_phone"
+        tools:layout="@layout/fragment_safety_update_phone" />
+
+    <fragment
+        android:id="@+id/safetyEmailFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.safetyEmail.SafetyEmailFragment"
+        android:label="fragment_safety_email"
+        tools:layout="@layout/fragment_safety_email" />
+
+    <fragment
+        android:id="@+id/safetyEmailUpdateFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.safetyEmail.SafetyEmailUpdateFragment"
+        android:label="fragment_safety_email_update"
+        tools:layout="@layout/fragment_safety_email_update" />
+
 </navigation>
