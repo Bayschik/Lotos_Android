@@ -32,6 +32,7 @@ class SafetyFragment : Fragment() {
             cvEmail.setOnClickListener {
                 findNavController().navigate(R.id.safetyEmailFragment)
             }
+            imgArrowBack.setOnClickListener { findNavController().navigateUp() }
         }
     }
 }

@@ -24,9 +24,9 @@ class SafetyPhoneNumberFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
-            btnSaveData.setOnClickListener {
+            btnSaveNumber.setOnClickListener {
                 if (etFillPhoneNumber.text.toString().isEmpty()){
-                    Toast.makeText(requireContext(), "Пожалуйста введите ваш номер телефон", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), "Пожалуйста введите ваш номер телефона", Toast.LENGTH_LONG).show()
                 }else{
                     findNavController().navigate(R.id.safetyUpdatePhoneFragment)
                 }

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".ui.fragments.safetyPhone.SafetyPhoneNumberFragment">
 
     <ImageView
@@ -32,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-medium"
-        android:text="Текущий номер вашего мобильного телефона-\n+996550894457? Удостоверьтесь, что ваша\n контактная информация указана верно, чтобы у\n вас было возможностисбрасывать пароль,\n получатьуведомления"
+        android:text="Текущий номер вашего мобильного телефона-+996550894457? Удостоверьтесь, что ваша контактная информация указана верно, чтобы у вас было возможностисбрасывать пароль, получатьу ведомления"
         android:textColor="@color/black"
         android:lineHeight="24dp"
         android:textSize="16sp"
@@ -45,7 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-medium"
-        android:text="При необходимости обновите номер телефона, и\nмы вышлем на него код подтверждения"
+        android:text="При необходимости обновите номер телефона, и мы вышлем на него код подтверждения"
         android:textColor="@color/black"
         android:lineHeight="24dp"
         android:textSize="16sp"
@@ -83,7 +84,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_save_data"
+        android:id="@+id/btn_save_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
