@@ -5,6 +5,7 @@ import kg.geekspro.android_lotos.models.registrationmodel.Registration
 import kg.geekspro.android_lotos.models.orderhistorymodels.PersonalData
 import kg.geekspro.android_lotos.models.profile.Profile
 import kg.geekspro.android_lotos.models.profile.Password
+import kg.geekspro.android_lotos.ui.fragments.profile.password.create.PasswordCreate
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -36,7 +37,7 @@ interface ApiService {
     fun setPassword(
         @Body password: Password,
         @Header("Cookie") sessionId:String
-    ):Call<String>
+    ):Call<PasswordCreate>
 
     @GET("api/v1/profile/")
     fun getProfile():Call<Profile>

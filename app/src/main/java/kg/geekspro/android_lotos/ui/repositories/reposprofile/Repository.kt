@@ -8,7 +8,9 @@ import kg.geekspro.android_lotos.models.profile.Password
 import kg.geekspro.android_lotos.models.profile.Profile
 import kg.geekspro.android_lotos.models.registrationmodel.Registration
 import kg.geekspro.android_lotos.models.verifycode.VerificationCode
+import kg.geekspro.android_lotos.ui.fragments.profile.password.create.PasswordCreate
 import kg.geekspro.android_lotos.ui.interfaces.profileinterfaces.ApiService
+import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
 import okhttp3.Headers
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -16,10 +18,10 @@ import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
-class Repository @Inject constructor(private val api: ApiService) {
+class Repository @Inject constructor(private val api: ApiService, private val pref:Pref) {
     @Inject
     lateinit var client: OkHttpClient
-    private var sessionId:String = ""
+    private lateinit var sessionId:String
 
     fun verifyEmail(emailAddress: Registration): LiveData<String> {
         val email = MutableLiveData<String>()
@@ -36,6 +38,7 @@ class Repository @Inject constructor(private val api: ApiService) {
 
                             val extractedSessionId = matchResult?.groupValues?.get(1)
                             sessionId = "sessionid=$extractedSessionId"
+                            pref.saveSessionId(sessionId)
                             break
                         }
                     }
@@ -56,64 +59,75 @@ class Repository @Inject constructor(private val api: ApiService) {
 
     fun confirmCode(code: VerificationCode): LiveData<String> {
         val codde = MutableLiveData<String>()
+        val session = pref.getSessionId()
 
-        api.confirmCode(sessionId, code).enqueue(object : Callback<String> {
-            override fun onResponse(call: Call<String>, response: Response<String>) {
-                if (response.isSuccessful) {
-                    response.body().let {
-                        codde.postValue(it)
-                        Log.d("отправка данных", it.toString())
-                        Log.d("onSuccessCode", it.toString())
+        session?.let {
+            api.confirmCode(it, code).enqueue(object : Callback<String> {
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    if (response.isSuccessful) {
+                        response.body().let {
+                            codde.postValue(it)
+                            Log.d("отправка данных", it.toString())
+                            Log.d("onSuccessCode", it.toString())
+                        }
+                    } else {
+                        Log.d("onCode", "Что-то пошло не так")
                     }
-                } else {
-                    Log.d("onCode", "Что-то пошло не так")
                 }
-            }
 
-            override fun onFailure(call: Call<String>, t: Throwable) {
-                Log.e("onCodeFailure", t.message.toString())
-            }
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    Log.e("onCodeFailure", t.message.toString())
+                }
 
-        })
+            })
+        }
         return codde
     }
 
 
     fun clientCreate(data: PersonalData): LiveData<String> {
         val client = MutableLiveData<String>()
-        api.clientCreate(data, sessionId).enqueue(object : Callback<String> {
-            override fun onResponse(call: Call<String>, response: Response<String>) {
-                if (response.isSuccessful) {
-                    response.body().let {
-                        client.postValue(it)
-                        Log.d("onSuccessCreate", it.toString())
+        val session = pref.getSessionId()
+        session?.let {
+            api.clientCreate(data, it).enqueue(object : Callback<String> {
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    if (response.isSuccessful) {
+                        response.body().let {
+                            client.postValue(it)
+                            Log.d("onSuccessCreate", it.toString())
+                        }
                     }
                 }
-            }
 
-            override fun onFailure(call: Call<String>, t: Throwable) {
-                Log.e("onCreateFailure", t.message.toString())
-            }
-        })
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    Log.e("onCreateFailure", t.message.toString())
+                }
+            })
+        }
         return client
     }
 
-    fun setPassword(password: Password): LiveData<String> {
-        val clientPassword = MutableLiveData<String>()
-        api.setPassword(password, sessionId).enqueue(object : Callback<String> {
-            override fun onResponse(call: Call<String>, response: Response<String>) {
-                if (response.isSuccessful) {
-                    response.body().let {
-                        clientPassword.postValue(it)
-                        Log.d("onSuccessPassword", it.toString())
+    fun setPassword(password: Password): LiveData<PasswordCreate> {
+        val clientPassword = MutableLiveData<PasswordCreate>()
+
+        val session = pref.getSessionId()
+        session?.let {
+            api.setPassword(password, it).enqueue(object : Callback<PasswordCreate> {
+                override fun onResponse(call: Call<PasswordCreate>, response: Response<PasswordCreate>) {
+                    if (response.isSuccessful) {
+                        response.body().let {
+                            clientPassword.postValue(it)
+                            pref.saveAccessToken(it!!.access)
+                            Log.d("onSuccessPassword", it.toString())
+                        }
                     }
                 }
-            }
 
-            override fun onFailure(call: Call<String>, t: Throwable) {
-                Log.e("onPasswordFailure", t.message.toString())
-            }
-        })
+                override fun onFailure(call: Call<PasswordCreate>, t: Throwable) {
+                    Log.e("onPasswordFailure", t.message.toString())
+                }
+            })
+        }
         return clientPassword
     }
 
