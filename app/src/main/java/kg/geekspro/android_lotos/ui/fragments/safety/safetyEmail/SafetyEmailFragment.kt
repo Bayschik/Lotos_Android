@@ -30,7 +30,7 @@ class SafetyEmailFragment : Fragment() {
                 if (etFillEmail.text.toString().isEmpty()) {
                     Toast.makeText(requireContext(), "Пожалуйста введите вашу эле-нную почту", Toast.LENGTH_LONG).show()
                 } else {
-                    findNavController().navigate(R.id.safetyEmailUpdateFragment)
+                    findNavController().navigate(R.id.safetyChangeEmailFragment)
                 }
             }
             imgArrowBack.setOnClickListener {

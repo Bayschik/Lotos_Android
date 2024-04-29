@@ -31,8 +31,8 @@ class SafetyPhoneNumberFragment : Fragment() {
                     Toast.makeText(requireContext(), "Пожалуйста введите ваш номер телефона", Toast.LENGTH_SHORT).show()
                 }else{
                     Toast.makeText(requireContext(), "Переход на следующий фрагмент", Toast.LENGTH_SHORT).show()
-                    findNavController().navigate(R.id.action_safetyPhoneNumberFragment_to_safetyUpdatePhoneFragment)
                 }
+                findNavController().navigate(R.id.safetyChangePhoneFragment)
             }
             imgArrowBack.setOnClickListener{
                 findNavController().navigateUp()

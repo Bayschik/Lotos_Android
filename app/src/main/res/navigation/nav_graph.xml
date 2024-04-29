@@ -288,4 +288,16 @@
         android:label="fragment_safety_email_update"
         tools:layout="@layout/fragment_safety_email_update" />
 
+    <fragment
+        android:id="@+id/safetyChangePhoneFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.safety.safetyPhone.SafetyChangePhoneFragment"
+        android:label="fragment_safety_change_phone"
+        tools:layout="@layout/fragment_safety_change_phone" />
+
+    <fragment
+        android:id="@+id/safetyChangeEmailFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.safety.safetyEmail.SafetyChangeEmailFragment"
+        android:label="fragment_safety_phone"
+        tools:layout="@layout/fragment_safety_change_email" />
+
 </navigation>

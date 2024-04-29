@@ -1,4 +1,4 @@
-package kg.geekspro.android_lotos.ui.fragments.safety.safetyPhone
+package kg.geekspro.android_lotos.ui.fragments.safety.safetyEmail
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,19 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
-import kg.geekspro.android_lotos.databinding.FragmentSafetyUpdatePhoneBinding
+import kg.geekspro.android_lotos.databinding.FragmentSafetyChangeEmailBinding
 
 @AndroidEntryPoint
-class SafetyUpdatePhoneFragment : Fragment() {
-    private lateinit var binding:FragmentSafetyUpdatePhoneBinding
+class SafetyChangeEmailFragment : Fragment() {
+    private lateinit var binding:FragmentSafetyChangeEmailBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View{
-        binding = FragmentSafetyUpdatePhoneBinding.inflate(inflater, container, false)
+    ): View {
+        binding = FragmentSafetyChangeEmailBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -27,20 +28,18 @@ class SafetyUpdatePhoneFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setUpCodeInput()
         binding.apply {
-            btnOnfirm.setOnClickListener {
+            btnConfirm.setOnClickListener {
                 if (inputCode1.text.toString().isEmpty() ||
                     inputCode2.text.toString().isEmpty() ||
                     inputCode3.text.toString().isEmpty() ||
                     inputCode4.text.toString().isEmpty()
                 ) {
-                    Toast.makeText(requireContext(), "Введите 4-значный код", Toast.LENGTH_LONG)
-                        .show()
+                    Toast.makeText(requireContext(), "Введите 4-значный код", Toast.LENGTH_LONG).show()
                 } else {
-                    Toast.makeText(requireContext(), "Ваш номер телефона изменен", Toast.LENGTH_LONG)
-                        .show()
+                    Toast.makeText(requireContext(), "Ваш номер телефона изменен", Toast.LENGTH_LONG).show()
+                    findNavController().navigate(R.id.safetyFragment)
                 }
             }
-            imgArrowBack.findNavController().navigate(R.id.safetyFragment)
         }
     }
 

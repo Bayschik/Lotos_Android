@@ -8,6 +8,7 @@ import kg.geekspro.android_lotos.models.profile.Password
 import kg.geekspro.android_lotos.models.profile.Profile
 import kg.geekspro.android_lotos.models.registrationmodel.Registration
 import kg.geekspro.android_lotos.models.verifycode.VerificationCode
+import kg.geekspro.android_lotos.ui.fragments.login.LogIn
 import kg.geekspro.android_lotos.ui.fragments.profile.password.create.PasswordCreate
 import kg.geekspro.android_lotos.ui.interfaces.profileinterfaces.ApiService
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
@@ -130,6 +131,30 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
         }
         return clientPassword
     }
+
+    /*fun logIn(logIn: LogIn): LiveData<PasswordCreate> {
+        val clientPassword = MutableLiveData<PasswordCreate>()
+
+        val session = pref.getSessionId()
+        session?.let {
+            api.setPassword(password, it).enqueue(object : Callback<PasswordCreate> {
+                override fun onResponse(call: Call<PasswordCreate>, response: Response<PasswordCreate>) {
+                    if (response.isSuccessful) {
+                        response.body().let {
+                            clientPassword.postValue(it)
+                            pref.saveAccessToken(it!!.access)
+                            Log.d("onSuccessPassword", it.toString())
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<PasswordCreate>, t: Throwable) {
+                    Log.e("onPasswordFailure", t.message.toString())
+                }
+            })
+        }
+        return clientPassword
+    }*/
 
     fun getProfile(): LiveData<Profile> {
         val clientPassword = MutableLiveData<Profile>()

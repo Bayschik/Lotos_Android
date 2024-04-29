@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-medium"
-        android:text="Текущий номер вашего мобильного телефона-+996550894457? Удостоверьтесь, что ваша контактная информация указана верно, чтобы у вас было возможностисбрасывать пароль, получатьу ведомления"
+        android:text="Текущий номер вашего мобильного телефона-+996550894457? Удостоверьтесь, что ваша контактная информация указана верно, чтобы у вас было возможности сбрасывать пароль, получать уведомления"
         android:textColor="@color/black"
         android:lineHeight="24dp"
         android:textSize="16sp"
