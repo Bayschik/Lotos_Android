@@ -38,11 +38,7 @@ class RegistrationFragment : Fragment() {
         binding.apply {
             btnContinue.setOnClickListener {
                 if (etOfficialPhoneNumber.text.toString().isEmpty()) {
-                    Toast.makeText(
-                        requireContext(),
-                        "Введите вашу почту",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(requireContext(), "Введите вашу почту", Toast.LENGTH_SHORT).show()
                 } else {
                     val email = Registration(
                         email = etOfficialPhoneNumber.text.toString()

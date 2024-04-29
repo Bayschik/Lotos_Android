@@ -132,33 +132,38 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
         return clientPassword
     }
 
-    /*fun logIn(logIn: LogIn): LiveData<PasswordCreate> {
-        val clientPassword = MutableLiveData<PasswordCreate>()
+    fun logIn(logIn: LogIn): LiveData<PasswordCreate> {
+        val logInValue = MutableLiveData<PasswordCreate>()
 
         val session = pref.getSessionId()
         session?.let {
-            api.setPassword(password, it).enqueue(object : Callback<PasswordCreate> {
+            api.logIn(logIn).enqueue(object : Callback<PasswordCreate> {
                 override fun onResponse(call: Call<PasswordCreate>, response: Response<PasswordCreate>) {
                     if (response.isSuccessful) {
                         response.body().let {
-                            clientPassword.postValue(it)
+                            logInValue.postValue(it)
                             pref.saveAccessToken(it!!.access)
-                            Log.d("onSuccessPassword", it.toString())
+                            Log.d("onSuccessLogIn", it.toString())
                         }
+                    }
+                    else{
+                        Log.d("logIn", "тчо-то пошло не так")
                     }
                 }
 
                 override fun onFailure(call: Call<PasswordCreate>, t: Throwable) {
-                    Log.e("onPasswordFailure", t.message.toString())
+                    Log.e("onLogInFailure", t.message.toString())
                 }
             })
         }
-        return clientPassword
-    }*/
+        return logInValue
+    }
 
     fun getProfile(): LiveData<Profile> {
         val clientPassword = MutableLiveData<Profile>()
-        api.getProfile().enqueue(object : Callback<Profile> {
+
+        val accessToken = pref.getAccessToken()!!
+        api.getProfile("Bearer realm=\"$accessToken\"").enqueue(object : Callback<Profile> {
             override fun onResponse(call: Call<Profile>, response: Response<Profile>) {
                 if (response.isSuccessful) {
                     response.body().let {

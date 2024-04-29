@@ -42,7 +42,7 @@ class Pref @Inject constructor(private val pref:SharedPreferences) {
         Log.d("accessToken", accessToken)
     }
 
-    fun getSAccessToken(): String? {
+    fun getAccessToken(): String? {
         return pref.getString(ACCESS_TOKEN, null)
     }
 

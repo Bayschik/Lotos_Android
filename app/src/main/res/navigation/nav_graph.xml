@@ -283,12 +283,6 @@
         tools:layout="@layout/fragment_safety_email" />
 
     <fragment
-        android:id="@+id/safetyEmailUpdateFragment"
-        android:name="kg.geekspro.android_lotos.ui.fragments.safety.safetyEmail.SafetyEmailUpdateFragment"
-        android:label="fragment_safety_email_update"
-        tools:layout="@layout/fragment_safety_email_update" />
-
-    <fragment
         android:id="@+id/safetyChangePhoneFragment"
         android:name="kg.geekspro.android_lotos.ui.fragments.safety.safetyPhone.SafetyChangePhoneFragment"
         android:label="fragment_safety_change_phone"
@@ -299,5 +293,11 @@
         android:name="kg.geekspro.android_lotos.ui.fragments.safety.safetyEmail.SafetyChangeEmailFragment"
         android:label="fragment_safety_phone"
         tools:layout="@layout/fragment_safety_change_email" />
+
+    <fragment
+        android:id="@+id/logFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.login.LogFragment"
+        android:label="fragment_log"
+        tools:layout="@layout/fragment_log" />
 
 </navigation>

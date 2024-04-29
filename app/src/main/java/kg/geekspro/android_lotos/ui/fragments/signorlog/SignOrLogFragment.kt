@@ -27,7 +27,7 @@ class SignOrLogFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
             btnLogIn.setOnClickListener {
-                findNavController().navigate(R.id.logInFragment)
+                findNavController().navigate(R.id.logFragment)
             }
             btnRegistration.setOnClickListener {
                 findNavController().navigate(R.id.registrationFragment)

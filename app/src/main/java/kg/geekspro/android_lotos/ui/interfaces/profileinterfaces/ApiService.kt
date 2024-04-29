@@ -5,6 +5,7 @@ import kg.geekspro.android_lotos.models.registrationmodel.Registration
 import kg.geekspro.android_lotos.models.orderhistorymodels.PersonalData
 import kg.geekspro.android_lotos.models.profile.Profile
 import kg.geekspro.android_lotos.models.profile.Password
+import kg.geekspro.android_lotos.ui.fragments.login.LogIn
 import kg.geekspro.android_lotos.ui.fragments.profile.password.create.PasswordCreate
 import retrofit2.Call
 import retrofit2.http.Body
@@ -39,6 +40,13 @@ interface ApiService {
         @Header("Cookie") sessionId:String
     ):Call<PasswordCreate>
 
+    @POST("api/v1/auth/jwt/create/")
+    fun logIn(
+        @Body logIn:LogIn,
+    ):Call<PasswordCreate>
+
     @GET("api/v1/profile/")
-    fun getProfile():Call<Profile>
+    fun getProfile(
+        @Header("WWW-Authenticate") accessToken:String
+    ):Call<Profile>
 }
