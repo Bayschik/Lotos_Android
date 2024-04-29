@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".ui.fragments.safetyPhone.SafetyPhoneNumberFragment">
+    tools:context=".ui.fragments.safety.safetyPhone.SafetyPhoneNumberFragment">
 
     <ImageView
         android:id="@+id/img_arrow_back"

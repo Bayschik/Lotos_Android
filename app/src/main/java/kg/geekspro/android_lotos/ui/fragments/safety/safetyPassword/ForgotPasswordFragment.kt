@@ -1,4 +1,4 @@
-package kg.geekspro.android_lotos.ui.fragments.profile.password
+package kg.geekspro.android_lotos.ui.fragments.safety.safetyPassword
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

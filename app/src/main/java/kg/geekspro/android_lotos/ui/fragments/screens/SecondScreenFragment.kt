@@ -34,8 +34,7 @@ class SecondScreenFragment : Fragment() {
             viewPager?.currentItem = 2
         }
         binding.tvSecondSkip.setOnClickListener {
-            pref.onShowed()
-            findNavController().navigate(R.id.signOrLogFragment)
+            findNavController().navigate(R.id.thirdScreenFragment)
         }
     }
 }

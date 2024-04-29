@@ -1,14 +1,9 @@
 package kg.geekspro.android_lotos.models.orderhistorymodels
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-@Entity
 data class PersonalData(
-    @PrimaryKey(autoGenerate = true)
-    var id:Int?=null,
     @SerializedName("first_name")
     val first_name:String,
     @SerializedName("last_name")

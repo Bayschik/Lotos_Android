@@ -1,4 +1,4 @@
-package kg.geekspro.android_lotos.ui.fragments.safetyPhone
+package kg.geekspro.android_lotos.ui.fragments.safety.safetyEmail
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,16 +8,19 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.navigation.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
-import kg.geekspro.android_lotos.databinding.FragmentSafetyUpdatePhoneBinding
+import kg.geekspro.android_lotos.databinding.FragmentSafetyEmailUpdateBinding
 
-class SafetyUpdatePhoneFragment : Fragment() {
-    private lateinit var binding:FragmentSafetyUpdatePhoneBinding
+@AndroidEntryPoint
+class SafetyEmailUpdateFragment : Fragment() {
+    private lateinit var binding:FragmentSafetyEmailUpdateBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View{
-        binding = FragmentSafetyUpdatePhoneBinding.inflate(inflater, container, false)
+        binding = FragmentSafetyEmailUpdateBinding.inflate(inflater, container, false)
         return binding.root
     }
 
