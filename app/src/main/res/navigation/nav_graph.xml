@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/splashFragment">
 
     <fragment
         android:id="@+id/mainFragment"
@@ -43,7 +43,7 @@
 
     <fragment
         android:id="@+id/personalDataFragment"
-        android:name="kg.geekspro.android_lotos.ui.fragments.pesonaldata.personalInfoFragment.PersonalDataFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.pesonaldata.personalInfoFragment.personalData.PersonalDataFragment"
         android:label="fragment_personal_data"
         tools:layout="@layout/fragment_personal_data">
         <action
@@ -65,9 +65,6 @@
         <action
             android:id="@+id/action_signOrLogFragment_to_registrationFragment"
             app:destination="@id/registrationFragment" />
-        <action
-            android:id="@+id/action_signOrLogFragment_to_logInFragment"
-            app:destination="@id/logInFragment" />
     </fragment>
 
     <fragment
@@ -105,16 +102,6 @@
         <action
             android:id="@+id/action_verificationCodeFragment_to_fillDataFragment"
             app:destination="@id/fillDataFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/logInFragment"
-        android:name="kg.geekspro.android_lotos.ui.fragments.login.LogInFragment"
-        android:label="fragment_log_in"
-        tools:layout="@layout/fragment_log_in">
-        <action
-            android:id="@+id/action_logInFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
     </fragment>
 
     <fragment
@@ -264,17 +251,7 @@
         android:id="@+id/safetyPhoneNumberFragment"
         android:name="kg.geekspro.android_lotos.ui.fragments.safety.safetyPhone.SafetyPhoneNumberFragment"
         android:label="fragment_safety_phone_number"
-        tools:layout="@layout/fragment_safety_phone_number" >
-        <action
-            android:id="@+id/action_safetyPhoneNumberFragment_to_safetyUpdatePhoneFragment"
-            app:destination="@id/safetyUpdatePhoneFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/safetyUpdatePhoneFragment"
-        android:name="kg.geekspro.android_lotos.ui.fragments.safety.safetyPhone.SafetyUpdatePhoneFragment"
-        android:label="fragment_safety_update_phone"
-        tools:layout="@layout/fragment_safety_update_phone" />
+        tools:layout="@layout/fragment_safety_phone_number" />
 
     <fragment
         android:id="@+id/safetyEmailFragment"

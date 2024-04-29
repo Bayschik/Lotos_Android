@@ -1,5 +1,6 @@
 package kg.geekspro.android_lotos.ui.fragments.registration
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,12 +8,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.google.android.gms.auth.api.Auth
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.common.api.ApiException
 import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.viewmodels.registrationviewmodel.RegistrationViewModel
@@ -22,7 +23,7 @@ import kg.geekspro.android_lotos.models.registrationmodel.Registration
 @AndroidEntryPoint
 class RegistrationFragment : Fragment() {
     private lateinit var binding: FragmentRegistrationBinding
-    private lateinit var googleApiClient: GoogleApiClient
+    private lateinit var googleApiClient: GoogleSignInClient
     private val viewModel: RegistrationViewModel by viewModels()
 
     override fun onCreateView(
@@ -53,7 +54,7 @@ class RegistrationFragment : Fragment() {
                 }
             }
             btnGoogle.setOnClickListener {
-                //googleSignIn()
+                googleSignIn()
             }
         }
     }
@@ -63,25 +64,29 @@ class RegistrationFragment : Fragment() {
             .requestEmail()
             .build()
 
-        googleApiClient = GoogleApiClient.Builder(requireContext())
-            .enableAutoManage(requireContext() as FragmentActivity) { connectionResult ->
-                Toast.makeText(
-                    requireContext(),
-                    "Ошибка авторизации: ${connectionResult.errorMessage}",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-            .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-            .build()
+        googleApiClient = GoogleSignIn.getClient(requireContext(), gso)
 
-        // Нажатие на кнопку регистрации через Google
-        btnGoogle.setOnClickListener {
-            val signInIntent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient)
-            startActivityForResult(signInIntent, RC_SIGN_IN)
+        val signInIntent = googleApiClient.signInIntent
+        startActivityForResult(signInIntent, RC_SIGN_IN)
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == RC_SIGN_IN) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                val account = task.getResult(ApiException::class.java)
+                val email = account.email
+                Toast.makeText(requireContext(), "Email: $email", Toast.LENGTH_SHORT).show()
+            } catch (e: ApiException) {
+                Toast.makeText(requireContext(), e.statusCode, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
     companion object {
-        private const val RC_SIGN_IN = 9001
+        private const val RC_SIGN_IN = 123
     }
 }

@@ -13,6 +13,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.POST
+import retrofit2.http.PUT
 
 interface ApiService {
 
@@ -47,6 +48,12 @@ interface ApiService {
 
     @GET("api/v1/profile/")
     fun getProfile(
-        @Header("WWW-Authenticate") accessToken:String
+        @Header("Authorization") accessToken:String
+    ):Call<Profile>
+
+    @PUT("api/v1/profile/")
+    fun putProfile(
+        @Body refactorData:Profile,
+        @Header("Authorization") accessToken:String
     ):Call<Profile>
 }

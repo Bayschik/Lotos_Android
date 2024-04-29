@@ -1,4 +1,4 @@
-package kg.geekspro.android_lotos.viewmodels.profileviewmodels
+package kg.geekspro.android_lotos.ui.fragments.pesonaldata.personalInfoFragment.personalData
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -8,8 +8,8 @@ import kg.geekspro.android_lotos.ui.repositories.reposprofile.Repository
 import javax.inject.Inject
 
 @HiltViewModel
-class ProfileViewModel @Inject constructor(private val repository: Repository) :ViewModel() {
-    fun getProfile():LiveData<Profile>{
+class PersonalDataViewModel @Inject constructor(private val repository: Repository):ViewModel() {
+    fun getProfileData():LiveData<Profile>{
         return repository.getProfile()
     }
 }

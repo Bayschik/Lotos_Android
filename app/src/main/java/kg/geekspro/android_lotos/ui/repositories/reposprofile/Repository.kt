@@ -13,15 +13,12 @@ import kg.geekspro.android_lotos.ui.fragments.profile.password.create.PasswordCr
 import kg.geekspro.android_lotos.ui.interfaces.profileinterfaces.ApiService
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
 import okhttp3.Headers
-import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
 class Repository @Inject constructor(private val api: ApiService, private val pref:Pref) {
-    @Inject
-    lateinit var client: OkHttpClient
     private lateinit var sessionId:String
 
     fun verifyEmail(emailAddress: Registration): LiveData<String> {
@@ -163,7 +160,28 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
         val clientPassword = MutableLiveData<Profile>()
 
         val accessToken = pref.getAccessToken()!!
-        api.getProfile("Bearer realm=\"$accessToken\"").enqueue(object : Callback<Profile> {
+        api.getProfile("Bearer $accessToken").enqueue(object : Callback<Profile> {
+            override fun onResponse(call: Call<Profile>, response: Response<Profile>) {
+                if (response.isSuccessful) {
+                    response.body().let {
+                        clientPassword.postValue(it)
+                        Log.d("onSuccessPassword", it.toString())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<Profile>, t: Throwable) {
+                Log.e("onPasswordFailure", t.message.toString())
+            }
+        })
+        return clientPassword
+    }
+
+    fun putDataProfile(refactorData:Profile): LiveData<Profile> {
+        val clientPassword = MutableLiveData<Profile>()
+
+        val accessToken = pref.getAccessToken()!!
+        api.putProfile(refactorData,"Bearer $accessToken").enqueue(object : Callback<Profile> {
             override fun onResponse(call: Call<Profile>, response: Response<Profile>) {
                 if (response.isSuccessful) {
                     response.body().let {

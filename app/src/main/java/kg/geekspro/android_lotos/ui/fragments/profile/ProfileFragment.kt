@@ -57,9 +57,7 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
-            btnPersonalData.setOnClickListener {
-                findNavController().navigate(R.id.personalDataFragment)
-            }
+            btnPersonalData.setOnClickListener {findNavController().navigate(R.id.personalDataFragment)}
             setImageFromPhone()
             btnOrderHistory.setOnClickListener {showBottomNavSheet()}
             btnExit.setOnClickListener {showLogOut()}

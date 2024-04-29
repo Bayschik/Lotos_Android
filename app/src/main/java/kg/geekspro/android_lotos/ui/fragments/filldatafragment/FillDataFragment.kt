@@ -49,8 +49,6 @@ class FillDataFragment : Fragment() {
                         phoneNumber = "+996${etFillPhoneNumber.text.toString()}",
                         address = etFillAddress.text.toString(),
                     )
-                    //Toast.makeText(requireContext(), data.phoneNumber, Toast.LENGTH_SHORT).show()
-                    //Toast.makeText(requireContext(), etFillDateOfBirth.text.toString(), Toast.LENGTH_SHORT).show()
                     viewModel.clientCreate(data).observe(viewLifecycleOwner) {
                         Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
                         findNavController().navigate(R.id.passwordCreateFragment)
