@@ -1,6 +1,6 @@
 package kg.geekspro.android_lotos.models.aboutusmodel.youtubemodel
 
-data class YoutubeVideos(
+data class YouTubeVideo(
     val id: Int,
     val title: String,
     val url: String,

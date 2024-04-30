@@ -168,14 +168,14 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/img_videPlay1"
+            app:layout_constraintBottom_toTopOf="@+id/img_videoPlay1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/carViewMain" />
 
 
         <ImageView
-            android:id="@+id/img_videPlay1"
+            android:id="@+id/img_videoPlay1"
             android:layout_width="380dp"
             android:layout_height="150dp"
             android:layout_marginStart="0dp"
@@ -200,13 +200,13 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/img_videPlay2"
+            app:layout_constraintBottom_toTopOf="@+id/img_videoPlay2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_videPlay1" />
+            app:layout_constraintTop_toBottomOf="@+id/img_videoPlay1" />
 
         <ImageView
-            android:id="@+id/img_videPlay2"
+            android:id="@+id/img_videoPlay2"
             android:layout_width="380dp"
             android:layout_height="150dp"
             android:layout_marginStart="0dp"
@@ -232,13 +232,13 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/img_videPlay3"
+            app:layout_constraintBottom_toTopOf="@+id/img_videoPlay3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_videPlay2" />
+            app:layout_constraintTop_toBottomOf="@+id/img_videoPlay2" />
 
         <ImageView
-            android:id="@+id/img_videPlay3"
+            android:id="@+id/img_videoPlay3"
             android:layout_width="380dp"
             android:layout_height="150dp"
             android:layout_marginStart="0dp"
@@ -266,7 +266,7 @@
             app:layout_constraintBottom_toTopOf="@+id/tvContacts"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_videPlay3" />
+            app:layout_constraintTop_toBottomOf="@+id/img_videoPlay3" />
 
         <TextView
             android:id="@+id/tvContacts"
@@ -323,12 +323,12 @@
                 android:orientation="horizontal"
                 android:src="@drawable/ic_telephone"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/icInstagram"
+                app:layout_constraintEnd_toStartOf="@id/ivInstagram"
                 app:layout_constraintStart_toEndOf="@+id/ivWhatsApp"
                 app:layout_constraintTop_toTopOf="@+id/ivWhatsApp" />
 
             <ImageView
-                android:id="@+id/icInstagram"
+                android:id="@+id/ivInstagram"
                 android:layout_width="26dp"
                 android:layout_height="26dp"
                 android:layout_marginEnd="150dp"
