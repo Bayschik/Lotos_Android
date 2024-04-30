@@ -11,6 +11,8 @@ import kg.geekspro.android_lotos.models.verifycode.VerificationCode
 import kg.geekspro.android_lotos.ui.fragments.login.LogIn
 import kg.geekspro.android_lotos.ui.fragments.profile.logOut.RefreshToken
 import kg.geekspro.android_lotos.ui.fragments.profile.password.create.PasswordCreate
+import kg.geekspro.android_lotos.ui.fragments.safety.safetyEmail.ChangeEmail
+import kg.geekspro.android_lotos.ui.fragments.safety.safetyEmail.Code
 import kg.geekspro.android_lotos.ui.interfaces.profileinterfaces.ApiService
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
 import okhttp3.Headers
@@ -186,7 +188,7 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
         val token = RefreshToken(
             refreshToken = refreshToken
         )
-        api.logOut(token).enqueue(object : Callback<Unit> {
+        api.logOut("Bearer ${pref.getAccessToken()}", token).enqueue(object : Callback<Unit> {
             override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
                 if (response.isSuccessful) {
                     response.body().let {
@@ -219,6 +221,48 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
 
             override fun onFailure(call: Call<Profile>, t: Throwable) {
                 Log.e("onPasswordFailure", t.message.toString())
+            }
+        })
+        return clientPassword
+    }
+
+    fun changeEmail(changeEmail: ChangeEmail): LiveData<Any> {
+        val clientPassword = MutableLiveData<Any>()
+
+        val accessToken = pref.getAccessToken()!!
+        api.changeEmail("Bearer ${accessToken}", changeEmail).enqueue(object : Callback<Any> {
+            override fun onResponse(call: Call<Any>, response: Response<Any>) {
+                if (response.isSuccessful) {
+                    response.body().let {
+                        clientPassword.postValue(it)
+                        Log.d("onSuccessChangeEmail", it.toString())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<Any>, t: Throwable) {
+                Log.e("onChangeEmailFailure", t.message.toString())
+            }
+        })
+        return clientPassword
+    }
+
+    fun changeEmailConfirm(code:Code): LiveData<Any> {
+        val clientPassword = MutableLiveData<Any>()
+
+        val accessToken = pref.getAccessToken()!!
+        api.changeEmailConfirm(accessToken, code).enqueue(object : Callback<Any> {
+            override fun onResponse(call: Call<Any>, response: Response<Any>) {
+                if (response.isSuccessful) {
+                    response.body().let {
+                        clientPassword.postValue(it)
+                        Log.d("onSuccessChangeEmailCode", it.toString())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<Any>, t: Throwable) {
+                Log.e("onChangeEmailCodeFailure", t.message.toString())
             }
         })
         return clientPassword

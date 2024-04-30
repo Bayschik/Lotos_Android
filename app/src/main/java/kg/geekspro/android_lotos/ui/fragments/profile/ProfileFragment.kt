@@ -14,6 +14,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -57,15 +58,23 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
-            btnPersonalData.setOnClickListener {findNavController().navigate(R.id.personalDataFragment)}
-            setImageFromPhone()
-            btnOrderHistory.setOnClickListener {showBottomNavSheet()}
-            btnExit.setOnClickListener {showLogOut()}
-            btnSafetyPassword.setOnClickListener {
-                findNavController().navigate(R.id.safetyFragment)
-            }
-            viewModel.getProfile().observe(viewLifecycleOwner){
-                tvUserFullName.text = "${it.lastName} ${it.firstName}"
+            if (!pref.isUserSigned()){
+                btnPersonalData.setOnClickListener {findNavController().navigate(R.id.personalDataFragment)}
+                setImageFromPhone()
+                btnOrderHistory.setOnClickListener {showBottomNavSheet()}
+                btnExit.setOnClickListener {showLogOut()}
+                btnSafetyPassword.setOnClickListener {
+                    findNavController().navigate(R.id.safetyFragment)
+                }
+                viewModel.getProfile().observe(viewLifecycleOwner){
+                    tvUserFullName.text = "${it.lastName} ${it.firstName}"
+                }
+            }else{
+                val navOptions = NavOptions.Builder()
+                    .setPopUpTo(R.id.profileFragment, false)
+                    .build()
+
+                findNavController().navigate(R.id.exitProfileFragment)
             }
         }
     }
@@ -93,7 +102,13 @@ class ProfileFragment : Fragment() {
 
         btnYes.setOnClickListener {
             viewModel.logOut().observe(viewLifecycleOwner){
-                findNavController().navigate(R.id.logFragment)
+                pref.onUserSigned()
+                alertShow.dismiss()
+                /*val navigationOptions = NavOptions.Builder()
+                .setPopUpTo(R.id.logOutFragment, )
+                .build()*/
+
+                findNavController().navigate(R.id.action_profileFragment_to_logOutFragment)
             }
         }
         btnNo.setOnClickListener {

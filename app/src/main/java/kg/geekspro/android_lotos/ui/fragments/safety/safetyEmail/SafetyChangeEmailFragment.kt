@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
@@ -15,6 +16,7 @@ import kg.geekspro.android_lotos.databinding.FragmentSafetyChangeEmailBinding
 @AndroidEntryPoint
 class SafetyChangeEmailFragment : Fragment() {
     private lateinit var binding:FragmentSafetyChangeEmailBinding
+    private val viewModel:SafetyEmailViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,8 +38,15 @@ class SafetyChangeEmailFragment : Fragment() {
                 ) {
                     Toast.makeText(requireContext(), "Введите 4-значный код", Toast.LENGTH_LONG).show()
                 } else {
-                    Toast.makeText(requireContext(), "Ваш номер телефона изменен", Toast.LENGTH_LONG).show()
-                    findNavController().navigate(R.id.safetyFragment)
+                    val code =
+                        inputCode1.text.toString() + inputCode2.text.toString() + inputCode3.text.toString() + inputCode4.text.toString()
+
+                    val data = Code(
+                        code = code
+                    )
+                    viewModel.changeEmailConfirm(data).observe(viewLifecycleOwner){
+                        findNavController().navigate(R.id.safetyFragment)
+                    }
                 }
             }
         }
