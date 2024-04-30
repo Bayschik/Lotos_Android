@@ -10,7 +10,5 @@ data class Profile(
     val lastName:String,
     @SerializedName("date_of_birth")
     val dateOfBirth:String,
-    /*val phone:String,
-    val email:String,*/
     val address:String,
 )

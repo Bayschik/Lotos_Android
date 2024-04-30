@@ -29,7 +29,7 @@ class Pref @Inject constructor(private val pref:SharedPreferences) {
         return pref.getString(SESSION_ID, null)
     }
 
-    fun saveRefresh(refreshToken: String){
+    fun saveRefreshToken(refreshToken: String){
         pref.edit().putString(REFRESH_TOKEN, refreshToken).apply()
     }
 

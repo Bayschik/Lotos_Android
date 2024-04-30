@@ -6,6 +6,7 @@ import kg.geekspro.android_lotos.models.orderhistorymodels.PersonalData
 import kg.geekspro.android_lotos.models.profile.Profile
 import kg.geekspro.android_lotos.models.profile.Password
 import kg.geekspro.android_lotos.ui.fragments.login.LogIn
+import kg.geekspro.android_lotos.ui.fragments.profile.logOut.RefreshToken
 import kg.geekspro.android_lotos.ui.fragments.profile.password.create.PasswordCreate
 import retrofit2.Call
 import retrofit2.http.Body
@@ -56,4 +57,9 @@ interface ApiService {
         @Body refactorData:Profile,
         @Header("Authorization") accessToken:String
     ):Call<Profile>
+
+    @POST("api/v1/logout/")
+    fun logOut(
+        @Body refreshToken:RefreshToken
+    ):Call<Unit>
 }

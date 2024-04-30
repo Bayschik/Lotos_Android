@@ -9,6 +9,7 @@ import kg.geekspro.android_lotos.models.profile.Profile
 import kg.geekspro.android_lotos.models.registrationmodel.Registration
 import kg.geekspro.android_lotos.models.verifycode.VerificationCode
 import kg.geekspro.android_lotos.ui.fragments.login.LogIn
+import kg.geekspro.android_lotos.ui.fragments.profile.logOut.RefreshToken
 import kg.geekspro.android_lotos.ui.fragments.profile.password.create.PasswordCreate
 import kg.geekspro.android_lotos.ui.interfaces.profileinterfaces.ApiService
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
@@ -116,6 +117,7 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
                         response.body().let {
                             clientPassword.postValue(it)
                             pref.saveAccessToken(it!!.access)
+                            pref.saveRefreshToken(it.refresh)
                             Log.d("onSuccessPassword", it.toString())
                         }
                     }
@@ -175,6 +177,30 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
             }
         })
         return clientPassword
+    }
+
+    fun logOut(): LiveData<Unit> {
+        val logOut = MutableLiveData<Unit>()
+        val refreshToken = pref.getRefresh()!!
+
+        val token = RefreshToken(
+            refreshToken = refreshToken
+        )
+        api.logOut(token).enqueue(object : Callback<Unit> {
+            override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+                if (response.isSuccessful) {
+                    response.body().let {
+                        logOut.postValue(it)
+                        Log.d("onSuccessLogOut", it.toString())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<Unit>, t: Throwable) {
+                Log.e("onLogOutFailure", t.message.toString())
+            }
+        })
+        return logOut
     }
 
     fun putDataProfile(refactorData:Profile): LiveData<Profile> {

@@ -12,4 +12,8 @@ class ProfileViewModel @Inject constructor(private val repository: Repository) :
     fun getProfile():LiveData<Profile>{
         return repository.getProfile()
     }
+
+    fun logOut():LiveData<Unit>{
+        return repository.logOut()
+    }
 }

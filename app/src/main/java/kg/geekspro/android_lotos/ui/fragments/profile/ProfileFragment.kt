@@ -92,8 +92,9 @@ class ProfileFragment : Fragment() {
         val alertShow = alertDialog.create()
 
         btnYes.setOnClickListener {
-            Toast.makeText(requireContext(), "Вы вышли из аккаунта", Toast.LENGTH_SHORT).show()
-            alertShow.dismiss()
+            viewModel.logOut().observe(viewLifecycleOwner){
+                findNavController().navigate(R.id.logFragment)
+            }
         }
         btnNo.setOnClickListener {
             Toast.makeText(requireContext(), "Не вышли из аккаунта", Toast.LENGTH_SHORT).show()

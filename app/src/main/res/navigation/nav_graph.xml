@@ -277,4 +277,10 @@
         android:label="fragment_log"
         tools:layout="@layout/fragment_log" />
 
+    <fragment
+        android:id="@+id/logOutFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.profile.logOut.LogOutFragment"
+        android:label="fragment_log_out"
+        tools:layout="@layout/fragment_log_out" />
+
 </navigation>
