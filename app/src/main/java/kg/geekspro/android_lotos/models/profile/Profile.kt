@@ -1,9 +1,11 @@
 package kg.geekspro.android_lotos.models.profile
 
 import com.google.gson.annotations.SerializedName
+import okhttp3.MultipartBody
+import java.io.File
 
 data class Profile(
-    val photo:ByteArray,
+    val photo:File,
     @SerializedName("first_name")
     val firstName:String?=null,
     @SerializedName("last_name")

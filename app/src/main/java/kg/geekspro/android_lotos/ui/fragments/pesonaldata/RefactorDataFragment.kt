@@ -1,9 +1,11 @@
 package kg.geekspro.android_lotos.ui.fragments.pesonaldata
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +22,9 @@ import kg.geekspro.android_lotos.models.profile.Profile
 import kg.geekspro.android_lotos.ui.fragments.pesonaldata.personalInfoFragment.personalData.PersonalDataViewModel
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
 import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -27,6 +32,8 @@ class RefactorDataFragment : Fragment() {
     private lateinit var binding: FragmentRefactorDataBinding
     private val viewModel:PersonalDataViewModel by viewModels()
     private val refactorViewModel:RefactorDataViewModel by viewModels()
+    private lateinit var byteArray: ByteArray
+    private lateinit var selectedFileUri:Uri
 
     @Inject
     lateinit var pref: Pref
@@ -34,17 +41,18 @@ class RefactorDataFragment : Fragment() {
     private val getCommentMedia =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                val selectedFileUri = result.data?.data
-                selectedFileUri?.let { uri ->
-                    val inputStream = requireContext().contentResolver.openInputStream(uri)
-                    val bitmap = BitmapFactory.decodeStream(inputStream)
-                    val output = ByteArrayOutputStream()
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, output)
-                    val byteArray = output.toByteArray()
-                    pref.saveImage(byteArray.toString()) // Сохранение изображения в формате PNG в SharedPreferences
-                    Glide.with(binding.imageProfile).load(byteArray)
+                selectedFileUri = result.data?.data!!
+                selectedFileUri.let {
+                    byteArray = convertImageToFormat(requireContext(), it, Bitmap.CompressFormat.JPEG) ?: byteArrayOf()
+                    pref.saveImage(it.toString())
+                    Glide.with(binding.imageProfile).load(it)
                         .into(binding.imageProfile)
                 }
+                /*pref.saveImage(selectedFileUri.toString())
+                Glide.with(binding.imageProfile).load(pref.getImage())
+                    .into(binding.imageProfile)
+                convertImageToFormat(requireContext(), selectedFileUri!!, Bitmap.CompressFormat.JPEG)
+*/
             }
         }
 
@@ -61,15 +69,17 @@ class RefactorDataFragment : Fragment() {
         binding.apply {
             viewModel.getProfileData().observe(viewLifecycleOwner){
                 if (it != null) {
-
                     etName.setText(it.firstName)
                     etSurname.setText(it.lastName)
                     etDateOfBirth.setText(it.dateOfBirth)
                     etAddress.setText(it.address)
 
                     btnSaveData.setOnClickListener {
+                        val byteArray = convertImageToFormat(requireContext(), selectedFileUri, Bitmap.CompressFormat.JPEG) ?: byteArrayOf()
+                        val imageFile = convertByteArrayToFile(requireContext(), byteArray, "image.jpg")
+
                         val refactorData = Profile(
-                            photo = pref.getImage()!!.toByteArray(),
+                            photo = imageFile,
                             firstName = etName.text.toString(),
                             lastName = etSurname.text.toString(),
                             dateOfBirth = etDateOfBirth.text.toString(),
@@ -79,6 +89,7 @@ class RefactorDataFragment : Fragment() {
                             findNavController().navigate(R.id.profileFragment)
                         }
                     }
+
                 }
             }
 
@@ -92,5 +103,46 @@ class RefactorDataFragment : Fragment() {
             }
         }
 
+    }
+
+    private fun convertImageToFormat(context: Context, imageUri: Uri, outputFormat: Bitmap.CompressFormat): ByteArray? {
+        try {
+            // Load the image Bitmap from the Uri
+           /* val inputStream = context.contentResolver.openInputStream(imageUri)
+            val bitmap = BitmapFactory.decodeStream(inputStream)
+
+            // Create a new file to save the converted image
+            val outputFile = File(context.cacheDir, "converted_image.${outputFormat.name.toLowerCase()}")
+
+            // Convert Bitmap to the desired format and save it to the file
+            val outputStream = FileOutputStream(outputFile)
+            bitmap.compress(outputFormat, 100, outputStream)
+            outputStream.flush()
+            outputStream.close()
+
+            // Return the Uri of the newly converted image file
+            return Uri.fromFile(outputFile)*/
+
+            val inputStream = context.contentResolver.openInputStream(imageUri)
+            val bitmap = BitmapFactory.decodeStream(inputStream)
+
+            // Convert Bitmap to the desired format (JPEG) and save it to a ByteArrayOutputStream
+            val outputStream = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+
+            // Convert ByteArrayOutputStream to ByteArray
+            return outputStream.toByteArray()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        return null
+    }
+
+    private fun convertByteArrayToFile(context: Context, byteArray: ByteArray, fileName: String): File {
+        val file = File(context.cacheDir, fileName)
+        FileOutputStream(file).use {
+            it.write(byteArray)
+        }
+        return file
     }
 }

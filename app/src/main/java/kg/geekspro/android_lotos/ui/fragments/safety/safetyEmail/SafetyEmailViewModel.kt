@@ -12,7 +12,7 @@ class SafetyEmailViewModel @Inject constructor(private val repository: Repositor
         return repository.changeEmail(changeEmail)
     }
 
-    fun changeEmailConfirm(code: Code):LiveData<Any>{
+    fun changeEmailConfirm(code: Code):LiveData<String>{
         return repository.changeEmailConfirm(code)
     }
 }

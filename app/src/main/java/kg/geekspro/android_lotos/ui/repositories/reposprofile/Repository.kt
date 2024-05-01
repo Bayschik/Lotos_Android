@@ -13,6 +13,7 @@ import kg.geekspro.android_lotos.ui.fragments.profile.logOut.RefreshToken
 import kg.geekspro.android_lotos.ui.fragments.profile.password.create.PasswordCreate
 import kg.geekspro.android_lotos.ui.fragments.safety.safetyEmail.ChangeEmail
 import kg.geekspro.android_lotos.ui.fragments.safety.safetyEmail.Code
+import kg.geekspro.android_lotos.ui.fragments.safety.safetyPassword.ChangePassword
 import kg.geekspro.android_lotos.ui.interfaces.profileinterfaces.ApiService
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
 import okhttp3.Headers
@@ -21,15 +22,14 @@ import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
-class Repository @Inject constructor(private val api: ApiService, private val pref:Pref) {
-    private lateinit var sessionId:String
+class Repository @Inject constructor(private val api: ApiService, private val pref: Pref) {
+    private lateinit var sessionId: String
 
     fun verifyEmail(emailAddress: Registration): LiveData<String> {
         val email = MutableLiveData<String>()
 
         api.verifyEmail(emailAddress).enqueue(object : Callback<String> {
             override fun onResponse(call: Call<String>, response: Response<String>) {
-
                 if (response.isSuccessful) {
                     val headerList: Headers = response.headers()
                     for (header in headerList) {
@@ -114,7 +114,10 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
         val session = pref.getSessionId()
         session?.let {
             api.setPassword(password, it).enqueue(object : Callback<PasswordCreate> {
-                override fun onResponse(call: Call<PasswordCreate>, response: Response<PasswordCreate>) {
+                override fun onResponse(
+                    call: Call<PasswordCreate>,
+                    response: Response<PasswordCreate>
+                ) {
                     if (response.isSuccessful) {
                         response.body().let {
                             clientPassword.postValue(it)
@@ -139,15 +142,17 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
         val session = pref.getSessionId()
         session?.let {
             api.logIn(logIn).enqueue(object : Callback<PasswordCreate> {
-                override fun onResponse(call: Call<PasswordCreate>, response: Response<PasswordCreate>) {
+                override fun onResponse(
+                    call: Call<PasswordCreate>,
+                    response: Response<PasswordCreate>
+                ) {
                     if (response.isSuccessful) {
                         response.body().let {
                             logInValue.postValue(it)
                             pref.saveAccessToken(it!!.access)
                             Log.d("onSuccessLogIn", it.toString())
                         }
-                    }
-                    else{
+                    } else {
                         Log.d("logIn", "тчо-то пошло не так")
                     }
                 }
@@ -161,14 +166,14 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
     }
 
     fun getProfile(): LiveData<Profile> {
-        val clientPassword = MutableLiveData<Profile>()
+        val profile = MutableLiveData<Profile>()
 
         val accessToken = pref.getAccessToken()!!
         api.getProfile("Bearer $accessToken").enqueue(object : Callback<Profile> {
             override fun onResponse(call: Call<Profile>, response: Response<Profile>) {
                 if (response.isSuccessful) {
                     response.body().let {
-                        clientPassword.postValue(it)
+                        profile.postValue(it)
                         Log.d("onSuccessPassword", it.toString())
                     }
                 }
@@ -178,7 +183,7 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
                 Log.e("onPasswordFailure", t.message.toString())
             }
         })
-        return clientPassword
+        return profile
     }
 
     fun logOut(): LiveData<Unit> {
@@ -205,15 +210,15 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
         return logOut
     }
 
-    fun putDataProfile(refactorData:Profile): LiveData<Profile> {
-        val clientPassword = MutableLiveData<Profile>()
+    fun putDataProfile(refactorData: Profile): LiveData<Profile> {
+        val putData = MutableLiveData<Profile>()
 
         val accessToken = pref.getAccessToken()!!
-        api.putProfile(refactorData,"Bearer $accessToken").enqueue(object : Callback<Profile> {
+        api.putProfile(refactorData, "Bearer $accessToken").enqueue(object : Callback<Profile> {
             override fun onResponse(call: Call<Profile>, response: Response<Profile>) {
                 if (response.isSuccessful) {
                     response.body().let {
-                        clientPassword.postValue(it)
+                        putData.postValue(it)
                         Log.d("onSuccessPassword", it.toString())
                     }
                 }
@@ -223,18 +228,30 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
                 Log.e("onPasswordFailure", t.message.toString())
             }
         })
-        return clientPassword
+        return putData
     }
 
     fun changeEmail(changeEmail: ChangeEmail): LiveData<Any> {
-        val clientPassword = MutableLiveData<Any>()
+        val emailChange = MutableLiveData<Any>()
 
         val accessToken = pref.getAccessToken()!!
-        api.changeEmail("Bearer ${accessToken}", changeEmail).enqueue(object : Callback<Any> {
+        api.changeEmail("Bearer $accessToken", changeEmail).enqueue(object : Callback<Any> {
             override fun onResponse(call: Call<Any>, response: Response<Any>) {
                 if (response.isSuccessful) {
+                    val headerList: Headers = response.headers()
+                    for (header in headerList) {
+                        if (header.first == "Set-Cookie") {
+                            val pattern = "sessionid=([^;]+)".toRegex()
+                            val matchResult = pattern.find(header.second)
+
+                            val extractedSessionId = matchResult?.groupValues?.get(1)
+                            sessionId = "sessionid=$extractedSessionId"
+                            pref.saveChaneEmailSessionId(sessionId)
+                            break
+                        }
+                    }
                     response.body().let {
-                        clientPassword.postValue(it)
+                        emailChange.postValue(sessionId)
                         Log.d("onSuccessChangeEmail", it.toString())
                     }
                 }
@@ -244,27 +261,56 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
                 Log.e("onChangeEmailFailure", t.message.toString())
             }
         })
-        return clientPassword
+        return emailChange
     }
 
-    fun changeEmailConfirm(code:Code): LiveData<Any> {
-        val clientPassword = MutableLiveData<Any>()
+    fun changeEmailConfirm(code: Code): LiveData<String> {
+        val confirmEmail = MutableLiveData<String>()
 
         val accessToken = pref.getAccessToken()!!
-        api.changeEmailConfirm(accessToken, code).enqueue(object : Callback<Any> {
-            override fun onResponse(call: Call<Any>, response: Response<Any>) {
+        val session = pref.getChaneEmailSessionId()
+        session?.let { id ->
+            api.changeEmailConfirm("Bearer $accessToken", id, code)
+                .enqueue(object : Callback<String> {
+                    override fun onResponse(call: Call<String>, response: Response<String>) {
+                        if (response.isSuccessful) {
+                            response.body().let {
+                                confirmEmail.postValue(it)
+                                Log.d("onSuccessChangeEmailCode", it.toString())
+                            }
+                        }
+                    }
+
+                    override fun onFailure(call: Call<String>, t: Throwable) {
+                        Log.e("onChangeEmailCodeFailure", t.message.toString())
+                    }
+                })
+        }
+        return confirmEmail
+    }
+
+    fun changePassword(changePassword: ChangePassword): LiveData<Unit> {
+        val password = MutableLiveData<Unit>()
+
+        val accessToken = pref.getAccessToken()!!
+        api.changePassword("Bearer $accessToken", changePassword).enqueue(object : Callback<Unit> {
+            override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
                 if (response.isSuccessful) {
                     response.body().let {
-                        clientPassword.postValue(it)
+                        password.postValue(it)
                         Log.d("onSuccessChangeEmailCode", it.toString())
                     }
                 }
             }
 
-            override fun onFailure(call: Call<Any>, t: Throwable) {
+            override fun onFailure(call: Call<Unit>, t: Throwable) {
                 Log.e("onChangeEmailCodeFailure", t.message.toString())
             }
         })
-        return clientPassword
+        return password
     }
+
+    // client_create = Set-Cookie: sessionid=62pb53bd0jusvjmzufpcmvo25ddkhpb6
+    // client_create/confirm/, code=8548
+    // client_create/set_password/, "password":"123456789","re_password":"123456789"
 }

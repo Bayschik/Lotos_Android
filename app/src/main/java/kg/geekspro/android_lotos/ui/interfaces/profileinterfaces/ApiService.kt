@@ -10,6 +10,7 @@ import kg.geekspro.android_lotos.ui.fragments.profile.logOut.RefreshToken
 import kg.geekspro.android_lotos.ui.fragments.profile.password.create.PasswordCreate
 import kg.geekspro.android_lotos.ui.fragments.safety.safetyEmail.ChangeEmail
 import kg.geekspro.android_lotos.ui.fragments.safety.safetyEmail.Code
+import kg.geekspro.android_lotos.ui.fragments.safety.safetyPassword.ChangePassword
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -75,6 +76,14 @@ interface ApiService {
     @POST("api/v1/change_email/confirm/")
     fun changeEmailConfirm(
         @Header("Authorization") accessToken:String,
+        @Header("Cookie") sessionId:String,
         @Body code:Code
-    ):Call<Any>
+    ):Call<String>
+
+    @POST("api/v1/change_password/")
+    fun changePassword(
+        @Header("Authorization") accessToken:String,
+        @Body changePassword: ChangePassword
+    ):Call<Unit>
+
 }
