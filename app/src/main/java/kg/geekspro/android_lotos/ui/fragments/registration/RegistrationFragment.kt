@@ -70,7 +70,6 @@ class RegistrationFragment : Fragment() {
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
-    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -87,6 +86,6 @@ class RegistrationFragment : Fragment() {
     }
 
     companion object {
-        private const val RC_SIGN_IN = 123
+        private const val RC_SIGN_IN = 124
     }
 }

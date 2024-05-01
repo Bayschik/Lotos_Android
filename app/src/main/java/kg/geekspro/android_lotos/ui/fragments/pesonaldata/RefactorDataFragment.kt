@@ -69,7 +69,7 @@ class RefactorDataFragment : Fragment() {
 
                     btnSaveData.setOnClickListener {
                         val refactorData = Profile(
-                            photo = "",
+                            photo = "/storage/emulated/0/Pictures/Screenshot.Screenshot_20240406-011151.jpg",
                             firstName = etName.text.toString(),
                             lastName = etSurname.text.toString(),
                             dateOfBirth = etDateOfBirth.text.toString(),

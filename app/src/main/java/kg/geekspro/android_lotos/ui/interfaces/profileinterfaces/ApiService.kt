@@ -90,6 +90,6 @@ interface ApiService {
     @POST("api/v1/auth/jwt/verify/")
     fun checkUser(
         @Body accessToken:Token,
-    ):Call<Unit>
+    ):Call<String>
 
 }

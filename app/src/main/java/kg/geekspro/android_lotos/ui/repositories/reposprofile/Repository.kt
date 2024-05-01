@@ -311,11 +311,11 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
         return password
     }
 
-    fun checkUser(accessToken: Token): LiveData<Unit> {
-        val user = MutableLiveData<Unit>()
+    fun checkUser(accessToken: Token): LiveData<String> {
+        val user = MutableLiveData<String>()
 
-        api.checkUser(accessToken).enqueue(object : Callback<Unit> {
-            override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+        api.checkUser(accessToken).enqueue(object : Callback<String> {
+            override fun onResponse(call: Call<String>, response: Response<String>) {
                 if (response.isSuccessful) {
                     response.body().let {
                         user.postValue(it)
@@ -324,7 +324,7 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
                 }
             }
 
-            override fun onFailure(call: Call<Unit>, t: Throwable) {
+            override fun onFailure(call: Call<String>, t: Throwable) {
                 Log.e("onCheckUserFailure", t.message.toString())
             }
         })

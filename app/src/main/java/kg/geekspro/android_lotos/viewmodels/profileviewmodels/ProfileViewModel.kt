@@ -17,7 +17,7 @@ class ProfileViewModel @Inject constructor(private val repository: Repository) :
     fun logOut():LiveData<Unit>{
         return repository.logOut()
     }
-    fun checkUser(accessToken: Token):LiveData<Unit>{
+    fun checkUser(accessToken: Token):LiveData<String>{
         return repository.checkUser(accessToken)
     }
 

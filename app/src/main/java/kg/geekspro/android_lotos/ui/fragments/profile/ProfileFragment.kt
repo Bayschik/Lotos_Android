@@ -63,18 +63,18 @@ class ProfileFragment : Fragment() {
                 token = pref.getAccessToken()!!
             )
             viewModel.checkUser(accessToken).observe(viewLifecycleOwner) {
-                if (it == null){
-                    btnPersonalData.setOnClickListener { findNavController().navigate(R.id.personalDataFragment) }
-                    setImageFromPhone()
-                    btnOrderHistory.setOnClickListener { showBottomNavSheet() }
-                    btnExit.setOnClickListener { showLogOut() }
-                    btnSafetyPassword.setOnClickListener {
-                        findNavController().navigate(R.id.safetyFragment)
-                    }
+                if (it == null) {
                     viewModel.getProfile().observe(viewLifecycleOwner) {
                         tvUserFullName.text = "${it.lastName} ${it.firstName}"
+                        btnPersonalData.setOnClickListener { findNavController().navigate(R.id.personalDataFragment) }
+                        setImageFromPhone()
+                        btnOrderHistory.setOnClickListener { showBottomNavSheet() }
+                        btnExit.setOnClickListener { showLogOut() }
+                        btnSafetyPassword.setOnClickListener {
+                            findNavController().navigate(R.id.safetyFragment)
+                        }
                     }
-                }else{
+                } else {
                     val navOptions = NavOptions.Builder()
                         .setPopUpTo(R.id.profileFragment, false)
                         .build()
