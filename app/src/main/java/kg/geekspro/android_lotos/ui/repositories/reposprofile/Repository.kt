@@ -9,6 +9,7 @@ import kg.geekspro.android_lotos.models.profile.Profile
 import kg.geekspro.android_lotos.models.registrationmodel.Registration
 import kg.geekspro.android_lotos.models.verifycode.VerificationCode
 import kg.geekspro.android_lotos.ui.fragments.login.LogIn
+import kg.geekspro.android_lotos.ui.fragments.profile.Token
 import kg.geekspro.android_lotos.ui.fragments.profile.logOut.RefreshToken
 import kg.geekspro.android_lotos.ui.fragments.profile.password.create.PasswordCreate
 import kg.geekspro.android_lotos.ui.fragments.safety.safetyEmail.ChangeEmail
@@ -308,6 +309,26 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
             }
         })
         return password
+    }
+
+    fun checkUser(accessToken: Token): LiveData<Unit> {
+        val user = MutableLiveData<Unit>()
+
+        api.checkUser(accessToken).enqueue(object : Callback<Unit> {
+            override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+                if (response.isSuccessful) {
+                    response.body().let {
+                        user.postValue(it)
+                        Log.d("onSuccessCheckUser", it.toString())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<Unit>, t: Throwable) {
+                Log.e("onCheckUserFailure", t.message.toString())
+            }
+        })
+        return user
     }
 
     // client_create = Set-Cookie: sessionid=62pb53bd0jusvjmzufpcmvo25ddkhpb6

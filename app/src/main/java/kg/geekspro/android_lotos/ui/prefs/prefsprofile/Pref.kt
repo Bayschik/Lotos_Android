@@ -46,14 +46,6 @@ class Pref @Inject constructor(private val pref:SharedPreferences) {
         return pref.getString(ACCESS_TOKEN, null)
     }
 
-    fun isUserSigned():Boolean{
-        return pref.getBoolean(ON_USER_SIGNED, false)
-    }
-
-    fun onUserSigned(){
-        pref.edit().putBoolean(ON_USER_SIGNED, true).apply()
-    }
-
     fun saveChaneEmailSessionId(sessionId: String){
         pref.edit().putString(EMAIL_SESSION_ID, sessionId).apply()
     }
@@ -69,7 +61,6 @@ class Pref @Inject constructor(private val pref:SharedPreferences) {
         const val SESSION_ID = "session.id"
         const val REFRESH_TOKEN = "refresh.token"
         const val ACCESS_TOKEN = "access.tokenn"
-        const val ON_USER_SIGNED = "on.user.signed"
         const val EMAIL_SESSION_ID = "email.sessiond.id"
     }
 }

@@ -6,13 +6,13 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -22,15 +22,16 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
-import kg.geekspro.android_lotos.viewmodels.profileviewmodels.ProfileViewModel
 import kg.geekspro.android_lotos.databinding.FragmentProfileBinding
 import kg.geekspro.android_lotos.ui.adapters.orderhistory.OrderHistoryAdapter
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
+import kg.geekspro.android_lotos.viewmodels.profileviewmodels.ProfileViewModel
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
+
     @Inject
     lateinit var pref: Pref
     private lateinit var dialog: BottomSheetDialog
@@ -58,28 +59,33 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
-            if (!pref.isUserSigned()){
-                btnPersonalData.setOnClickListener {findNavController().navigate(R.id.personalDataFragment)}
-                setImageFromPhone()
-                btnOrderHistory.setOnClickListener {showBottomNavSheet()}
-                btnExit.setOnClickListener {showLogOut()}
-                btnSafetyPassword.setOnClickListener {
-                    findNavController().navigate(R.id.safetyFragment)
-                }
-                viewModel.getProfile().observe(viewLifecycleOwner){
-                    tvUserFullName.text = "${it.lastName} ${it.firstName}"
-                }
-            }else{
-                val navOptions = NavOptions.Builder()
-                    .setPopUpTo(R.id.profileFragment, false)
-                    .build()
+            val accessToken = Token(
+                token = pref.getAccessToken()!!
+            )
+            viewModel.checkUser(accessToken).observe(viewLifecycleOwner) {
+                if (it == null){
+                    btnPersonalData.setOnClickListener { findNavController().navigate(R.id.personalDataFragment) }
+                    setImageFromPhone()
+                    btnOrderHistory.setOnClickListener { showBottomNavSheet() }
+                    btnExit.setOnClickListener { showLogOut() }
+                    btnSafetyPassword.setOnClickListener {
+                        findNavController().navigate(R.id.safetyFragment)
+                    }
+                    viewModel.getProfile().observe(viewLifecycleOwner) {
+                        tvUserFullName.text = "${it.lastName} ${it.firstName}"
+                    }
+                }else{
+                    val navOptions = NavOptions.Builder()
+                        .setPopUpTo(R.id.profileFragment, false)
+                        .build()
 
-                findNavController().navigate(R.id.exitProfileFragment)
+                    findNavController().navigate(R.id.exitProfileFragment)
+                }
             }
         }
     }
 
-    private fun setImageFromPhone() = with(binding){
+    private fun setImageFromPhone() = with(binding) {
         Glide.with(imgProfile).load(pref.getImage()).placeholder(R.drawable.ic_profile_placeholder)
             .into(imgProfile)
 
@@ -101,13 +107,7 @@ class ProfileFragment : Fragment() {
         val alertShow = alertDialog.create()
 
         btnYes.setOnClickListener {
-            viewModel.logOut().observe(viewLifecycleOwner){
-                pref.onUserSigned()
-                alertShow.dismiss()
-                /*val navigationOptions = NavOptions.Builder()
-                .setPopUpTo(R.id.logOutFragment, )
-                .build()*/
-
+            viewModel.logOut().observe(viewLifecycleOwner) {
                 findNavController().navigate(R.id.action_profileFragment_to_logOutFragment)
             }
         }
@@ -124,7 +124,7 @@ class ProfileFragment : Fragment() {
         val bottomSheet = layoutInflater.inflate(R.layout.bottom_sheet_layout, null)
         val rvOrder = bottomSheet.findViewById<RecyclerView>(R.id.rv_order_history)
         val imgArrowBack = bottomSheet.findViewById<ImageView>(R.id.img_order_back)
-        imgArrowBack?.setOnClickListener{
+        imgArrowBack?.setOnClickListener {
             dialog.hide()
         }
         rvOrder.adapter = adapter

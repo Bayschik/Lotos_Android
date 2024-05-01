@@ -5,7 +5,7 @@ import okhttp3.MultipartBody
 import java.io.File
 
 data class Profile(
-    val photo:File,
+    val photo:String,
     @SerializedName("first_name")
     val firstName:String?=null,
     @SerializedName("last_name")

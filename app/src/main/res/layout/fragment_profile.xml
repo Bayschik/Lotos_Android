@@ -28,6 +28,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
             tools:text="Иван Иванов"
+            android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="36sp"
             app:layout_constraintBottom_toTopOf="@id/img_card_profile"

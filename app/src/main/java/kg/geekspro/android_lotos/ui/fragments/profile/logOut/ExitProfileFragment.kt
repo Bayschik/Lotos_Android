@@ -26,9 +26,15 @@ class ExitProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
         binding.apply {
             btnLogOutLogIn.setOnClickListener {findNavController().navigate(R.id.logFragment)}
             btnLogOutSingIn.setOnClickListener {findNavController().navigate(R.id.registrationFragment)}
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.clear()
     }
 }

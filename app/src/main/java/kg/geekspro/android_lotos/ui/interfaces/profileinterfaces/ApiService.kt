@@ -6,6 +6,7 @@ import kg.geekspro.android_lotos.models.orderhistorymodels.PersonalData
 import kg.geekspro.android_lotos.models.profile.Profile
 import kg.geekspro.android_lotos.models.profile.Password
 import kg.geekspro.android_lotos.ui.fragments.login.LogIn
+import kg.geekspro.android_lotos.ui.fragments.profile.Token
 import kg.geekspro.android_lotos.ui.fragments.profile.logOut.RefreshToken
 import kg.geekspro.android_lotos.ui.fragments.profile.password.create.PasswordCreate
 import kg.geekspro.android_lotos.ui.fragments.safety.safetyEmail.ChangeEmail
@@ -84,6 +85,11 @@ interface ApiService {
     fun changePassword(
         @Header("Authorization") accessToken:String,
         @Body changePassword: ChangePassword
+    ):Call<Unit>
+
+    @POST("api/v1/auth/jwt/verify/")
+    fun checkUser(
+        @Body accessToken:Token,
     ):Call<Unit>
 
 }
