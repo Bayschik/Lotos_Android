@@ -8,10 +8,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentSafetyChangeEmailBinding
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SafetyChangeEmailFragment : Fragment() {
@@ -44,8 +46,10 @@ class SafetyChangeEmailFragment : Fragment() {
                     val data = Code(
                         code = code
                     )
-                    viewModel.changeEmailConfirm(data).observe(viewLifecycleOwner){
-                        findNavController().navigate(R.id.safetyFragment)
+                    viewModel.viewModelScope.launch {
+                        viewModel.changeEmailConfirm(data).observe(viewLifecycleOwner){
+                            findNavController().navigate(R.id.safetyFragment)
+                        }
                     }
                 }
             }

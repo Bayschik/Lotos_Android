@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class VerificationViewModel @Inject constructor(private val repository: Repository):ViewModel() {
-    fun confirmCode(code: VerificationCode): LiveData<String> {
+    suspend fun confirmCode(code: VerificationCode): LiveData<String> {
         return repository.confirmCode(code)
     }
 }

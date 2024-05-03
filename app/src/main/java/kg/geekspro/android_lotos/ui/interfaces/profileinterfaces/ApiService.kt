@@ -7,6 +7,7 @@ import kg.geekspro.android_lotos.models.profile.Profile
 import kg.geekspro.android_lotos.models.profile.Password
 import kg.geekspro.android_lotos.ui.fragments.login.LogIn
 import kg.geekspro.android_lotos.ui.fragments.profile.Token
+import kg.geekspro.android_lotos.ui.fragments.profile.TokenVerify
 import kg.geekspro.android_lotos.ui.fragments.profile.logOut.RefreshToken
 import kg.geekspro.android_lotos.ui.fragments.profile.password.create.PasswordCreate
 import kg.geekspro.android_lotos.ui.fragments.safety.safetyEmail.ChangeEmail
@@ -16,80 +17,78 @@ import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
-import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.PUT
 
 interface ApiService {
 
-    //@Headers("Content-Type: application/json")
     @POST("api/v1/client_create/")
-    fun verifyEmail(
+    suspend fun verifyEmail(
         @Body email: Registration
     ):Call<String>
 
     @POST("api/v1/client_create/confirm/")
-    fun confirmCode(
+    suspend fun confirmCode(
         @Header("Cookie") sessionId:String,
         @Body code: VerificationCode
     ):Call<String>
 
     @POST("api/v1/client_create/set_data/")
-    fun clientCreate(
+    suspend fun clientCreate(
         @Body code: PersonalData,
         @Header("Cookie") sessionId:String
     ):Call<String>
 
     @POST("api/v1/client_create/set_password/")
-    fun setPassword(
+    suspend fun setPassword(
         @Body password: Password,
         @Header("Cookie") sessionId:String
     ):Call<PasswordCreate>
 
     @POST("api/v1/auth/jwt/create/")
-    fun logIn(
+    suspend fun logIn(
         @Body logIn:LogIn,
     ):Call<PasswordCreate>
 
     @GET("api/v1/profile/")
-    fun getProfile(
+    suspend fun getProfile(
         @Header("Authorization") accessToken:String
     ):Call<Profile>
 
     @PUT("api/v1/profile/")
-    fun putProfile(
+    suspend fun putProfile(
         @Body refactorData:Profile,
         @Header("Authorization") accessToken:String
     ):Call<Profile>
 
     @POST("api/v1/logout/")
-    fun logOut(
+    suspend fun logOut(
         @Header("Authorization") accessToken:String,
         @Body refreshToken:RefreshToken
     ):Call<Unit>
 
     @POST("api/v1/change_email/")
-    fun changeEmail(
+    suspend fun changeEmail(
         @Header("Authorization") accessToken:String,
         @Body changeEmail: ChangeEmail
     ):Call<Any>
 
     @POST("api/v1/change_email/confirm/")
-    fun changeEmailConfirm(
+    suspend fun changeEmailConfirm(
         @Header("Authorization") accessToken:String,
         @Header("Cookie") sessionId:String,
         @Body code:Code
     ):Call<String>
 
     @POST("api/v1/change_password/")
-    fun changePassword(
+    suspend fun changePassword(
         @Header("Authorization") accessToken:String,
         @Body changePassword: ChangePassword
     ):Call<Unit>
 
     @POST("api/v1/auth/jwt/verify/")
-    fun checkUser(
+    suspend fun checkUser(
         @Body accessToken:Token,
-    ):Call<String>
+    ):Call<TokenVerify>
 
 }

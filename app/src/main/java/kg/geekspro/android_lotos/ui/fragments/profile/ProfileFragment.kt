@@ -14,7 +14,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavOptions
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -26,6 +26,7 @@ import kg.geekspro.android_lotos.databinding.FragmentProfileBinding
 import kg.geekspro.android_lotos.ui.adapters.orderhistory.OrderHistoryAdapter
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
 import kg.geekspro.android_lotos.viewmodels.profileviewmodels.ProfileViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -62,24 +63,28 @@ class ProfileFragment : Fragment() {
             val accessToken = Token(
                 token = pref.getAccessToken()!!
             )
-            viewModel.checkUser(accessToken).observe(viewLifecycleOwner) {
-                if (it == null) {
-                    viewModel.getProfile().observe(viewLifecycleOwner) {
-                        tvUserFullName.text = "${it.lastName} ${it.firstName}"
-                        btnPersonalData.setOnClickListener { findNavController().navigate(R.id.personalDataFragment) }
-                        setImageFromPhone()
-                        btnOrderHistory.setOnClickListener { showBottomNavSheet() }
-                        btnExit.setOnClickListener { showLogOut() }
-                        btnSafetyPassword.setOnClickListener {
-                            findNavController().navigate(R.id.safetyFragment)
+            val verifyToken = TokenVerify(
+                detail = "Token is invalid or expired",
+                code = "token_not_valid"
+            )
+            viewModel.viewModelScope.launch {
+                viewModel.checkUser(accessToken).observe(viewLifecycleOwner) {
+                    if (it != verifyToken) {
+                        viewModel.viewModelScope.launch {
+                            viewModel.getProfile().observe(viewLifecycleOwner) {
+                                tvUserFullName.text = "${it.lastName} ${it.firstName}"
+                                btnPersonalData.setOnClickListener { findNavController().navigate(R.id.personalDataFragment) }
+                                setImageFromPhone()
+                                btnOrderHistory.setOnClickListener { showBottomNavSheet() }
+                                btnExit.setOnClickListener { showLogOut() }
+                                btnSafetyPassword.setOnClickListener {
+                                    findNavController().navigate(R.id.safetyFragment)
+                                }
+                            }
                         }
+                    } else {
+                        findNavController().navigate(R.id.exitProfileFragment)
                     }
-                } else {
-                    val navOptions = NavOptions.Builder()
-                        .setPopUpTo(R.id.profileFragment, false)
-                        .build()
-
-                    findNavController().navigate(R.id.exitProfileFragment)
                 }
             }
         }
@@ -107,8 +112,10 @@ class ProfileFragment : Fragment() {
         val alertShow = alertDialog.create()
 
         btnYes.setOnClickListener {
-            viewModel.logOut().observe(viewLifecycleOwner) {
-                findNavController().navigate(R.id.action_profileFragment_to_logOutFragment)
+            viewModel.viewModelScope.launch {
+                viewModel.logOut().observe(viewLifecycleOwner) {
+                    findNavController().navigate(R.id.action_profileFragment_to_logOutFragment)
+                }
             }
         }
         btnNo.setOnClickListener {

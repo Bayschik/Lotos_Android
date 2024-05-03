@@ -3,6 +3,7 @@ package kg.geekspro.android_lotos.ui.repositories.reposprofile
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.liveData
 import kg.geekspro.android_lotos.models.orderhistorymodels.PersonalData
 import kg.geekspro.android_lotos.models.profile.Password
 import kg.geekspro.android_lotos.models.profile.Profile
@@ -10,6 +11,7 @@ import kg.geekspro.android_lotos.models.registrationmodel.Registration
 import kg.geekspro.android_lotos.models.verifycode.VerificationCode
 import kg.geekspro.android_lotos.ui.fragments.login.LogIn
 import kg.geekspro.android_lotos.ui.fragments.profile.Token
+import kg.geekspro.android_lotos.ui.fragments.profile.TokenVerify
 import kg.geekspro.android_lotos.ui.fragments.profile.logOut.RefreshToken
 import kg.geekspro.android_lotos.ui.fragments.profile.password.create.PasswordCreate
 import kg.geekspro.android_lotos.ui.fragments.safety.safetyEmail.ChangeEmail
@@ -17,6 +19,7 @@ import kg.geekspro.android_lotos.ui.fragments.safety.safetyEmail.Code
 import kg.geekspro.android_lotos.ui.fragments.safety.safetyPassword.ChangePassword
 import kg.geekspro.android_lotos.ui.interfaces.profileinterfaces.ApiService
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
+import kotlinx.coroutines.Dispatchers
 import okhttp3.Headers
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,7 +29,7 @@ import javax.inject.Inject
 class Repository @Inject constructor(private val api: ApiService, private val pref: Pref) {
     private lateinit var sessionId: String
 
-    fun verifyEmail(emailAddress: Registration): LiveData<String> {
+    suspend fun verifyEmail(emailAddress: Registration): LiveData<String> = liveData(Dispatchers.IO){
         val email = MutableLiveData<String>()
 
         api.verifyEmail(emailAddress).enqueue(object : Callback<String> {
@@ -56,10 +59,10 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
             }
 
         })
-        return email
+        emit(email.toString())
     }
 
-    fun confirmCode(code: VerificationCode): LiveData<String> {
+    suspend fun confirmCode(code: VerificationCode): LiveData<String> {
         val codde = MutableLiveData<String>()
         val session = pref.getSessionId()
 
@@ -67,10 +70,10 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
             api.confirmCode(it, code).enqueue(object : Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if (response.isSuccessful) {
-                        response.body().let {
-                            codde.postValue(it)
-                            Log.d("отправка данных", it.toString())
-                            Log.d("onSuccessCode", it.toString())
+                        response.body().let {result->
+                            codde.postValue(result!!)
+                            Log.d("отправка данных", result)
+                            Log.d("onSuccessCode", result)
                         }
                     } else {
                         Log.d("onCode", "Что-то пошло не так")
@@ -87,16 +90,16 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
     }
 
 
-    fun clientCreate(data: PersonalData): LiveData<String> {
+    suspend fun clientCreate(data: PersonalData): LiveData<String> {
         val client = MutableLiveData<String>()
         val session = pref.getSessionId()
         session?.let {
             api.clientCreate(data, it).enqueue(object : Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if (response.isSuccessful) {
-                        response.body().let {
-                            client.postValue(it)
-                            Log.d("onSuccessCreate", it.toString())
+                        response.body().let {result->
+                            client.postValue(result!!)
+                            Log.d("onSuccessCreate", result)
                         }
                     }
                 }
@@ -109,7 +112,7 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
         return client
     }
 
-    fun setPassword(password: Password): LiveData<PasswordCreate> {
+    suspend fun setPassword(password: Password): LiveData<PasswordCreate> {
         val clientPassword = MutableLiveData<PasswordCreate>()
 
         val session = pref.getSessionId()
@@ -120,11 +123,11 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
                     response: Response<PasswordCreate>
                 ) {
                     if (response.isSuccessful) {
-                        response.body().let {
-                            clientPassword.postValue(it)
-                            pref.saveAccessToken(it!!.access)
-                            pref.saveRefreshToken(it.refresh)
-                            Log.d("onSuccessPassword", it.toString())
+                        response.body().let {result->
+                            clientPassword.postValue(result!!)
+                            pref.saveAccessToken(result.access)
+                            pref.saveRefreshToken(result.refresh)
+                            Log.d("onSuccessPassword", result.toString())
                         }
                     }
                 }
@@ -137,7 +140,7 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
         return clientPassword
     }
 
-    fun logIn(logIn: LogIn): LiveData<PasswordCreate> {
+    suspend fun logIn(logIn: LogIn): LiveData<PasswordCreate> {
         val logInValue = MutableLiveData<PasswordCreate>()
 
         val session = pref.getSessionId()
@@ -148,10 +151,10 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
                     response: Response<PasswordCreate>
                 ) {
                     if (response.isSuccessful) {
-                        response.body().let {
-                            logInValue.postValue(it)
-                            pref.saveAccessToken(it!!.access)
-                            Log.d("onSuccessLogIn", it.toString())
+                        response.body().let {result->
+                            logInValue.postValue(result!!)
+                            pref.saveAccessToken(result.access)
+                            Log.d("onSuccessLogIn", result.toString())
                         }
                     } else {
                         Log.d("logIn", "тчо-то пошло не так")
@@ -166,7 +169,7 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
         return logInValue
     }
 
-    fun getProfile(): LiveData<Profile> {
+    suspend fun getProfile(): LiveData<Profile> {
         val profile = MutableLiveData<Profile>()
 
         val accessToken = pref.getAccessToken()!!
@@ -187,7 +190,7 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
         return profile
     }
 
-    fun logOut(): LiveData<Unit> {
+    suspend fun logOut(): LiveData<Unit> {
         val logOut = MutableLiveData<Unit>()
         val refreshToken = pref.getRefresh()!!
 
@@ -211,7 +214,7 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
         return logOut
     }
 
-    fun putDataProfile(refactorData: Profile): LiveData<Profile> {
+    suspend fun putDataProfile(refactorData: Profile): LiveData<Profile> {
         val putData = MutableLiveData<Profile>()
 
         val accessToken = pref.getAccessToken()!!
@@ -232,7 +235,7 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
         return putData
     }
 
-    fun changeEmail(changeEmail: ChangeEmail): LiveData<Any> {
+    suspend fun changeEmail(changeEmail: ChangeEmail): LiveData<Any> {
         val emailChange = MutableLiveData<Any>()
 
         val accessToken = pref.getAccessToken()!!
@@ -265,7 +268,7 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
         return emailChange
     }
 
-    fun changeEmailConfirm(code: Code): LiveData<String> {
+    suspend fun changeEmailConfirm(code: Code): LiveData<String> {
         val confirmEmail = MutableLiveData<String>()
 
         val accessToken = pref.getAccessToken()!!
@@ -290,7 +293,7 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
         return confirmEmail
     }
 
-    fun changePassword(changePassword: ChangePassword): LiveData<Unit> {
+    suspend fun changePassword(changePassword: ChangePassword): LiveData<Unit> {
         val password = MutableLiveData<Unit>()
 
         val accessToken = pref.getAccessToken()!!
@@ -311,11 +314,11 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
         return password
     }
 
-    fun checkUser(accessToken: Token): LiveData<String> {
-        val user = MutableLiveData<String>()
+    suspend fun checkUser(accessToken: Token): LiveData<TokenVerify> {
+        val user = MutableLiveData<TokenVerify>()
 
-        api.checkUser(accessToken).enqueue(object : Callback<String> {
-            override fun onResponse(call: Call<String>, response: Response<String>) {
+        api.checkUser(accessToken).enqueue(object : Callback<TokenVerify> {
+            override fun onResponse(call: Call<TokenVerify>, response: Response<TokenVerify>) {
                 if (response.isSuccessful) {
                     response.body().let {
                         user.postValue(it)
@@ -324,7 +327,7 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
                 }
             }
 
-            override fun onFailure(call: Call<String>, t: Throwable) {
+            override fun onFailure(call: Call<TokenVerify>, t: Throwable) {
                 Log.e("onCheckUserFailure", t.message.toString())
             }
         })

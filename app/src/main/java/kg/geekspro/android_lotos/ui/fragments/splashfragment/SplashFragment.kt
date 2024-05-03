@@ -2,6 +2,7 @@ package kg.geekspro.android_lotos.ui.fragments.splashfragment
 
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,16 +17,15 @@ import javax.inject.Inject
 class SplashFragment : Fragment() {
     @Inject
     lateinit var pref: Pref
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Handler().postDelayed({
-            if (pref.isShow()){
-                findNavController().navigate(R.id.mainFragment)
-            }else{
+        Handler(Looper.myLooper()!!).postDelayed({
+            if (!pref.isShow()){
                 findNavController().navigate(R.id.onBoardingFragment)
+            }else{
+                findNavController().navigate(R.id.mainFragment)
             }
         },2000)
         return inflater.inflate(R.layout.fragment_splash, container, false)

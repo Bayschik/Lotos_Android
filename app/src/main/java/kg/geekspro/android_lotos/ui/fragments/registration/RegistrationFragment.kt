@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -16,9 +17,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
-import kg.geekspro.android_lotos.viewmodels.registrationviewmodel.RegistrationViewModel
 import kg.geekspro.android_lotos.databinding.FragmentRegistrationBinding
 import kg.geekspro.android_lotos.models.registrationmodel.Registration
+import kg.geekspro.android_lotos.viewmodels.registrationviewmodel.RegistrationViewModel
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class RegistrationFragment : Fragment() {
@@ -39,17 +41,20 @@ class RegistrationFragment : Fragment() {
         binding.apply {
             btnContinue.setOnClickListener {
                 if (etOfficialPhoneNumber.text.toString().isEmpty()) {
-                    Toast.makeText(requireContext(), "Введите вашу почту", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Введите вашу почту", Toast.LENGTH_SHORT)
+                        .show()
                 } else {
                     val email = Registration(
                         email = etOfficialPhoneNumber.text.toString()
                     )
-                    viewModel.verifyEmail(email).observe(viewLifecycleOwner) {
-                        Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
-                        findNavController().navigate(
-                            R.id.verificationCodeFragment,
-                            bundleOf("PHONE_NUMBER" to etOfficialPhoneNumber.text.toString())
-                        )
+                    viewModel.viewModelScope.launch {
+                        viewModel.verifyEmail(email).observe(viewLifecycleOwner) {
+                            Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
+                            findNavController().navigate(
+                                R.id.verificationCodeFragment,
+                                bundleOf("PHONE_NUMBER" to etOfficialPhoneNumber.text.toString())
+                            )
+                        }
                     }
                 }
             }

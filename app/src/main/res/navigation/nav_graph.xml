@@ -74,11 +74,7 @@
         android:id="@+id/splashFragment"
         android:name="kg.geekspro.android_lotos.ui.fragments.splashfragment.SplashFragment"
         android:label="fragment_splash"
-        tools:layout="@layout/fragment_splash">
-        <action
-            android:id="@+id/action_splashFragment_to_onBoardingFragment"
-            app:destination="@id/onBoardingFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_splash"/>
 
     <fragment
         android:id="@+id/personalInfoFragment"

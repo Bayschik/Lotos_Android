@@ -23,6 +23,7 @@ googleApiClient = "21.1.0"
 hilt = "2.50"
 okHttp = "4.12.0"
 roomKtx = "2.6.1"
+coroutines = "1.7.3"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -51,6 +52,7 @@ daggerHiltImpl = {group = "com.google.dagger", name = "hilt-android", version.re
 daggerHiltKapt = {group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt"}
 okHttpClient = {group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okHttp"}
 loggingInterceptor = {group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okHttp"}
+coroutines = {group="org.jetbrains.kotlinx", name="kotlinx-coroutines-android", version.ref = "coroutines"}
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomKtx" }
 
 [plugins]

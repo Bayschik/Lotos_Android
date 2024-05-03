@@ -83,4 +83,6 @@ dependencies {
     //OkHttpClient
     implementation(libs.okHttpClient)
     implementation(libs.loggingInterceptor)
+    //Coroutines
+    implementation(libs.coroutines)
 }

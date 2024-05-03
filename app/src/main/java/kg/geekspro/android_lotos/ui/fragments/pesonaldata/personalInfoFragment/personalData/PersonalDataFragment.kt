@@ -9,12 +9,14 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentPersonalDataBinding
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -58,13 +60,14 @@ class PersonalDataFragment : Fragment() {
 
             btnChangePersonalData.setOnClickListener {findNavController().navigate(R.id.refactorDataFragment)}
 
-            viewModel.getProfileData().observe(viewLifecycleOwner){profile->
-                tvOfficialName.text = profile.firstName
-                tvOfficialSurname.text = profile.lastName
-                tvOfficialDateOfBirth.text = profile.dateOfBirth
-                tvOfficialAddress.text = profile.address
+            viewModel.viewModelScope.launch {
+                viewModel.getProfileData().observe(viewLifecycleOwner){profile->
+                    tvOfficialName.text = profile.firstName
+                    tvOfficialSurname.text = profile.lastName
+                    tvOfficialDateOfBirth.text = profile.dateOfBirth
+                    tvOfficialAddress.text = profile.address
+                }
             }
-
         }
     }
 }

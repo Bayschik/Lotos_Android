@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentChangePasswordBinding
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ChangePasswordFragment : Fragment() {
@@ -52,8 +54,10 @@ class ChangePasswordFragment : Fragment() {
                         newPassword = etOfficialNewPassword.text.toString(),
                         reNewPassword = etOfficialSecondNewPassword.text.toString()
                     )
-                    viewModel.changePassword(changePassword).observe(viewLifecycleOwner){
-                        findNavController().navigateUp()
+                    viewModel.viewModelScope.launch {
+                        viewModel.changePassword(changePassword).observe(viewLifecycleOwner){
+                            findNavController().navigateUp()
+                        }
                     }
                 }
             }

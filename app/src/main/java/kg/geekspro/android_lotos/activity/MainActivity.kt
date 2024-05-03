@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         )
 
         if (!pref.isShow()) {
-            navController.navigate(R.id.onBoardingFragment)
+            navController.navigate(R.id.splashFragment)
         }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
