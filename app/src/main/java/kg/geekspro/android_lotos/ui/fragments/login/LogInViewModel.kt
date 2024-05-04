@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LogInViewModel @Inject constructor(private val repository: Repository):ViewModel() {
-    suspend fun logIn(logIn: LogIn):LiveData<PasswordCreate>{
+    fun logIn(logIn: LogIn):LiveData<PasswordCreate>{
         return repository.logIn(logIn)
     }
 }

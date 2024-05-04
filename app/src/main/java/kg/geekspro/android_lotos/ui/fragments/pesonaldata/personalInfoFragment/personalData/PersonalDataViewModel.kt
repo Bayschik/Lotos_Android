@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PersonalDataViewModel @Inject constructor(private val repository: Repository):ViewModel() {
-    suspend fun getProfileData():LiveData<Profile>{
+    fun getProfileData():LiveData<Profile>{
         return repository.getProfile()
     }
 }

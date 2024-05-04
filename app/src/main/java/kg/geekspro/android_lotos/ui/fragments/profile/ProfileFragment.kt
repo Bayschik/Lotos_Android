@@ -67,24 +67,22 @@ class ProfileFragment : Fragment() {
                 detail = "Token is invalid or expired",
                 code = "token_not_valid"
             )
-            viewModel.viewModelScope.launch {
-                viewModel.checkUser(accessToken).observe(viewLifecycleOwner) {
-                    if (it != verifyToken) {
-                        viewModel.viewModelScope.launch {
-                            viewModel.getProfile().observe(viewLifecycleOwner) {
-                                tvUserFullName.text = "${it.lastName} ${it.firstName}"
-                                btnPersonalData.setOnClickListener { findNavController().navigate(R.id.personalDataFragment) }
-                                setImageFromPhone()
-                                btnOrderHistory.setOnClickListener { showBottomNavSheet() }
-                                btnExit.setOnClickListener { showLogOut() }
-                                btnSafetyPassword.setOnClickListener {
-                                    findNavController().navigate(R.id.safetyFragment)
-                                }
+            viewModel.checkUser(accessToken).observe(viewLifecycleOwner) {
+                if (it != verifyToken) {
+                    viewModel.viewModelScope.launch {
+                        viewModel.getProfile().observe(viewLifecycleOwner) {
+                            tvUserFullName.text = "${it.lastName} ${it.firstName}"
+                            btnPersonalData.setOnClickListener { findNavController().navigate(R.id.personalDataFragment) }
+                            setImageFromPhone()
+                            btnOrderHistory.setOnClickListener { showBottomNavSheet() }
+                            btnExit.setOnClickListener { showLogOut() }
+                            btnSafetyPassword.setOnClickListener {
+                                findNavController().navigate(R.id.safetyFragment)
                             }
                         }
-                    } else {
-                        findNavController().navigate(R.id.exitProfileFragment)
                     }
+                } else {
+                    findNavController().navigate(R.id.exitProfileFragment)
                 }
             }
         }
@@ -112,10 +110,9 @@ class ProfileFragment : Fragment() {
         val alertShow = alertDialog.create()
 
         btnYes.setOnClickListener {
-            viewModel.viewModelScope.launch {
-                viewModel.logOut().observe(viewLifecycleOwner) {
-                    findNavController().navigate(R.id.action_profileFragment_to_logOutFragment)
-                }
+            alertShow.dismiss()
+            viewModel.logOut().observe(viewLifecycleOwner) {
+                findNavController().navigate(R.id.action_profileFragment_to_logOutFragment)
             }
         }
         btnNo.setOnClickListener {

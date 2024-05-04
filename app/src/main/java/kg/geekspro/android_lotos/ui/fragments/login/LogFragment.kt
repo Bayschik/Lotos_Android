@@ -7,12 +7,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentLogBinding
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class LogFragment : Fragment() {
@@ -34,17 +32,16 @@ class LogFragment : Fragment() {
                 if (etOfficialLogEmail.text.toString().isEmpty()
                     || etOfficialLogPassword.text.toString().isEmpty()
                 ) {
-                    Toast.makeText(requireContext(), "Введите ваши данные", Toast.LENGTH_SHORT).show()
-                }else{
+                    Toast.makeText(requireContext(), "Введите ваши данные", Toast.LENGTH_SHORT)
+                        .show()
+                } else {
                     val log = LogIn(
                         email = etOfficialLogEmail.text.toString(),
                         password = etOfficialLogPassword.text.toString()
                     )
-                    viewModel.viewModelScope.launch {
-                        viewModel.logIn(log).observe(viewLifecycleOwner){
-                            Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
-                            findNavController().navigate(R.id.mainFragment)
-                        }
+                    viewModel.logIn(log).observe(viewLifecycleOwner) {
+                        Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
+                        findNavController().navigate(R.id.mainFragment)
                     }
                 }
             }

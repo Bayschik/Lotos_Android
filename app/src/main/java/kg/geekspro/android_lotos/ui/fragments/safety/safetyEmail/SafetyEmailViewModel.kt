@@ -8,11 +8,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SafetyEmailViewModel @Inject constructor(private val repository: Repository):ViewModel() {
-    suspend fun changeEmail(changeEmail: ChangeEmail):LiveData<Any>{
+    fun changeEmail(changeEmail: ChangeEmail):LiveData<Any>{
         return repository.changeEmail(changeEmail)
     }
 
-    suspend fun changeEmailConfirm(code: Code):LiveData<String>{
+    fun changeEmailConfirm(code: Code):LiveData<String>{
         return repository.changeEmailConfirm(code)
     }
 }

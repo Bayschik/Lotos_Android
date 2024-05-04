@@ -1,24 +1,22 @@
 package kg.geekspro.android_lotos.ui.fragments.safety.safetyEmail
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentSafetyChangeEmailBinding
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SafetyChangeEmailFragment : Fragment() {
-    private lateinit var binding:FragmentSafetyChangeEmailBinding
-    private val viewModel:SafetyEmailViewModel by viewModels()
+    private lateinit var binding: FragmentSafetyChangeEmailBinding
+    private val viewModel: SafetyEmailViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +36,8 @@ class SafetyChangeEmailFragment : Fragment() {
                     inputCode3.text.toString().isEmpty() ||
                     inputCode4.text.toString().isEmpty()
                 ) {
-                    Toast.makeText(requireContext(), "Введите 4-значный код", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), "Введите 4-значный код", Toast.LENGTH_LONG)
+                        .show()
                 } else {
                     val code =
                         inputCode1.text.toString() + inputCode2.text.toString() + inputCode3.text.toString() + inputCode4.text.toString()
@@ -46,10 +45,8 @@ class SafetyChangeEmailFragment : Fragment() {
                     val data = Code(
                         code = code
                     )
-                    viewModel.viewModelScope.launch {
-                        viewModel.changeEmailConfirm(data).observe(viewLifecycleOwner){
-                            findNavController().navigate(R.id.safetyFragment)
-                        }
+                    viewModel.changeEmailConfirm(data).observe(viewLifecycleOwner) {
+                        findNavController().navigate(R.id.safetyFragment)
                     }
                 }
             }

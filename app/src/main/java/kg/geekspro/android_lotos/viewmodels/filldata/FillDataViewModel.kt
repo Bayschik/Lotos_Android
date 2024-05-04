@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FillDataViewModel @Inject constructor(private val repository: Repository):ViewModel() {
-    suspend fun clientCreate(data: PersonalData):LiveData<String>{
+    fun clientCreate(data: PersonalData):LiveData<String>{
         return repository.clientCreate(data)
     }
 }

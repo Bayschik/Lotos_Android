@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RegistrationViewModel @Inject constructor(private val repository: Repository):ViewModel() {
-    suspend fun verifyEmail(email: Registration):LiveData<String>{
+    fun verifyEmail(email: Registration):LiveData<String>{
         return repository.verifyEmail(email)
     }
 }

@@ -8,14 +8,12 @@ import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentVerificationCodeBinding
 import kg.geekspro.android_lotos.models.verifycode.VerificationCode
 import kg.geekspro.android_lotos.viewmodels.verifyviewmodel.VerificationViewModel
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class VerificationCodeFragment : Fragment() {
@@ -51,11 +49,9 @@ class VerificationCodeFragment : Fragment() {
 
                     val data = VerificationCode(code = code)
 
-                    viewModel.viewModelScope.launch {
-                        viewModel.confirmCode(data).observe(viewLifecycleOwner) {
-                            Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
-                            findNavController().navigate(R.id.fillDataFragment)
-                        }
+                    viewModel.confirmCode(data).observe(viewLifecycleOwner) {
+                        Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
+                        findNavController().navigate(R.id.fillDataFragment)
                     }
                 }
             }

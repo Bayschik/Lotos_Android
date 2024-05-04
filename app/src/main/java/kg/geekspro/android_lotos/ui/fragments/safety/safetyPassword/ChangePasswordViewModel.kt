@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ChangePasswordViewModel @Inject constructor(private val repository: Repository):ViewModel() {
-    suspend fun changePassword(changePassword: ChangePassword):LiveData<Unit>{
+    fun changePassword(changePassword: ChangePassword):LiveData<Unit>{
         return repository.changePassword(changePassword)
     }
 

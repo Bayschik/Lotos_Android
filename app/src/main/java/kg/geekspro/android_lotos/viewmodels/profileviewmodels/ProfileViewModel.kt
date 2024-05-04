@@ -11,14 +11,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(private val repository: Repository) :ViewModel() {
-    suspend fun getProfile():LiveData<Profile>{
+    fun getProfile():LiveData<Profile>{
         return repository.getProfile()
     }
 
-    suspend fun logOut():LiveData<Unit>{
+    fun logOut():LiveData<Unit>{
         return repository.logOut()
     }
-    suspend fun checkUser(accessToken: Token):LiveData<TokenVerify>{
+    fun checkUser(accessToken: Token):LiveData<TokenVerify>{
         return repository.checkUser(accessToken)
     }
 

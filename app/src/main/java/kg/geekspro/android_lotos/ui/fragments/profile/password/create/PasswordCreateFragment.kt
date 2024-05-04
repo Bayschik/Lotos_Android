@@ -7,14 +7,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
-import kg.geekspro.android_lotos.viewmodels.profileviewmodels.create.PasswordCreateViewModel
 import kg.geekspro.android_lotos.databinding.FragmentPasswordCreateBinding
 import kg.geekspro.android_lotos.models.profile.Password
-import kotlinx.coroutines.launch
+import kg.geekspro.android_lotos.viewmodels.profileviewmodels.create.PasswordCreateViewModel
 
 @AndroidEntryPoint
 class PasswordCreateFragment : Fragment() {
@@ -34,7 +32,7 @@ class PasswordCreateFragment : Fragment() {
         binding.apply {
             btnContinue.setOnClickListener {
                 if (etOfficialConfirmPassword.text.toString()
-                    .isEmpty() || etOfficialPasswordCreate.text.toString().isEmpty()
+                        .isEmpty() || etOfficialPasswordCreate.text.toString().isEmpty()
                 ) {
                     Toast.makeText(requireContext(), "Придумайте пароль", Toast.LENGTH_SHORT).show()
                 } else if (etOfficialConfirmPassword.text.toString() != etOfficialPasswordCreate.text?.toString()) {
@@ -45,10 +43,8 @@ class PasswordCreateFragment : Fragment() {
                         password = etOfficialPasswordCreate.text.toString(),
                         rePassword = etOfficialConfirmPassword.text.toString()
                     )
-                    viewModel.viewModelScope.launch {
-                        viewModel.setPassword(password).observe(viewLifecycleOwner){
-                            findNavController().navigate(R.id.mainFragment)
-                        }
+                    viewModel.setPassword(password).observe(viewLifecycleOwner) {
+                        findNavController().navigate(R.id.mainFragment)
                     }
                 }
             }

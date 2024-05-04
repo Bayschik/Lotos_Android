@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,14 +17,13 @@ import kg.geekspro.android_lotos.databinding.FragmentRefactorDataBinding
 import kg.geekspro.android_lotos.models.profile.Profile
 import kg.geekspro.android_lotos.ui.fragments.pesonaldata.personalInfoFragment.personalData.PersonalDataViewModel
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class RefactorDataFragment : Fragment() {
     private lateinit var binding: FragmentRefactorDataBinding
-    private val viewModel:PersonalDataViewModel by viewModels()
-    private val refactorViewModel:RefactorDataViewModel by viewModels()
+    private val viewModel: PersonalDataViewModel by viewModels()
+    private val refactorViewModel: RefactorDataViewModel by viewModels()
 
     @Inject
     lateinit var pref: Pref
@@ -51,30 +49,26 @@ class RefactorDataFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
-            viewModel.viewModelScope.launch {
-                viewModel.getProfileData().observe(viewLifecycleOwner){
-                    if (it != null) {
-                        etName.setText(it.firstName)
-                        etSurname.setText(it.lastName)
-                        etDateOfBirth.setText(it.dateOfBirth)
-                        etAddress.setText(it.address)
+            viewModel.getProfileData().observe(viewLifecycleOwner) {
+                if (it != null) {
+                    etName.setText(it.firstName)
+                    etSurname.setText(it.lastName)
+                    etDateOfBirth.setText(it.dateOfBirth)
+                    etAddress.setText(it.address)
 
-                        btnSaveData.setOnClickListener {
-                            val refactorData = Profile(
-                                photo = "/storage/emulated/0/Pictures/Screenshot.Screenshot_20240406-011151.jpg",
-                                firstName = etName.text.toString(),
-                                lastName = etSurname.text.toString(),
-                                dateOfBirth = etDateOfBirth.text.toString(),
-                                address = etAddress.text.toString()
-                            )
-                            viewModel.viewModelScope.launch {
-                                refactorViewModel.putData(refactorData).observe(viewLifecycleOwner){
-                                    findNavController().navigate(R.id.profileFragment)
-                                }
-                            }
+                    btnSaveData.setOnClickListener {
+                        val refactorData = Profile(
+                            photo = "/storage/emulated/0/Pictures/Screenshot.Screenshot_20240406-011151.jpg",
+                            firstName = etName.text.toString(),
+                            lastName = etSurname.text.toString(),
+                            dateOfBirth = etDateOfBirth.text.toString(),
+                            address = etAddress.text.toString()
+                        )
+                        refactorViewModel.putData(refactorData).observe(viewLifecycleOwner) {
+                            findNavController().navigate(R.id.profileFragment)
                         }
-
                     }
+
                 }
             }
 

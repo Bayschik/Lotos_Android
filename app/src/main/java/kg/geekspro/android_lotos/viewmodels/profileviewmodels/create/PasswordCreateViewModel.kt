@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PasswordCreateViewModel @Inject constructor(private val repository: Repository):ViewModel() {
-    suspend fun setPassword(password: Password):LiveData<PasswordCreate>{
+    fun setPassword(password: Password):LiveData<PasswordCreate>{
         return repository.setPassword(password)
     }
 }
