@@ -1,7 +1,10 @@
 package kg.geekspro.android_lotos.ui.fragments.pesonaldata
 
 import android.app.Activity
+import android.content.Context
+import android.content.ContextWrapper
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +20,11 @@ import kg.geekspro.android_lotos.databinding.FragmentRefactorDataBinding
 import kg.geekspro.android_lotos.models.profile.Profile
 import kg.geekspro.android_lotos.ui.fragments.pesonaldata.personalInfoFragment.personalData.PersonalDataViewModel
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
+import java.io.FileOutputStream
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -24,17 +32,38 @@ class RefactorDataFragment : Fragment() {
     private lateinit var binding: FragmentRefactorDataBinding
     private val viewModel: PersonalDataViewModel by viewModels()
     private val refactorViewModel: RefactorDataViewModel by viewModels()
-
     @Inject
     lateinit var pref: Pref
 
-    private val getCommentMedia =
+    /*private val getCommentMedia =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val selectedFileUri = result.data?.data!!
                 pref.saveImage(selectedFileUri.toString())
                 Glide.with(binding.imageProfile).load(pref.getImage())
                     .into(binding.imageProfile)
+            }
+        }*/
+
+    private val getCommentMedia =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val selectedFileUri = result.data?.data!!
+                val pngFile = convertUriToPng(selectedFileUri)
+                val requestBody = RequestBody.create("image/png".toMediaTypeOrNull(), pngFile)
+                val photoPart = MultipartBody.Part.createFormData("photo", pngFile.name, requestBody)
+
+                // Update refactorData with photoPart
+                val refactorData = Profile(
+                    photo = photoPart,
+                    firstName = binding.etName.text.toString(),
+                    lastName = binding.etSurname.text.toString(),
+                    dateOfBirth = binding.etDateOfBirth.text.toString(),
+                    address = binding.etAddress.text.toString()
+                )
+                refactorViewModel.putData(refactorData).observe(viewLifecycleOwner) {
+                    findNavController().navigate(R.id.profileFragment)
+                }
             }
         }
 
@@ -57,16 +86,7 @@ class RefactorDataFragment : Fragment() {
                     etAddress.setText(it.address)
 
                     btnSaveData.setOnClickListener {
-                        val refactorData = Profile(
-                            photo = "/storage/emulated/0/Pictures/Screenshot.Screenshot_20240406-011151.jpg",
-                            firstName = etName.text.toString(),
-                            lastName = etSurname.text.toString(),
-                            dateOfBirth = etDateOfBirth.text.toString(),
-                            address = etAddress.text.toString()
-                        )
-                        refactorViewModel.putData(refactorData).observe(viewLifecycleOwner) {
-                            findNavController().navigate(R.id.profileFragment)
-                        }
+                        getCommentMedia
                     }
 
                 }
@@ -82,5 +102,26 @@ class RefactorDataFragment : Fragment() {
             }
         }
 
+    }
+
+    private fun convertUriToPng(uri: Uri): File {
+        val contextWrapper = ContextWrapper(requireContext())
+        val file = contextWrapper.getDir("images", Context.MODE_PRIVATE)
+        val fileName = "${System.currentTimeMillis()}.png"
+        val destinationFile = File(file, fileName)
+
+        val inputStream = requireContext().contentResolver.openInputStream(uri)
+        val outputStream = FileOutputStream(destinationFile)
+
+        val buffer = ByteArray(1024)
+        var bytesRead: Int
+        while (inputStream!!.read(buffer).also { bytesRead = it } > 0) {
+            outputStream.write(buffer, 0, bytesRead)
+        }
+
+        inputStream.close()
+        outputStream.close()
+
+        return destinationFile
     }
 }

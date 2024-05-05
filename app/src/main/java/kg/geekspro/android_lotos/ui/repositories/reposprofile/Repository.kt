@@ -166,10 +166,8 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
         return logInValue
     }
 
-    fun getProfile(): LiveData<Profile> {
+    fun getProfile(accessToken:String?=null): LiveData<Profile> {
         val profile = MutableLiveData<Profile>()
-
-        val accessToken = pref.getAccessToken()!!
         api.getProfile("Bearer $accessToken").enqueue(object : Callback<Profile> {
             override fun onResponse(call: Call<Profile>, response: Response<Profile>) {
                 if (response.isSuccessful) {
@@ -317,10 +315,17 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
         api.checkUser(accessToken).enqueue(object : Callback<TokenVerify> {
             override fun onResponse(call: Call<TokenVerify>, response: Response<TokenVerify>) {
                 if (response.isSuccessful) {
-                    response.body().let {
+                    response.body()?.let {
                         user.postValue(it)
                         Log.d("onSuccessCheckUser", it.toString())
                     }
+                }else{
+                    val verifyToken = TokenVerify(
+                        detail = "Token is invalid or expired",
+                        code = "token_not_valid"
+                    )
+                    user.postValue(verifyToken)
+                    Log.d("onTokenFail", "ololo")
                 }
             }
 
@@ -329,5 +334,25 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
             }
         })
         return user
+    }
+
+    fun refreshToken(refreshToken: kg.geekspro.android_lotos.ui.fragments.profile.RefreshToken): LiveData<PasswordCreate> {
+        val refresh = MutableLiveData<PasswordCreate>()
+
+        api.refreshToken(refreshToken).enqueue(object : Callback<PasswordCreate> {
+            override fun onResponse(call: Call<PasswordCreate>, response: Response<PasswordCreate>) {
+                if (response.isSuccessful) {
+                    response.body().let {
+                        refresh.postValue(it)
+                        Log.d("onSuccessRefresh", it.toString())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<PasswordCreate>, t: Throwable) {
+                Log.e("onRefreshFailure", t.message.toString())
+            }
+        })
+        return refresh
     }
 }

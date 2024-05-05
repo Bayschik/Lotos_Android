@@ -92,4 +92,9 @@ interface ApiService {
         @Body accessToken:Token,
     ):Call<TokenVerify>
 
+    @POST("api/v1/auth/jwt/refresh/")
+    fun refreshToken(
+        @Body refreshToken:kg.geekspro.android_lotos.ui.fragments.profile.RefreshToken,
+    ):Call<PasswordCreate>
+
 }

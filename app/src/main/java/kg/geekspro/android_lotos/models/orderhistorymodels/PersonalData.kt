@@ -5,11 +5,11 @@ import java.io.Serializable
 
 data class PersonalData(
     @SerializedName("first_name")
-    val first_name:String,
+    val firstName:String,
     @SerializedName("last_name")
-    val last_name:String,
+    val lastName:String,
     @SerializedName("date_of_birth")
-    val date_of_birth:String,
+    val dateOfBirth:String,
     @SerializedName("phone")
     val phoneNumber:String,
     val address:String,

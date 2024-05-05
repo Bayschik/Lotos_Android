@@ -43,9 +43,9 @@ class FillDataFragment : Fragment() {
                         .show()
                 } else {
                     val data = PersonalData(
-                        first_name = etFillName.text.toString(),
-                        last_name = etFillSurname.text.toString(),
-                        date_of_birth = etFillDateOfBirth.text.toString(),
+                        firstName = etFillName.text.toString(),
+                        lastName = etFillSurname.text.toString(),
+                        dateOfBirth = etFillDateOfBirth.text.toString(),
                         phoneNumber = "+996${etFillPhoneNumber.text.toString()}",
                         address = etFillAddress.text.toString(),
                     )
