@@ -79,6 +79,17 @@ class RegistrationFragment : Fragment() {
             try {
                 val account = task.getResult(ApiException::class.java)
                 val email = account.email
+                val registration = Registration(
+                    email = email!!
+                )
+                viewModel.verifyEmail(registration).observe(viewLifecycleOwner){
+                    Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(
+                        R.id.verificationCodeFragment,
+                        bundleOf("PHONE_NUMBER" to binding.etOfficialPhoneNumber.text.toString())
+                    )
+                }
+
                 Toast.makeText(requireContext(), "Email: $email", Toast.LENGTH_SHORT).show()
             } catch (e: ApiException) {
                 Toast.makeText(requireContext(), e.statusCode, Toast.LENGTH_SHORT).show()
@@ -87,6 +98,6 @@ class RegistrationFragment : Fragment() {
     }
 
     companion object {
-        private const val RC_SIGN_IN = 124
+        private const val RC_SIGN_IN = 100
     }
 }
