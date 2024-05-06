@@ -342,7 +342,9 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
         api.refreshToken(refreshToken).enqueue(object : Callback<PasswordCreate> {
             override fun onResponse(call: Call<PasswordCreate>, response: Response<PasswordCreate>) {
                 if (response.isSuccessful) {
-                    response.body().let {
+                    response.body()?.let {
+                        pref.saveAccessToken(it.access)
+                        pref.saveRefreshToken(it.refresh)
                         refresh.postValue(it)
                         Log.d("onSuccessRefresh", it.toString())
                     }

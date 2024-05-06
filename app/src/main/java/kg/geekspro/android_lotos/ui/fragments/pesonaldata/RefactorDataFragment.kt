@@ -35,7 +35,7 @@ class RefactorDataFragment : Fragment() {
     @Inject
     lateinit var pref: Pref
 
-    /*private val getCommentMedia =
+    private val getCommentMedia =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val selectedFileUri = result.data?.data!!
@@ -43,9 +43,9 @@ class RefactorDataFragment : Fragment() {
                 Glide.with(binding.imageProfile).load(pref.getImage())
                     .into(binding.imageProfile)
             }
-        }*/
+        }
 
-    private val getCommentMedia =
+    /*private val getCommentMedia =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val selectedFileUri = result.data?.data!!
@@ -65,7 +65,7 @@ class RefactorDataFragment : Fragment() {
                     findNavController().navigate(R.id.profileFragment)
                 }
             }
-        }
+        }*/
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -78,7 +78,7 @@ class RefactorDataFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
-            viewModel.getProfileData().observe(viewLifecycleOwner) {
+            viewModel.getProfileData(pref.getAccessToken()!!).observe(viewLifecycleOwner) {
                 if (it != null) {
                     etName.setText(it.firstName)
                     etSurname.setText(it.lastName)
@@ -86,7 +86,19 @@ class RefactorDataFragment : Fragment() {
                     etAddress.setText(it.address)
 
                     btnSaveData.setOnClickListener {
-                        getCommentMedia
+                        /*getCommentMedia*/
+
+                        val refactorData = Profile(
+                            photo = pref.getImage()!!,
+                            firstName = binding.etName.text.toString(),
+                            lastName = binding.etSurname.text.toString(),
+                            dateOfBirth = binding.etDateOfBirth.text.toString(),
+                            address = binding.etAddress.text.toString()
+                        )
+
+                        refactorViewModel.putData(refactorData).observe(viewLifecycleOwner) {
+                            findNavController().navigate(R.id.profileFragment)
+                        }
                     }
 
                 }

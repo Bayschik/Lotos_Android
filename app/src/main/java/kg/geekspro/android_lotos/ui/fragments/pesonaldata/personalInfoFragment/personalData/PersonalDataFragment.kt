@@ -61,7 +61,7 @@ class PersonalDataFragment : Fragment() {
             btnChangePersonalData.setOnClickListener {findNavController().navigate(R.id.refactorDataFragment)}
 
             viewModel.viewModelScope.launch {
-                viewModel.getProfileData().observe(viewLifecycleOwner){profile->
+                viewModel.getProfileData(pref.getAccessToken()!!).observe(viewLifecycleOwner){profile->
                     tvOfficialName.text = profile.firstName
                     tvOfficialSurname.text = profile.lastName
                     tvOfficialDateOfBirth.text = profile.dateOfBirth

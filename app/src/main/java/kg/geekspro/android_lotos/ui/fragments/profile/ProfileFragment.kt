@@ -62,6 +62,7 @@ class ProfileFragment : Fragment() {
         binding.apply {
             val accessToken = Token(
                 token = pref.getAccessToken()!!
+
             )
             val verifyToken = TokenVerify(
                 detail = "Token is invalid or expired",
