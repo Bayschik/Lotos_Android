@@ -3,6 +3,7 @@ package kg.geekspro.android_lotos.ui.fragments.aboutus
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +16,7 @@ class AboutUsFragment : Fragment() {
 
     private lateinit var binding: FragmentAboutUsBinding
     private val fragmentList = mutableListOf<Fragment>()
-    private var currentFragmentIndex = 0
+    // private var currentFragmentIndex = 0
     private val delayMillis = 10000L
 
 
@@ -53,6 +54,12 @@ class AboutUsFragment : Fragment() {
         startActivity(intent)
     }
 }
+
+/*FirebaseMessaging.getInstance().token.addOnSuccessListener { token->
+    Log.d("shamal", token)
+}
+ */
+
 
 //        fragmentList.apply {
 //            add(ProfessionalMachAndEquipmentFragment())

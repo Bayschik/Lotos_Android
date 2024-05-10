@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         FirebaseMessaging.getInstance().token.addOnSuccessListener { token->
             Log.d("shamal", token)
-        }
+        } // Don't touch!!!
 
         val navController = findNavController(R.id.nav_host_fragment)
 
