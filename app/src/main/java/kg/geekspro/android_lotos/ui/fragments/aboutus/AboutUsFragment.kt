@@ -3,13 +3,11 @@ package kg.geekspro.android_lotos.ui.fragments.aboutus
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentAboutUsBinding
 
@@ -18,74 +16,69 @@ class AboutUsFragment : Fragment() {
     private lateinit var binding: FragmentAboutUsBinding
     private val fragmentList = mutableListOf<Fragment>()
     private var currentFragmentIndex = 0
-    private val handler = Handler(Looper.getMainLooper())
     private val delayMillis = 10000L
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentAboutUsBinding.inflate(layoutInflater, container, false)
-
-        fragmentList.apply {
-            add(AboutUsFragment())
-            add(ProfessionalMachAndEquipmentFragment())
-            add(TeamOfProfessionalsFragment())
-            add(WideAssortmentFragment())
-        }
-
-        // Запускаем автоматическую навигацию между фрагментами с интервалом в 10 секунд
-        startFragmentNavigation()
-
+        binding = FragmentAboutUsBinding.inflate(inflater, container, false)
         return binding.root
-    }
-
-    private fun startFragmentNavigation() {
-        handler.postDelayed(object : Runnable {
-            override fun run() {
-                // Переходим к следующему фрагменту в списке
-                currentFragmentIndex = (currentFragmentIndex + 1) % fragmentList.size
-                val fragment = fragmentList[currentFragmentIndex]
-                val fragmentTransaction =
-                    requireActivity().supportFragmentManager.beginTransaction()
-                fragmentTransaction.replace(R.id.aboutUsFragment, fragment)
-                fragmentTransaction.addToBackStack(null)
-                fragmentTransaction.commit()
-
-                // Запускаем задачу снова после задержки
-                handler.postDelayed(this, delayMillis)
-            }
-        }, delayMillis)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        // Очищаем все задачи хендлера при уничтожении представления
-        handler.removeCallbacksAndMessages(null)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        btn1setOnClickListener()
+        btn2setOnClickListener()
+        btn3setOnClickListener()
+    }
 
-        val youTubeUrl = "http://api.example.org/accounts/?page=4"
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(youTubeUrl))
+    private fun btn1setOnClickListener() {
+        findNavController().navigate(R.id.btn_videoPlay1)
+//        val youtubeUrl = "https://www.youtube.com/watch?v=c4Y4BN4wJLU&list=RD0r-P9ierpTU&index=18"
+//        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(youtubeUrl))
+//        startActivity(intent)
+    }
+
+    private fun btn2setOnClickListener() {
+        val youtubeUrl = "https://www.youtube.com/watch?v=c4Y4BN4wJLU&list=RD0r-P9ierpTU&index=18"
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(youtubeUrl))
         startActivity(intent)
+    }
 
-        val ivWhatsApp = binding.root.findViewById<Button>(R.id.ivWhatsApp)
-        val ivTelephone = binding.root.findViewById<Button>(R.id.ivTelephone)
-        val ivInstagram = binding.root.findViewById<Button>(R.id.ivInstagram)
-
-        ivWhatsApp.setOnClickListener {
-           // openUrl("http://example.com/link1")
-        }
-        ivTelephone.setOnClickListener {
-           // openUrl("http://example.com/link2")
-        }
-        ivInstagram.setOnClickListener {
-           // openUrl("http://example.com/link3")
-        }
+    private fun btn3setOnClickListener() {
+        val youtubeUrl = "https://www.youtube.com/watch?v=c4Y4BN4wJLU&list=RD0r-P9ierpTU&index=18"
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(youtubeUrl))
+        startActivity(intent)
     }
 }
+
+//        fragmentList.apply {
+//            add(ProfessionalMachAndEquipmentFragment())
+//            add(TeamOfProfessionalsFragment())
+//            add(WideAssortmentFragment())
+//        }
+//        startFragmentNavigation() 
+
+
+//    val youtubeButton: Button = findViewById(R.id.youtube_button)
+//    youtubeButton.setOnClickListener {
+//        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com"))
+//        startActivity(intent)
+//    }
+
+
+//        ivWhatsApp.setOnClickListener {
+//           // openUrl("http://example.com/link1")
+//        }
+//        ivTelephone.setOnClickListener {
+//           // openUrl("http://example.com/link2")
+//        }
+//        ivInstagram.setOnClickListener {
+//           // openUrl("http://example.com/link3")
+//        }
+//    }
 
 
 

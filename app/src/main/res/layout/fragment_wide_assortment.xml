@@ -31,7 +31,6 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/tvWeAreUse"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="img_arrow_left_second"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView

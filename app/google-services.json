@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "319354048286",
+    "project_id": "androidlotos2",
+    "storage_bucket": "androidlotos2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:319354048286:android:6158f76cc90f0c125d830f",
+        "android_client_info": {
+          "package_name": "kg.geekspro.android_lotos"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmyTB-hBPkrleXaHNtoxTtzkXgB8kWr2k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

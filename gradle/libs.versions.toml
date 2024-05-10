@@ -1,5 +1,6 @@
 [versions]
 agp = "8.3.0"
+firebaseBom = "32.8.1"
 gson = "2.10.1"
 kotlin = "1.9.22"
 coreKtx = "1.12.0"
@@ -21,6 +22,8 @@ circleIndicator = "2.1.6"
 room = "2.6.1"
 googleApiClient = "21.0.0"
 roomKtx = "2.6.1"
+googleServices = "4.4.1"
+firebaseMessaging = "23.4.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -28,6 +31,7 @@ androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-lived
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationUiKtx" }
 androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 circelImage = {module ="de.hdodenhof:circleimageview", version.ref = "circleImage"}
 circelIndicator = {module ="me.relex:circleindicator", version.ref = "circleIndicator"}
@@ -45,6 +49,8 @@ navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-kt
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomKtx" }
+google-services = { group = "com.google.gms", name = "google-services", version.ref = "googleServices" }
+firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging", version.ref = "firebaseMessaging" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

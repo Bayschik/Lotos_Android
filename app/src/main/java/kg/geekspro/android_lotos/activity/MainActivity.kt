@@ -1,12 +1,14 @@
 package kg.geekspro.android_lotos.activity
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.firebase.messaging.FirebaseMessaging
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.ActivityMainBinding
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
@@ -21,6 +23,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        FirebaseMessaging.getInstance().token.addOnSuccessListener { token->
+            Log.d("shamal", token)
+        }
 
         val navController = findNavController(R.id.nav_host_fragment)
 
