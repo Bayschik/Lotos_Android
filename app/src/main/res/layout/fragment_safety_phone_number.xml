@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.fragments.safety.safetyPhone.SafetyPhoneNumberFragment">
+
+    <ImageView
+        android:id="@+id/img_arrow_back"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_margin="12dp"
+        android:src="@drawable/ic_arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_update_phone_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:text="Обновите свой номер \nтелефона"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="@id/img_arrow_back"
+        app:layout_constraintTop_toBottomOf="@id/img_arrow_back" />
+
+    <TextView
+        android:id="@+id/tv_rule"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:text="Текущий номер вашего мобильного телефона-+996550894457? Удостоверьтесь, что ваша контактная информация указана верно, чтобы у вас было возможности сбрасывать пароль, получать уведомления"
+        android:textColor="@color/black"
+        android:lineHeight="24dp"
+        android:textSize="16sp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="@id/tv_update_phone_number"
+        app:layout_constraintTop_toBottomOf="@id/tv_update_phone_number" />
+
+    <TextView
+        android:id="@+id/tv_second_rule"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:text="При необходимости обновите номер телефона, и мы вышлем на него код подтверждения"
+        android:textColor="@color/black"
+        android:lineHeight="24dp"
+        android:textSize="16sp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="@id/tv_rule"
+        app:layout_constraintTop_toBottomOf="@id/tv_rule" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/et_fill_phone_number_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="28dp"
+        android:hint="Номер телефона"
+        android:textColorHint="@color/black"
+        app:boxCornerRadiusBottomEnd="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusTopStart="12dp"
+        app:endIconMode="clear_text"
+        app:endIconTint="@color/blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_second_rule"
+        app:prefixTextColor="@color/black"
+        app:prefixText="+996">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_fill_phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="number"
+            android:textColor="@color/black" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_save_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="32dp"
+        android:insetTop="0dp"
+        app:cornerRadius="12dp"
+        android:insetBottom="0dp"
+        android:text="Сохранить"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

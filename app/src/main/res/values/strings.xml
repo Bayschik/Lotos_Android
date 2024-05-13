@@ -1,3 +1,56 @@
 <resources>
     <string name="app_name">Android_lotos</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tv_skip">Пропустить</string>
+    <string name="tv_title">Title</string>
+    <string name="title_main">Главная</string>
+    <string name="title_about_us">О нас</string>
+    <string name="title_profile">Профиль</string>
+    <string name="lotos">Lotos</string>
+    <string name="text">text</string>
+    // strings of Qamola
+    <string name="uslugy">Услуги</string>
+    <string name="cleaning">Уборка после ремонта</string>
+    <string name="_5000">От 5000</string>
+    <string name="description">Уборка после ремонта представляет собой процесс\n
+        очистки и привдения в порядок помещения после\n
+    завершения строительных или ремонтных работ.\n
+    Включает в себя удаление строительного мусора, пыли,\n
+    краски, и других отходов, а также осуществление общей\n
+        чистки помещения для достижения чистоты, порядка и\n
+        безопасности.
+    </string>
+
+    <string name="description_add">Влажная уборка - это процесс очистки помещения или\n
+        поверхности с использованием влажной ткани, тряпки\n
+        или других средств, смоченных в воде или специальных\n
+        моющих средствах. Она отличается от сухой уборки, при\n
+        которой используются сухие методы, такие как пылесос\n
+        или щетка для сбора пыли.</string>
+
+    <string name="description_general">Генеральная уборка - это особый вид уборки, который\n
+        включает в себя тщательную очистку помещения от\n
+        пыли, грязи, пятен и других загрязнений во всех его\n
+        уголках и на всех поверхностях. Этот процесс обычно\n
+        проводится несколько раз в год или по необходимости,\n
+        когда требуется более глубокая очистка помещения, чем\n
+        при обычной ежедневной или еженедельной уборке.</string>
+
+    <string name="what">Что входит в уборку?</string>
+    <string name="number_of_foom">Количество комнат</string>
+    <string name="_1">1</string>
+    <string name="_55_2">до 55 м2</string>
+    <string name="_2">2</string>
+    <string name="_60_2">до 60 м2</string>
+    <string name="_3">3</string>
+    <string name="_68_2">до 68 м2</string>
+    <string name="other">Другое</string>
+    <string name="_1000">не более 1000</string>
+    <string name="what_type_of_premises_do_you_have">какой у вас тип помещения</string>
+    <string name="cleaning_">Мытье духовного шкафа</string>
+    <string name="_300c">300c</string>
+    <string name="additional">Дополнительные услуги</string>
+    <string name="general">Генеральная уборка</string>
+    <string name="spring">Влажная уборка</string>
 </resources>
