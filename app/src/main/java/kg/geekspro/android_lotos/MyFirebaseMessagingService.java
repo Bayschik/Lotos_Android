@@ -1,9 +1,15 @@
 package kg.geekspro.android_lotos;
 
+import static com.google.firebase.messaging.MessagingKt.remoteMessage;
+
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -18,12 +24,20 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         super.onNewToken(token);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onMessageReceived(@NonNull RemoteMessage message) {
         super.onMessageReceived(message);
         Log.d("shamal", "onMessageReceived: " + message.getNotification().getTitle() + " " + message.getNotification().getBody());
 
         getFirebaseMessage(message.getNotification().getTitle(), message.getNotification().getBody());
+//        final String CHANNEL_ID = "HEADS_UP_NOTIFICATION";
+//        NotificationChannel channel = new NotificationChannel(
+//                CHANNEL_ID,
+//                "Heads Up Notification",
+//                NotificationManager.IMPORTANCE_HIGH
+//        );
+//        getSystemService(NotificationManager.class).createNotificationChannel(channel);
     }
 
     private void getFirebaseMessage(String title, String body) {

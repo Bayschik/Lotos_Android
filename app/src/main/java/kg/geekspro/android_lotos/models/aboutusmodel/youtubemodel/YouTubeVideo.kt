@@ -1,12 +1,26 @@
 package kg.geekspro.android_lotos.models.aboutusmodel.youtubemodel
 
+import com.google.gson.annotations.SerializedName
+
 data class YouTubeVideo(
-    val id: Int,
-    val title: String,
-    val url: String,
-    val created_at: Long,
+    val count: Int,
+    val next: String,
+    val previous: String,
+    val results: List<Result1>
 )
 
+data class Result1(
+    val id:Int,
+    val title:String,
+    val url:String,
+    val created_at:String,
+)
+
+data class asdadsa(
+    val img:Int,
+    val posleRemont:String,
+    val summa:String,
+)
 
  /*
  {

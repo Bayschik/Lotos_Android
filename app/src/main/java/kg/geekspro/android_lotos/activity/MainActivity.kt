@@ -14,6 +14,7 @@ import kg.geekspro.android_lotos.databinding.ActivityMainBinding
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
 
 class MainActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityMainBinding
     private val pref by lazy {
         Pref(this)
@@ -24,9 +25,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        FirebaseMessaging.getInstance().token.addOnSuccessListener { token->
+        FirebaseMessaging.getInstance().token.addOnSuccessListener { token ->
             Log.d("shamal", token)
         } // Don't touch!!!
+
 
         val navController = findNavController(R.id.nav_host_fragment)
 
@@ -60,5 +62,4 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.bottomNavView.setupWithNavController(navController)
     }
-
 }

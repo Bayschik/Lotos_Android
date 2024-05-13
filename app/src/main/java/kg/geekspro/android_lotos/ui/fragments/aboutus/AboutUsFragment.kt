@@ -37,7 +37,7 @@ class AboutUsFragment : Fragment() {
 
     private fun btn1setOnClickListener() {
         findNavController().navigate(R.id.btn_videoPlay1)
-//        val youtubeUrl = "https://www.youtube.com/watch?v=c4Y4BN4wJLU&list=RD0r-P9ierpTU&index=18"
+//        val youtubeUrl ="https://www.youtube.com/watch?v=c4Y4BN4wJLU&list=RD0r-P9ierpTU&index=18"
 //        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(youtubeUrl))
 //        startActivity(intent)
     }
