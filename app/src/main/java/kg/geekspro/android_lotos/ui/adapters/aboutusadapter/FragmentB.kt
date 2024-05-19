@@ -8,40 +8,26 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentBBinding
 
-class FragmentB(private val position: Int) : Fragment() {
+class FragmentB() : Fragment() {
 
     private lateinit var binding: FragmentBBinding
-
-//    companion object {
-//        private const val ARG_POSITION = "position"
-//
-//        fun newInstance(position: Int): FragmentB {
-//            val fragment = FragmentB(position)
-//            val args = Bundle()
-//            args.putInt(ARG_POSITION, position)
-//            fragment.arguments = args
-//            return fragment
-//        }
-//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Handler().postDelayed({
-
-        }, 10000)
         binding = FragmentBBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     companion object {
-        var POSITION_ARG = "position_arg"
+        private  const val POSITION_ARG = "position_arg"
         @JvmStatic
-        fun newInstance(position: Int) = FragmentA().apply {
+        fun newInstance(position: Int) = FragmentB().apply {
             arguments = Bundle().apply {
                 putInt(POSITION_ARG, position)
             }
@@ -50,11 +36,13 @@ class FragmentB(private val position: Int) : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val pos = arguments?.getInt((POSITION_ARG))
+        val position = arguments?.getInt(POSITION_ARG)?:0
         //val viewPager = binding?.btnBack
 
-        val textView = view.findViewById<TextView>(R.id.tvTheyAreAllow)
-        val imageView = view.findViewById<ImageView>(R.id.icImgProfMachine)
+        binding.btnBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
 
         when(position){
             0 -> {

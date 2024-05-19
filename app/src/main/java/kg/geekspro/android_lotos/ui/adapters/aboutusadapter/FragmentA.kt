@@ -18,24 +18,22 @@ class FragmentA : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentABinding.inflate(inflater, container, false)
-        return inflater.inflate(R.layout.fragment_a, container, false)
-    }
+        /*
+        Handler().postDelayed({
 
-    private fun getTitle(position: Int): String? {
-        return when (position) {
-            0 -> "Профессиональная техника и оборудование"
-            1 -> "Команда проффессионалов"
-            2 -> "Широкий ассортимент средств для уборки"
-            else  -> null
-        }
+        }, 10000)
+         */
+        binding = FragmentABinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<ViewPager2>(R.id.viewPager).adapter =
+        binding.viewPagerAboutUS.adapter =
             AboutUsStoriesViewPagerAdapter(childFragmentManager, lifecycle)
+
+        binding.indicator.setViewPager(binding.viewPagerAboutUS)
 
     }
 }
