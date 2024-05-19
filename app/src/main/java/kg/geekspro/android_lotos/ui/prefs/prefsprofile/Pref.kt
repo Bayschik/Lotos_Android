@@ -1,9 +1,13 @@
 package kg.geekspro.android_lotos.ui.prefs.prefsprofile
 
 import android.content.Context
+import android.content.SharedPreferences
+import android.util.Log
+import javax.inject.Inject
 
-class Pref(context: Context) {
-    private val pref = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+class Pref @Inject constructor(private val pref: SharedPreferences) {
+
+
 
     fun isShow():Boolean{
         return pref.getBoolean(SHOWED_KEY, false)
@@ -54,8 +58,14 @@ class Pref(context: Context) {
     }
 
     companion object{
-        const val PREF_NAME = "prefffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff.name"
-        const val SHOWED_KEY = "showeddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd.key"
-        const val SHOW_IMAGE = "showwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww.image"
+        const val PREF_NAME = "preffffffffffffffffffffffff.name"
+        const val SHOWED_KEY = "showedddddddddddddddddddddddd.key"
+        const val SHOW_IMAGE = "showwwwwwwwwwwwwwwwwwwwwwww.image"
+        const val SESSION_ID = "session.id"
+        const val REFRESH_TOKEN = "refresh.token"
+        const val ACCESS_TOKEN = "access.tokenn"
+        const val EMAIL_SESSION_ID = "email.sessiond.id"
+
+
     }
 }

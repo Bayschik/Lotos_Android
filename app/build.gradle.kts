@@ -4,6 +4,7 @@ plugins {
     kotlin("kapt")
     id("com.google.gms.google-services")
     alias(libs.plugins.daggerHiltPlugin)
+
 }
 
 android {
@@ -86,4 +87,12 @@ dependencies {
     implementation(libs.androidx.viewpager2)
     // material - material
     implementation (libs.material.vversion)
+
+    implementation(libs.daggerHiltImpl)
+    kapt(libs.daggerHiltKapt)
+    implementation(libs.okHttpClient)
+    implementation(libs.loggingInterceptor)
+    //Coroutines
+    implementation(libs.coroutines)
+
 }
