@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.fragments.pesonaldata.personalInfoFragment.PersonalDataFragment">
+    tools:context=".ui.fragments.pesonaldata.personalInfoFragment.personalData.PersonalDataFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -17,6 +17,15 @@
             android:scaleType="fitXY"
             android:src="@drawable/bg_profile_top"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/img_arrow_back"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_margin="12dp"
+            android:src="@drawable/ic_arrow_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -60,11 +69,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:fontFamily="sans-serif-medium"
-            tools:text="Иван"
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@id/tv_name"
-            app:layout_constraintTop_toBottomOf="@id/tv_name" />
+            app:layout_constraintTop_toBottomOf="@id/tv_name"
+            tools:text="Иван" />
 
         <TextView
             android:id="@+id/tv_surname"
@@ -84,11 +93,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:fontFamily="sans-serif-medium"
-            tools:text="Иванов"
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@id/tv_surname"
-            app:layout_constraintTop_toBottomOf="@id/tv_surname" />
+            app:layout_constraintTop_toBottomOf="@id/tv_surname"
+            tools:text="Иванов" />
 
         <TextView
             android:id="@+id/tv_date_of_birth"
@@ -108,59 +117,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:fontFamily="sans-serif-medium"
-            tools:text="01.05.1995"
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@id/tv_date_of_birth"
-            app:layout_constraintTop_toBottomOf="@id/tv_date_of_birth" />
-
-        <TextView
-            android:id="@+id/tv_phone_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="28dp"
-            android:fontFamily="sans-serif"
-            android:text="Номер телефона"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_official_date_of_birth" />
-
-        <TextView
-            android:id="@+id/tv_official_phone_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:fontFamily="sans-serif-medium"
-            tools:text="+996554126813"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@id/tv_phone_number"
-            app:layout_constraintTop_toBottomOf="@id/tv_phone_number" />
-
-        <TextView
-            android:id="@+id/tv_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="28dp"
-            android:fontFamily="sans-serif"
-            android:text="Электронная почта"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_official_phone_number" />
-
-        <TextView
-            android:id="@+id/tv_official_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:fontFamily="sans-serif-medium"
-            tools:text="Ivanivanov22@gmail.com"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@id/tv_email"
-            app:layout_constraintTop_toBottomOf="@id/tv_email" />
+            app:layout_constraintTop_toBottomOf="@id/tv_date_of_birth"
+            tools:text="01.05.1995" />
 
         <TextView
             android:id="@+id/tv_address"
@@ -172,7 +133,7 @@
             android:text="Адрес"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_official_email" />
+            app:layout_constraintTop_toBottomOf="@id/tv_official_date_of_birth" />
 
         <TextView
             android:id="@+id/tv_official_address"
@@ -180,45 +141,28 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:fontFamily="sans-serif-medium"
-            tools:text="улица Юнусалиева,32"
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@id/tv_address"
-            app:layout_constraintTop_toBottomOf="@id/tv_address" />
+            app:layout_constraintTop_toBottomOf="@id/tv_address"
+            tools:text="улица Юнусалиева,32" />
 
-        <TextView
-            android:id="@+id/tv_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="28dp"
-            android:fontFamily="sans-serif"
-            android:text="Пароль"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_official_address" />
-
-        <TextView
-            android:id="@+id/tv_official_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:fontFamily="sans-serif-medium"
-            tools:text="Ivanovivan22"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@id/tv_password"
-            app:layout_constraintTop_toBottomOf="@id/tv_password" />
-
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_change_personal_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="52dp"
+            android:backgroundTint="@color/white"
             android:text="Изменить"
+            android:textColor="@color/black"
+            app:cornerRadius="12dp"
+            android:textSize="16sp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_official_password" />
+            app:layout_constraintTop_toBottomOf="@id/tv_official_address"
+            app:strokeColor="@color/black"
+            app:strokeWidth="1dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

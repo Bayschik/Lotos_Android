@@ -56,60 +56,12 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:fontFamily="sans-serif"
-        android:text="Вставьте 4-значный код, отправленный в SMS \nпо номеру +996550894457"
+        tools:text="Вставьте 4-значный код, отправленный в Gmail \n по адресу "
         android:textAlignment="viewStart"
         android:textColor="@color/dark_gray"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_enter_code" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/et_sign_in_phone_number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="20dp"
-        android:hint="Введите вашу почту"
-        app:boxCornerRadiusBottomEnd="12dp"
-        app:boxCornerRadiusBottomStart="12dp"
-        app:boxCornerRadiusTopEnd="12dp"
-        app:boxCornerRadiusTopStart="12dp"
-        app:hintTextColor="@color/dark_gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_verify_code">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_official_phone_number"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/et_code"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="20dp"
-        android:hint="Введите код"
-        app:boxCornerRadiusBottomEnd="12dp"
-        app:boxCornerRadiusBottomStart="12dp"
-        app:boxCornerRadiusTopEnd="12dp"
-        app:boxCornerRadiusTopStart="12dp"
-        app:hintTextColor="@color/dark_gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_sign_in_phone_number">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_official_code"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="number" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
 
     <LinearLayout
         android:id="@+id/container_et"
@@ -118,8 +70,7 @@
         android:layout_marginTop="30dp"
         android:gravity="center"
         android:orientation="horizontal"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/et_sign_in_phone_number">
+        app:layout_constraintTop_toBottomOf="@id/tv_verify_code">
 
         <EditText
             android:id="@+id/inputCode1"
@@ -133,8 +84,7 @@
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="32sp"
-            android:textStyle="bold"
-            tools:ignore="LabelFor" />
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/inputCode2"
@@ -149,8 +99,7 @@
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="32sp"
-            android:textStyle="bold"
-            tools:ignore="LabelFor" />
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/inputCode3"
@@ -164,8 +113,7 @@
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="32sp"
-            android:textStyle="bold"
-            tools:ignore="LabelFor" />
+            android:textStyle="bold"/>
 
         <EditText
             android:id="@+id/inputCode4"
@@ -180,8 +128,7 @@
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="32sp"
-            android:textStyle="bold"
-            tools:ignore="LabelFor" />
+            android:textStyle="bold"/>
 
     </LinearLayout>
 
@@ -198,7 +145,6 @@
         app:cornerRadius="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_code" />
-
+        app:layout_constraintTop_toBottomOf="@+id/container_et" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

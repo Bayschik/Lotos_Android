@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/alert_dialog">
 
     <TextView
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:fontFamily="sans-serif-medium"
-        android:text="7 марта, четверг"
+        tools:text="7 марта, четверг"
         android:textColor="#505050"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,25 +21,25 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/status_card_view"
         android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_margin="24dp"
-        app:cardCornerRadius="12dp"
-        tools:backgroundTint="@color/purple"
+        android:layout_height="30dp"
+        android:layout_margin="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/top_card_view"
+        app:cardCornerRadius="12dp"
+        tools:backgroundTint="@color/purple">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:padding="2dp"
-            android:background="@drawable/bg_status"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="2dp">
 
             <TextView
                 android:id="@+id/tv_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="В ожидании"
                 android:layout_marginHorizontal="8dp"
+                tools:text="В ожидании"
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:fontFamily="sans-serif-medium"
-                android:text="Уборка после ремонта"
+                tools:text="Уборка после ремонта"
                 android:textColor="#505050"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -101,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:fontFamily="sans-serif-medium"
-                android:text="Чуй проспекти 12, блок 3, квартира 33"
+                tools:text="Чуй проспекти 12, блок 3, квартира 33"
                 android:textColor="#505050"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"

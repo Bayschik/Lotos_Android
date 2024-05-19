@@ -8,11 +8,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
-import kg.geekspro.android_lotos.viewmodels.profileviewmodels.create.PasswordCreateViewModel
 import kg.geekspro.android_lotos.databinding.FragmentPasswordCreateBinding
 import kg.geekspro.android_lotos.models.profile.Password
+import kg.geekspro.android_lotos.viewmodels.profileviewmodels.create.PasswordCreateViewModel
 
+@AndroidEntryPoint
 class PasswordCreateFragment : Fragment() {
     private lateinit var binding: FragmentPasswordCreateBinding
     private val viewModel: PasswordCreateViewModel by viewModels()
@@ -39,10 +41,11 @@ class PasswordCreateFragment : Fragment() {
                 } else {
                     val password = Password(
                         password = etOfficialPasswordCreate.text.toString(),
-                        re_password = etOfficialConfirmPassword.text.toString()
+                        rePassword = etOfficialConfirmPassword.text.toString()
                     )
-                    viewModel.setPassword(password)
+                    viewModel.setPassword(password).observe(viewLifecycleOwner) {
                         findNavController().navigate(R.id.mainFragment)
+                    }
                 }
             }
         }

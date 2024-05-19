@@ -9,11 +9,13 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
-import kg.geekspro.android_lotos.viewmodels.verifyviewmodel.VerificationViewModel
 import kg.geekspro.android_lotos.databinding.FragmentVerificationCodeBinding
 import kg.geekspro.android_lotos.models.verifycode.VerificationCode
+import kg.geekspro.android_lotos.viewmodels.verifyviewmodel.VerificationViewModel
 
+@AndroidEntryPoint
 class VerificationCodeFragment : Fragment() {
 
     private lateinit var binding: FragmentVerificationCodeBinding
@@ -30,27 +32,31 @@ class VerificationCodeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val phoneNumber = arguments?.getString("PHONE_NUMBER")
-        //setUpCodeInput()
+        setUpCodeInput()
         binding.apply {
             btnCodeContinue.setOnClickListener {
-                /*if (inputCode1.text.toString().isEmpty() ||
+                if (inputCode1.text.toString().isEmpty() ||
                     inputCode2.text.toString().isEmpty() ||
                     inputCode3.text.toString().isEmpty() ||
-                    inputCode4.text.toString().isEmpty() ){
-                    Toast.makeText(requireContext(), "Введите 4-значный код", Toast.LENGTH_SHORT).show()
-                }else{*/
-                val data = VerificationCode(
-                    email = etOfficialPhoneNumber.text.toString(),
-                    code = etOfficialCode.text.toString()
-                )
-                viewModel.confirmCode(data).observe(viewLifecycleOwner) {
-                    Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
-                    findNavController().navigate(R.id.fillDataFragment)
-                }
+                    inputCode4.text.toString().isEmpty()
+                ) {
+                    Toast.makeText(requireContext(), "Введите 4-значный код", Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    val code =
+                        inputCode1.text.toString() + inputCode2.text.toString() + inputCode3.text.toString() + inputCode4.text.toString()
+                    Toast.makeText(requireContext(), code, Toast.LENGTH_SHORT).show()
 
+                    val data = VerificationCode(code = code)
+
+                    viewModel.confirmCode(data).observe(viewLifecycleOwner) {
+                        Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
+                        findNavController().navigate(R.id.fillDataFragment)
+                    }
+                }
             }
             tvVerifyCode.text =
-                "Вставьте 4-значный код, отправленный в SMS \nпо номеру +996${phoneNumber}"
+                "Вставьте 4-значный код,отправленный в Gmail \nпо адресу ${phoneNumber}"
         }
     }
 

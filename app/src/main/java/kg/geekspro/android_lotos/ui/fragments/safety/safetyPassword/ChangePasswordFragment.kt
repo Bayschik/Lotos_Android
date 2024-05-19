@@ -1,4 +1,4 @@
-package kg.geekspro.android_lotos.ui.fragments.profile.password
+package kg.geekspro.android_lotos.ui.fragments.safety.safetyPassword
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,12 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentChangePasswordBinding
 
+@AndroidEntryPoint
 class ChangePasswordFragment : Fragment() {
     private lateinit var binding: FragmentChangePasswordBinding
+    private val viewModel: ChangePasswordViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,14 +46,21 @@ class ChangePasswordFragment : Fragment() {
                         "Новые пароли должны совпадать",
                         Toast.LENGTH_SHORT
                     ).show()
-                }else{
-                    findNavController().navigateUp()
+                } else {
+                    val changePassword = ChangePassword(
+                        oldPassword = etOfficialCurrentPassword.text.toString(),
+                        newPassword = etOfficialNewPassword.text.toString(),
+                        reNewPassword = etOfficialSecondNewPassword.text.toString()
+                    )
+                    viewModel.changePassword(changePassword).observe(viewLifecycleOwner) {
+                        findNavController().navigateUp()
+                    }
                 }
             }
             tvForgotPassword.setOnClickListener {
                 findNavController().navigate(R.id.forgotPasswordFragment)
             }
-            imgArrowBack.setOnClickListener{
+            imgArrowBack.setOnClickListener {
                 findNavController().navigateUp()
             }
 

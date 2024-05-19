@@ -5,16 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.databinding.FragmentOnBoardingBinding
 import kg.geekspro.android_lotos.ui.adapters.viewpageradapter.ViewPagerAdapter
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
 
+@AndroidEntryPoint
 class OnBoardingFragment : Fragment() {
 
     private lateinit var binding: FragmentOnBoardingBinding
-    private val pref by lazy {
-        Pref(requireContext())
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,7 +21,6 @@ class OnBoardingFragment : Fragment() {
     ): View {
         binding = FragmentOnBoardingBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

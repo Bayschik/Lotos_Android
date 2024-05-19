@@ -7,10 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
+import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentSecondScreenBinding
+import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class SecondScreenFragment : Fragment() {
+    @Inject
+    lateinit var pref:Pref
     private lateinit var binding:FragmentSecondScreenBinding
 
     override fun onCreateView(
@@ -28,7 +34,7 @@ class SecondScreenFragment : Fragment() {
             viewPager?.currentItem = 2
         }
         binding.tvSecondSkip.setOnClickListener {
-            findNavController().navigate(R.id.signOrLogFragment)
+            findNavController().navigate(R.id.thirdScreenFragment)
         }
     }
 }

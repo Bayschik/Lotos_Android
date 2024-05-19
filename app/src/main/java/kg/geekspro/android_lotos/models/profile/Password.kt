@@ -5,5 +5,5 @@ import com.google.gson.annotations.SerializedName
 data class Password(
     val password:String,
     @SerializedName("re_password")
-    val re_password:String,
+    val rePassword:String,
 )

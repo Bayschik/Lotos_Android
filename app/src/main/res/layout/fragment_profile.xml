@@ -27,9 +27,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
-            android:text="Иван Иванов"
+            tools:text="Иван Иванов"
+            android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="40sp"
+            android:textSize="36sp"
             app:layout_constraintBottom_toTopOf="@id/img_card_profile"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -96,17 +97,17 @@
             app:layout_constraintTop_toBottomOf="@id/btn_personal_data" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_change_password"
+            android:id="@+id/btn_safety_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="18dp"
-            android:drawableLeft="@drawable/ic_change_password"
+            android:drawableLeft="@drawable/ic_safety"
             android:drawableRight="@drawable/ic_arrow_forward"
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:paddingRight="16dp"
-            android:text="       Изменить пароль"
+            android:text="       Безопасность"
             android:textAlignment="textStart"
             app:cornerRadius="12dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -129,7 +130,7 @@
             app:cornerRadius="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_change_password" />
+            app:layout_constraintTop_toBottomOf="@id/btn_safety_password" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
