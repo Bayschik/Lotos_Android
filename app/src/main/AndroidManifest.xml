@@ -4,9 +4,10 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
-        android:name=".App"
+        android:name=".ui.adapters.di.App"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -28,6 +29,7 @@
             android:resource="@color/black" />
 
         <activity
+            android:windowSoftInputMode="adjustPan"
             android:name=".activity.MainActivity"
             android:exported="true">
             <intent-filter>

@@ -23,6 +23,12 @@
         <action
             android:id="@+id/action_profileFragment_to_personalDataFragment"
             app:destination="@id/personalDataFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_safetyFragment"
+            app:destination="@id/safetyFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_logOutFragment"
+            app:destination="@id/logOutFragment" />
     </fragment>
 
     <fragment
@@ -47,7 +53,7 @@
 
     <fragment
         android:id="@+id/personalDataFragment"
-        android:name="kg.geekspro.android_lotos.ui.fragments.pesonaldata.personalInfoFragment.PersonalDataFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.pesonaldata.personalInfoFragment.personalData.PersonalDataFragment"
         android:label="fragment_personal_data"
         tools:layout="@layout/fragment_personal_data">
         <action
@@ -69,20 +75,13 @@
         <action
             android:id="@+id/action_signOrLogFragment_to_registrationFragment"
             app:destination="@id/registrationFragment" />
-        <action
-            android:id="@+id/action_signOrLogFragment_to_logInFragment"
-            app:destination="@id/logInFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/splashFragment"
         android:name="kg.geekspro.android_lotos.ui.fragments.splashfragment.SplashFragment"
         android:label="fragment_splash"
-        tools:layout="@layout/fragment_splash">
-        <action
-            android:id="@+id/action_splashFragment_to_onBoardingFragment"
-            app:destination="@id/onBoardingFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_splash"/>
 
     <fragment
         android:id="@+id/personalInfoFragment"
@@ -112,23 +111,13 @@
     </fragment>
 
     <fragment
-        android:id="@+id/logInFragment"
-        android:name="kg.geekspro.android_lotos.ui.fragments.login.LogInFragment"
-        android:label="fragment_log_in"
-        tools:layout="@layout/fragment_log_in">
-        <action
-            android:id="@+id/action_logInFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
-    </fragment>
-
-    <fragment
         android:id="@+id/fillDataFragment"
         android:name="kg.geekspro.android_lotos.ui.fragments.filldatafragment.FillDataFragment"
         android:label="fragment_fill_data"
         tools:layout="@layout/fragment_fill_data">
         <action
             android:id="@+id/action_fillDataFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
+            app:destination="@id/passwordCreateFragment" />
     </fragment>
 
     <fragment
@@ -167,20 +156,143 @@
         android:name="kg.geekspro.android_lotos.ui.fragments.profile.password.create.PasswordCreateFragment"
         android:label="fragment_password_create"
         tools:layout="@layout/fragment_password_create" />
+
     <fragment
         android:id="@+id/changePasswordFragment"
-        android:name="kg.geekspro.android_lotos.ui.fragments.profile.password.ChangePasswordFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.safety.safetyPassword.ChangePasswordFragment"
         android:label="fragment_change_password"
-        tools:layout="@layout/fragment_change_password" />
+        tools:layout="@layout/fragment_change_password" >
+        <action
+            android:id="@+id/action_changePasswordFragment_to_forgotPasswordFragment"
+            app:destination="@id/forgotPasswordFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/forgotPasswordFragment"
-        android:name="kg.geekspro.android_lotos.ui.fragments.profile.password.ForgotPasswordFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.safety.safetyPassword.ForgotPasswordFragment"
         android:label="fragment_forgot_password"
-        tools:layout="@layout/fragment_forgot_password" />
+        tools:layout="@layout/fragment_forgot_password" >
+        <action
+            android:id="@+id/action_forgotPasswordFragment_to_confirmPasswordFragment"
+            app:destination="@id/confirmPasswordFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/confirmPasswordFragment"
-        android:name="kg.geekspro.android_lotos.ui.fragments.profile.password.ConfirmPasswordFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.safety.safetyPassword.ConfirmPasswordFragment"
         android:label="fragment_confirm_password"
+        tools:layout="@layout/fragment_confirm_password" >
+        <action
+            android:id="@+id/action_confirmPasswordFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="kg.geekspro.android_lotos.presentation.ui.fragments.main.SearchFragment"
+        android:label="SearchFragment" />
+
+    <fragment
+        android:id="@+id/additionalServicesFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.mainfragments.AdditionalServicesFragment"
+        android:label="fragment_additional_services"
+        tools:layout="@layout/fragment_additional_services" />
+
+    <fragment
+        android:id="@+id/calenderFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.calendarfragment.CalenderFragment"
+        android:label="fragment_calender"
+        tools:layout="@layout/fragment_calender" />
+
+    <fragment
+        android:id="@+id/cleaningAfterFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.mainfragments.CleaningAfterFragment"
+        android:label="fragment_cleaning_after"
+        tools:layout="@layout/fragment_cleaning_after" />
+
+    <fragment
+        android:id="@+id/generalCleaningFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.mainfragments.GeneralCleaningFragment"
+        android:label="fragment_general_cleaning"
+        tools:layout="@layout/fragment_general_cleaning" />
+
+    <fragment
+        android:id="@+id/professionalMachAndEquipmentFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.aboutus.ProfessionalMachAndEquipmentFragment"
+        android:label="fragment_professional_mach_and_equipment"
+        tools:layout="@layout/fragment_professional_mach_and_equipment" />
+
+    <fragment
+        android:id="@+id/safetyFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.safety.SafetyFragment"
+        android:label="fragment_safety"
+        tools:layout="@layout/fragment_safety" >
+        <action
+            android:id="@+id/action_safetyFragment_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment" />
+        <action
+            android:id="@+id/action_safetyFragment_to_safetyPhoneNumberFragment"
+            app:destination="@id/safetyPhoneNumberFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/teamOfProfessionalsFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.aboutus.TeamOfProfessionalsFragment"
+        android:label="fragment_team_of_professionals"
+        tools:layout="@layout/fragment_team_of_professionals" />
+
+    <fragment
+        android:id="@+id/wetCleaningFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.mainfragments.WetCleaningFragment"
+        android:label="fragment_wet_cleaning"
+        tools:layout="@layout/fragment_wet_cleaning" />
+
+    <fragment
+        android:id="@+id/wideAssortmentFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.aboutus.WideAssortmentFragment"
+        android:label="fragment_wide_assortment"
+        tools:layout="@layout/fragment_wide_assortment" />
+
+    <fragment
+        android:id="@+id/safetyPhoneNumberFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.safety.safetyPhone.SafetyPhoneNumberFragment"
+        android:label="fragment_safety_phone_number"
+        tools:layout="@layout/fragment_safety_phone_number" />
+
+    <fragment
+        android:id="@+id/safetyEmailFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.safety.safetyEmail.SafetyEmailFragment"
+        android:label="fragment_safety_email"
+        tools:layout="@layout/fragment_safety_email" />
+
+    <fragment
+        android:id="@+id/safetyChangePhoneFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.safety.safetyPhone.SafetyChangePhoneFragment"
+        android:label="fragment_safety_change_phone"
+        tools:layout="@layout/fragment_safety_change_phone" />
+
+    <fragment
+        android:id="@+id/safetyChangeEmailFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.safety.safetyEmail.SafetyChangeEmailFragment"
+        android:label="fragment_safety_phone"
+        tools:layout="@layout/fragment_safety_change_email" />
+
+    <fragment
+        android:id="@+id/logFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.login.LogFragment"
+        android:label="fragment_log"
+        tools:layout="@layout/fragment_log" />
+
+    <fragment
+        android:id="@+id/logOutFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.profile.logOut.LogOutFragment"
+        android:label="fragment_log_out"
+        tools:layout="@layout/fragment_log_out" />
+
+    <fragment
+        android:id="@+id/exitProfileFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.profile.logOut.ExitProfileFragment"
+        android:label="fragment_exit_profile"
         tools:layout="@layout/fragment_confirm_password" />
     <fragment
         android:id="@+id/fragmentA"

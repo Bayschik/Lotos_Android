@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     kotlin("kapt")
     id("com.google.gms.google-services")
+    alias(libs.plugins.daggerHiltPlugin)
 }
 
 android {

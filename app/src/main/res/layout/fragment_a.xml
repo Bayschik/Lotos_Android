@@ -12,4 +12,15 @@
         android:layout_height="match_parent"
         android:orientation="horizontal" />
 
+    <me.relex.circleindicator.CircleIndicator3
+        android:id="@+id/indicator"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="16dp"
+        app:ci_drawable_unselected="@drawable/circle_indicator_unselected"
+        app:ci_width="10dp"
+        app:ci_height="10dp"
+        app:ci_drawable="@drawable/circle_indicator" />
+
 </FrameLayout>
