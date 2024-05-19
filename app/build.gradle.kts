@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     kotlin("kapt")
-    alias(libs.plugins.daggerHiltPlugin)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -48,6 +48,7 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.room.ktx)
+    implementation(libs.firebase.messaging)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -77,12 +78,11 @@ dependencies {
     //Google API Client
     implementation (libs.googleApiClient)
     //implementation(libs.glide)
-    //Dagger Hilt
-    implementation(libs.daggerHiltImpl)
-    kapt(libs.daggerHiltKapt)
-    //OkHttpClient
-    implementation(libs.okHttpClient)
-    implementation(libs.loggingInterceptor)
-    //Coroutines
-    implementation(libs.coroutines)
+    // Import the Firebase BoM
+    implementation(platform(libs.firebase.bom))
+    implementation("com.google.firebase:firebase-analytics")
+    // view pager2
+    implementation(libs.androidx.viewpager2)
+    // material - material
+    implementation (libs.material.vversion)
 }

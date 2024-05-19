@@ -5,56 +5,55 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white_blue"
-    tools:context=".ui.fragments.aboutus.ProfessionalMachAndEquipmentFragment">
+    tools:context=".ui.adapters.aboutusadapter.FragmentB">
 
 
-    <ImageView
-        android:id="@+id/img_arrow_left"
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/btnBack"
         android:layout_width="28dp"
         android:layout_height="28dp"
         android:layout_marginStart="16dp"
         android:src="@drawable/ic_arrow_left"
-        app:layout_constraintBottom_toBottomOf="@+id/tvProfMachine"
-        app:layout_constraintEnd_toStartOf="@+id/tvProfMachine"
+        app:layout_constraintBottom_toBottomOf="@+id/titleTv"
+        app:layout_constraintEnd_toStartOf="@+id/titleTv"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvProfMachine" />
+        app:layout_constraintTop_toTopOf="@+id/titleTv" />
 
-    <TextView
-        android:id="@+id/tvProfMachine"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/titleTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="70dp"
         android:layout_marginTop="43dp"
         android:layout_marginEnd="88dp"
         android:layout_marginBottom="18dp"
+        android:text="Title"
         android:fontFamily="@font/roboto_bold"
-        android:text="Профессиональная техника и оборудоавние"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/tvTheyAreAllow"
+        app:layout_constraintBottom_toTopOf="@+id/tvDesc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvTheyAreAllow"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvDesc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="25dp"
+        android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="540dp"
         android:fontFamily="@font/roboto_light"
         android:paddingStart="16dp"
+        android:text="Description"
         android:paddingEnd="16dp"
-        android:text="Они позволяют эффективно удалять любые загрязнения.
-Наше специальное оборудование пылесосы для сухой и влажной уборки, парогенераторы, роторные и экстракторные машины и многое другое."
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/icImgProfMachine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvProfMachine" />
+        app:layout_constraintTop_toBottomOf="@+id/titleTv" />
 
     <ImageView
         android:id="@+id/icImgProfMachine"
@@ -63,10 +62,8 @@
         android:layout_marginStart="52dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="52dp"
-        android:src="@drawable/ic_prof_and_machine_equipment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTheyAreAllow" />
+        app:layout_constraintTop_toBottomOf="@+id/tvDesc" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
