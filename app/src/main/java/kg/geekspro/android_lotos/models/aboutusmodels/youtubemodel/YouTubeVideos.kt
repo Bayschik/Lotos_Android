@@ -1,6 +1,4 @@
-package kg.geekspro.android_lotos.models.aboutusmodel.youtubemodel
-
-import com.google.gson.annotations.SerializedName
+package kg.geekspro.android_lotos.models.aboutusmodels.youtubemodel
 
 data class YouTubeVideo(
     val count: Int,
@@ -14,12 +12,6 @@ data class Result1(
     val title:String,
     val url:String,
     val created_at:String,
-)
-
-data class asdadsa(
-    val img:Int,
-    val posleRemont:String,
-    val summa:String,
 )
 
  /*

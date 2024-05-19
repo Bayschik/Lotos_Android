@@ -19,7 +19,6 @@ class Pref(context: Context) {
     fun getImage(): String? {
         return pref.getString(SHOW_IMAGE, null)
     }
-
     companion object{
         const val PREF_NAME = "prefffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff.name"
         const val SHOWED_KEY = "showeddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd.key"

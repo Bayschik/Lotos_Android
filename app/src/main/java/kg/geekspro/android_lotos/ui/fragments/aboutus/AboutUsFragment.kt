@@ -1,24 +1,19 @@
 package kg.geekspro.android_lotos.ui.fragments.aboutus
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentAboutUsBinding
+import kg.geekspro.android_lotos.ui.adapters.viewpageradapter.ViewPagerAdapter
 
 class AboutUsFragment : Fragment() {
 
     private lateinit var binding: FragmentAboutUsBinding
-    private val fragmentList = mutableListOf<Fragment>()
-    // private var currentFragmentIndex = 0
-    private val delayMillis = 10000L
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,32 +23,56 @@ class AboutUsFragment : Fragment() {
         return binding.root
     }
 
+    val viewPager2 = activity?.findViewById<ViewPager2>(R.id.viewPager2inAboutUS)
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        btn1setOnClickListener()
-        btn2setOnClickListener()
-        btn3setOnClickListener()
-    }
 
-    private fun btn1setOnClickListener() {
-        findNavController().navigate(R.id.btn_videoPlay1)
+        binding.btnStoryFirst.setOnClickListener {
+            findNavController().navigate(R.id.fragmentA)
+        }
+
+        val fragmentList = arrayListOf<Fragment>(
+            ProfessionalMachAndEquipmentFragment(),
+            TeamOfProfessionalsFragment(),
+            WideAssortmentFragment()
+        )
+
+
+        ViewPagerAdapter(
+            fragmentList,
+            requireActivity().supportFragmentManager,
+            lifecycle
+        )
+        // view.viewPager.adapter = adapter
+    }
+}
+
+//    val adapter = ViewPagerAdapter(
+//        fragmentList,
+//        requireActivity().supportFragmentManager,
+//        lifecycle
+//    )
+
+
+//    private fun btn1setOnClickListener() {
+////        findNavController().navigate(R.id.btn_videoPlay1)
 //        val youtubeUrl ="https://www.youtube.com/watch?v=c4Y4BN4wJLU&list=RD0r-P9ierpTU&index=18"
 //        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(youtubeUrl))
 //        startActivity(intent)
-    }
-
-    private fun btn2setOnClickListener() {
-        val youtubeUrl = "https://www.youtube.com/watch?v=c4Y4BN4wJLU&list=RD0r-P9ierpTU&index=18"
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(youtubeUrl))
-        startActivity(intent)
-    }
-
-    private fun btn3setOnClickListener() {
-        val youtubeUrl = "https://www.youtube.com/watch?v=c4Y4BN4wJLU&list=RD0r-P9ierpTU&index=18"
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(youtubeUrl))
-        startActivity(intent)
-    }
-}
+//    }
+//
+//    private fun btn2setOnClickListener() {
+//        val youtubeUrl = "https://www.youtube.com/watch?v=c4Y4BN4wJLU&list=RD0r-P9ierpTU&index=18"
+//        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(youtubeUrl))
+//        startActivity(intent)
+//    }
+//
+//    private fun btn3setOnClickListener() {
+//        val youtubeUrl = "https://www.youtube.com/watch?v=c4Y4BN4wJLU&list=RD0r-P9ierpTU&index=18"
+//        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(youtubeUrl))
+//        startActivity(intent)
+//    }
 
 /*FirebaseMessaging.getInstance().token.addOnSuccessListener { token->
     Log.d("shamal", token)

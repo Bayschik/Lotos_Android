@@ -81,4 +81,8 @@ dependencies {
     // Import the Firebase BoM
     implementation(platform(libs.firebase.bom))
     implementation("com.google.firebase:firebase-analytics")
+    // view pager2
+    implementation(libs.androidx.viewpager2)
+    // material - material
+    implementation (libs.material.vversion)
 }
