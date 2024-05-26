@@ -38,16 +38,6 @@ class ProfileFragment : Fragment() {
     private val adapter = OrderHistoryAdapter()
     private val viewModel: ProfileViewModel by viewModels()
 
-    private val getCommentMedia =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val selectedFileUri = result.data?.data
-                pref.saveImage(selectedFileUri.toString())
-                Glide.with(binding.imgProfile).load(selectedFileUri.toString())
-                    .into(binding.imgProfile)
-            }
-        }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -88,6 +78,8 @@ class ProfileFragment : Fragment() {
                         pref.saveAccessToken(it.access)
                         viewModel.getProfile(pref.getAccessToken()!!).observe(viewLifecycleOwner) {
                             tvUserFullName.text = "${it.lastName} ${it.firstName}"
+                            Glide.with(binding.imgProfile).load(it.photo)
+                                .into(binding.imgProfile)
                             btnPersonalData.setOnClickListener { findNavController().navigate(R.id.personalDataFragment) }
                             setImageFromPhone()
                             btnOrderHistory.setOnClickListener { showBottomNavSheet() }
@@ -105,12 +97,6 @@ class ProfileFragment : Fragment() {
     private fun setImageFromPhone() = with(binding) {
         Glide.with(imgProfile).load(pref.getImage()).placeholder(R.drawable.ic_profile_placeholder)
             .into(imgProfile)
-
-        imgProfile.setOnClickListener {
-            val intent = Intent(Intent.ACTION_PICK)
-            intent.type = "image/*"
-            getCommentMedia.launch(intent)
-        }
     }
 
     private fun showLogOut() {

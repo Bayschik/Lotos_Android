@@ -19,6 +19,8 @@ import kg.geekspro.android_lotos.ui.fragments.safety.safetyPassword.ChangePasswo
 import kg.geekspro.android_lotos.ui.interfaces.profileinterfaces.ApiService
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
 import okhttp3.Headers
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -209,11 +211,11 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
         return logOut
     }
 
-    fun putDataProfile(refactorData: Profile): LiveData<Profile> {
+    fun putDataProfile(image: MultipartBody.Part,firstName:RequestBody, lastName:RequestBody, dateOfBirth:RequestBody, address:RequestBody): LiveData<Profile> {
         val putData = MutableLiveData<Profile>()
 
         val accessToken = pref.getAccessToken()!!
-        api.putProfile(refactorData, "Bearer $accessToken").enqueue(object : Callback<Profile> {
+        api.putProfile(image,firstName,lastName,dateOfBirth,address, "Bearer $accessToken").enqueue(object : Callback<Profile> {
             override fun onResponse(call: Call<Profile>, response: Response<Profile>) {
                 if (response.isSuccessful) {
                     response.body().let {

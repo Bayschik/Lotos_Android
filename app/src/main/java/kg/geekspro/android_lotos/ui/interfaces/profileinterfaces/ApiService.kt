@@ -13,13 +13,17 @@ import kg.geekspro.android_lotos.ui.fragments.profile.password.create.PasswordCr
 import kg.geekspro.android_lotos.ui.fragments.safety.safetyEmail.ChangeEmail
 import kg.geekspro.android_lotos.ui.fragments.safety.safetyEmail.Code
 import kg.geekspro.android_lotos.ui.fragments.safety.safetyPassword.ChangePassword
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Multipart
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Part
 
 interface ApiService {
 
@@ -56,9 +60,14 @@ interface ApiService {
         @Header("Authorization") accessToken:String
     ):Call<Profile>
 
-    @PUT("api/v1/profile/")
+    @PATCH("api/v1/profile/")
+    @Multipart
     fun putProfile(
-        @Body refactorData:Profile,
+        @Part image:MultipartBody.Part,
+        @Part("first_name") firstName:RequestBody,
+        @Part("last_name") lastName:RequestBody,
+        @Part("date_of_birth") dateOfBirth:RequestBody,
+        @Part("address") address:RequestBody,
         @Header("Authorization") accessToken:String
     ):Call<Profile>
 
