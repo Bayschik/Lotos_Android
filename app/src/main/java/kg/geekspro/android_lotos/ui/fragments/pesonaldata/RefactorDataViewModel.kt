@@ -7,11 +7,12 @@ import kg.geekspro.android_lotos.models.profile.Profile
 import kg.geekspro.android_lotos.ui.repositories.reposprofile.Repository
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import javax.inject.Inject
 
 @HiltViewModel
 class RefactorDataViewModel @Inject constructor(private val repository:Repository):ViewModel() {
-    fun putData(image:MultipartBody.Part,firstName:RequestBody, lastName:RequestBody, dateOfBirth:RequestBody, address:RequestBody):LiveData<Profile>{
+    fun putData(image:MultipartBody.Part,firstName:RequestBody, lastName:RequestBody, dateOfBirth:RequestBody, address:RequestBody):LiveData<ResponseBody>{
         return repository.putDataProfile(image,firstName, lastName,dateOfBirth,address)
     }
 }

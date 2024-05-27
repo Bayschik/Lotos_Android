@@ -15,6 +15,7 @@ import kg.geekspro.android_lotos.ui.fragments.safety.safetyEmail.Code
 import kg.geekspro.android_lotos.ui.fragments.safety.safetyPassword.ChangePassword
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -69,7 +70,7 @@ interface ApiService {
         @Part("date_of_birth") dateOfBirth:RequestBody,
         @Part("address") address:RequestBody,
         @Header("Authorization") accessToken:String
-    ):Call<Profile>
+    ):Call<ResponseBody>
 
     @POST("api/v1/logout/")
     fun logOut(

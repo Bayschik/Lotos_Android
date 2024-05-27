@@ -85,4 +85,6 @@ dependencies {
     implementation(libs.loggingInterceptor)
     //Coroutines
     implementation(libs.coroutines)
+    //SplashScreen
+    implementation(libs.splashScreen)
 }

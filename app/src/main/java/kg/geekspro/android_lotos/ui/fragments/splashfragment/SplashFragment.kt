@@ -21,19 +21,20 @@ class SplashFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Handler(Looper.myLooper()!!).postDelayed({
-            if (!pref.isShow()){
-                findNavController().navigate(R.id.onBoardingFragment)
-            }else{
-                findNavController().navigate(R.id.mainFragment)
-            }
-        },2000)
         return inflater.inflate(R.layout.fragment_splash, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        Handler(Looper.getMainLooper()!!).postDelayed({
+            if (!pref.isShow()){
+                findNavController().navigate(R.id.onBoardingFragment)
+                findNavController().popBackStack(R.id.splashFragment, true)
+            }else{
+                findNavController().popBackStack(R.id.splashFragment, true)
+                findNavController().navigate(R.id.mainFragment)
+            }
+        },2000)
     }
 
 }
