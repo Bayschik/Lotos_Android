@@ -29,7 +29,7 @@ class SplashFragment : Fragment() {
         Handler(Looper.getMainLooper()!!).postDelayed({
             if (!pref.isShow()){
                 findNavController().navigate(R.id.onBoardingFragment)
-                findNavController().popBackStack(R.id.splashFragment, true)
+                //findNavController().popBackStack(R.id.splashFragment, true)
             }else{
                 findNavController().popBackStack(R.id.splashFragment, true)
                 findNavController().navigate(R.id.mainFragment)

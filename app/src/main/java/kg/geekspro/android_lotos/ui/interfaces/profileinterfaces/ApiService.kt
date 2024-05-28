@@ -61,7 +61,7 @@ interface ApiService {
         @Header("Authorization") accessToken:String
     ):Call<Profile>
 
-    @PATCH("api/v1/profile/")
+    @PUT("api/v1/profile/")
     @Multipart
     fun putProfile(
         @Part image:MultipartBody.Part,

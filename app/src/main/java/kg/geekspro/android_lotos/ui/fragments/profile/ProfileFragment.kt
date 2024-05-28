@@ -78,7 +78,7 @@ class ProfileFragment : Fragment() {
                         pref.saveAccessToken(it.access)
                         viewModel.getProfile(pref.getAccessToken()!!).observe(viewLifecycleOwner) {
                             tvUserFullName.text = "${it.lastName} ${it.firstName}"
-                            Glide.with(binding.imgProfile).load(it.photo)
+                            Glide.with(binding.imgProfile).load("https://lotos.pp.ua/${it.photo}")
                                 .into(binding.imgProfile)
                             btnPersonalData.setOnClickListener { findNavController().navigate(R.id.personalDataFragment) }
                             setImageFromPhone()
