@@ -9,6 +9,8 @@ import kg.geekspro.android_lotos.ui.fragments.login.LogIn
 import kg.geekspro.android_lotos.ui.fragments.profile.Token
 import kg.geekspro.android_lotos.ui.fragments.profile.TokenVerify
 import kg.geekspro.android_lotos.ui.fragments.profile.logOut.RefreshToken
+import kg.geekspro.android_lotos.ui.fragments.profile.order.Order
+import kg.geekspro.android_lotos.ui.fragments.profile.order.OrderList
 import kg.geekspro.android_lotos.ui.fragments.profile.password.create.PasswordCreate
 import kg.geekspro.android_lotos.ui.fragments.safety.safetyEmail.ChangeEmail
 import kg.geekspro.android_lotos.ui.fragments.safety.safetyEmail.Code
@@ -21,12 +23,11 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Multipart
-import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Part
+import retrofit2.http.Path
 import retrofit2.http.Query
-import java.io.File
 
 interface ApiService {
 
@@ -67,6 +68,18 @@ interface ApiService {
     fun getProfile(
         @Header("Authorization") accessToken:String
     ):Call<Profile>
+
+    @GET("api/v1/order/")
+    fun getOrderList(
+        @Header("Authorization") accessToken:String
+    ):Call<List<OrderList.OrderListItem>>
+
+    @GET("api/v1/order/{id}/")
+    fun getOrderId(
+        @Path("id") id:Int,
+        @Header("Authorization") accessToken:String
+    ):Call<Order>
+
 
     @Multipart
     @PUT("api/v1/profile/")

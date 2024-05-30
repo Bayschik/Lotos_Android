@@ -93,12 +93,12 @@
         android:text="Забыли пароль?"
         android:textColor="@color/dark_gray"
         android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@id/btn_log_continue"
+        app:layout_constraintBottom_toTopOf="@id/btn_log_in"
         app:layout_constraintStart_toStartOf="@id/et_log_password"
         app:layout_constraintTop_toBottomOf="@id/et_log_password" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_log_continue"
+        android:id="@+id/btn_log_in"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"

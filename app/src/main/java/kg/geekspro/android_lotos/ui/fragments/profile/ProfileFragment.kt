@@ -1,9 +1,7 @@
 package kg.geekspro.android_lotos.ui.fragments.profile
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.AlertDialog
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -12,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -31,11 +29,10 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
-
     @Inject
     lateinit var pref: Pref
     private lateinit var dialog: BottomSheetDialog
-    private val adapter = OrderHistoryAdapter()
+    private val adapter = OrderHistoryAdapter(this::nextFragment)
     private val viewModel: ProfileViewModel by viewModels()
 
     override fun onCreateView(
@@ -51,8 +48,7 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
             val accessToken = Token(
-                token = pref.getAccessToken()!!
-
+                token = "Bearer ${pref.getAccessToken()!!}"
             )
             val verifyToken = TokenVerify(
                 detail = "Token is invalid or expired",
@@ -131,10 +127,18 @@ class ProfileFragment : Fragment() {
         imgArrowBack?.setOnClickListener {
             dialog.hide()
         }
-        rvOrder.adapter = adapter
         dialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
         dialog.setContentView(bottomSheet)
         dialog.show()
+        viewModel.getHistoryList().observe(viewLifecycleOwner){
+            adapter.getOrderList(it)
+            rvOrder.adapter = adapter
+        }
+    }
+
+    private fun nextFragment(id:Int){
+        findNavController().navigate(R.id.orderFragment, bundleOf("ORDER_ID" to id))
+        dialog.hide()
     }
 
 }

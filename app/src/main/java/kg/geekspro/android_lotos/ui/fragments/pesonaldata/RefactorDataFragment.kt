@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,7 +29,6 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import java.io.FileOutputStream
-import java.io.IOException
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -37,7 +37,6 @@ class RefactorDataFragment : Fragment() {
     private val viewModel: PersonalDataViewModel by viewModels()
     private val refactorViewModel: RefactorDataViewModel by viewModels()
     private var selectedFileUri: Uri? = null
-    private var avatarPart: MultipartBody.Part? = null
     @Inject
     lateinit var pref: Pref
 
@@ -45,22 +44,10 @@ class RefactorDataFragment : Fragment() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 selectedFileUri = result.data?.data
-                /*selectedFileUri?.let { uri ->
-                    // Конвертируем URI в файл JPEG
-                    val jpegFile = uriToJpegFile(requireContext(), uri)
-                    jpegFile?.let { file ->
-                        val requestFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
-                        avatarPart = MultipartBody.Part.createFormData("image", file.name, requestFile)
-                        // Показать выбранное изображение
-                        Glide.with(binding.imageProfile).load(uri)
-                            .placeholder(R.drawable.ic_black_profile)
-                            .into(binding.imageProfile)
-                        Log.d("image", "$selectedFileUri")
-                    }
-                }*/
                 Glide.with(binding.imageProfile).load(selectedFileUri)
                     .placeholder(R.drawable.ic_black_profile)
                     .into(binding.imageProfile)
+                Log.d("image","$selectedFileUri")
             }
         }
 
@@ -91,7 +78,13 @@ class RefactorDataFragment : Fragment() {
                 val dateOfBirth = createPartFromString(etDateOfBirth.text.toString())
                 val address = createPartFromString(etAddress.text.toString())
 
-                refactorViewModel.putData(createMultipartBody(selectedFileUri!!), firstName, lastName, dateOfBirth, address)
+                val imageFile = uriToFile(selectedFileUri!!, requireContext())
+
+                val requestFile = RequestBody.create("image/jpeg".toMediaTypeOrNull(), imageFile)
+                val body = MultipartBody.Part.createFormData("image", imageFile.name, requestFile)
+
+
+                refactorViewModel.putData(body, firstName, lastName, dateOfBirth, address)
                     .observe(viewLifecycleOwner) {
                         findNavController().navigate(R.id.profileFragment)
                     }
@@ -111,21 +104,16 @@ class RefactorDataFragment : Fragment() {
     }
 
 
-    private fun uriToFile(uri: Uri): File? {
-        val contentResolver = requireContext().contentResolver
-        val filePath = "${requireContext().cacheDir}/temp_image.jpg"
-        val file = File(filePath)
-        return try {
-            contentResolver.openInputStream(uri)?.use { inputStream ->
-                FileOutputStream(file).use { outputStream ->
-                    inputStream.copyTo(outputStream)
-                }
+    fun uriToFile(uri: Uri, context: Context): File {
+        val inputStream = context.contentResolver.openInputStream(uri)
+        val file = File(context.cacheDir, "temp_image")
+        val outputStream = FileOutputStream(file)
+        inputStream?.use { input ->
+            outputStream.use { output ->
+                input.copyTo(output)
             }
-            file
-        } catch (e: IOException) {
-            e.printStackTrace()
-            null
         }
+        return file
     }
 
     private fun uriToJpegFile(context: Context, uri: Uri): File? {
