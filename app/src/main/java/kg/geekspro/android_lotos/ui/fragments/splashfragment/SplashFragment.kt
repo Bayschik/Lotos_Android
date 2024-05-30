@@ -25,7 +25,7 @@ class SplashFragment : Fragment() {
             if (!pref.isShow()){
                 findNavController().navigate(R.id.onBoardingFragment)
             }else{
-                findNavController().navigate(R.id.mainFragment)
+                findNavController().navigate(R.id.homeFragment)
             }
         },2000)
         return inflater.inflate(R.layout.fragment_splash, container, false)

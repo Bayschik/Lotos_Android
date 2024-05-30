@@ -51,7 +51,7 @@ class PasswordCreateFragment : Fragment() {
                         rePassword = etOfficialConfirmPassword.text.toString()
                     )
                     viewModel.setPassword(password).observe(viewLifecycleOwner) {
-                        findNavController().navigate(R.id.mainFragment)
+                        findNavController().navigate(R.id.homeFragment)
                         fcmToken?.let { it1 ->
                             Log.d("FCMToken", "Sending FCM token to server: $it1")
                             viewModelFcm.loadFcm(fcmToken = it1).observe(viewLifecycleOwner) { response ->

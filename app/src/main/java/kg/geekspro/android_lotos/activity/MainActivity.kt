@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.mainFragment,
+                R.id.homeFragment,
                 R.id.aboutUsFragment,
                 R.id.profileFragment,
                 R.id.onBoardingFragment
@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.mainFragment ||
+            if (destination.id == R.id.homeFragment ||
                 destination.id == R.id.aboutUsFragment ||
                 destination.id == R.id.profileFragment
             ) {

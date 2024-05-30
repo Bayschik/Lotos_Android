@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.mainfragments.wet_cleaning.WetCleaningFragment">
+    tools:context=".ui.fragments.mainfragments.remodel_clean_up.RemodelCleanUpFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
                 android:id="@+id/tv_back_fg_after"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/spring"
+                android:text="@string/remodel_clean_up"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="16dp"
                 android:minLines="7"
-                android:text="@string/wet_cleaning_description"
+                android:text="@string/remodel_clean_up_description"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@id/img_cl_fg"
@@ -110,6 +110,7 @@
                     android:text="1"
                     android:textAlignment="center"
                     android:textColor="@color/gray_"
+
                     android:textSize="14sp"
                     app:layout_constraintBottom_toTopOf="@id/tv_one_variant_m2"
                     app:layout_constraintEnd_toEndOf="@id/tv_one_variant_m2"
@@ -265,7 +266,6 @@
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:hint="Не более 1000"
-
                     android:paddingVertical="5dp"
                     android:paddingStart="10dp"
                     android:textSize="14sp"
@@ -300,7 +300,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/et_m2" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
