@@ -7,7 +7,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +28,7 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import java.io.FileOutputStream
+import java.io.IOException
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -37,7 +38,6 @@ class RefactorDataFragment : Fragment() {
     private val refactorViewModel: RefactorDataViewModel by viewModels()
     private var selectedFileUri: Uri? = null
     private var avatarPart: MultipartBody.Part? = null
-
     @Inject
     lateinit var pref: Pref
 
@@ -45,7 +45,7 @@ class RefactorDataFragment : Fragment() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 selectedFileUri = result.data?.data
-                selectedFileUri?.let { uri ->
+                /*selectedFileUri?.let { uri ->
                     // Конвертируем URI в файл JPEG
                     val jpegFile = uriToJpegFile(requireContext(), uri)
                     jpegFile?.let { file ->
@@ -57,7 +57,10 @@ class RefactorDataFragment : Fragment() {
                             .into(binding.imageProfile)
                         Log.d("image", "$selectedFileUri")
                     }
-                }
+                }*/
+                Glide.with(binding.imageProfile).load(selectedFileUri)
+                    .placeholder(R.drawable.ic_black_profile)
+                    .into(binding.imageProfile)
             }
         }
 
@@ -88,17 +91,16 @@ class RefactorDataFragment : Fragment() {
                 val dateOfBirth = createPartFromString(etDateOfBirth.text.toString())
                 val address = createPartFromString(etAddress.text.toString())
 
-                val avatarPartToSend = avatarPart ?: createEmptyImagePart()
-
-                refactorViewModel.putData(avatarPartToSend, firstName, lastName, dateOfBirth, address)
+                refactorViewModel.putData(createMultipartBody(selectedFileUri!!), firstName, lastName, dateOfBirth, address)
                     .observe(viewLifecycleOwner) {
                         findNavController().navigate(R.id.profileFragment)
                     }
+
             }
 
             imageProfile.setOnClickListener {
-                val intent = Intent(Intent.ACTION_PICK)
-                intent.type = "image/*"
+                val intent = Intent(Intent.ACTION_GET_CONTENT)
+                intent.type = "image/jpeg"
                 getCommentMedia.launch(intent)
             }
         }
@@ -106,6 +108,24 @@ class RefactorDataFragment : Fragment() {
 
     private fun createPartFromString(value: String): RequestBody {
         return value.toRequestBody("text/plain".toMediaTypeOrNull())
+    }
+
+
+    private fun uriToFile(uri: Uri): File? {
+        val contentResolver = requireContext().contentResolver
+        val filePath = "${requireContext().cacheDir}/temp_image.jpg"
+        val file = File(filePath)
+        return try {
+            contentResolver.openInputStream(uri)?.use { inputStream ->
+                FileOutputStream(file).use { outputStream ->
+                    inputStream.copyTo(outputStream)
+                }
+            }
+            file
+        } catch (e: IOException) {
+            e.printStackTrace()
+            null
+        }
     }
 
     private fun uriToJpegFile(context: Context, uri: Uri): File? {
@@ -124,9 +144,25 @@ class RefactorDataFragment : Fragment() {
     }
 
     private fun createEmptyImagePart(): MultipartBody.Part {
-        val emptyFile = File(requireContext().cacheDir, "empty_image.jpg")
+        val emptyFile = File(requireContext().cacheDir, "empty_image.jpeg")
         emptyFile.createNewFile()
         val requestFile = emptyFile.asRequestBody("image/jpeg".toMediaTypeOrNull())
         return MultipartBody.Part.createFormData("image", emptyFile.name, requestFile)
+    }
+
+    private fun getFileFromUri(uri: Uri): File {
+        val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
+        val cursor = requireContext().contentResolver.query(uri, filePathColumn, null, null, null)
+        cursor?.moveToFirst()
+        val columnIndex = cursor?.getColumnIndex(filePathColumn[0])
+        val filePath = cursor?.getString(columnIndex!!)
+        cursor?.close()
+        return File(filePath!!)
+    }
+
+    private fun createMultipartBody(uri: Uri): MultipartBody.Part {
+        val file = uriToJpegFile(requireContext(), uri)!!
+        val requestFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+        return MultipartBody.Part.createFormData("image", file.name, requestFile)
     }
 }

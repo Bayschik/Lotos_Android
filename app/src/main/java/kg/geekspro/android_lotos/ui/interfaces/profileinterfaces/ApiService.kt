@@ -25,6 +25,8 @@ import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Part
+import retrofit2.http.Query
+import java.io.File
 
 interface ApiService {
 
@@ -32,6 +34,11 @@ interface ApiService {
     fun verifyEmail(
         @Body email: Registration
     ):Call<String>
+
+    @GET("accounts/google/login/")
+    fun googleAuth(
+        @Query("process") process:String = "login"
+    ):Call<Unit>
 
     @POST("api/v1/client_create/confirm/")
     fun confirmCode(
@@ -61,10 +68,10 @@ interface ApiService {
         @Header("Authorization") accessToken:String
     ):Call<Profile>
 
-    @PUT("api/v1/profile/")
     @Multipart
+    @PUT("api/v1/profile/")
     fun putProfile(
-        @Part image:MultipartBody.Part,
+        @Part photo:MultipartBody.Part,
         @Part("first_name") firstName:RequestBody,
         @Part("last_name") lastName:RequestBody,
         @Part("date_of_birth") dateOfBirth:RequestBody,

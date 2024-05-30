@@ -19,12 +19,14 @@ import kg.geekspro.android_lotos.ui.fragments.safety.safetyPassword.ChangePasswo
 import kg.geekspro.android_lotos.ui.interfaces.profileinterfaces.ApiService
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
 import okhttp3.Headers
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
 import javax.inject.Inject
 
 class Repository @Inject constructor(private val api: ApiService, private val pref: Pref) {
@@ -52,6 +54,8 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
                         email.postValue(sessionId)
                         Log.d("onSuccessEmail", it.toString())
                     }
+                }else{
+                    email.postValue("Аккаунт уже зарегистрирован, войдите в аккаунт")
                 }
             }
 
@@ -60,6 +64,22 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
             }
         })
         return email
+    }
+
+    fun googleAuth(): LiveData<Unit> {
+        val auth = MutableLiveData<Unit>()
+
+        api.googleAuth().enqueue(object:Callback<Unit>{
+            override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+                Log.d("auth", "auth is ok")
+            }
+
+            override fun onFailure(call: Call<Unit>, t: Throwable) {
+                Log.d("auth", "auth is not ok")
+            }
+
+        })
+        return auth
     }
 
     fun confirmCode(code: VerificationCode): LiveData<String> {

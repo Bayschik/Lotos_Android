@@ -8,6 +8,7 @@ import kg.geekspro.android_lotos.ui.repositories.reposprofile.Repository
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
