@@ -103,6 +103,7 @@ class CalendarFragment : Fragment() {
                         i.setBackgroundResource(R.drawable.bg_card)
                         i.setTextColor(Color.BLACK)
                     }
+
                 }
                 selectedTime = ""
 
