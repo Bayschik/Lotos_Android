@@ -291,7 +291,6 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
                         }
                     }
                 }
-
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                     Log.e("onPasswordFailure", t.message.toString())
                 }
