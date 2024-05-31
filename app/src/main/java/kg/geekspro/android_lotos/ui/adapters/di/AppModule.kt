@@ -7,6 +7,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kg.geekspro.android_lotos.ui.interfaces.fcmtoken.FcmApiService
 import kg.geekspro.android_lotos.ui.interfaces.profileinterfaces.ApiService
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
 import okhttp3.OkHttpClient
@@ -51,6 +52,11 @@ class AppModule {
     @Provides
     fun provideApiService(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
+    }
+
+    @Provides
+    fun provideFcmApiService(retrofit: Retrofit): FcmApiService {
+        return retrofit.create(FcmApiService::class.java)
     }
 
     @Provides

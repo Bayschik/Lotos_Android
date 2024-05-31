@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentFillDataBinding
@@ -20,7 +21,6 @@ import java.util.Calendar
 class FillDataFragment : Fragment() {
     private lateinit var binding: FragmentFillDataBinding
     private val viewModel: FillDataViewModel by viewModels()
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,6 +31,7 @@ class FillDataFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.apply {
             btnSaveData.setOnClickListener {
                 if (etFillName.text.toString().isEmpty() ||
@@ -50,8 +51,14 @@ class FillDataFragment : Fragment() {
                         address = etFillAddress.text.toString(),
                     )
                     viewModel.clientCreate(data).observe(viewLifecycleOwner) {
-                        Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
-                        findNavController().navigate(R.id.passwordCreateFragment)
+                        FirebaseMessaging.getInstance().token.addOnSuccessListener { token ->
+
+                            val bundle = Bundle()
+                            bundle.putString("fcmToken", token)
+                                Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
+                                findNavController().navigate(R.id.passwordCreateFragment, bundle)
+
+                        }
                     }
                 }
             }

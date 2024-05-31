@@ -1,6 +1,7 @@
 package kg.geekspro.android_lotos.activity
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.navigation.findNavController
@@ -8,6 +9,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
+
+import com.google.firebase.messaging.FirebaseMessaging
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.ActivityMainBinding
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
@@ -17,17 +20,25 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var pref:Pref
+
+
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        FirebaseMessaging.getInstance().token.addOnSuccessListener { token ->
+            Log.d("shamal", token)
+        } // Don't touch!!!
+
+
         val navController = findNavController(R.id.nav_host_fragment)
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.mainFragment,
+                R.id.homeFragment,
                 R.id.aboutUsFragment,
                 R.id.profileFragment,
                 R.id.onBoardingFragment
@@ -39,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.mainFragment ||
+            if (destination.id == R.id.homeFragment ||
                 destination.id == R.id.aboutUsFragment ||
                 destination.id == R.id.profileFragment
             ) {
