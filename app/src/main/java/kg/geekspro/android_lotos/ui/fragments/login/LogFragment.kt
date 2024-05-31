@@ -41,7 +41,7 @@ class LogFragment : Fragment() {
                     )
                     viewModel.logIn(log).observe(viewLifecycleOwner) {
                         Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
-                        findNavController().navigate(R.id.mainFragment)
+                        findNavController().navigate(R.id.homeFragment)
                     }
                 }
             }

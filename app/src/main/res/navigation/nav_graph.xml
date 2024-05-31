@@ -6,10 +6,13 @@
     app:startDestination="@id/splashFragment">
 
     <fragment
-        android:id="@+id/mainFragment"
-        android:name="kg.geekspro.android_lotos.ui.fragments.mainfragments.MainFragment"
+        android:id="@+id/homeFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.mainfragments.home.HomeFragment"
         android:label="Home"
-        tools:layout="@layout/fragment_main">
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_mainFragment_to_personalDataFragment"
+            app:destination="@id/personalDataFragment" />
     </fragment>
 
     <fragment
@@ -32,7 +35,11 @@
         android:id="@+id/aboutUsFragment"
         android:name="kg.geekspro.android_lotos.ui.fragments.aboutus.AboutUsFragment"
         android:label="Search"
-        tools:layout="@layout/fragment_about_us" />
+        tools:layout="@layout/fragment_about_us" >
+        <action
+            android:id="@+id/action_aboutUsFragment_to_fragmentA"
+            app:destination="@id/fragmentA" />
+    </fragment>
 
     <fragment
         android:id="@+id/onBoardingFragment"
@@ -180,34 +187,31 @@
             app:destination="@id/profileFragment" />
     </fragment>
 
-    <fragment
-        android:id="@+id/searchFragment"
-        android:name="kg.geekspro.android_lotos.presentation.ui.fragments.main.SearchFragment"
-        android:label="SearchFragment" />
+
 
     <fragment
-        android:id="@+id/additionalServicesFragment"
-        android:name="kg.geekspro.android_lotos.ui.fragments.mainfragments.AdditionalServicesFragment"
+        android:id="@+id/extraCleaningFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.mainfragments.extra_cleaning.ExtraCleaningFragment"
         android:label="fragment_additional_services"
-        tools:layout="@layout/fragment_additional_services" />
+        tools:layout="@layout/fragment_extra_cleaning" />
 
     <fragment
-        android:id="@+id/calenderFragment"
-        android:name="kg.geekspro.android_lotos.ui.fragments.calendarfragment.CalenderFragment"
+        android:id="@+id/calendarFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.mainfragments.calendar.CalendarFragment"
         android:label="fragment_calender"
-        tools:layout="@layout/fragment_calender" />
+        tools:layout="@layout/fragment_calendar" />
 
     <fragment
-        android:id="@+id/cleaningAfterFragment"
-        android:name="kg.geekspro.android_lotos.ui.fragments.mainfragments.CleaningAfterFragment"
+        android:id="@+id/remodelCleaningUpFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.mainfragments.remodel_clean_up.RemodelCleanUpFragment"
         android:label="fragment_cleaning_after"
-        tools:layout="@layout/fragment_cleaning_after" />
+        tools:layout="@layout/fragment_remodel_clean_up" />
 
     <fragment
-        android:id="@+id/generalCleaningFragment"
-        android:name="kg.geekspro.android_lotos.ui.fragments.mainfragments.GeneralCleaningFragment"
+        android:id="@+id/deepCleaningFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.mainfragments.deep_cleaning.DeepCleaningFragment"
         android:label="fragment_general_cleaning"
-        tools:layout="@layout/fragment_general_cleaning" />
+        tools:layout="@layout/fragment_deep_cleaning" />
 
     <fragment
         android:id="@+id/professionalMachAndEquipmentFragment"
@@ -236,7 +240,7 @@
 
     <fragment
         android:id="@+id/wetCleaningFragment"
-        android:name="kg.geekspro.android_lotos.ui.fragments.mainfragments.WetCleaningFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.mainfragments.wet_cleaning.WetCleaningFragment"
         android:label="fragment_wet_cleaning"
         tools:layout="@layout/fragment_wet_cleaning" />
 
@@ -286,7 +290,12 @@
         android:id="@+id/exitProfileFragment"
         android:name="kg.geekspro.android_lotos.ui.fragments.profile.logOut.ExitProfileFragment"
         android:label="fragment_exit_profile"
-        tools:layout="@layout/fragment_exit_profile" />
+        tools:layout="@layout/fragment_confirm_password" />
+    <fragment
+        android:id="@+id/fragmentA"
+        android:name="kg.geekspro.android_lotos.ui.adapters.aboutusadapter.FragmentA"
+        android:label="fragment_a"
+        tools:layout="@layout/fragment_a" />
 
     <fragment
         android:id="@+id/orderFragment"

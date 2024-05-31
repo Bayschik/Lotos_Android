@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentRefactorDataBinding
@@ -66,14 +67,28 @@ class RefactorDataFragment : Fragment(), UploadCallback{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.apply {
-            viewModel.getProfileData(pref.getAccessToken()!!)
-                .observe(viewLifecycleOwner) { profileData ->
-                    profileData?.let {
-                        etName.setText(it.firstName)
-                        etSurname.setText(it.lastName)
-                        etDateOfBirth.setText(it.dateOfBirth)
-                        etAddress.setText(it.address)
+            viewModel.getProfileData(pref.getAccessToken()!!).observe(viewLifecycleOwner) {
+                if (it != null) {
+                    etName.setText(it.firstName)
+                    etSurname.setText(it.lastName)
+                    etDateOfBirth.setText(it.dateOfBirth)
+                    etAddress.setText(it.address)
+
+                    btnSaveData.setOnClickListener {
+                        /*getCommentMedia*/
+
+                        val refactorData = Profile(
+                            photo = pref.getImage()!!,
+                            firstName = binding.etName.text.toString(),
+                            lastName = binding.etSurname.text.toString(),
+                            dateOfBirth = binding.etDateOfBirth.text.toString(),
+                            address = binding.etAddress.text.toString()
+                        )
+                        refactorViewModel.putData(refactorData).observe(viewLifecycleOwner) {
+                            findNavController().navigate(R.id.profileFragment)
+                        }
                     }
                 }
 

@@ -31,8 +31,7 @@ class SplashFragment : Fragment() {
                 findNavController().navigate(R.id.onBoardingFragment)
                 //findNavController().popBackStack(R.id.splashFragment, true)
             }else{
-                findNavController().popBackStack(R.id.splashFragment, true)
-                findNavController().navigate(R.id.mainFragment)
+                findNavController().navigate(R.id.homeFragment)
             }
         },2000)
     }

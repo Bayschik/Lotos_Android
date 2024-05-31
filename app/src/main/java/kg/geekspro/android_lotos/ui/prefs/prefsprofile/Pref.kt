@@ -1,10 +1,13 @@
 package kg.geekspro.android_lotos.ui.prefs.prefsprofile
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
 import javax.inject.Inject
 
-class Pref @Inject constructor(private val pref:SharedPreferences) {
+class Pref @Inject constructor(private val pref: SharedPreferences) {
+
+
 
     fun isShow():Boolean{
         return pref.getBoolean(SHOWED_KEY, false)
@@ -62,5 +65,7 @@ class Pref @Inject constructor(private val pref:SharedPreferences) {
         const val REFRESH_TOKEN = "refresh.token"
         const val ACCESS_TOKEN = "access.tokenn"
         const val EMAIL_SESSION_ID = "email.sessiond.id"
+
+
     }
 }

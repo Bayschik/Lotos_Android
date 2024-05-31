@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="kg.geekspro.android_lotos" />
+                  <option name="mobileSdkAppId" value="1:319354048286:android:6158f76cc90f0c125d830f" />
+                  <option name="projectId" value="androidlotos2" />
+                  <option name="projectNumber" value="319354048286" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
