@@ -288,4 +288,10 @@
         android:label="fragment_exit_profile"
         tools:layout="@layout/fragment_exit_profile" />
 
+    <fragment
+        android:id="@+id/orderFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.profile.order.OrderFragment"
+        android:label="fragment_order"
+        tools:layout="@layout/fragment_order" />
+
 </navigation>

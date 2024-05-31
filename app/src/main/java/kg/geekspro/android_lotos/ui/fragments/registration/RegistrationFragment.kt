@@ -55,7 +55,10 @@ class RegistrationFragment : Fragment() {
                 }
             }
             btnGoogle.setOnClickListener {
-                googleSignIn()
+                //googleSignIn()
+                viewModel.googleAuth().observe(viewLifecycleOwner){
+                    findNavController().navigate(R.id.verificationCodeFragment)
+                }
             }
         }
     }

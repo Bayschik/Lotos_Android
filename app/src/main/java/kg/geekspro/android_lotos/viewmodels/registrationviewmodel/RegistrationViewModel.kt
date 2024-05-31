@@ -12,4 +12,8 @@ class RegistrationViewModel @Inject constructor(private val repository: Reposito
     fun verifyEmail(email: Registration):LiveData<String>{
         return repository.verifyEmail(email)
     }
+
+    fun googleAuth():LiveData<Unit>{
+        return repository.googleAuth()
+    }
 }
