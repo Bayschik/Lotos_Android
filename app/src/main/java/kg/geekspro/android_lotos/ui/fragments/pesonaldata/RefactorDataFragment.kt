@@ -1,14 +1,21 @@
 package kg.geekspro.android_lotos.ui.fragments.pesonaldata
 
+import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.ContentResolver
 import android.content.Context
-import android.content.ContextWrapper
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
+import android.provider.OpenableColumns
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -18,55 +25,37 @@ import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentRefactorDataBinding
-import kg.geekspro.android_lotos.models.profile.Profile
 import kg.geekspro.android_lotos.ui.fragments.pesonaldata.personalInfoFragment.personalData.PersonalDataViewModel
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
+import java.io.FileInputStream
 import java.io.FileOutputStream
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class RefactorDataFragment : Fragment() {
+class RefactorDataFragment : Fragment(), UploadCallback{
     private lateinit var binding: FragmentRefactorDataBinding
     private val viewModel: PersonalDataViewModel by viewModels()
     private val refactorViewModel: RefactorDataViewModel by viewModels()
+    private var selectedFileUri: Uri? = null
     @Inject
     lateinit var pref: Pref
 
     private val getCommentMedia =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                val selectedFileUri = result.data?.data!!
-                pref.saveImage(selectedFileUri.toString())
-                Glide.with(binding.imageProfile).load(pref.getImage())
+                selectedFileUri = result.data?.data
+                Glide.with(binding.imageProfile).load(selectedFileUri)
+                    .placeholder(R.drawable.ic_black_profile)
                     .into(binding.imageProfile)
+                Log.d("image","$selectedFileUri")
             }
         }
-
-    /*private val getCommentMedia =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val selectedFileUri = result.data?.data!!
-                val pngFile = convertUriToPng(selectedFileUri)
-                val requestBody = RequestBody.create("image/png".toMediaTypeOrNull(), pngFile)
-                val photoPart = MultipartBody.Part.createFormData("photo", pngFile.name, requestBody)
-
-                // Update refactorData with photoPart
-                val refactorData = Profile(
-                    photo = photoPart,
-                    firstName = binding.etName.text.toString(),
-                    lastName = binding.etSurname.text.toString(),
-                    dateOfBirth = binding.etDateOfBirth.text.toString(),
-                    address = binding.etAddress.text.toString()
-                )
-                refactorViewModel.putData(refactorData).observe(viewLifecycleOwner) {
-                    findNavController().navigate(R.id.profileFragment)
-                }
-            }
-        }*/
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -101,40 +90,106 @@ class RefactorDataFragment : Fragment() {
                             findNavController().navigate(R.id.profileFragment)
                         }
                     }
-
                 }
-            }
 
-            Glide.with(imageProfile).load(pref.getImage())
-                .placeholder(R.drawable.ic_black_profile).into(imageProfile)
+            btnSaveData.setOnClickListener {
+                /*val firstName = createPartFromString(etName.text.toString())
+                val lastName = createPartFromString(etSurname.text.toString())
+                val dateOfBirth = createPartFromString(etDateOfBirth.text.toString())
+                val address = createPartFromString(etAddress.text.toString())
+
+                val imageFile = uriToFile(selectedFileUri!!, requireContext())
+
+                val requestFile = RequestBody.create("image/jpeg".toMediaTypeOrNull(), imageFile)
+                val body = MultipartBody.Part.createFormData("image", imageFile.name, requestFile)
+
+
+                refactorViewModel.putData(body, firstName, lastName, dateOfBirth, address)
+                    .observe(viewLifecycleOwner) {
+                        findNavController().navigate(R.id.profileFragment)
+                    }*/
+                uploadImage()
+            }
 
             imageProfile.setOnClickListener {
-                val intent = Intent(Intent.ACTION_PICK)
-                intent.type = "image/*"
-                getCommentMedia.launch(intent)
+                /*val intent = Intent(Intent.ACTION_GET_CONTENT)
+                intent.type = "image/jpeg"
+                getCommentMedia.launch(intent)*/
+                imageChooser()
             }
         }
-
     }
 
-    private fun convertUriToPng(uri: Uri): File {
-        val contextWrapper = ContextWrapper(requireContext())
-        val file = contextWrapper.getDir("images", Context.MODE_PRIVATE)
-        val fileName = "${System.currentTimeMillis()}.png"
-        val destinationFile = File(file, fileName)
+    private fun createPartFromString(value: String): RequestBody {
+        return value.toRequestBody("text/plain".toMediaTypeOrNull())
+    }
 
-        val inputStream = requireContext().contentResolver.openInputStream(uri)
-        val outputStream = FileOutputStream(destinationFile)
-
-        val buffer = ByteArray(1024)
-        var bytesRead: Int
-        while (inputStream!!.read(buffer).also { bytesRead = it } > 0) {
-            outputStream.write(buffer, 0, bytesRead)
+    private fun uriToJpegFile(context: Context, uri: Uri): File? {
+        return try {
+            val inputStream = context.contentResolver.openInputStream(uri)
+            val bitmap = BitmapFactory.decodeStream(inputStream)
+            val file = File(context.cacheDir, "converted_image.jpg")
+            val outputStream = FileOutputStream(file)
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+            outputStream.close()
+            file
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
         }
-
-        inputStream.close()
-        outputStream.close()
-
-        return destinationFile
     }
+
+    private fun createMultipartBody(uri: Uri): MultipartBody.Part {
+        val file = uriToJpegFile(requireContext(), uri)!!
+        val requestFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+        return MultipartBody.Part.createFormData("image", file.name, requestFile)
+    }
+
+    //
+    private fun imageChooser(){
+        Intent(Intent.ACTION_GET_CONTENT).also {
+            it.type = "image/*"
+            val mimeTypes = arrayOf("image/jpeg", "image/png")
+            it.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
+            getCommentMedia.launch(it)
+        }
+    }
+
+    override fun onProgressUpdate(percentage: Int) {
+        Toast.makeText(requireContext(), "ALL IS $percentage", Toast.LENGTH_SHORT).show()
+    }
+
+
+    private fun uploadImage()= with(binding){
+        val parcelFileDescriptor = context?.contentResolver?.openFileDescriptor(selectedFileUri!!, "r", null)
+        val inputStream = FileInputStream(parcelFileDescriptor?.fileDescriptor)
+        val file = File(context?.cacheDir, context?.contentResolver?.getFileName(selectedFileUri!!))
+        val outputStream = FileOutputStream(file)
+        inputStream.copyTo(outputStream)
+        val body = UploadRequestBody(file,"image")
+
+        val firstName = createPartFromString(etName.text.toString())
+        val lastName = createPartFromString(etSurname.text.toString())
+        val dateOfBirth = createPartFromString(etDateOfBirth.text.toString())
+        val address = createPartFromString(etAddress.text.toString())
+
+        val imageBody = MultipartBody.Part.createFormData("photo",file.name, body)
+
+        refactorViewModel.putData(imageBody, firstName, lastName, dateOfBirth, address)
+            .observe(viewLifecycleOwner) {
+                findNavController().navigate(R.id.profileFragment)
+            }
+    }
+
+    @SuppressLint("Range")
+    fun ContentResolver.getFileName(uri: Uri):String{
+        var name = ""
+        val cursor = query(uri, null, null,null, null)
+        cursor?.use {
+            it.moveToFirst()
+            name = cursor.getString(it.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+        }
+        return name
+    }
+    //
 }

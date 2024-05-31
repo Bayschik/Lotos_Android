@@ -9,17 +9,25 @@ import kg.geekspro.android_lotos.ui.fragments.login.LogIn
 import kg.geekspro.android_lotos.ui.fragments.profile.Token
 import kg.geekspro.android_lotos.ui.fragments.profile.TokenVerify
 import kg.geekspro.android_lotos.ui.fragments.profile.logOut.RefreshToken
+import kg.geekspro.android_lotos.ui.fragments.profile.order.Order
+import kg.geekspro.android_lotos.ui.fragments.profile.order.OrderList
 import kg.geekspro.android_lotos.ui.fragments.profile.password.create.PasswordCreate
 import kg.geekspro.android_lotos.ui.fragments.safety.safetyEmail.ChangeEmail
 import kg.geekspro.android_lotos.ui.fragments.safety.safetyEmail.Code
 import kg.geekspro.android_lotos.ui.fragments.safety.safetyPassword.ChangePassword
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Part
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
 
@@ -27,6 +35,11 @@ interface ApiService {
     fun verifyEmail(
         @Body email: Registration
     ):Call<String>
+
+    @GET("accounts/google/login/")
+    fun googleAuth(
+        @Query("process") process:String = "login"
+    ):Call<Unit>
 
     @POST("api/v1/client_create/confirm/")
     fun confirmCode(
@@ -56,11 +69,28 @@ interface ApiService {
         @Header("Authorization") accessToken:String
     ):Call<Profile>
 
+    @GET("api/v1/order/")
+    fun getOrderList(
+        @Header("Authorization") accessToken:String
+    ):Call<List<OrderList.OrderListItem>>
+
+    @GET("api/v1/order/{id}/")
+    fun getOrderId(
+        @Path("id") id:Int,
+        @Header("Authorization") accessToken:String
+    ):Call<Order>
+
+
+    @Multipart
     @PUT("api/v1/profile/")
     fun putProfile(
-        @Body refactorData:Profile,
+        @Part photo:MultipartBody.Part,
+        @Part("first_name") firstName:RequestBody,
+        @Part("last_name") lastName:RequestBody,
+        @Part("date_of_birth") dateOfBirth:RequestBody,
+        @Part("address") address:RequestBody,
         @Header("Authorization") accessToken:String
-    ):Call<Profile>
+    ):Call<ResponseBody>
 
     @POST("api/v1/logout/")
     fun logOut(
