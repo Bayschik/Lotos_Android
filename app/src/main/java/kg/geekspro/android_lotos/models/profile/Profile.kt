@@ -6,7 +6,7 @@ import java.io.File
 
 data class Profile(
     //val photo:MultipartBody.Part,
-    val photo:MultipartBody.Part,
+    val photo:String,
     @SerializedName("first_name")
     val firstName:String?=null,
     @SerializedName("last_name")

@@ -21,6 +21,7 @@ import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentProfileBinding
+import kg.geekspro.android_lotos.models.profile.Profile
 import kg.geekspro.android_lotos.ui.adapters.orderhistory.OrderHistoryAdapter
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
 import kg.geekspro.android_lotos.viewmodels.profileviewmodels.ProfileViewModel
@@ -59,7 +60,7 @@ class ProfileFragment : Fragment() {
                     viewModel.getProfile(pref.getAccessToken()!!).observe(viewLifecycleOwner) {
                         tvUserFullName.text = "${it.lastName} ${it.firstName}"
                         btnPersonalData.setOnClickListener { findNavController().navigate(R.id.personalDataFragment) }
-                        setImageFromPhone()
+                        setImageFromPhone(it)
                         btnOrderHistory.setOnClickListener { showBottomNavSheet() }
                         btnExit.setOnClickListener { showLogOut() }
                         btnSafetyPassword.setOnClickListener {
@@ -74,10 +75,9 @@ class ProfileFragment : Fragment() {
                         pref.saveAccessToken(it.access)
                         viewModel.getProfile(pref.getAccessToken()!!).observe(viewLifecycleOwner) {
                             tvUserFullName.text = "${it.lastName} ${it.firstName}"
-                            Glide.with(binding.imgProfile).load("https://lotos.pp.ua/${it.photo}")
-                                .into(binding.imgProfile)
+                            //Glide.with(binding.imgProfile).load("https://lotos.pp.ua/${it.photo}").into(binding.imgProfile)
                             btnPersonalData.setOnClickListener { findNavController().navigate(R.id.personalDataFragment) }
-                            setImageFromPhone()
+                            setImageFromPhone(it)
                             btnOrderHistory.setOnClickListener { showBottomNavSheet() }
                             btnExit.setOnClickListener { showLogOut() }
                             btnSafetyPassword.setOnClickListener {
@@ -90,8 +90,8 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun setImageFromPhone() = with(binding) {
-        Glide.with(imgProfile).load(pref.getImage()).placeholder(R.drawable.ic_profile_placeholder)
+    private fun setImageFromPhone(model:Profile) = with(binding) {
+        Glide.with(imgProfile).load("https://lotos.pp.ua${model.photo}").placeholder(R.drawable.ic_profile_placeholder)
             .into(imgProfile)
     }
 

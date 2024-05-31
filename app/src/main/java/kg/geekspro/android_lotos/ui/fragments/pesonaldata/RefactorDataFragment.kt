@@ -1,6 +1,8 @@
 package kg.geekspro.android_lotos.ui.fragments.pesonaldata
 
+import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -8,10 +10,12 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.provider.OpenableColumns
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -28,11 +32,12 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
+import java.io.FileInputStream
 import java.io.FileOutputStream
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class RefactorDataFragment : Fragment() {
+class RefactorDataFragment : Fragment(), UploadCallback{
     private lateinit var binding: FragmentRefactorDataBinding
     private val viewModel: PersonalDataViewModel by viewModels()
     private val refactorViewModel: RefactorDataViewModel by viewModels()
@@ -73,7 +78,7 @@ class RefactorDataFragment : Fragment() {
                 }
 
             btnSaveData.setOnClickListener {
-                val firstName = createPartFromString(etName.text.toString())
+                /*val firstName = createPartFromString(etName.text.toString())
                 val lastName = createPartFromString(etSurname.text.toString())
                 val dateOfBirth = createPartFromString(etDateOfBirth.text.toString())
                 val address = createPartFromString(etAddress.text.toString())
@@ -87,33 +92,21 @@ class RefactorDataFragment : Fragment() {
                 refactorViewModel.putData(body, firstName, lastName, dateOfBirth, address)
                     .observe(viewLifecycleOwner) {
                         findNavController().navigate(R.id.profileFragment)
-                    }
-
+                    }*/
+                uploadImage()
             }
 
             imageProfile.setOnClickListener {
-                val intent = Intent(Intent.ACTION_GET_CONTENT)
+                /*val intent = Intent(Intent.ACTION_GET_CONTENT)
                 intent.type = "image/jpeg"
-                getCommentMedia.launch(intent)
+                getCommentMedia.launch(intent)*/
+                imageChooser()
             }
         }
     }
 
     private fun createPartFromString(value: String): RequestBody {
         return value.toRequestBody("text/plain".toMediaTypeOrNull())
-    }
-
-
-    fun uriToFile(uri: Uri, context: Context): File {
-        val inputStream = context.contentResolver.openInputStream(uri)
-        val file = File(context.cacheDir, "temp_image")
-        val outputStream = FileOutputStream(file)
-        inputStream?.use { input ->
-            outputStream.use { output ->
-                input.copyTo(output)
-            }
-        }
-        return file
     }
 
     private fun uriToJpegFile(context: Context, uri: Uri): File? {
@@ -131,26 +124,57 @@ class RefactorDataFragment : Fragment() {
         }
     }
 
-    private fun createEmptyImagePart(): MultipartBody.Part {
-        val emptyFile = File(requireContext().cacheDir, "empty_image.jpeg")
-        emptyFile.createNewFile()
-        val requestFile = emptyFile.asRequestBody("image/jpeg".toMediaTypeOrNull())
-        return MultipartBody.Part.createFormData("image", emptyFile.name, requestFile)
-    }
-
-    private fun getFileFromUri(uri: Uri): File {
-        val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
-        val cursor = requireContext().contentResolver.query(uri, filePathColumn, null, null, null)
-        cursor?.moveToFirst()
-        val columnIndex = cursor?.getColumnIndex(filePathColumn[0])
-        val filePath = cursor?.getString(columnIndex!!)
-        cursor?.close()
-        return File(filePath!!)
-    }
-
     private fun createMultipartBody(uri: Uri): MultipartBody.Part {
         val file = uriToJpegFile(requireContext(), uri)!!
         val requestFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
         return MultipartBody.Part.createFormData("image", file.name, requestFile)
     }
+
+    //
+    private fun imageChooser(){
+        Intent(Intent.ACTION_GET_CONTENT).also {
+            it.type = "image/*"
+            val mimeTypes = arrayOf("image/jpeg", "image/png")
+            it.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
+            getCommentMedia.launch(it)
+        }
+    }
+
+    override fun onProgressUpdate(percentage: Int) {
+        Toast.makeText(requireContext(), "ALL IS $percentage", Toast.LENGTH_SHORT).show()
+    }
+
+
+    private fun uploadImage()= with(binding){
+        val parcelFileDescriptor = context?.contentResolver?.openFileDescriptor(selectedFileUri!!, "r", null)
+        val inputStream = FileInputStream(parcelFileDescriptor?.fileDescriptor)
+        val file = File(context?.cacheDir, context?.contentResolver?.getFileName(selectedFileUri!!))
+        val outputStream = FileOutputStream(file)
+        inputStream.copyTo(outputStream)
+        val body = UploadRequestBody(file,"image")
+
+        val firstName = createPartFromString(etName.text.toString())
+        val lastName = createPartFromString(etSurname.text.toString())
+        val dateOfBirth = createPartFromString(etDateOfBirth.text.toString())
+        val address = createPartFromString(etAddress.text.toString())
+
+        val imageBody = MultipartBody.Part.createFormData("photo",file.name, body)
+
+        refactorViewModel.putData(imageBody, firstName, lastName, dateOfBirth, address)
+            .observe(viewLifecycleOwner) {
+                findNavController().navigate(R.id.profileFragment)
+            }
+    }
+
+    @SuppressLint("Range")
+    fun ContentResolver.getFileName(uri: Uri):String{
+        var name = ""
+        val cursor = query(uri, null, null,null, null)
+        cursor?.use {
+            it.moveToFirst()
+            name = cursor.getString(it.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+        }
+        return name
+    }
+    //
 }
