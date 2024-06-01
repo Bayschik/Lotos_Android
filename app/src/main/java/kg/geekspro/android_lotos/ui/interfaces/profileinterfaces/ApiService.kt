@@ -90,7 +90,7 @@ interface ApiService {
         @Part("date_of_birth") dateOfBirth:RequestBody,
         @Part("address") address:RequestBody,
         @Header("Authorization") accessToken:String
-    ):Call<ResponseBody>
+    ):Call<Profile>
 
     @POST("api/v1/logout/")
     fun logOut(

@@ -274,30 +274,34 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
         lastName: RequestBody,
         dateOfBirth: RequestBody,
         address: RequestBody
-    ): LiveData<ResponseBody> {
-        val putData = MutableLiveData<ResponseBody>()
-
+    ): LiveData<Profile> {
+        val putData = MutableLiveData<Profile>()
         val accessToken = pref.getAccessToken()!!
         api.putProfile(image, firstName, lastName, dateOfBirth, address, "Bearer $accessToken")
-            .enqueue(object : Callback<ResponseBody> {
+            .enqueue(object : Callback<Profile> {
                 override fun onResponse(
-                    call: Call<ResponseBody>,
-                    response: Response<ResponseBody>
+                    call: Call<Profile>,
+                    response: Response<Profile>
                 ) {
                     if (response.isSuccessful) {
-                        response.body().let {
+                        response.body()?.let {
                             putData.postValue(it)
-                            Log.d("onSuccessPassword", it.toString())
+                            Log.d("putDataProfile", "Data sent successfully: $it")
+                        } ?: run {
+                            Log.e("putDataProfile", "Response body is null")
                         }
+                    } else {
+                        Log.e("putDataProfile", "Unsuccessful response: ${response.code()}")
                     }
                 }
 
-                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                    Log.e("onPasswordFailure", t.message.toString())
+                override fun onFailure(call: Call<Profile>, t: Throwable) {
+                    Log.e("putDataProfile", "Failed to send profile data: ${t.message}")
                 }
             })
         return putData
     }
+
 
     fun changeEmail(changeEmail: ChangeEmail): LiveData<Any> {
         val emailChange = MutableLiveData<Any>()
