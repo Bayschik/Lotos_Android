@@ -296,7 +296,7 @@
         tools:layout="@layout/fragment_confirm_password" />
     <fragment
         android:id="@+id/fragmentA"
-        android:name="kg.geekspro.android_lotos.ui.adapters.aboutusadapter.FragmentA"
+        android:name="kg.geekspro.android_lotos.ui.adapters.aboutusadapter.storiesadapter.FragmentA"
         android:label="fragment_a"
         tools:layout="@layout/fragment_a" />
 
