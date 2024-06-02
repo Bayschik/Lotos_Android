@@ -46,11 +46,14 @@ class RegistrationFragment : Fragment() {
                         email = etOfficialPhoneNumber.text.toString()
                     )
                     viewModel.verifyEmail(email).observe(viewLifecycleOwner) {
-                        Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
-                        findNavController().navigate(
-                            R.id.verificationCodeFragment,
-                            bundleOf("PHONE_NUMBER" to etOfficialPhoneNumber.text.toString())
-                        )
+                        if (it.toString() != "Аккаунт уже зарегистрирован"){
+                            findNavController().navigate(
+                                R.id.verificationCodeFragment,
+                                bundleOf("PHONE_NUMBER" to etOfficialPhoneNumber.text.toString())
+                            )
+                        }else{
+                            Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             }
@@ -63,7 +66,7 @@ class RegistrationFragment : Fragment() {
         }
     }
 
-    private fun googleSignIn() = with(binding) {
+    /*private fun googleSignIn() = with(binding) {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
             .build()
@@ -98,7 +101,7 @@ class RegistrationFragment : Fragment() {
                 Toast.makeText(requireContext(), e.statusCode, Toast.LENGTH_SHORT).show()
             }
         }
-    }
+    }*/
 
     companion object {
         private const val RC_SIGN_IN = 100
