@@ -26,7 +26,7 @@ class AppModule {
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient):Retrofit{
         return Retrofit.Builder()
-            .baseUrl("http://209.38.228.54:88/")
+            .baseUrl("https://lotos.pp.ua/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
