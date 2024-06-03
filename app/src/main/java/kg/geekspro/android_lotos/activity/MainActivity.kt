@@ -2,12 +2,16 @@ package kg.geekspro.android_lotos.activity
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
 import com.google.firebase.messaging.FirebaseMessaging
@@ -35,6 +39,7 @@ class MainActivity : AppCompatActivity() {
 
 
         val navController = findNavController(R.id.nav_host_fragment)
+        val bottomNavView:BottomNavigationView = findViewById(R.id.bottom_nav_view)
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
@@ -59,6 +64,31 @@ class MainActivity : AppCompatActivity() {
             } else {
                 binding.bottomNavView.isVisible = false
                 binding.myToolbar.isVisible = false
+            }
+        }
+
+        bottomNavView.setOnItemSelectedListener { item ->
+            /*bottomNavView.menu.findItem(R.id.homeFragment).setIcon(R.drawable.ic_home)
+            bottomNavView.menu.findItem(R.id.aboutUsFragment).setIcon(R.drawable.ic_about_us)
+            bottomNavView.menu.findItem(R.id.homeFragment).setIcon(R.drawable.ic_white_profile)
+*/
+            when (item.itemId) {
+                R.id.homeFragment -> {
+                    item.setIcon(R.drawable.ic_black_home)
+                    Log.d("item", "home icon")
+                    true
+                }
+                R.id.aboutUsFragment -> {
+                    item.setIcon(R.drawable.ic_black_about_us)
+                    Log.d("item", "about us icon")
+                    true
+                }
+                R.id.profileFragment -> {
+                    item.setIcon(R.drawable.ic_black_profile)
+                    Log.d("item", "profile icon")
+                    true
+                }
+                else -> true
             }
         }
 

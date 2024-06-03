@@ -87,6 +87,7 @@ dependencies {
     implementation(libs.androidx.viewpager2)
     // material - material
     implementation (libs.material.vversion)
+    implementation (libs.googleMaterial)
 
     implementation(libs.daggerHiltImpl)
     kapt(libs.daggerHiltKapt)
