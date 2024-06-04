@@ -41,6 +41,9 @@ class HomeFragment : Fragment() {
         binding.imgSlider.adapter = imageAdapter
 
 
+        binding.btnNotification.setOnClickListener{
+            findNavController().navigate(R.id.notificationsFragment)
+        }
 
         updateButtonVisibility()
         binding.btnSlideRight.setOnClickListener {

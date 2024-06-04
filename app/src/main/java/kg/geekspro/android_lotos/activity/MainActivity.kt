@@ -2,7 +2,9 @@ package kg.geekspro.android_lotos.activity
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.MenuItemCompat
 import androidx.core.view.isVisible
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -33,7 +35,6 @@ class MainActivity : AppCompatActivity() {
             Log.d("shamal", token)
         } // Don't touch!!!
 
-
         val navController = findNavController(R.id.nav_host_fragment)
 
         val appBarConfiguration = AppBarConfiguration(
@@ -61,6 +62,7 @@ class MainActivity : AppCompatActivity() {
                 binding.myToolbar.isVisible = false
             }
         }
+
 
         setSupportActionBar(binding.myToolbar)
         setupActionBarWithNavController(navController, appBarConfiguration)

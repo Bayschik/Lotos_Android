@@ -6,10 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragments.mainfragments.wet_cleaning.WetCleaningFragment">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -265,7 +264,7 @@
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:hint="Не более 1000"
-
+                    android:inputType="number"
                     android:paddingVertical="5dp"
                     android:paddingStart="10dp"
                     android:textSize="14sp"
@@ -279,7 +278,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingEnd="10dp"
-                    android:text="М2"
+                    android:text="| М2"
                     android:textColor="@color/gray_"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="@id/et_m2"
@@ -330,18 +329,30 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_order"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
+        android:textColor="@color/white"
+        android:background="@drawable/bg_card"
+        android:textAllCaps="false"
         android:layout_marginBottom="10dp"
         android:backgroundTint="@color/blue"
         android:text="Заказать"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_wet_cleaning_services"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        android:src="@drawable/img_wet_cleaning_services"
+        android:visibility="gone"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,6 +18,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentCalendarBinding
 import java.time.LocalDate
@@ -28,11 +29,13 @@ class CalendarFragment : Fragment() {
 
     private lateinit var binding: FragmentCalendarBinding
 
+    private lateinit var imagesAdapter: ImagesAdapter
+
     private val PICK_IMAGES_REQUEST_CODE = 123
     private val imagesList = mutableListOf<Uri>()
     private var selectedTime = ""
 
-    private lateinit var date: LocalDate
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +45,7 @@ class CalendarFragment : Fragment() {
         return binding.root
     }
 
+    private var date: LocalDate = LocalDate.now()
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -59,6 +63,7 @@ class CalendarFragment : Fragment() {
         val m2 = arguments?.getString("m2")
         val typeOfRoom = arguments?.getString("typeOfRoom")
         val roomAmount = arguments?.getInt("roomAmount")
+        val totalPrice = arguments?.getInt("totalPrice")
 
 
         val formatter = DateTimeFormatter.ofPattern("d/M/yyyy")
@@ -88,12 +93,7 @@ class CalendarFragment : Fragment() {
                 }
 
 
-//                findNavController().popBackStack()
-//                findNavController().navigate(R.id.orderFragment, bundle)
-                //test
-                // one more time
-                // check , i want to check
-                // one more fix
+
                 binding.etComment.text.clear()
 
                 binding.ibAddImage.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gray_), PorterDuff.Mode.SRC_IN)
@@ -121,15 +121,21 @@ class CalendarFragment : Fragment() {
             Log.d("TAG", "m2: $m2")
             Log.d("TAG", "typeOfRoom: $typeOfRoom")
             Log.d("TAG", "roomAmount: $roomAmount")
+            Log.d("TAG", "totalPrice: $totalPrice")
+
+            binding.rvImages.visibility = View.GONE
+            binding.etComment.clearFocus()
+            binding.btnOrder.text = "Заказать"
+            binding.btnOrder.isClickable = false
         }
 
+        binding.btnOrder.text = "Заказать за ${totalPrice}с"
 
 
         binding.ibAddImage.setOnClickListener{
             openGallery()
         }
 
-//        onClickTime()
 
         binding.btn0800.setOnClickListener{
             selectedTime = binding.btn0800.text.toString()
@@ -160,6 +166,8 @@ class CalendarFragment : Fragment() {
             selectedTime = binding.btn1900.text.toString()
             changeButtonBackground(binding.btn1900, btns)
         }
+
+
 
     }
     private fun openGallery() {
@@ -202,6 +210,10 @@ class CalendarFragment : Fragment() {
                 binding.ibAddImage.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gray_), PorterDuff.Mode.SRC_IN)
             }
 
+            binding.rvImages.visibility = View.VISIBLE
+            imagesAdapter = ImagesAdapter(requireContext(), imagesList)
+            binding.rvImages.layoutManager = GridLayoutManager(requireContext(), 3)
+            binding.rvImages.adapter = imagesAdapter
 
         }
     }

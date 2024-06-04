@@ -3,6 +3,8 @@ package kg.geekspro.android_lotos.ui.fragments.mainfragments.wet_cleaning
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -28,6 +30,7 @@ class WetCleaningFragment : Fragment(), OnTotalPriceChangedListener {
     private var roomAmount = 0
     private var isClickedVersion = 0
 
+    private var totalPrice = 0
 
     private val wetCleaningServices = arrayListOf(
         CleaningService(id=0,name = "Мытье духовного шкафа", price = 300),
@@ -85,7 +88,8 @@ class WetCleaningFragment : Fragment(), OnTotalPriceChangedListener {
                     "roomAmount" to roomAmount,
                     "m2" to binding.etM2.text.toString(),
                     "typeOfRoom" to binding.etTypeOfRoom.text.toString(),
-                    "roomAmount" to roomAmount
+                    "roomAmount" to roomAmount,
+                    "totalPrice" to extractNumberFromText(binding.btnOrder.text.toString())
 
                 )
                 )
@@ -99,44 +103,87 @@ class WetCleaningFragment : Fragment(), OnTotalPriceChangedListener {
 
         binding.btnOneVariant.setOnClickListener{
             setButtonVariantColor(1)
-
+            binding.btnOrder.text = "Заказать за ${totalPrice + 5000}с"
+            binding.etM2.text?.clear()
 
         }
 
         binding.btnTwoVariant.setOnClickListener{
             setButtonVariantColor(2)
+            binding.btnOrder.text = "Заказать за ${totalPrice + 5000}с"
+            binding.etM2.text?.clear()
         }
 
         binding.btnThreeVariant.setOnClickListener{
             setButtonVariantColor(3)
+            binding.btnOrder.text = "Заказать за ${totalPrice + 5000}с"
+            binding.etM2.text?.clear()
+
 
         }
 
         binding.etTypeOfRoom.setOnFocusChangeListener { v, hasFocus ->
-            etOnFocus(hasFocus)
+            if (hasFocus){
+                setButtonVariantColor(4)
+            }
 
         }
 
         binding.etM2.setOnFocusChangeListener { v, hasFocus ->
-            etOnFocus(hasFocus)
+
+            if (hasFocus){
+                setButtonVariantColor(4)
+            }
 
         }
 
+        binding.etM2.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (isClickedVersion == 4 && !s.isNullOrEmpty()) {
+                    val newTotalPrice = totalPrice + (s.toString().toInt() * 50)
+                    binding.btnOrder.text = "Заказать за ${newTotalPrice}c"
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+
+        binding.tvWhatServices.setOnClickListener{
+            binding.ivWetCleaningServices.visibility = View.VISIBLE
+        }
+
+        binding.ivWetCleaningServices.setOnClickListener{
+            binding.ivWetCleaningServices.visibility = View.GONE
+        }
+
+    }
+
+    private fun extractNumberFromText(text: String): Int {
+        val regex = Regex("\\d+")
+        val match = regex.find(text)
+        return match?.value?.toInt() ?: 0
     }
 
     override fun onTotalPriceChanged(totalPrice: Int) {
-        binding.btnOrder.text = "Заказать: $totalPrice"
-    }
 
-    private fun etOnFocus(etHasFocus: Boolean){
-        if (etHasFocus){
-            binding.tvOther.setBackgroundResource(selectedBackgroundColor)
-            binding.tvOther.setTextColor(Color.WHITE)
-        }else{
-            binding.tvOther.setTextColor(Color.GRAY)
+        this.totalPrice = totalPrice
+        when (isClickedVersion) {
+            0 -> {
+                binding.btnOrder.text =  "Заказать за ${totalPrice}"
+            }
+            in 1..3 -> {
+                binding.btnOrder.text =  "Заказать за ${5000 + totalPrice}с"
+            }
+            4 -> {
+                binding.btnOrder.text =  "Заказать за ${(binding.etM2.text.toString().toInt() * 50) + totalPrice}с"
+            }
         }
 
     }
+
 
     private fun setButtonVariantColor(num: Int){
         when (num) {
@@ -151,6 +198,11 @@ class WetCleaningFragment : Fragment(), OnTotalPriceChangedListener {
                 binding.tvTwoVariantNum.setTextColor(Color.GRAY)
                 binding.tvThreeVariantNum.setTextColor(Color.GRAY)
 
+                binding.tvOther.background = null
+                binding.tvOther.setTextColor(Color.GRAY)
+                binding.etM2.clearFocus()
+                binding.etTypeOfRoom.clearFocus()
+
             }
             2 -> {
                 isClickedVersion = 2
@@ -162,6 +214,12 @@ class WetCleaningFragment : Fragment(), OnTotalPriceChangedListener {
                 binding.tvOneVariantNum.setTextColor(Color.GRAY)
                 binding.tvTwoVariantNum.setTextColor(Color.WHITE)
                 binding.tvThreeVariantNum.setTextColor(Color.GRAY)
+
+                binding.tvOther.background = null
+                binding.tvOther.setTextColor(Color.GRAY)
+
+                binding.etM2.clearFocus()
+                binding.etTypeOfRoom.clearFocus()
             }
             3 -> {
                 isClickedVersion = 3
@@ -175,14 +233,32 @@ class WetCleaningFragment : Fragment(), OnTotalPriceChangedListener {
                 binding.tvTwoVariantNum.setTextColor(Color.GRAY)
                 binding.tvThreeVariantNum.setTextColor(Color.WHITE)
 
+                binding.tvOther.background = null
+                binding.tvOther.setTextColor(Color.GRAY)
+
+                binding.etM2.clearFocus()
+                binding.etTypeOfRoom.clearFocus()
+
+            }
+            4->{
+                isClickedVersion = 4
+                roomAmount = 0
+
+                binding.tvOneVariantNum.background = null
+                binding.tvTwoVariantNum.background = null
+                binding.tvThreeVariantNum.background = null
+
+                binding.tvOneVariantNum.setTextColor(Color.GRAY)
+                binding.tvTwoVariantNum.setTextColor(Color.GRAY)
+                binding.tvThreeVariantNum.setTextColor(Color.GRAY)
+
+                binding.tvOther.setBackgroundResource(selectedBackgroundColor)
+                binding.tvOther.setTextColor(Color.WHITE)
+
+
             }
         }
-
-        binding.tvOther.background = null
-        binding.etM2.clearFocus()
-        binding.etTypeOfRoom.clearFocus()
     }
-
 
 
 }
