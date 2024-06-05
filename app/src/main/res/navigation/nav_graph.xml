@@ -27,8 +27,8 @@
             android:id="@+id/action_profileFragment_to_safetyFragment"
             app:destination="@id/safetyFragment" />
         <action
-            android:id="@+id/action_profileFragment_to_logOutFragment"
-            app:destination="@id/logOutFragment" />
+            android:id="@+id/action_profileFragment_to_exitAccountFragment"
+            app:destination="@id/exitAccountFragment" />
     </fragment>
 
     <fragment
@@ -281,14 +281,8 @@
         tools:layout="@layout/fragment_log" />
 
     <fragment
-        android:id="@+id/logOutFragment"
-        android:name="kg.geekspro.android_lotos.ui.fragments.profile.logOut.LogOutFragment"
-        android:label="fragment_log_out"
-        tools:layout="@layout/fragment_log_out" />
-
-    <fragment
         android:id="@+id/exitProfileFragment"
-        android:name="kg.geekspro.android_lotos.ui.fragments.profile.logOut.ExitProfileFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.safety.safetyPassword.ConfirmPasswordFragment"
         android:label="fragment_exit_profile"
         tools:layout="@layout/fragment_confirm_password" />
     <fragment
@@ -302,5 +296,11 @@
         android:name="kg.geekspro.android_lotos.ui.fragments.profile.order.OrderFragment"
         android:label="fragment_order"
         tools:layout="@layout/fragment_order" />
+
+    <fragment
+        android:id="@+id/exitAccountFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.profile.logOut.ExitAccountFragment"
+        android:label="fragment_exit_account"
+        tools:layout="@layout/fragment_exit_account" />
 
 </navigation>

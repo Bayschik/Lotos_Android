@@ -24,8 +24,6 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var pref:Pref
-
-
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,14 +37,14 @@ class MainActivity : AppCompatActivity() {
 
 
         val navController = findNavController(R.id.nav_host_fragment)
-        val bottomNavView:BottomNavigationView = findViewById(R.id.bottom_nav_view)
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.homeFragment,
                 R.id.aboutUsFragment,
                 R.id.profileFragment,
-                R.id.onBoardingFragment
+                R.id.onBoardingFragment,
+                R.id.exitProfileFragment
             )
         )
 
@@ -55,19 +53,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.homeFragment ||
-                destination.id == R.id.aboutUsFragment ||
-                destination.id == R.id.profileFragment
+            if (destination.id == R.id.onBoardingFragment ||
+                destination.id == R.id.splashFragment
             ) {
-                binding.bottomNavView.isVisible = true
+                binding.bottomNavView.isVisible = false
                 binding.myToolbar.isVisible = false
             } else {
-                binding.bottomNavView.isVisible = false
+                binding.bottomNavView.isVisible = true
                 binding.myToolbar.isVisible = false
             }
         }
 
-        bottomNavView.setOnItemSelectedListener { item ->
+        binding.bottomNavView.setOnItemSelectedListener { item ->
             /*bottomNavView.menu.findItem(R.id.homeFragment).setIcon(R.drawable.ic_home)
             bottomNavView.menu.findItem(R.id.aboutUsFragment).setIcon(R.drawable.ic_about_us)
             bottomNavView.menu.findItem(R.id.homeFragment).setIcon(R.drawable.ic_white_profile)

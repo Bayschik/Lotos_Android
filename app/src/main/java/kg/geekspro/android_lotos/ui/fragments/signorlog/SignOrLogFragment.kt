@@ -32,6 +32,9 @@ class SignOrLogFragment : Fragment() {
             btnRegistration.setOnClickListener {
                 findNavController().navigate(R.id.registrationFragment)
             }
+            tvSkip.setOnClickListener {
+                findNavController().navigate(R.id.homeFragment)
+            }
         }
     }
 }
