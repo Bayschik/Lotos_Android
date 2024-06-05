@@ -75,10 +75,12 @@ class AboutUsFragment : Fragment() {
 
     private fun initButtons() {
         binding.btnStoryFirst.setOnClickListener {
-            findNavController().navigate(R.id.fragmentA)
+            findNavController().navigate(R.id.professionalMachAndEquipmentFragment)
+            // fragmentA
         }
         binding.btnStorySecond.setOnClickListener {
-            viewPager2?.setCurrentItem(1, true)
+            //viewPager2?.setCurrentItem(1, true)
+            findNavController().navigate(R.id.teamOfProfessionalsFragment)
         }
         binding.btnStoryThird.setOnClickListener {
             findNavController().navigate(R.id.wideAssortmentFragment)

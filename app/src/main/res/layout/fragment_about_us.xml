@@ -58,9 +58,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="14dp"
+            android:fontFamily="@font/roboto_bold"
             android:padding="12dp"
             android:paddingStart="16dp"
-            android:fontFamily="@font/roboto_bold"
             android:paddingEnd="16dp"
             android:text="Lorem ipsum dolor sit amet consectetur. Sed accumsan molestie vulputate sed pellentesque sit. In vestibulum etiam sed id tristique et ut. Ultrices orci nunc dignissim morbi at arcu. In id vitae dignissim nisi non lacus scelerisque."
             android:textColor="@color/black"
@@ -77,12 +77,12 @@
             android:layout_height="match_parent"
             android:layout_marginTop="18dp"
             android:background="#8006D8F3"
+            android:fontFamily="@font/roboto_bold"
             android:padding="5dp"
             android:paddingStart="16dp"
             android:text="3 причины почему стоит выбрать нас:"
             android:textColor="@color/black"
             android:textSize="16sp"
-            android:fontFamily="@font/roboto_bold"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -163,16 +163,84 @@
             android:id="@+id/rvInAboutUs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            tools:listitem="@layout/item_youtube_video"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="34dp"
             android:padding="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/tvOurWork"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvOurWork"
+            tools:listitem="@layout/item_youtube_video" />
 
+
+        <ImageView
+            android:id="@+id/btnWhatsApp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="150dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal"
+            android:src="@drawable/ic_whatsapp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnTelephone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rvInAboutUs"
+            app:layout_goneMarginStart="34dp" />
+
+        <ImageView
+            android:id="@+id/btnTelephone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="34dp"
+            android:layout_marginEnd="24dp"
+            android:src="@drawable/ic_telephone"
+            app:layout_constraintBottom_toBottomOf="@+id/btnWhatsApp"
+            app:layout_constraintEnd_toStartOf="@+id/ivInstagram"
+            app:layout_constraintStart_toEndOf="@+id/btnWhatsApp"
+            app:layout_constraintTop_toTopOf="@+id/btnWhatsApp" />
+
+        <ImageView
+            android:id="@+id/ivInstagram"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="34dp"
+            android:layout_marginEnd="150dp"
+            android:src="@drawable/ic_instagram"
+            app:layout_constraintBottom_toBottomOf="@+id/btnWhatsApp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnTelephone"
+            app:layout_constraintTop_toTopOf="@+id/btnTelephone"
+            />
+
+        <!--        <ImageView-->
+        <!--            android:id="@+id/ivTelephone"-->
+        <!--            android:layout_width="26dp"-->
+        <!--            android:layout_height="26dp"-->
+        <!--            android:layout_marginStart="60dp"-->
+        <!--            android:layout_marginEnd="60dp"-->
+        <!--            android:orientation="horizontal"-->
+        <!--            android:src="@drawable/ic_telephone"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/rvInAboutUs"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintEnd_toStartOf="@id/ivInstagram"-->
+        <!--            app:layout_constraintStart_toEndOf="@+id/ivWhatsApp"-->
+        <!--            app:layout_constraintTop_toTopOf="@+id/ivWhatsApp" />-->
+
+        <!--        <ImageView-->
+        <!--            android:id="@+id/ivInstagram"-->
+        <!--            android:layout_width="26dp"-->
+        <!--            android:layout_height="26dp"-->
+        <!--            android:layout_marginEnd="150dp"-->
+        <!--            android:orientation="horizontal"-->
+        <!--            android:src="@drawable/ic_instagram"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintStart_toEndOf="@+id/ivTelephone"-->
+        <!--            app:layout_constraintTop_toTopOf="@+id/ivTelephone" />-->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
