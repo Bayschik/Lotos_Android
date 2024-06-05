@@ -7,16 +7,6 @@
     android:background="@color/white_blue"
     tools:context=".ui.fragments.aboutus.WideAssortmentFragment">
 
-    <ImageView
-        android:id="@+id/img_arrow_left_second"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
-        android:layout_marginStart="16dp"
-        android:src="@drawable/ic_arrow_left"
-        app:layout_constraintBottom_toBottomOf="@+id/tvWideAssortment"
-        app:layout_constraintEnd_toStartOf="@+id/tvWideAssortment"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvWideAssortment" />
 
     <TextView
         android:id="@+id/tvWideAssortment"

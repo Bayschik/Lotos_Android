@@ -8,8 +8,9 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
+
+import com.google.firebase.messaging.FirebaseMessaging
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.ActivityMainBinding
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
@@ -17,9 +18,10 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
     @Inject
     lateinit var pref:Pref
+
+
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +38,7 @@ class MainActivity : AppCompatActivity() {
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.mainFragment,
+                R.id.homeFragment,
                 R.id.aboutUsFragment,
                 R.id.profileFragment,
                 R.id.onBoardingFragment
@@ -44,11 +46,11 @@ class MainActivity : AppCompatActivity() {
         )
 
         if (!pref.isShow()) {
-            navController.navigate(R.id.onBoardingFragment)
+            navController.navigate(R.id.splashFragment)
         }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.mainFragment ||
+            if (destination.id == R.id.homeFragment ||
                 destination.id == R.id.aboutUsFragment ||
                 destination.id == R.id.profileFragment
             ) {
