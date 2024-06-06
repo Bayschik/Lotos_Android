@@ -58,15 +58,12 @@ class RegistrationFragment : Fragment() {
                 }
             }
             btnGoogle.setOnClickListener {
-                //googleSignIn()
-                viewModel.googleAuth().observe(viewLifecycleOwner){
-                    findNavController().navigate(R.id.verificationCodeFragment)
-                }
+                googleSignIn()
             }
         }
     }
 
-    /*private fun googleSignIn() = with(binding) {
+    private fun googleSignIn() = with(binding) {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
             .build()
@@ -91,19 +88,18 @@ class RegistrationFragment : Fragment() {
                 viewModel.verifyEmail(registration).observe(viewLifecycleOwner){
                     Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
                     findNavController().navigate(
-                        R.id.verificationCodeFragment,
+                        R.id.homeFragment,
                         bundleOf("PHONE_NUMBER" to binding.etOfficialPhoneNumber.text.toString())
                     )
                 }
-
                 Toast.makeText(requireContext(), "Email: $email", Toast.LENGTH_SHORT).show()
             } catch (e: ApiException) {
                 Toast.makeText(requireContext(), e.statusCode, Toast.LENGTH_SHORT).show()
             }
         }
-    }*/
+    }
 
     companion object {
-        private const val RC_SIGN_IN = 100
+        private const val RC_SIGN_IN = 9001
     }
 }

@@ -171,10 +171,10 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
                 response: Response<PasswordCreate>
             ) {
                 if (response.isSuccessful) {
-                    response.body().let { result ->
-                        logInValue.postValue(result!!)
-                        pref.saveAccessToken(result.access)
+                    response.body()?.let { result ->
                         pref.saveRefreshToken(result.refresh)
+                        pref.saveAccessToken(result.access)
+                        logInValue.postValue(result)
                         Log.d("onSuccessLogIn", result.toString())
                     }
                 } else {

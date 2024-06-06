@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.aboutUsFragment,
                 R.id.profileFragment,
                 R.id.onBoardingFragment,
-                R.id.exitProfileFragment
+                R.id.exitAccountFragment
             )
         )
 
@@ -53,13 +53,15 @@ class MainActivity : AppCompatActivity() {
         }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.onBoardingFragment ||
-                destination.id == R.id.splashFragment
+            if (destination.id == R.id.homeFragment ||
+                destination.id == R.id.aboutUsFragment ||
+                destination.id == R.id.profileFragment ||
+                destination.id == R.id.exitAccountFragment
             ) {
-                binding.bottomNavView.isVisible = false
+                binding.bottomNavView.isVisible = true
                 binding.myToolbar.isVisible = false
             } else {
-                binding.bottomNavView.isVisible = true
+                binding.bottomNavView.isVisible = false
                 binding.myToolbar.isVisible = false
             }
         }
