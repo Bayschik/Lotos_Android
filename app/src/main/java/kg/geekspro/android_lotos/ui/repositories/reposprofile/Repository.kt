@@ -3,6 +3,7 @@ package kg.geekspro.android_lotos.ui.repositories.reposprofile
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import kg.geekspro.android_lotos.ReviewModel
 import kg.geekspro.android_lotos.models.orderhistorymodels.PersonalData
 import kg.geekspro.android_lotos.models.profile.Password
 import kg.geekspro.android_lotos.models.profile.Profile
@@ -431,6 +432,28 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
 
             override fun onFailure(call: Call<PasswordCreate>, t: Throwable) {
                 Log.e("onRefreshFailure", t.message.toString())
+            }
+        })
+        return refresh
+    }
+
+    fun leaveReview(reviewModel: ReviewModel): LiveData<ReviewModel> {
+        val refresh = MutableLiveData<ReviewModel>()
+
+        api.leaveReview(reviewModel, pref.getAccessToken()!!).enqueue(object : Callback<ReviewModel> {
+            override fun onResponse(
+                call: Call<ReviewModel>,
+                response: Response<ReviewModel>
+            ) {
+                if (response.isSuccessful) {
+                    response.body()?.let {
+
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ReviewModel>, t: Throwable) {
+                Log.e("", t.message.toString())
             }
         })
         return refresh

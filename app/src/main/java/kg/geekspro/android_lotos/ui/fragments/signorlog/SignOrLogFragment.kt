@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
@@ -33,7 +33,11 @@ class SignOrLogFragment : Fragment() {
                 findNavController().navigate(R.id.registrationFragment)
             }
             tvSkip.setOnClickListener {
-                findNavController().navigate(R.id.homeFragment)
+                val navOptions = NavOptions.Builder()
+                .setPopUpTo(R.id.signOrLogFragment, true)
+                .build()
+
+                findNavController().navigate(R.id.homeFragment, null, navOptions)
             }
         }
     }

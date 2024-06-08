@@ -48,6 +48,7 @@ class OrderFragment : Fragment() {
                 } else if (it.status == "В работе") {
                     statusCardView.setCardBackgroundColor(requireContext().resources.getColor(R.color.purple))
                 } else if (it.status == "accepted") {
+                    btnLeaveReview.visibility = View.VISIBLE
                     statusCardView.setCardBackgroundColor(requireContext().resources.getColor(R.color.green))
                 } else if (it.status == "Отменен") {
                     statusCardView.setCardBackgroundColor(requireContext().resources.getColor(R.color.dark_black))
@@ -55,6 +56,7 @@ class OrderFragment : Fragment() {
                 adapter.order(it.servicesData)
             }
             imgBack.setOnClickListener { findNavController().navigateUp() }
+            btnLeaveReview.setOnClickListener { findNavController().navigate(R.id.reviewFragment) }
         }
     }
 

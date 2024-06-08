@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/splashFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -35,7 +35,7 @@
         android:id="@+id/aboutUsFragment"
         android:name="kg.geekspro.android_lotos.ui.fragments.aboutus.AboutUsFragment"
         android:label="Search"
-        tools:layout="@layout/fragment_about_us" >
+        tools:layout="@layout/fragment_about_us">
         <action
             android:id="@+id/action_aboutUsFragment_to_fragmentA"
             app:destination="@id/fragmentA" />
@@ -161,7 +161,7 @@
         android:id="@+id/changePasswordFragment"
         android:name="kg.geekspro.android_lotos.ui.fragments.safety.safetyPassword.ChangePasswordFragment"
         android:label="fragment_change_password"
-        tools:layout="@layout/fragment_change_password" >
+        tools:layout="@layout/fragment_change_password">
         <action
             android:id="@+id/action_changePasswordFragment_to_forgotPasswordFragment"
             app:destination="@id/forgotPasswordFragment" />
@@ -171,7 +171,7 @@
         android:id="@+id/forgotPasswordFragment"
         android:name="kg.geekspro.android_lotos.ui.fragments.safety.safetyPassword.ForgotPasswordFragment"
         android:label="fragment_forgot_password"
-        tools:layout="@layout/fragment_forgot_password" >
+        tools:layout="@layout/fragment_forgot_password">
         <action
             android:id="@+id/action_forgotPasswordFragment_to_confirmPasswordFragment"
             app:destination="@id/confirmPasswordFragment" />
@@ -181,12 +181,11 @@
         android:id="@+id/confirmPasswordFragment"
         android:name="kg.geekspro.android_lotos.ui.fragments.safety.safetyPassword.ConfirmPasswordFragment"
         android:label="fragment_confirm_password"
-        tools:layout="@layout/fragment_confirm_password" >
+        tools:layout="@layout/fragment_confirm_password">
         <action
             android:id="@+id/action_confirmPasswordFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
     </fragment>
-
 
 
     <fragment
@@ -223,7 +222,7 @@
         android:id="@+id/safetyFragment"
         android:name="kg.geekspro.android_lotos.ui.fragments.safety.SafetyFragment"
         android:label="fragment_safety"
-        tools:layout="@layout/fragment_safety" >
+        tools:layout="@layout/fragment_safety">
         <action
             android:id="@+id/action_safetyFragment_to_changePasswordFragment"
             app:destination="@id/changePasswordFragment" />
@@ -302,5 +301,11 @@
         android:name="kg.geekspro.android_lotos.ui.fragments.profile.logOut.ExitAccountFragment"
         android:label="fragment_exit_account"
         tools:layout="@layout/fragment_exit_account" />
+
+    <fragment
+        android:id="@+id/reviewFragment"
+        android:name="kg.geekspro.android_lotos.ReviewFragment"
+        android:label="fragment_review"
+        tools:layout="@layout/fragment_review" />
 
 </navigation>

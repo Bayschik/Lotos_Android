@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.isVisible
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -31,6 +32,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //Thread.sleep(2000)
+        installSplashScreen()
+
         FirebaseMessaging.getInstance().token.addOnSuccessListener { token ->
             Log.d("shamal", token)
         } // Don't touch!!!
@@ -49,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         )
 
         if (!pref.isShow()) {
-            navController.navigate(R.id.splashFragment)
+            navController.navigate(R.id.onBoardingFragment)
         }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
