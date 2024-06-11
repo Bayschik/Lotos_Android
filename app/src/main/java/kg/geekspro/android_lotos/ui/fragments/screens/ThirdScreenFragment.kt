@@ -30,10 +30,12 @@ class ThirdScreenFragment : Fragment() {
         binding.btnThirdNext.setOnClickListener {
             pref.onShowed()
             findNavController().navigate(R.id.signOrLogFragment)
+            findNavController().popBackStack(R.id.thirdScreenFragment, false)
         }
         binding.tvThirdSkip.setOnClickListener {
             pref.onShowed()
             findNavController().navigate(R.id.signOrLogFragment)
+            findNavController().popBackStack(R.id.thirdScreenFragment, false)
         }
     }
 

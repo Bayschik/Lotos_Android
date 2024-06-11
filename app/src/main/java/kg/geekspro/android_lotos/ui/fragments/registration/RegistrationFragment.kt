@@ -46,19 +46,19 @@ class RegistrationFragment : Fragment() {
                         email = etOfficialPhoneNumber.text.toString()
                     )
                     viewModel.verifyEmail(email).observe(viewLifecycleOwner) {
-                        Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
-                        findNavController().navigate(
-                            R.id.verificationCodeFragment,
-                            bundleOf("PHONE_NUMBER" to etOfficialPhoneNumber.text.toString())
-                        )
+                        if (it.toString() != "Аккаунт уже зарегистрирован"){
+                            findNavController().navigate(
+                                R.id.verificationCodeFragment,
+                                bundleOf("PHONE_NUMBER" to etOfficialPhoneNumber.text.toString())
+                            )
+                        }else{
+                            Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             }
             btnGoogle.setOnClickListener {
-                //googleSignIn()
-                viewModel.googleAuth().observe(viewLifecycleOwner){
-                    findNavController().navigate(R.id.verificationCodeFragment)
-                }
+                googleSignIn()
             }
         }
     }
@@ -88,11 +88,10 @@ class RegistrationFragment : Fragment() {
                 viewModel.verifyEmail(registration).observe(viewLifecycleOwner){
                     Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
                     findNavController().navigate(
-                        R.id.verificationCodeFragment,
+                        R.id.homeFragment,
                         bundleOf("PHONE_NUMBER" to binding.etOfficialPhoneNumber.text.toString())
                     )
                 }
-
                 Toast.makeText(requireContext(), "Email: $email", Toast.LENGTH_SHORT).show()
             } catch (e: ApiException) {
                 Toast.makeText(requireContext(), e.statusCode, Toast.LENGTH_SHORT).show()
@@ -101,6 +100,6 @@ class RegistrationFragment : Fragment() {
     }
 
     companion object {
-        private const val RC_SIGN_IN = 100
+        private const val RC_SIGN_IN = 9001
     }
 }

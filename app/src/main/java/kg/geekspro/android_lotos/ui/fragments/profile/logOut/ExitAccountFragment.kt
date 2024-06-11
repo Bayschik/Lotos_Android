@@ -6,17 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
-import kg.geekspro.android_lotos.databinding.FragmentLogOutBinding
+import kg.geekspro.android_lotos.databinding.FragmentExitAccountBinding
 
-class LogOutFragment : Fragment() {
-    private lateinit var binding:FragmentLogOutBinding
+@AndroidEntryPoint
+class ExitAccountFragment : Fragment() {
+    private lateinit var binding:FragmentExitAccountBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentLogOutBinding.inflate(inflater, container, false)
+        binding = FragmentExitAccountBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -27,4 +29,5 @@ class LogOutFragment : Fragment() {
             btnSingIn.setOnClickListener {findNavController().navigate(R.id.registrationFragment)}
         }
     }
+
 }

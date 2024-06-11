@@ -57,6 +57,8 @@ dependencies {
 
     // Gson
     implementation (libs.gson)
+    //Splash Screen
+    implementation(libs.splashScreen)
     // val nav_version = "2.7.7"
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
@@ -87,6 +89,7 @@ dependencies {
     implementation(libs.androidx.viewpager2)
     // material - material
     implementation (libs.material.vversion)
+    implementation (libs.googleMaterial)
 
     implementation(libs.daggerHiltImpl)
     kapt(libs.daggerHiltKapt)
