@@ -13,6 +13,4 @@ interface FcmApiService {
         @Header("Authorization") accessToken:String,
         @Body fcmToken: FcmAnswer
     ): Call<FcmAnswer>
-
-
 }

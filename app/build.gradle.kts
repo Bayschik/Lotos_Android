@@ -97,5 +97,8 @@ dependencies {
     implementation(libs.loggingInterceptor)
     //Coroutines
     implementation(libs.coroutines)
+    //Paging
+    implementation (libs.androidx.paging.common.ktx)
+    implementation (libs.androidx.paging.runtime.ktx)
 
 }
