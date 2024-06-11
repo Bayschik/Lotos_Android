@@ -45,6 +45,8 @@ class PasswordCreateFragment : Fragment() {
                 } else if (etOfficialConfirmPassword.text.toString() != etOfficialPasswordCreate.text?.toString()) {
                     Toast.makeText(requireContext(), "Пароли должны совпадать", Toast.LENGTH_SHORT)
                         .show()
+                }else if (etOfficialConfirmPassword.text.toString().length <= 8 && etOfficialPasswordCreate.text.toString().length <= 8) {
+                    Toast.makeText(requireContext(), "Минимальная длина пароля 8 знаков", Toast.LENGTH_SHORT).show()
                 } else {
                     val password = Password(
                         password = etOfficialPasswordCreate.text.toString(),

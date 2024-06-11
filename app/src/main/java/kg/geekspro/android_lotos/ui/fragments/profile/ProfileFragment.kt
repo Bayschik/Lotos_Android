@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -30,6 +31,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
+
     @Inject
     lateinit var pref: Pref
     private lateinit var dialog: BottomSheetDialog
@@ -48,40 +50,56 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
-            val accessToken = Token(
-                token = "Bearer ${pref.getAccessToken()!!}"
-            )
+            var accessToken: Token
             val verifyToken = TokenVerify(
                 detail = "Token is invalid or expired",
                 code = "token_not_valid"
             )
-            viewModel.checkUser(accessToken).observe(viewLifecycleOwner) { token ->
-                if (token != verifyToken) {
-                    viewModel.getProfile(pref.getAccessToken()!!).observe(viewLifecycleOwner) {
-                        tvUserFullName.text = "${it.lastName} ${it.firstName}"
-                        btnPersonalData.setOnClickListener { findNavController().navigate(R.id.personalDataFragment) }
-                        setImageFromPhone(it)
-                        btnOrderHistory.setOnClickListener { showBottomNavSheet() }
-                        btnExit.setOnClickListener { showLogOut() }
-                        btnSafetyPassword.setOnClickListener {
-                            findNavController().navigate(R.id.safetyFragment)
-                        }
-                    }
+
+            with(pref.getAccessToken()) {
+                accessToken = Token(token = "Bearer ${this ?: ""}")
+                if (this == null) {
+                    findNavController().navigate(R.id.exitAccountFragment)
+                    Toast.makeText(requireContext(), "exit account", Toast.LENGTH_SHORT).show()
                 } else {
-                    val refreshToken = RefreshToken(
-                        refresh = pref.getRefresh()!!
-                    )
-                    viewModel.refreshToken(refreshToken).observe(viewLifecycleOwner) {
-                        pref.saveAccessToken(it.access)
-                        viewModel.getProfile(pref.getAccessToken()!!).observe(viewLifecycleOwner) {
-                            tvUserFullName.text = "${it.lastName} ${it.firstName}"
-                            //Glide.with(binding.imgProfile).load("https://lotos.pp.ua/${it.photo}").into(binding.imgProfile)
-                            btnPersonalData.setOnClickListener { findNavController().navigate(R.id.personalDataFragment) }
-                            setImageFromPhone(it)
-                            btnOrderHistory.setOnClickListener { showBottomNavSheet() }
-                            btnExit.setOnClickListener { showLogOut() }
-                            btnSafetyPassword.setOnClickListener {
-                                findNavController().navigate(R.id.safetyFragment)
+                    viewModel.checkUser(accessToken).observe(viewLifecycleOwner) { token ->
+                        if (token != verifyToken) {
+                            viewModel.getProfile(pref.getAccessToken()!!)
+                                .observe(viewLifecycleOwner) {
+                                    tvUserFullName.text = "${it.lastName} ${it.firstName}"
+                                    btnPersonalData.setOnClickListener {
+                                        findNavController().navigate(
+                                            R.id.personalDataFragment
+                                        )
+                                    }
+                                    setImageFromPhone(it)
+                                    btnOrderHistory.setOnClickListener { showBottomNavSheet() }
+                                    btnExit.setOnClickListener { showLogOut() }
+                                    btnSafetyPassword.setOnClickListener {
+                                        findNavController().navigate(R.id.safetyFragment)
+                                    }
+                                }
+                        } else {
+                            val refreshToken = RefreshToken(
+                                refresh = pref.getRefresh()!!
+                            )
+                            viewModel.refreshToken(refreshToken).observe(viewLifecycleOwner) {
+                                pref.saveAccessToken(it.access)
+                                viewModel.getProfile(pref.getAccessToken()!!)
+                                    .observe(viewLifecycleOwner) {
+                                        tvUserFullName.text = "${it.lastName} ${it.firstName}"
+                                        btnPersonalData.setOnClickListener {
+                                            findNavController().navigate(
+                                                R.id.personalDataFragment
+                                            )
+                                        }
+                                        setImageFromPhone(it)
+                                        btnOrderHistory.setOnClickListener { showBottomNavSheet() }
+                                        btnExit.setOnClickListener { showLogOut() }
+                                        btnSafetyPassword.setOnClickListener {
+                                            findNavController().navigate(R.id.safetyFragment)
+                                        }
+                                    }
                             }
                         }
                     }
@@ -90,8 +108,9 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun setImageFromPhone(model:Profile) = with(binding) {
-        Glide.with(imgProfile).load("https://lotos.pp.ua${model.photo}").placeholder(R.drawable.ic_profile_placeholder)
+    private fun setImageFromPhone(model: Profile) = with(binding) {
+        Glide.with(imgProfile).load("https://lotos.pp.ua${model.photo}")
+            .placeholder(R.drawable.ic_profile_placeholder)
             .into(imgProfile)
     }
 
@@ -108,7 +127,7 @@ class ProfileFragment : Fragment() {
         btnYes.setOnClickListener {
             alertShow.dismiss()
             viewModel.logOut().observe(viewLifecycleOwner) {
-                findNavController().navigate(R.id.action_profileFragment_to_logOutFragment)
+                findNavController().navigate(R.id.action_profileFragment_to_exitAccountFragment)
             }
         }
         btnNo.setOnClickListener {
@@ -123,6 +142,7 @@ class ProfileFragment : Fragment() {
     private fun showBottomNavSheet() {
         val bottomSheet = layoutInflater.inflate(R.layout.bottom_sheet_layout, null)
         val rvOrder = bottomSheet.findViewById<RecyclerView>(R.id.rv_order_history)
+        val noOrder = bottomSheet.findViewById<TextView>(R.id.tv_no_order)
         val imgArrowBack = bottomSheet.findViewById<ImageView>(R.id.img_order_back)
         imgArrowBack?.setOnClickListener {
             dialog.hide()
@@ -130,13 +150,18 @@ class ProfileFragment : Fragment() {
         dialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
         dialog.setContentView(bottomSheet)
         dialog.show()
-        viewModel.getHistoryList().observe(viewLifecycleOwner){
-            adapter.getOrderList(it)
-            rvOrder.adapter = adapter
+        viewModel.getHistoryList().observe(viewLifecycleOwner) {
+            if (it.isNullOrEmpty()) {
+                noOrder.visibility = View.VISIBLE
+            } else {
+                noOrder.visibility = View.GONE
+                adapter.getOrderList(it)
+                rvOrder.adapter = adapter
+            }
         }
     }
 
-    private fun nextFragment(id:Int){
+    private fun nextFragment(id: Int) {
         findNavController().navigate(R.id.orderFragment, bundleOf("ORDER_ID" to id))
         dialog.hide()
     }

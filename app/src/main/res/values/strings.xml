@@ -55,7 +55,6 @@
     <string name="spring">Влажная уборка</string>
 
 
-
     <string name="wet_cleaning_description">Влажная уборка - это процесс очистки помещения или
         поверхности с использованием влажной ткани, тряпки
         или других средств, смоченных в воде или специальных
@@ -85,4 +84,5 @@
 
     <string name="remodel_clean_up">Уборка после ремонта</string>
     <string name="extra_cleaning">Дополнительные услуги</string>
+    <string name="google_client_id">380365275131-vhpdi4c2ka2r2s77p3nhdcsdgoffk0ih.apps.googleusercontent.com</string>
 </resources>

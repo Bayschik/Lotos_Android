@@ -3,6 +3,7 @@ package kg.geekspro.android_lotos.ui.repositories.reposprofile
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import kg.geekspro.android_lotos.ReviewModel
 import kg.geekspro.android_lotos.models.orderhistorymodels.PersonalData
 import kg.geekspro.android_lotos.models.profile.Password
 import kg.geekspro.android_lotos.models.profile.Profile
@@ -55,7 +56,7 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
                         Log.d("onSuccessEmail", it.toString())
                     }
                 } else {
-                    email.postValue("Аккаунт уже зарегистрирован, войдите в аккаунт")
+                    email.postValue("Аккаунт уже зарегистрирован")
                 }
             }
 
@@ -71,7 +72,7 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
 
         api.googleAuth().enqueue(object : Callback<Unit> {
             override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
-                Log.d("auth", "auth is ok")
+                Log.d("auth", "auth is ok $response")
             }
 
             override fun onFailure(call: Call<Unit>, t: Throwable) {
@@ -90,8 +91,8 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
             api.confirmCode(it, code).enqueue(object : Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if (response.isSuccessful) {
-                        response.body().let { result ->
-                            codde.postValue(result!!)
+                        response.body()?.let { result ->
+                            codde.postValue("Неверный код")
                             Log.d("отправка данных", result)
                             Log.d("onSuccessCode", result)
                         }
@@ -121,6 +122,8 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
                             client.postValue(result!!)
                             Log.d("onSuccessCreate", result)
                         }
+                    }else{
+                        client.postValue(it)
                     }
                 }
 
@@ -169,10 +172,10 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
                 response: Response<PasswordCreate>
             ) {
                 if (response.isSuccessful) {
-                    response.body().let { result ->
-                        logInValue.postValue(result!!)
-                        pref.saveAccessToken(result.access)
+                    response.body()?.let { result ->
                         pref.saveRefreshToken(result.refresh)
+                        pref.saveAccessToken(result.access)
+                        logInValue.postValue(result)
                         Log.d("onSuccessLogIn", result.toString())
                     }
                 } else {
@@ -429,6 +432,28 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
 
             override fun onFailure(call: Call<PasswordCreate>, t: Throwable) {
                 Log.e("onRefreshFailure", t.message.toString())
+            }
+        })
+        return refresh
+    }
+
+    fun leaveReview(reviewModel: ReviewModel): LiveData<ReviewModel> {
+        val refresh = MutableLiveData<ReviewModel>()
+
+        api.leaveReview(reviewModel, pref.getAccessToken()!!).enqueue(object : Callback<ReviewModel> {
+            override fun onResponse(
+                call: Call<ReviewModel>,
+                response: Response<ReviewModel>
+            ) {
+                if (response.isSuccessful) {
+                    response.body()?.let {
+
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ReviewModel>, t: Throwable) {
+                Log.e("", t.message.toString())
             }
         })
         return refresh

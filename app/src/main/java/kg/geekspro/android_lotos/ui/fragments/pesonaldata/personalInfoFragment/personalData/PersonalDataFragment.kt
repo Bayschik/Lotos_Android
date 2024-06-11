@@ -45,7 +45,7 @@ class PersonalDataFragment : Fragment() {
 
             viewModel.viewModelScope.launch {
                 viewModel.getProfileData(pref.getAccessToken()!!).observe(viewLifecycleOwner){profile->
-                    Glide.with(imgPersonalDataProfile).load(profile.photo).placeholder(R.drawable.ic_black_profile).into(imgPersonalDataProfile)
+                    Glide.with(imgPersonalDataProfile).load("https://lotos.pp.ua${profile.photo}").placeholder(R.drawable.ic_black_profile).into(imgPersonalDataProfile)
                     tvOfficialName.text = profile.firstName
                     tvOfficialSurname.text = profile.lastName
                     tvOfficialDateOfBirth.text = profile.dateOfBirth

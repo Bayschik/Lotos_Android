@@ -161,7 +161,7 @@ class RefactorDataFragment : Fragment() {
     private fun loadSelectedImage(uri: Uri) {
         selectedFileUri = uri
         Glide.with(this)
-            .load(uri)
+            .load("https://lotos.pp.ua$uri")
             .into(binding.imageProfile)
     }
 

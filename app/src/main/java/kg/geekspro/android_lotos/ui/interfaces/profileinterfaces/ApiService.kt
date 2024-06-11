@@ -1,5 +1,6 @@
 package kg.geekspro.android_lotos.ui.interfaces.profileinterfaces
 
+import kg.geekspro.android_lotos.ReviewModel
 import kg.geekspro.android_lotos.models.verifycode.VerificationCode
 import kg.geekspro.android_lotos.models.registrationmodel.Registration
 import kg.geekspro.android_lotos.models.orderhistorymodels.PersonalData
@@ -126,5 +127,11 @@ interface ApiService {
     fun refreshToken(
         @Body refreshToken:kg.geekspro.android_lotos.ui.fragments.profile.RefreshToken,
     ):Call<PasswordCreate>
+
+    @POST("api/v1/review/create/")
+    fun leaveReview(
+        reviewModel: ReviewModel,
+        @Header("Authorization") accessToken:String,
+    ):Call<ReviewModel>
 
 }
