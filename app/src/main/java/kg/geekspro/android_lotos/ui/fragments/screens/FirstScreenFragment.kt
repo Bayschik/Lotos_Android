@@ -34,7 +34,8 @@ class FirstScreenFragment : Fragment() {
             viewPager?.currentItem = 1
         }
         binding.tvSkip.setOnClickListener {
-            findNavController().navigate(R.id.thirdScreenFragment)
+            viewPager?.currentItem = 2
+            //findNavController().navigate(R.id.thirdScreenFragment)
         }
     }
 

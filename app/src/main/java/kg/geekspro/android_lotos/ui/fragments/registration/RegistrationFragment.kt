@@ -1,11 +1,16 @@
 package kg.geekspro.android_lotos.ui.fragments.registration
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -39,14 +44,15 @@ class RegistrationFragment : Fragment() {
         binding.apply {
             btnContinue.setOnClickListener {
                 if (etOfficialPhoneNumber.text.toString().isEmpty()) {
+                    //textWatcher()
+                    etSignInPhoneNumber.boxStrokeColor=R.drawable.red_border
                     Toast.makeText(requireContext(), "Введите вашу почту", Toast.LENGTH_SHORT)
                         .show()
                 } else {
                     val email = Registration(
                         email = etOfficialPhoneNumber.text.toString()
                     )
-                    viewModel.verifyEmail(email).observe(viewLifecycleOwner) {
-                        if (it.toString() != "Аккаунт уже зарегистрирован"){
+                    viewModel.verifyEmail(email).observe(viewLifecycleOwner) { if (it.toString() != "Аккаунт уже зарегистрирован"){
                             findNavController().navigate(
                                 R.id.verificationCodeFragment,
                                 bundleOf("PHONE_NUMBER" to etOfficialPhoneNumber.text.toString())
@@ -96,6 +102,31 @@ class RegistrationFragment : Fragment() {
             } catch (e: ApiException) {
                 Toast.makeText(requireContext(), e.statusCode, Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    private fun textWatcher() {
+        with(binding) {
+            val defaultBackground: Drawable? = ContextCompat.getDrawable(requireContext(), R.drawable.default_border)
+            val errorBackground: Drawable? = ContextCompat.getDrawable(requireContext(), R.drawable.red_border)
+            etOfficialPhoneNumber.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                    if (s.toString().isEmpty()) {
+                        etOfficialPhoneNumber.background = errorBackground
+                    } else {
+                        etOfficialPhoneNumber.background = defaultBackground
+                    }
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+                override fun afterTextChanged(s: Editable?) {}
+            })
         }
     }
 
