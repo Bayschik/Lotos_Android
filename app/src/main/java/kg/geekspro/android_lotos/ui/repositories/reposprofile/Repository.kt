@@ -92,12 +92,11 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if (response.isSuccessful) {
                         response.body()?.let { result ->
-                            codde.postValue("Неверный код")
-                            Log.d("отправка данных", result)
+                            codde.postValue(result)
                             Log.d("onSuccessCode", result)
                         }
                     } else {
-                        Log.d("onCode", "Что-то пошло не так")
+                        Log.d("onCode", "неверный код либо же что-то пошло не так")
                     }
                 }
 
