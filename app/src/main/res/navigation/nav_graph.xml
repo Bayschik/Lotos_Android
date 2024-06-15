@@ -78,12 +78,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/splashFragment"
-        android:name="kg.geekspro.android_lotos.ui.fragments.splashfragment.SplashFragment"
-        android:label="fragment_splash"
-        tools:layout="@layout/fragment_splash"/>
-
-    <fragment
         android:id="@+id/personalInfoFragment"
         android:name="kg.geekspro.android_lotos.ui.fragments.pesonaldata.personalInfoFragment.PersonalInfoFragment"
         android:label="fragment_personal_info"
