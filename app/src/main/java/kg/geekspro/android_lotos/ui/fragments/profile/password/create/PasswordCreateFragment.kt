@@ -42,6 +42,8 @@ class PasswordCreateFragment : Fragment() {
                 ) {
                     Toast.makeText(requireContext(), "Придумайте пароль", Toast.LENGTH_SHORT).show()
                 } else if (etOfficialConfirmPassword.text.toString() != etOfficialPasswordCreate.text?.toString()) {
+                    etConfirmPassword.error = "Some error"
+                    etPasswordCreate.error = "Some error"
                     Toast.makeText(requireContext(), "Пароли должны совпадать", Toast.LENGTH_SHORT)
                         .show()
                 } else if (etOfficialConfirmPassword.text.toString().length <= 8 && etOfficialPasswordCreate.text.toString().length <= 8) {

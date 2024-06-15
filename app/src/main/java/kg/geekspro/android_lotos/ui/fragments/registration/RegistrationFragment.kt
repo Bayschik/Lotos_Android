@@ -1,13 +1,11 @@
 package kg.geekspro.android_lotos.ui.fragments.registration
 
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -41,22 +39,19 @@ class RegistrationFragment : Fragment() {
         binding.apply {
             btnContinue.setOnClickListener {
                 if (etOfficialPhoneNumber.text.toString().isEmpty()) {
-                    val errorBackground: Drawable? = ContextCompat.getDrawable(requireContext(), R.drawable.red_border)
-                    etOfficialPhoneNumber.background = errorBackground
-                    Toast.makeText(requireContext(), "Введите вашу почту", Toast.LENGTH_SHORT)
-                        .show()
+                    etSignInPhoneNumber.error = "Заполните поле"
                 } else {
-                    val defaultBackground: Drawable? = ContextCompat.getDrawable(requireContext(), R.drawable.default_border)
-                    //etSignInPhoneNumber.background = defaultBackground
                     val email = Registration(
                         email = etOfficialPhoneNumber.text.toString()
                     )
-                    viewModel.verifyEmail(email).observe(viewLifecycleOwner) { if (it.toString() != "Аккаунт уже зарегистрирован"){
+                    viewModel.verifyEmail(email).observe(viewLifecycleOwner) {
+                        if (it.toString() != "Аккаунт уже зарегистрирован") {
                             findNavController().navigate(
                                 R.id.verificationCodeFragment,
                                 bundleOf("PHONE_NUMBER" to etOfficialPhoneNumber.text.toString())
                             )
-                        }else{
+                        } else {
+                            etSignInPhoneNumber.error = "Аккаунт уже зарегистрирован"
                             Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
                         }
                     }
@@ -90,7 +85,7 @@ class RegistrationFragment : Fragment() {
                 val registration = Registration(
                     email = email!!
                 )
-                viewModel.verifyEmail(registration).observe(viewLifecycleOwner){
+                viewModel.verifyEmail(registration).observe(viewLifecycleOwner) {
                     Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
                     findNavController().navigate(
                         R.id.homeFragment,

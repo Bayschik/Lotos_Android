@@ -51,8 +51,8 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
                         }
                     }
                     response.body().let {
-                        email.postValue(sessionId)
-                        Log.d("onSuccessEmail", it.toString())
+                        email.postValue(it.toString())
+                        Log.d("onSuccessEmail", sessionId)
                     }
                 } else {
                     email.postValue("Аккаунт уже зарегистрирован")
