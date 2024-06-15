@@ -24,7 +24,6 @@ import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
 import okhttp3.Headers
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -84,7 +83,7 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
     }
 
     fun confirmCode(code: VerificationCode): LiveData<String> {
-        val codde = MutableLiveData<String>()
+        val codeResult = MutableLiveData<String>()
         val session = pref.getSessionId()
 
         session?.let {
@@ -92,22 +91,23 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if (response.isSuccessful) {
                         response.body()?.let { result ->
-                            codde.postValue("Неверный код")
-                            Log.d("отправка данных", result)
+                            codeResult.postValue(result)
                             Log.d("onSuccessCode", result)
                         }
                     } else {
-                        Log.d("onCode", "Что-то пошло не так")
+                        codeResult.postValue("Неверный код")
+                        Log.d("onCode", "неверный код либо же что-то пошло не так")
                     }
                 }
 
                 override fun onFailure(call: Call<String>, t: Throwable) {
+                    codeResult.postValue(t.message)
                     Log.e("onCodeFailure", t.message.toString())
                 }
 
             })
         }
-        return codde
+        return codeResult
     }
 
 

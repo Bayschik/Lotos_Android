@@ -72,7 +72,11 @@ class ProfileFragment : Fragment() {
                                             R.id.personalDataFragment
                                         )
                                     }
-                                    setImageFromPhone(it)
+                                    if(it.photo.isNullOrEmpty()){
+                                        Glide.with(imgProfile).load(R.drawable.ic_profile_placeholder).into(imgProfile)
+                                    }else{
+                                        setImageFromPhone(it)
+                                    }
                                     btnOrderHistory.setOnClickListener { showBottomNavSheet() }
                                     btnExit.setOnClickListener { showLogOut() }
                                     btnSafetyPassword.setOnClickListener {
