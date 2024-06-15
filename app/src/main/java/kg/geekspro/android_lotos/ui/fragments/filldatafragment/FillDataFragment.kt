@@ -72,7 +72,7 @@ class FillDataFragment : Fragment() {
                 val dialog = DatePickerDialog(
                     requireContext(),
                     R.style.CustomDatePickerDialog, { _, year, month, dayOfMonth ->
-                        binding.etFillDateOfBirth.setText("$dayOfMonth-${month + 1}-$year")
+                        binding.etFillDateOfBirth.setText("$dayOfMonth:${month + 1}:$year")
                     }, year, month, dayOfMonth
 
                 )

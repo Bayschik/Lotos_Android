@@ -46,15 +46,13 @@ class OrderHistoryAdapter(val onClick:(id:Int)->Unit) : Adapter<OrderHistoryAdap
             tvHomeAddress.text = orderHistoryModel.address
             tvTypeOfCleaning.text = orderHistoryModel.categoryTitle
             tvStatus.text = orderHistoryModel.status
-            if (orderHistoryModel.status == "В ожидании"){
-                statusCardView.setCardBackgroundColor(itemView.context.resources.getColor(R.color.yellow))
-            }else if (orderHistoryModel.status == "Принято в обработку"){
+             if (orderHistoryModel.status == "в_обработке"){
                 statusCardView.setCardBackgroundColor(itemView.context.resources.getColor(R.color.orange))
-            }else if (orderHistoryModel.status == "В работе"){
+            }else if (orderHistoryModel.status == "принято"){
                 statusCardView.setCardBackgroundColor(itemView.context.resources.getColor(R.color.purple))
-            }else if (orderHistoryModel.status == "accepted"){
+            }else if (orderHistoryModel.status == "завершено"){
                 statusCardView.setCardBackgroundColor(itemView.context.resources.getColor(R.color.green))
-            }else if (orderHistoryModel.status == "Отменен"){
+            }else if (orderHistoryModel.status == "отменено"){
                 statusCardView.setCardBackgroundColor(itemView.context.resources.getColor(R.color.dark_black))
             }
             itemView.setOnClickListener {

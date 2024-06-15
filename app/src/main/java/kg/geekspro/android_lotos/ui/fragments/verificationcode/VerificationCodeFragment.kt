@@ -50,13 +50,13 @@ class VerificationCodeFragment : Fragment() {
                 } else {
                     val code =
                         inputCode1.text.toString() + inputCode2.text.toString() + inputCode3.text.toString() + inputCode4.text.toString()
-                    Toast.makeText(requireContext(), code, Toast.LENGTH_SHORT).show()
 
                     val data = VerificationCode(code = code)
 
                     viewModel.confirmCode(data).observe(viewLifecycleOwner) {
+                        Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
                         if (it.toString() == "Неверный код"){
-                            val errorBackground: Drawable? = ContextCompat.getDrawable(requireContext(), R.drawable.red_border)
+                            val errorBackground: Drawable? = ContextCompat.getDrawable(requireContext(), R.drawable.code_red_border)
                             inputCode1.background = errorBackground
                             inputCode2.background = errorBackground
                             inputCode3.background = errorBackground

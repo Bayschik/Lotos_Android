@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentPasswordCreateBinding
@@ -45,8 +44,12 @@ class PasswordCreateFragment : Fragment() {
                 } else if (etOfficialConfirmPassword.text.toString() != etOfficialPasswordCreate.text?.toString()) {
                     Toast.makeText(requireContext(), "Пароли должны совпадать", Toast.LENGTH_SHORT)
                         .show()
-                }else if (etOfficialConfirmPassword.text.toString().length <= 8 && etOfficialPasswordCreate.text.toString().length <= 8) {
-                    Toast.makeText(requireContext(), "Минимальная длина пароля 8 знаков", Toast.LENGTH_SHORT).show()
+                } else if (etOfficialConfirmPassword.text.toString().length <= 8 && etOfficialPasswordCreate.text.toString().length <= 8) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Минимальная длина пароля 8 знаков",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 } else {
                     val password = Password(
                         password = etOfficialPasswordCreate.text.toString(),
@@ -56,17 +59,22 @@ class PasswordCreateFragment : Fragment() {
                         findNavController().navigate(R.id.homeFragment)
                         fcmToken?.let { it1 ->
                             Log.d("FCMToken", "Sending FCM token to server: $it1")
-                            viewModelFcm.loadFcm(fcmToken = it1).observe(viewLifecycleOwner) { response ->
-                                Toast.makeText(requireContext(), "FCM Token sent successfully", Toast.LENGTH_SHORT).show()
-                            }
+                            viewModelFcm.loadFcm(fcmToken = it1)
+                                .observe(viewLifecycleOwner) { response ->
+                                    Toast.makeText(
+                                        requireContext(),
+                                        "FCM Token sent successfully",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
                         }
 
-                            }
-                        }
                     }
-                        } // Don't touch!!!
+                }
+            }
+        } // Don't touch!!!
 
-                    }
+    }
 
 
 }

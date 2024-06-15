@@ -47,7 +47,7 @@ class RegistrationFragment : Fragment() {
                         .show()
                 } else {
                     val defaultBackground: Drawable? = ContextCompat.getDrawable(requireContext(), R.drawable.default_border)
-                    etOfficialPhoneNumber.background = defaultBackground
+                    //etSignInPhoneNumber.background = defaultBackground
                     val email = Registration(
                         email = etOfficialPhoneNumber.text.toString()
                     )
