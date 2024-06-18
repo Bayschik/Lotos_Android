@@ -8,8 +8,8 @@ import retrofit2.http.Query
 
 interface YouTubeApiService {
     @GET("api/v1/my_videos/")
-    suspend fun getYouTube(
-        @Query("page") page: Int = 1
+    fun getYouTube(
+        @Query("page") page: Int
     ): Call<YouTubeModel>
 }
 

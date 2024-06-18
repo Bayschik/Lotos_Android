@@ -8,6 +8,5 @@ import retrofit2.http.Query
 interface WhatsAppInterface {
     @GET("/api/v1/contact_us/")
     fun getWhatsApp(
-        @Query("page") page: Int = 1
     ): Call<WhatsAppModel>
 }

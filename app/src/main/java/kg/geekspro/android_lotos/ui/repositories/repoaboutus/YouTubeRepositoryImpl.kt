@@ -13,13 +13,13 @@ import javax.inject.Inject
 class YouTubeRepositoryImpl @Inject constructor(
     private val apiService: YouTubeApiService
 ) {
-    fun getPaginatedYouTubeData(): LiveData<PagingData<Result1>> {
-        return Pager(
-            config = PagingConfig(
-                pageSize = 20,
-                enablePlaceholders = false
-            ),
-            pagingSourceFactory = { YouTubePagingSource(apiService) }
-        ).liveData
-    }
+
+    fun getVideos() = Pager(
+        config = PagingConfig(
+            pageSize = 20,
+            maxSize = 100,
+            enablePlaceholders = false
+        ),
+        pagingSourceFactory = { YouTubePagingSource(apiService) }
+    ).liveData
 }

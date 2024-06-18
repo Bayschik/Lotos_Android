@@ -23,7 +23,7 @@ import javax.inject.Singleton
 class AppModule {
     @Provides
     @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient):Retrofit{
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl("https://lotos.pp.ua/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -33,7 +33,7 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(interceptor:HttpLoggingInterceptor):OkHttpClient{
+    fun provideOkHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
             .writeTimeout(20, TimeUnit.SECONDS)
             .readTimeout(20, TimeUnit.SECONDS)
@@ -45,11 +45,12 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideLoggingInterceptor():HttpLoggingInterceptor{
+    fun provideLoggingInterceptor(): HttpLoggingInterceptor {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
         return interceptor
     }
+
     @Provides
     fun provideApiService(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
@@ -64,6 +65,7 @@ class AppModule {
     fun provideYoutubeApiService(retrofit: Retrofit): YouTubeApiService {
         return retrofit.create(YouTubeApiService::class.java)
     }
+
     @Provides
     fun providePreference(@ApplicationContext context: Context): SharedPreferences {
         return context.getSharedPreferences(Pref.PREF_NAME, Context.MODE_PRIVATE)

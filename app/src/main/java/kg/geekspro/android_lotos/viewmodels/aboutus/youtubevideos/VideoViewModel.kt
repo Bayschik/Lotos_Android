@@ -9,23 +9,14 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kg.geekspro.android_lotos.models.aboutusmodels.youtubemodel.Result1
 import kg.geekspro.android_lotos.ui.repositories.repoaboutus.YouTubeRepositoryImpl
 import javax.inject.Inject
+
 @HiltViewModel
 class VideoViewModel @Inject constructor(
     private val repository: YouTubeRepositoryImpl
 ) : ViewModel() {
 
+
     fun loadVideo(): LiveData<PagingData<Result1>> {
-        return repository.getPaginatedYouTubeData()
-            .cachedIn(viewModelScope) // Кэширование данных в пределах жизненного цикла ViewModel
+        return repository.getVideos().cachedIn(viewModelScope)
     }
 }
-
-/*class VideoViewModel @Inject constructor(
-    private val repository: YouTubeRepositoryImpl
-) : ViewModel() {
-
-    fun loadVideo(): LiveData<PagingData<Result1>> {
-        return repository.getPaginatedYouTubeData()
-            .cachedIn(viewModelScope)
-    }
-} */
