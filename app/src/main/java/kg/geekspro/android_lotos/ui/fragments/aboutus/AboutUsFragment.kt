@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -13,16 +12,17 @@ import androidx.viewpager2.widget.ViewPager2
 import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentAboutUsBinding
-import kg.geekspro.android_lotos.models.aboutusmodels.youtubemodel.YouTubeModel
 import kg.geekspro.android_lotos.ui.adapters.aboutusadapter.youtubeadapter.YoutubeAdapter
 import kg.geekspro.android_lotos.ui.adapters.viewpageradapter.ViewPagerAdapter
 import kg.geekspro.android_lotos.viewmodels.aboutus.youtubevideos.VideoViewModel
 import kotlinx.coroutines.launch
+
 @AndroidEntryPoint
 class AboutUsFragment : Fragment() {
 
     private lateinit var binding: FragmentAboutUsBinding
     private val viewModel by viewModels<VideoViewModel>()
+    //@Inject
     private val adapter = YoutubeAdapter()
 
     override fun onCreateView(
@@ -87,6 +87,7 @@ class AboutUsFragment : Fragment() {
         }
     }
 }
+
 
 /*
 

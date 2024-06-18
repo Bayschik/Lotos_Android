@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.ItemYoutubeVideoBinding
 import kg.geekspro.android_lotos.models.aboutusmodels.youtubemodel.Result1
@@ -29,10 +28,8 @@ class YoutubeAdapter : PagingDataAdapter<Result1, YoutubeAdapter.YouTubeViewHold
 
         fun bind(result: Result1) {
             binding.apply {
-                Glide.with(itemView.context)
-                    .load(result.url)
-                    .into(btnYouTubeVideo1)
-
+                btnYouTubeVideo1.setVideoPath(result.url)
+                btnYouTubeVideo1.setOnPreparedListener { mediaPlayer -> mediaPlayer.start() }
                 tvTitleYouTube.text = result.title
             }
         }
@@ -41,13 +38,10 @@ class YoutubeAdapter : PagingDataAdapter<Result1, YoutubeAdapter.YouTubeViewHold
     companion object {
         private val DiffCallback = object : DiffUtil.ItemCallback<Result1>() {
             override fun areItemsTheSame(oldItem: Result1, newItem: Result1): Boolean {
-                // Implement a logic to check whether items are the same.
-                // For example, if they have unique IDs:
                 return oldItem.id == newItem.id
             }
 
             override fun areContentsTheSame(oldItem: Result1, newItem: Result1): Boolean {
-                // Implement a logic to check whether contents of the items are the same.
                 return oldItem == newItem
             }
         }

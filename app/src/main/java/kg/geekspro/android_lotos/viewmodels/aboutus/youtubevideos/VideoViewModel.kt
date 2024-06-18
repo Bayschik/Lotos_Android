@@ -16,6 +16,16 @@ class VideoViewModel @Inject constructor(
 
     fun loadVideo(): LiveData<PagingData<Result1>> {
         return repository.getPaginatedYouTubeData()
-            .cachedIn(viewModelScope)
+            .cachedIn(viewModelScope) // Кэширование данных в пределах жизненного цикла ViewModel
     }
 }
+
+/*class VideoViewModel @Inject constructor(
+    private val repository: YouTubeRepositoryImpl
+) : ViewModel() {
+
+    fun loadVideo(): LiveData<PagingData<Result1>> {
+        return repository.getPaginatedYouTubeData()
+            .cachedIn(viewModelScope)
+    }
+} */

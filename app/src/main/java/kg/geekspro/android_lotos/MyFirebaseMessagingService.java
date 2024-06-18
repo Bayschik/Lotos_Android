@@ -1,9 +1,5 @@
 package kg.geekspro.android_lotos;
 
-import static com.google.firebase.messaging.MessagingKt.remoteMessage;
-
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.util.Log;

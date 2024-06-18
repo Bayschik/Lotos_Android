@@ -144,7 +144,7 @@
         <TextView
             android:id="@+id/tvOurWork"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="#8006D8F3"
             android:fontFamily="@font/roboto_bold"
@@ -173,6 +173,23 @@
             app:layout_constraintTop_toBottomOf="@+id/tvOurWork"
             tools:listitem="@layout/item_youtube_video" />
 
+        <TextView
+            android:id="@+id/tvContacts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="#8006D8F3"
+            android:fontFamily="@font/roboto_bold"
+            android:padding="5dp"
+            android:paddingStart="16dp"
+            android:text="Контакты:"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/btnWhatsApp"
+            app:layout_constraintTop_toBottomOf="@+id/rvInAboutUs"
+            android:textSize="16sp" />
+
 
         <ImageView
             android:id="@+id/btnWhatsApp"
@@ -181,13 +198,13 @@
             android:layout_marginStart="150dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="18dp"
             android:orientation="horizontal"
             android:src="@drawable/ic_whatsapp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnTelephone"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rvInAboutUs"
+            app:layout_constraintTop_toBottomOf="@+id/tvContacts"
             app:layout_goneMarginStart="34dp" />
 
         <ImageView

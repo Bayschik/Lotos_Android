@@ -8,11 +8,23 @@
     tools:context=".ui.fragments.aboutus.ProfessionalMachAndEquipmentFragment">
 
 
+    <ImageView
+        android:id="@+id/btnBackStory1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="43dp"
+        android:layout_marginEnd="26dp"
+        android:src="@drawable/ic_arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <TextView
         android:id="@+id/tvProfMachine"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="70dp"
+        android:layout_marginStart="80dp"
         android:layout_marginTop="43dp"
         android:layout_marginEnd="88dp"
         android:layout_marginBottom="18dp"
@@ -33,8 +45,6 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="540dp"
         android:fontFamily="@font/roboto_light"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
         android:text="Они позволяют эффективно удалять любые загрязнения.
 Наше специальное оборудование пылесосы для сухой и влажной уборки, парогенераторы, роторные и экстракторные машины и многое другое."
         android:textColor="@color/black"

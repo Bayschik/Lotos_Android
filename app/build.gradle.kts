@@ -97,6 +97,7 @@ dependencies {
     //Paging
     implementation (libs.androidx.paging.common.ktx)
     implementation (libs.androidx.paging.runtime.ktx)
-
-
+    // library for youtube
+    implementation (libs.core.v1210)
+    implementation (libs.chromecast.sender)
 }

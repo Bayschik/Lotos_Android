@@ -8,11 +8,22 @@
     tools:context=".ui.fragments.aboutus.WideAssortmentFragment">
 
 
+    <ImageView
+        android:id="@+id/btnBackStory3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="43dp"
+        android:src="@drawable/ic_arrow_back"
+        android:layout_marginEnd="26dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/tvWideAssortment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="70dp"
+        android:layout_marginStart="80dp"
         android:layout_marginTop="43dp"
         android:layout_marginEnd="88dp"
         android:fontFamily="@font/roboto_bold"
@@ -32,8 +43,6 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="540dp"
         android:fontFamily="@font/roboto_light"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
         android:text="Мы не используем бытовую химию из масс-маркета, по скольку  они вызывают аллергические реакции и не подходят для профессиональной уборки. Мы выбираем сертифицированные экологичные средства, безопасные для людей и животных!
 После уборки вы заметите, на сколько легче стало дышать, ведь мы уничтожаем не только грязь, но и болезнетворные бактерии и аллергены."
         android:textColor="@color/black"

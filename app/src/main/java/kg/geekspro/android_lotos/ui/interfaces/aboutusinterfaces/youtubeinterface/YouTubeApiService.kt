@@ -1,4 +1,4 @@
-package kg.geekspro.android_lotos.ui.interfaces.aboutusinterfaces
+package kg.geekspro.android_lotos.ui.interfaces.aboutusinterfaces.youtubeinterface
 
 import kg.geekspro.android_lotos.models.aboutusmodels.youtubemodel.YouTubeModel
 import retrofit2.Call
@@ -8,7 +8,7 @@ import retrofit2.http.Query
 
 interface YouTubeApiService {
     @GET("api/v1/my_videos/")
-    fun getYouTube(
+    suspend fun getYouTube(
         @Query("page") page: Int = 1
     ): Call<YouTubeModel>
 }
