@@ -51,7 +51,7 @@ class RegistrationFragment : Fragment() {
                                 bundleOf("PHONE_NUMBER" to etOfficialPhoneNumber.text.toString())
                             )
                         } else {
-                            etSignInPhoneNumber.error = "Аккаунт уже зарегистрирован"
+                            etSignInPhoneNumber.error = it.toString()
                             Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
                         }
                     }
@@ -59,6 +59,9 @@ class RegistrationFragment : Fragment() {
             }
             btnGoogle.setOnClickListener {
                 googleSignIn()
+            }
+            tvAgreement.setOnClickListener {
+                findNavController().navigate(R.id.agreementsFragment)
             }
         }
     }

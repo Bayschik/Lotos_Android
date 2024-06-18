@@ -52,7 +52,7 @@ class ProfileFragment : Fragment() {
         binding.apply {
             var accessToken: Token
             val verifyToken = TokenVerify(
-                detail = "Token is invalid or expired",
+                detail = "Токен недействителен или просрочен",
                 code = "token_not_valid"
             )
 

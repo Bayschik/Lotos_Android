@@ -51,7 +51,7 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
                         }
                     }
                     response.body().let {
-                        email.postValue(it.toString())
+                        email.postValue(it)
                         Log.d("onSuccessEmail", sessionId)
                     }
                 } else {
@@ -179,6 +179,7 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
                         Log.d("onSuccessLogIn", result.toString())
                     }
                 } else {
+                    logInValue.postValue(response.body())
                     Log.d("logIn", "что-то пошло не так")
                 }
             }

@@ -302,4 +302,10 @@
         android:label="fragment_review"
         tools:layout="@layout/fragment_review" />
 
+    <fragment
+        android:id="@+id/agreementsFragment"
+        android:name="kg.geekspro.android_lotos.AgreementsFragment"
+        android:label="fragment_agreements"
+        tools:layout="@layout/fragment_agreements" />
+
 </navigation>
