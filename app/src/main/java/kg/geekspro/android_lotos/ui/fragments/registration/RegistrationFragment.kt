@@ -40,19 +40,21 @@ class RegistrationFragment : Fragment() {
             btnContinue.setOnClickListener {
                 if (etOfficialPhoneNumber.text.toString().isEmpty()) {
                     etSignInPhoneNumber.error = "Заполните поле"
+                } else if(!etOfficialPhoneNumber.text.toString().contains("@gmail.co")){
+                    etSignInPhoneNumber.error = "Введите знак @gmail.com"
                 } else {
                     val email = Registration(
                         email = etOfficialPhoneNumber.text.toString()
                     )
                     viewModel.verifyEmail(email).observe(viewLifecycleOwner) {
-                        if (it.toString() != "Аккаунт уже зарегистрирован") {
+                        if (it != "Email уже зарегистрирован или ошибка сервера") {
                             findNavController().navigate(
                                 R.id.verificationCodeFragment,
                                 bundleOf("PHONE_NUMBER" to etOfficialPhoneNumber.text.toString())
                             )
                         } else {
                             etSignInPhoneNumber.error = it.toString()
-                            Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
+                            //Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
                         }
                     }
                 }

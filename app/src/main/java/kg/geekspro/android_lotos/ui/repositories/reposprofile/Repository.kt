@@ -55,11 +55,12 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
                         Log.d("onSuccessEmail", sessionId)
                     }
                 } else {
-                    email.postValue("Аккаунт уже зарегистрирован")
+                    email.postValue("Email уже зарегистрирован или ошибка сервера")
                 }
             }
 
             override fun onFailure(call: Call<String>, t: Throwable) {
+                email.postValue(t.message)
                 Log.e("onEmailFailure", t.toString())
             }
         })
