@@ -133,7 +133,7 @@ interface ApiService {
 
     @POST("api/v1/review/create/")
     fun leaveReview(
-        reviewModel: ReviewModel,
+        @Body reviewModel: ReviewModel,
         @Header("Authorization") accessToken:String,
     ):Call<ReviewModel>
 

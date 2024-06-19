@@ -443,20 +443,20 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
     fun leaveReview(reviewModel: ReviewModel): LiveData<ReviewModel> {
         val refresh = MutableLiveData<ReviewModel>()
 
-        api.leaveReview(reviewModel, pref.getAccessToken()!!).enqueue(object : Callback<ReviewModel> {
+        api.leaveReview(reviewModel, "Bearer ${pref.getAccessToken()!!}").enqueue(object : Callback<ReviewModel> {
             override fun onResponse(
                 call: Call<ReviewModel>,
                 response: Response<ReviewModel>
             ) {
                 if (response.isSuccessful) {
                     response.body()?.let {
-
+                        refresh.postValue(it)
                     }
                 }
             }
 
             override fun onFailure(call: Call<ReviewModel>, t: Throwable) {
-                Log.e("", t.message.toString())
+                Log.e("onReviewFailure", t.message.toString())
             }
         })
         return refresh

@@ -308,4 +308,10 @@
         android:label="fragment_agreements"
         tools:layout="@layout/fragment_agreements" />
 
+    <fragment
+        android:id="@+id/leaveReviewFragment"
+        android:name="kg.geekspro.android_lotos.LeaveReviewFragment"
+        android:label="fragment_leave_review"
+        tools:layout="@layout/fragment_leave_review" />
+
 </navigation>

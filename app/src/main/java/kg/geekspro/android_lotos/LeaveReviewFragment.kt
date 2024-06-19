@@ -9,27 +9,35 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
-import kg.geekspro.android_lotos.databinding.FragmentReviewBinding
+import kg.geekspro.android_lotos.databinding.FragmentLeaveReviewBinding
 
 @AndroidEntryPoint
-class ReviewFragment : Fragment() {
-    private lateinit var binding:FragmentReviewBinding
+class LeaveReviewFragment : Fragment() {
+    private lateinit var binding:FragmentLeaveReviewBinding
     private var stars:Float = 0.0f
     private val imageList = mutableListOf<Uri>()
     private val viewModel:ReviewViewModel by viewModels()
+
+    private val getContent = registerForActivityResult(ActivityResultContracts.GetMultipleContents()) { uris ->
+        imageList.addAll(uris)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View{
-        binding = FragmentReviewBinding.inflate(inflater, container, false)
+    ): View {
+        binding = FragmentLeaveReviewBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val id = arguments?.getInt("id of order")
         binding.apply {
             ratingBar.stepSize = .5f
             ratingBar.setOnRatingBarChangeListener { _, fl, _ ->
@@ -41,12 +49,13 @@ class ReviewFragment : Fragment() {
             btnLeaveReview.setOnClickListener {
                 val review = ReviewModel(
                     images = imageList,
-                    orderId = 2,
+                    orderId = id!!,
                     stars = stars.toInt(),
                     text = etComment.text.toString()
                 )
                 viewModel.leaveReview(review).observe(viewLifecycleOwner){
-
+                    findNavController().popBackStack()
+                    findNavController().navigate(R.id.profileFragment)
                 }
             }
         }
@@ -54,9 +63,13 @@ class ReviewFragment : Fragment() {
 
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
-        intent.type = "image/*"
+        //intent.type = "image/*"
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-        startActivityForResult(Intent.createChooser(intent, "Select Pictures"), PICK_IMAGES_REQUEST_CODE)
+        /*startActivityForResult(
+            Intent.createChooser(intent, "Select Picture"),
+            ReviewFragment.PICK_IMAGES_REQUEST_CODE
+        )*/
+        getContent.launch("image/*")
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
