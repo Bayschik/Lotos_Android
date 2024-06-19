@@ -65,7 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="40dp"
             android:drawableLeft="@drawable/ic_profile"
             android:drawableRight="@drawable/ic_arrow_forward"
             android:insetTop="0dp"
@@ -115,6 +115,25 @@
             app:layout_constraintTop_toBottomOf="@id/btn_order_history" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_agreement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="18dp"
+            android:drawableLeft="@drawable/ic_agreement"
+            android:drawableRight="@drawable/ic_arrow_forward"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:paddingRight="16dp"
+            android:text="    Пользовательское соглашение"
+            android:textAlignment="textStart"
+            app:cornerRadius="12dp"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_safety_password" />
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_exit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -130,7 +149,7 @@
             app:cornerRadius="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_safety_password" />
+            app:layout_constraintTop_toBottomOf="@id/btn_agreement" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

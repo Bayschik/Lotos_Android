@@ -12,6 +12,7 @@ import kg.geekspro.android_lotos.models.verifycode.VerificationCode
 import kg.geekspro.android_lotos.ui.fragments.login.LogIn
 import kg.geekspro.android_lotos.ui.fragments.profile.Token
 import kg.geekspro.android_lotos.ui.fragments.profile.TokenVerify
+import kg.geekspro.android_lotos.ui.fragments.profile.logOut.LogOutMessage
 import kg.geekspro.android_lotos.ui.fragments.profile.logOut.RefreshToken
 import kg.geekspro.android_lotos.ui.fragments.profile.order.Order
 import kg.geekspro.android_lotos.ui.fragments.profile.order.OrderList
@@ -124,7 +125,7 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
                             Log.d("onSuccessCreate", result)
                         }
                     }else{
-                        client.postValue(it)
+                        client.postValue("Пользователь с таким номером существует! Выберите другой номер.")
                     }
                 }
 
@@ -237,7 +238,7 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
                 if (response.isSuccessful) {
                     response.body().let {
                         order.postValue(it)
-                        Log.d("onSuccessOrder", it.toString())
+                        Log.d("onSuccessOrderItem", it.toString())
                     }
                 }
             }
@@ -249,15 +250,15 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
         return order
     }
 
-    fun logOut(): LiveData<Unit> {
-        val logOut = MutableLiveData<Unit>()
+    fun logOut(): LiveData<LogOutMessage> {
+        val logOut = MutableLiveData<LogOutMessage>()
         val refreshToken = pref.getRefresh()!!
 
         val token = RefreshToken(
             refreshToken = refreshToken
         )
-        api.logOut("Bearer ${pref.getAccessToken()}", token).enqueue(object : Callback<Unit> {
-            override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+        api.logOut("Bearer ${pref.getAccessToken()}", token).enqueue(object : Callback<LogOutMessage> {
+            override fun onResponse(call: Call<LogOutMessage>, response: Response<LogOutMessage>) {
                 if (response.isSuccessful) {
                     response.body().let {
                         logOut.postValue(it)
@@ -266,7 +267,7 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
                 }
             }
 
-            override fun onFailure(call: Call<Unit>, t: Throwable) {
+            override fun onFailure(call: Call<LogOutMessage>, t: Throwable) {
                 Log.e("onLogOutFailure", t.message.toString())
             }
         })
@@ -399,7 +400,7 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
                     }
                 } else {
                     val verifyToken = TokenVerify(
-                        detail = "Token is invalid or expired",
+                        detail = "Токен недействителен или просрочен",
                         code = "token_not_valid"
                     )
                     user.postValue(verifyToken)

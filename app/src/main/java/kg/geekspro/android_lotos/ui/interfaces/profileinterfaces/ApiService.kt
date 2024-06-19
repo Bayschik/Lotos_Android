@@ -9,6 +9,7 @@ import kg.geekspro.android_lotos.models.profile.Password
 import kg.geekspro.android_lotos.ui.fragments.login.LogIn
 import kg.geekspro.android_lotos.ui.fragments.profile.Token
 import kg.geekspro.android_lotos.ui.fragments.profile.TokenVerify
+import kg.geekspro.android_lotos.ui.fragments.profile.logOut.LogOutMessage
 import kg.geekspro.android_lotos.ui.fragments.profile.logOut.RefreshToken
 import kg.geekspro.android_lotos.ui.fragments.profile.order.Order
 import kg.geekspro.android_lotos.ui.fragments.profile.order.OrderList
@@ -99,7 +100,7 @@ interface ApiService {
     fun logOut(
         @Header("Authorization") accessToken:String,
         @Body refreshToken:RefreshToken
-    ):Call<Unit>
+    ):Call<LogOutMessage>
 
     @POST("api/v1/change_email/")
     fun changeEmail(

@@ -34,23 +34,19 @@ class OrderFragment : Fragment() {
                 tvCleaningCategory.text = it.categoryTitle
                 tvCleaningPrice.text = "${it.price.substringBefore(".")} сом"
                 tvHomeAddress.text = it.address
-
-                val date = it.scheduledData.split("T")[0]
-                tvDate.text = date
-
-                val time = it.scheduledData.split("T")[1]
-                tvTime.text = time
+                tvDate.text = it.scheduledData
+                tvTime.text = it.timeTitle
                 tvStatus.text = it.status
                 if (it.status == "В ожидании") {
                     statusCardView.setCardBackgroundColor(requireContext().resources.getColor(R.color.yellow))
-                } else if (it.status == "Принято в обработку") {
+                } else if (it.status == "в_обработке") {
                     statusCardView.setCardBackgroundColor(requireContext().resources.getColor(R.color.orange))
-                } else if (it.status == "В работе") {
+                } else if (it.status == "принято") {
                     statusCardView.setCardBackgroundColor(requireContext().resources.getColor(R.color.purple))
-                } else if (it.status == "accepted") {
+                } else if (it.status == "завершено") {
                     btnLeaveReview.visibility = View.VISIBLE
                     statusCardView.setCardBackgroundColor(requireContext().resources.getColor(R.color.green))
-                } else if (it.status == "Отменен") {
+                } else if (it.status == "отменено") {
                     statusCardView.setCardBackgroundColor(requireContext().resources.getColor(R.color.dark_black))
                 }
                 adapter.order(it.servicesData)

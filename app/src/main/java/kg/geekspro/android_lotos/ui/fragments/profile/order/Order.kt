@@ -23,6 +23,8 @@ data class Order(
     val servicesData: List<ServicesData>,
     @SerializedName("status")
     val status: String,
+    @SerializedName("time_title")
+    val timeTitle: String,
     @SerializedName("type_of_room")
     val typeOfRoom: String
 ) {

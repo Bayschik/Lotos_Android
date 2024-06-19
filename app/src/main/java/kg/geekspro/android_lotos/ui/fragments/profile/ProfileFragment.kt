@@ -24,6 +24,7 @@ import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentProfileBinding
 import kg.geekspro.android_lotos.models.profile.Profile
 import kg.geekspro.android_lotos.ui.adapters.orderhistory.OrderHistoryAdapter
+import kg.geekspro.android_lotos.ui.fragments.profile.logOut.LogOutMessage
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
 import kg.geekspro.android_lotos.viewmodels.profileviewmodels.ProfileViewModel
 import javax.inject.Inject
@@ -50,20 +51,46 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
-            var accessToken: Token
-            val verifyToken = TokenVerify(
-                detail = "Токен недействителен или просрочен",
-                code = "token_not_valid"
-            )
+            if (pref.isLogOut()) {
+                Toast.makeText(requireContext(), "isLogOut ${pref.isLogOut()}", Toast.LENGTH_SHORT)
+                    .show()
+                findNavController().navigate(R.id.exitAccountFragment)
+            } else {
+                val accessToken = Token(pref.getAccessToken())
+                val verifyToken = TokenVerify(
+                    detail = "Токен недействителен или просрочен",
+                    code = "token_not_valid"
+                )
 
-            with(pref.getAccessToken()) {
-                accessToken = Token(token = "Bearer ${this ?: ""}")
-                if (this == null) {
-                    findNavController().navigate(R.id.exitAccountFragment)
-                    Toast.makeText(requireContext(), "exit account", Toast.LENGTH_SHORT).show()
-                } else {
-                    viewModel.checkUser(accessToken).observe(viewLifecycleOwner) { token ->
-                        if (token != verifyToken) {
+                viewModel.checkUser(accessToken).observe(viewLifecycleOwner) { token ->
+                    if (token != verifyToken) {
+                        viewModel.getProfile(pref.getAccessToken()!!)
+                            .observe(viewLifecycleOwner) {
+                                tvUserFullName.text = "${it.lastName} ${it.firstName}"
+                                btnPersonalData.setOnClickListener {
+                                    findNavController().navigate(
+                                        R.id.personalDataFragment
+                                    )
+                                }
+                                if (it.photo.isNullOrEmpty()) {
+                                    Glide.with(imgProfile).load(R.drawable.ic_profile_placeholder)
+                                        .into(imgProfile)
+                                } else {
+                                    setImageFromPhone(it)
+                                }
+                                btnOrderHistory.setOnClickListener { showBottomNavSheet() }
+                                btnExit.setOnClickListener { showLogOut() }
+                                btnAgreement.setOnClickListener { findNavController().navigate(R.id.agreementsFragment) }
+                                btnSafetyPassword.setOnClickListener {
+                                    findNavController().navigate(R.id.safetyFragment)
+                                }
+                            }
+                    } else {
+                        val refreshToken = RefreshToken(
+                            refresh = pref.getRefresh()!!
+                        )
+                        viewModel.refreshToken(refreshToken).observe(viewLifecycleOwner) {
+                            pref.saveAccessToken(it.access)
                             viewModel.getProfile(pref.getAccessToken()!!)
                                 .observe(viewLifecycleOwner) {
                                     tvUserFullName.text = "${it.lastName} ${it.firstName}"
@@ -72,39 +99,14 @@ class ProfileFragment : Fragment() {
                                             R.id.personalDataFragment
                                         )
                                     }
-                                    if(it.photo.isNullOrEmpty()){
-                                        Glide.with(imgProfile).load(R.drawable.ic_profile_placeholder).into(imgProfile)
-                                    }else{
-                                        setImageFromPhone(it)
-                                    }
+                                    setImageFromPhone(it)
                                     btnOrderHistory.setOnClickListener { showBottomNavSheet() }
                                     btnExit.setOnClickListener { showLogOut() }
+                                    btnAgreement.setOnClickListener { findNavController().navigate(R.id.agreementsFragment) }
                                     btnSafetyPassword.setOnClickListener {
                                         findNavController().navigate(R.id.safetyFragment)
                                     }
                                 }
-                        } else {
-                            val refreshToken = RefreshToken(
-                                refresh = pref.getRefresh()!!
-                            )
-                            viewModel.refreshToken(refreshToken).observe(viewLifecycleOwner) {
-                                pref.saveAccessToken(it.access)
-                                viewModel.getProfile(pref.getAccessToken()!!)
-                                    .observe(viewLifecycleOwner) {
-                                        tvUserFullName.text = "${it.lastName} ${it.firstName}"
-                                        btnPersonalData.setOnClickListener {
-                                            findNavController().navigate(
-                                                R.id.personalDataFragment
-                                            )
-                                        }
-                                        setImageFromPhone(it)
-                                        btnOrderHistory.setOnClickListener { showBottomNavSheet() }
-                                        btnExit.setOnClickListener { showLogOut() }
-                                        btnSafetyPassword.setOnClickListener {
-                                            findNavController().navigate(R.id.safetyFragment)
-                                        }
-                                    }
-                            }
                         }
                     }
                 }
@@ -130,7 +132,11 @@ class ProfileFragment : Fragment() {
 
         btnYes.setOnClickListener {
             alertShow.dismiss()
+            val message = LogOutMessage(
+                message = "Вы успешно вышли из системы."
+            )
             viewModel.logOut().observe(viewLifecycleOwner) {
+                pref.onLogOut()
                 findNavController().navigate(R.id.action_profileFragment_to_exitAccountFragment)
             }
         }
@@ -166,6 +172,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun nextFragment(id: Int) {
+        findNavController().popBackStack()
         findNavController().navigate(R.id.orderFragment, bundleOf("ORDER_ID" to id))
         dialog.hide()
     }
