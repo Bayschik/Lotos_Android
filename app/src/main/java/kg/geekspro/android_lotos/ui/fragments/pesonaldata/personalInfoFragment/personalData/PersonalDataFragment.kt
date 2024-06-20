@@ -1,12 +1,9 @@
 package kg.geekspro.android_lotos.ui.fragments.pesonaldata.personalInfoFragment.personalData
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
@@ -17,6 +14,8 @@ import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentPersonalDataBinding
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -39,7 +38,7 @@ class PersonalDataFragment : Fragment() {
 
         binding.apply {
 
-            imgArrowBack.setOnClickListener {findNavController().navigate(R.id.profileFragment)}
+            imgArrowBack.setOnClickListener {findNavController().navigateUp()}
 
             btnChangePersonalData.setOnClickListener {findNavController().navigate(R.id.refactorDataFragment)}
 
@@ -48,10 +47,18 @@ class PersonalDataFragment : Fragment() {
                     Glide.with(imgPersonalDataProfile).load("https://lotos.pp.ua${profile.photo}").placeholder(R.drawable.ic_black_profile).into(imgPersonalDataProfile)
                     tvOfficialName.text = profile.firstName
                     tvOfficialSurname.text = profile.lastName
-                    tvOfficialDateOfBirth.text = profile.dateOfBirth
+                    tvOfficialDateOfBirth.text = formatDate(profile.dateOfBirth!!)
                     tvOfficialAddress.text = profile.address
                 }
             }
         }
+    }
+
+    fun formatDate(dateString: String): String {
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd")
+        val outputFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+        val date = inputFormat.parse(dateString)
+        val formattedDate = date?.let { outputFormat.format(it) }
+        return formattedDate.toString()
     }
 }

@@ -314,4 +314,10 @@
         android:label="fragment_leave_review"
         tools:layout="@layout/fragment_leave_review" />
 
+    <fragment
+        android:id="@+id/orderHistoryFragment"
+        android:name="kg.geekspro.android_lotos.OrderHistoryFragment"
+        android:label="fragment_order_history"
+        tools:layout="@layout/fragment_order_history" />
+
 </navigation>

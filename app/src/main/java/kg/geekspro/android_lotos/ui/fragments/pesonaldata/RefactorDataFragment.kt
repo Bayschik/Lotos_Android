@@ -32,6 +32,8 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
+import java.text.SimpleDateFormat
+import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -126,6 +128,7 @@ class RefactorDataFragment : Fragment() {
                                 }
                             }
                         } else {
+                            findNavController().navigate(R.id.profileFragment)
                             Toast.makeText(requireContext(), "Данные не изменились", Toast.LENGTH_SHORT).show()
                         }
                     }
@@ -185,4 +188,12 @@ class RefactorDataFragment : Fragment() {
             }
         }
     }
+
+    /*fun formatDate(dateString: String): String {
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd")
+        val outputFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+        val date = inputFormat.parse(dateString)
+        val formattedDate = date?.let { outputFormat.format(it) }
+        return formattedDate.toString()
+    }*/
 }

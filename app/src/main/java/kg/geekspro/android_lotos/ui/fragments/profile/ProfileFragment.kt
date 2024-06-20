@@ -8,23 +8,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentProfileBinding
 import kg.geekspro.android_lotos.models.profile.Profile
-import kg.geekspro.android_lotos.ui.adapters.orderhistory.OrderHistoryAdapter
-import kg.geekspro.android_lotos.ui.fragments.profile.logOut.LogOutMessage
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
 import kg.geekspro.android_lotos.viewmodels.profileviewmodels.ProfileViewModel
 import javax.inject.Inject
@@ -32,11 +25,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
-
     @Inject
     lateinit var pref: Pref
-    private lateinit var dialog: BottomSheetDialog
-    private val adapter = OrderHistoryAdapter(this::nextFragment)
     private val viewModel: ProfileViewModel by viewModels()
 
     override fun onCreateView(
@@ -78,7 +68,7 @@ class ProfileFragment : Fragment() {
                                 } else {
                                     setImageFromPhone(it)
                                 }
-                                btnOrderHistory.setOnClickListener { showBottomNavSheet() }
+                                btnOrderHistory.setOnClickListener { findNavController().navigate(R.id.orderHistoryFragment) }
                                 btnExit.setOnClickListener { showLogOut() }
                                 btnAgreement.setOnClickListener { findNavController().navigate(R.id.agreementsFragment) }
                                 btnSafetyPassword.setOnClickListener {
@@ -100,7 +90,7 @@ class ProfileFragment : Fragment() {
                                         )
                                     }
                                     setImageFromPhone(it)
-                                    btnOrderHistory.setOnClickListener { showBottomNavSheet() }
+                                    btnOrderHistory.setOnClickListener { findNavController().navigate(R.id.orderHistoryFragment) }
                                     btnExit.setOnClickListener { showLogOut() }
                                     btnAgreement.setOnClickListener { findNavController().navigate(R.id.agreementsFragment) }
                                     btnSafetyPassword.setOnClickListener {
@@ -132,9 +122,6 @@ class ProfileFragment : Fragment() {
 
         btnYes.setOnClickListener {
             alertShow.dismiss()
-            val message = LogOutMessage(
-                message = "Вы успешно вышли из системы."
-            )
             viewModel.logOut().observe(viewLifecycleOwner) {
                 pref.onLogOut()
                 findNavController().navigate(R.id.action_profileFragment_to_exitAccountFragment)
@@ -148,33 +135,4 @@ class ProfileFragment : Fragment() {
 
         alertShow.show()
     }
-
-    private fun showBottomNavSheet() {
-        val bottomSheet = layoutInflater.inflate(R.layout.bottom_sheet_layout, null)
-        val rvOrder = bottomSheet.findViewById<RecyclerView>(R.id.rv_order_history)
-        val noOrder = bottomSheet.findViewById<TextView>(R.id.tv_no_order)
-        val imgArrowBack = bottomSheet.findViewById<ImageView>(R.id.img_order_back)
-        imgArrowBack?.setOnClickListener {
-            dialog.hide()
-        }
-        dialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
-        dialog.setContentView(bottomSheet)
-        dialog.show()
-        viewModel.getHistoryList().observe(viewLifecycleOwner) {
-            if (it.isNullOrEmpty()) {
-                noOrder.visibility = View.VISIBLE
-            } else {
-                noOrder.visibility = View.GONE
-                adapter.getOrderList(it)
-                rvOrder.adapter = adapter
-            }
-        }
-    }
-
-    private fun nextFragment(id: Int) {
-        findNavController().popBackStack()
-        findNavController().navigate(R.id.orderFragment, bundleOf("ORDER_ID" to id))
-        dialog.hide()
-    }
-
 }
