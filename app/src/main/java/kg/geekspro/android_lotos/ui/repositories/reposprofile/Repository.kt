@@ -440,10 +440,10 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
         return refresh
     }
 
-    fun leaveReview(reviewModel: ReviewModel): LiveData<ReviewModel> {
+    fun leaveReview(text:RequestBody, stars:RequestBody, orderId:RequestBody, images:List<MultipartBody.Part>): LiveData<ReviewModel> {
         val refresh = MutableLiveData<ReviewModel>()
 
-        api.leaveReview(reviewModel, "Bearer ${pref.getAccessToken()!!}").enqueue(object : Callback<ReviewModel> {
+        api.leaveReview(images,text, stars,orderId, "Bearer ${pref.getAccessToken()!!}").enqueue(object : Callback<ReviewModel> {
             override fun onResponse(
                 call: Call<ReviewModel>,
                 response: Response<ReviewModel>

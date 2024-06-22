@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,13 +42,14 @@ class ReviewFragment : Fragment() {
             btnLeaveReview.setOnClickListener {
                 val review = ReviewModel(
                     images = imageList,
-                    orderId = 2,
+                    orderId = 8,
                     stars = stars.toInt(),
                     text = etComment.text.toString()
                 )
-                viewModel.leaveReview(review).observe(viewLifecycleOwner){
+                Toast.makeText(requireContext(), "hello", Toast.LENGTH_SHORT).show()
+                /*viewModel.leaveReview(review).observe(viewLifecycleOwner){
 
-                }
+                }*/
             }
         }
     }

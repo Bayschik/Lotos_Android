@@ -44,21 +44,13 @@ class PersonalDataFragment : Fragment() {
 
             viewModel.viewModelScope.launch {
                 viewModel.getProfileData(pref.getAccessToken()!!).observe(viewLifecycleOwner){profile->
-                    Glide.with(imgPersonalDataProfile).load("https://lotos.pp.ua${profile.photo}").placeholder(R.drawable.ic_black_profile).into(imgPersonalDataProfile)
+                    Glide.with(imgPersonalDataProfile).load("https://lotos.pp.ua/${profile.photo}").placeholder(R.drawable.ic_black_profile).into(imgPersonalDataProfile)
                     tvOfficialName.text = profile.firstName
                     tvOfficialSurname.text = profile.lastName
-                    tvOfficialDateOfBirth.text = formatDate(profile.dateOfBirth!!)
+                    tvOfficialDateOfBirth.text = profile.dateOfBirth
                     tvOfficialAddress.text = profile.address
                 }
             }
         }
-    }
-
-    fun formatDate(dateString: String): String {
-        val inputFormat = SimpleDateFormat("yyyy-MM-dd")
-        val outputFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
-        val date = inputFormat.parse(dateString)
-        val formattedDate = date?.let { outputFormat.format(it) }
-        return formattedDate.toString()
     }
 }

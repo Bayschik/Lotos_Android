@@ -188,12 +188,4 @@ class RefactorDataFragment : Fragment() {
             }
         }
     }
-
-    /*fun formatDate(dateString: String): String {
-        val inputFormat = SimpleDateFormat("yyyy-MM-dd")
-        val outputFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
-        val date = inputFormat.parse(dateString)
-        val formattedDate = date?.let { outputFormat.format(it) }
-        return formattedDate.toString()
-    }*/
 }

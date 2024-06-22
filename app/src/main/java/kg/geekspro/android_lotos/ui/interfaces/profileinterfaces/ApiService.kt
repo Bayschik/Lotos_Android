@@ -131,9 +131,13 @@ interface ApiService {
         @Body refreshToken:kg.geekspro.android_lotos.ui.fragments.profile.RefreshToken,
     ):Call<PasswordCreate>
 
+    @Multipart
     @POST("api/v1/review/create/")
     fun leaveReview(
-        @Body reviewModel: ReviewModel,
+        @Part images:List<MultipartBody.Part>,
+        @Part("text") text:RequestBody,
+        @Part("stars") stars:RequestBody,
+        @Part("order_id") orderId:RequestBody,
         @Header("Authorization") accessToken:String,
     ):Call<ReviewModel>
 

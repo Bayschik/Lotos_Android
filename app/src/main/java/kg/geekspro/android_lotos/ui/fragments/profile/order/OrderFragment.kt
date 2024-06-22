@@ -30,8 +30,8 @@ class OrderFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val id = arguments?.getInt("ORDER_ID")
         binding.apply {
+            rvCleaningServices.adapter = adapter
             viewModel.getOrderId(id!!).observe(viewLifecycleOwner) {
-                rvCleaningServices.adapter = adapter
                 tvCleaningCategory.text = it.categoryTitle
                 tvCleaningPrice.text = "${it.price.substringBefore(".")} сом"
                 tvHomeAddress.text = it.address
@@ -52,7 +52,10 @@ class OrderFragment : Fragment() {
                 }
                 adapter.order(it.servicesData)
             }
-            imgBack.setOnClickListener { findNavController().navigateUp() }
+            imgBack.setOnClickListener {
+                findNavController().popBackStack()
+                findNavController().navigateUp()
+            }
             btnLeaveReview.setOnClickListener { findNavController().navigate(R.id.leaveReviewFragment, bundleOf("id of order" to id)) }
         }
     }
