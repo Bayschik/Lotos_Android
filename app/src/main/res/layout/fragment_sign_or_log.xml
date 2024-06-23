@@ -34,7 +34,7 @@
         android:textStyle="bold"
         android:layout_margin="16dp"
         android:textSize="16sp"
-        android:textColor="@color/black"
+        android:textColor="@color/skip_text_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

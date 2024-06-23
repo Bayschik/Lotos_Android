@@ -9,10 +9,12 @@ import kg.geekspro.android_lotos.models.profile.Password
 import kg.geekspro.android_lotos.ui.fragments.login.LogIn
 import kg.geekspro.android_lotos.ui.fragments.profile.Token
 import kg.geekspro.android_lotos.ui.fragments.profile.TokenVerify
+import kg.geekspro.android_lotos.ui.fragments.profile.logOut.LogOutMessage
 import kg.geekspro.android_lotos.ui.fragments.profile.logOut.RefreshToken
 import kg.geekspro.android_lotos.ui.fragments.profile.order.Order
 import kg.geekspro.android_lotos.ui.fragments.profile.order.OrderList
 import kg.geekspro.android_lotos.ui.fragments.profile.password.create.PasswordCreate
+import kg.geekspro.android_lotos.ui.fragments.registration.Model
 import kg.geekspro.android_lotos.ui.fragments.safety.safetyEmail.ChangeEmail
 import kg.geekspro.android_lotos.ui.fragments.safety.safetyEmail.Code
 import kg.geekspro.android_lotos.ui.fragments.safety.safetyPassword.ChangePassword
@@ -20,6 +22,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -97,7 +100,7 @@ interface ApiService {
     fun logOut(
         @Header("Authorization") accessToken:String,
         @Body refreshToken:RefreshToken
-    ):Call<Unit>
+    ):Call<LogOutMessage>
 
     @POST("api/v1/change_email/")
     fun changeEmail(
@@ -128,9 +131,13 @@ interface ApiService {
         @Body refreshToken:kg.geekspro.android_lotos.ui.fragments.profile.RefreshToken,
     ):Call<PasswordCreate>
 
+    @Multipart
     @POST("api/v1/review/create/")
     fun leaveReview(
-        reviewModel: ReviewModel,
+        @Part images:List<MultipartBody.Part>,
+        @Part("text") text:RequestBody,
+        @Part("stars") stars:RequestBody,
+        @Part("order_id") orderId:RequestBody,
         @Header("Authorization") accessToken:String,
     ):Call<ReviewModel>
 

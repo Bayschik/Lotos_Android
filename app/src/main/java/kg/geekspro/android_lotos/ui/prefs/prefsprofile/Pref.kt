@@ -13,6 +13,22 @@ class Pref @Inject constructor(private val pref: SharedPreferences) {
         pref.edit().putBoolean(SHOWED_KEY, true).apply()
     }
 
+    fun isLogOut(): Boolean {
+        return pref.getBoolean(LOG_OUT_KEY, false)
+    }
+
+    fun onLogOut() {
+        pref.edit().putBoolean(LOG_OUT_KEY, true).apply()
+    }
+
+    fun onLogIn() {
+        pref.edit().putBoolean(LOG_OUT_KEY, false).apply()
+    }
+
+    fun onRegistration() {
+        pref.edit().putBoolean(LOG_OUT_KEY, false).apply()
+    }
+
     fun saveSessionId(sessionId: String) {
         pref.edit().putString(SESSION_ID, sessionId).apply()
     }
@@ -49,6 +65,7 @@ class Pref @Inject constructor(private val pref: SharedPreferences) {
     companion object {
         const val PREF_NAME = "pref.name"
         const val SHOWED_KEY = "showed.key"
+        const val LOG_OUT_KEY = "log.out.key"
         const val SESSION_ID = "session.id"
         const val REFRESH_TOKEN = "refresh.token"
         const val ACCESS_TOKEN = "access.token"

@@ -19,6 +19,7 @@
         app:ci_drawable_unselected="@drawable/circle_indicator_unselected"
         app:ci_width="10dp"
         app:ci_height="10dp"
+        android:layout_marginBottom="180dp"
         app:ci_drawable="@drawable/circle_indicator" />
 
 

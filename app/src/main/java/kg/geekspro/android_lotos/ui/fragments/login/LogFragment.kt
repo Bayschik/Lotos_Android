@@ -12,11 +12,15 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentLogBinding
+import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LogFragment : Fragment() {
     private lateinit var binding: FragmentLogBinding
     private val viewModel: LogInViewModel by viewModels()
+    @Inject
+    lateinit var pref:Pref
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +45,7 @@ class LogFragment : Fragment() {
                         password = etOfficialLogPassword.text.toString()
                     )
                     viewModel.logIn(log).observe(viewLifecycleOwner) {
+                        pref.onLogIn()
                         Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
 
                         val navOptions = NavOptions.Builder()
