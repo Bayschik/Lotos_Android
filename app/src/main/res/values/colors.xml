@@ -19,4 +19,6 @@
     <color name="gray">#6e83b7</color>
     <color name="gray_">#949494</color>
     <color name="white_">#f0f5fb</color>
+    <color name="skip_text_color">#234146</color>
+    <color name="agreement_text_color">#080808</color>
 </resources>

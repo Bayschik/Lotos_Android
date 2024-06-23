@@ -13,14 +13,18 @@ import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentPasswordCreateBinding
 import kg.geekspro.android_lotos.models.profile.Password
+import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
 import kg.geekspro.android_lotos.viewmodels.fcmviewmodel.FcmViewModel
 import kg.geekspro.android_lotos.viewmodels.profileviewmodels.create.PasswordCreateViewModel
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class PasswordCreateFragment : Fragment() {
     private lateinit var binding: FragmentPasswordCreateBinding
     private val viewModel: PasswordCreateViewModel by viewModels()
     private val viewModelFcm by viewModels<FcmViewModel>()
+    @Inject
+    lateinit var pref: Pref
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,10 +44,11 @@ class PasswordCreateFragment : Fragment() {
                 if (etOfficialConfirmPassword.text.toString()
                         .isEmpty() || etOfficialPasswordCreate.text.toString().isEmpty()
                 ) {
-                    Toast.makeText(requireContext(), "Придумайте пароль", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Придумайте и заполните пароль", Toast.LENGTH_SHORT).show()
                 } else if (etOfficialConfirmPassword.text.toString() != etOfficialPasswordCreate.text?.toString()) {
-                    Toast.makeText(requireContext(), "Пароли должны совпадать", Toast.LENGTH_SHORT)
-                        .show()
+                    etConfirmPassword.error = "Пароли должны совпадать"
+                    etPasswordCreate.error = "Пароли должны совпадать"
+                    //Toast.makeText(requireContext(), "Пароли должны совпадать", Toast.LENGTH_SHORT).show()
                 } else if (etOfficialConfirmPassword.text.toString().length <= 8 && etOfficialPasswordCreate.text.toString().length <= 8) {
                     Toast.makeText(
                         requireContext(),
@@ -56,6 +61,7 @@ class PasswordCreateFragment : Fragment() {
                         rePassword = etOfficialConfirmPassword.text.toString()
                     )
                     viewModel.setPassword(password).observe(viewLifecycleOwner) {
+                        pref.onRegistration()
                         findNavController().navigate(R.id.homeFragment)
                         fcmToken?.let { it1 ->
                             Log.d("FCMToken", "Sending FCM token to server: $it1")

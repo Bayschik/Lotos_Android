@@ -1,5 +1,6 @@
 package kg.geekspro.android_lotos.ui.fragments.verificationcode
 
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.Editable
@@ -45,6 +46,10 @@ class VerificationCodeFragment : Fragment() {
                     inputCode3.text.toString().isEmpty() ||
                     inputCode4.text.toString().isEmpty()
                 ) {
+                    inputCode1.error
+                    inputCode2.error
+                    inputCode3.error
+                    inputCode4.error
                     Toast.makeText(requireContext(), "Введите 4-значный код", Toast.LENGTH_SHORT)
                         .show()
                 } else {

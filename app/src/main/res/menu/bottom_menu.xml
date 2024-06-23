@@ -3,6 +3,7 @@
 
     <item
         android:id="@+id/homeFragment"
+<<<<<<< HEAD
         android:icon="@drawable/home_selector"
         android:title="@string/title_main"
         />
@@ -10,11 +11,23 @@
     <item
         android:id="@+id/aboutUsFragment"
         android:icon="@drawable/about_us_selector"
+=======
+        android:icon="@drawable/navigation_home_icon"
+        android:title="@string/title_main" />
+
+    <item
+        android:id="@+id/aboutUsFragment"
+        android:icon="@drawable/navigation_about_us_icon"
+>>>>>>> e72c1837a832e4d3ff5d748cea44c1333ece2428
         android:title="@string/title_about_us" />
 
     <item
         android:id="@+id/profileFragment"
+<<<<<<< HEAD
         android:icon="@drawable/profile_selector"
+=======
+        android:icon="@drawable/navigation_profile_icon"
+>>>>>>> e72c1837a832e4d3ff5d748cea44c1333ece2428
         android:title="@string/title_profile" />
 
 </menu>

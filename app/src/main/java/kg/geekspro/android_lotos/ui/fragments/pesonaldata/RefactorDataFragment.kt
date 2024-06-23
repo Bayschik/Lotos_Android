@@ -32,6 +32,8 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
+import java.text.SimpleDateFormat
+import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -126,6 +128,7 @@ class RefactorDataFragment : Fragment() {
                                 }
                             }
                         } else {
+                            findNavController().navigate(R.id.profileFragment)
                             Toast.makeText(requireContext(), "Данные не изменились", Toast.LENGTH_SHORT).show()
                         }
                     }
@@ -161,7 +164,7 @@ class RefactorDataFragment : Fragment() {
     private fun loadSelectedImage(uri: Uri) {
         selectedFileUri = uri
         Glide.with(this)
-            .load("https://lotos.pp.ua$uri")
+            .load(uri)
             .into(binding.imageProfile)
     }
 
