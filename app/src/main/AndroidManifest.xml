@@ -29,7 +29,7 @@
             android:resource="@color/black" />
 
         <activity
-            android:windowSoftInputMode="adjustPan"
+            android:windowSoftInputMode="adjustResize"
             android:name=".activity.MainActivity"
             android:exported="true">
             <intent-filter>

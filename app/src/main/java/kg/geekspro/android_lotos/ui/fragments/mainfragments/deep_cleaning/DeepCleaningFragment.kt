@@ -1,5 +1,6 @@
 package kg.geekspro.android_lotos.ui.fragments.mainfragments.deep_cleaning
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
@@ -8,6 +9,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -75,23 +78,19 @@ class DeepCleaningFragment : Fragment(), OnTotalPriceChangedListener {
 
         binding.btnOrder.setOnClickListener{
 
-            if(adapter.getSelectedServices().isEmpty()){
-                Toast.makeText(requireContext(), "Выберите услуги!", Toast.LENGTH_SHORT).show()
-            }else{
-                findNavController().popBackStack()
-                findNavController().navigate(R.id.calendarFragment, bundleOf(
-                    "services" to adapter.getSelectedServices().toList(),
-                    "roomAmount" to roomAmount,
-                    "m2" to binding.etM2.text.toString(),
-                    "typeOfRoom" to binding.etTypeOfRoom.text.toString(),
-                    "roomAmount" to roomAmount,
-                    "totalPrice" to extractNumberFromText(binding.btnOrder.text.toString())
+            findNavController().popBackStack()
+            findNavController().navigate(R.id.calendarFragment, bundleOf(
+                "services" to adapter.getSelectedServices().toList(),
+                "roomAmount" to roomAmount,
+                "m2" to binding.etM2.text.toString(),
+                "typeOfRoom" to binding.etTypeOfRoom.text.toString(),
+                "roomAmount" to roomAmount,
+                "totalPrice" to extractNumberFromText(binding.btnOrder.text.toString())
 
+            )
+            )
+            adapter.clearServicesList()
 
-                )
-                )
-                adapter.clearServicesList()
-            }
             Log.d("TAG", "m2: ${binding.etM2.text.toString()}")
             Log.d("TAG", "typeOfRoom: ${binding.etTypeOfRoom.text.toString()}")
             Log.d("TAG", "roomAmount: $roomAmount")
@@ -123,8 +122,18 @@ class DeepCleaningFragment : Fragment(), OnTotalPriceChangedListener {
             if (hasFocus){
                 setButtonVariantColor(4)
             }
-
         }
+
+        binding.etTypeOfRoom.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                v.clearFocus()
+                val imm = binding.root.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(v.windowToken, 0)
+                return@setOnEditorActionListener true
+            }
+            false
+        }
+
 
         binding.etM2.setOnFocusChangeListener { v, hasFocus ->
 

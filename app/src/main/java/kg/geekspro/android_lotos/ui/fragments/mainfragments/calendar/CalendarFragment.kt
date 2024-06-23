@@ -80,7 +80,7 @@ class CalendarFragment : Fragment() {
             val comment = binding.etComment.text.toString()
             val time = selectedTime
 
-            if (!imagesList.isNullOrEmpty() && comment.isNotBlank() && time.isNotBlank() && date != null) {
+            if (time.isNotBlank() && date != null) {
                 val bundle = Bundle().apply {
                     putSerializable("services", services)
                     putParcelableArrayList("images", ArrayList(imagesList))
@@ -103,7 +103,6 @@ class CalendarFragment : Fragment() {
                         i.setBackgroundResource(R.drawable.bg_card)
                         i.setTextColor(Color.BLACK)
                     }
-
                 }
                 selectedTime = ""
 

@@ -41,6 +41,7 @@ class HomeFragment : Fragment() {
         binding.imgSlider.adapter = imageAdapter
 
 
+
         binding.btnNotification.setOnClickListener{
             findNavController().navigate(R.id.notificationsFragment)
         }
@@ -123,6 +124,8 @@ class HomeFragment : Fragment() {
             View.VISIBLE
         }
     }
+
+
 
 
 }

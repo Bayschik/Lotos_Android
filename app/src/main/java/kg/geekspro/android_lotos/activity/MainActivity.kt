@@ -15,6 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import com.google.firebase.messaging.FirebaseMessaging
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.ActivityMainBinding
+import kg.geekspro.android_lotos.ui.fragments.mainfragments.home.HomeFragment
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
 import javax.inject.Inject
 
@@ -62,6 +63,7 @@ class MainActivity : AppCompatActivity() {
                 binding.myToolbar.isVisible = false
             }
         }
+
 
 
         setSupportActionBar(binding.myToolbar)

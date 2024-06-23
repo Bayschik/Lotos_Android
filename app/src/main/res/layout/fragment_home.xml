@@ -10,7 +10,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="16dp">
 
         <TextView
             android:id="@+id/tv_lotos"
@@ -39,8 +40,8 @@
             android:id="@+id/img_slider"
             android:layout_width="match_parent"
             android:layout_height="198dp"
-            android:layout_margin="16dp"
-            android:background="@drawable/bg_card"
+            android:layout_marginHorizontal="16dp"
+            android:background="@drawable/bg_viewpager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_notification" />
@@ -91,13 +92,7 @@
             app:layout_constraintStart_toStartOf="@id/img_slider"
             app:layout_constraintTop_toBottomOf="@id/slideDotLL" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
 
-            app:layout_constraintEnd_toEndOf="@id/img_slider"
-            app:layout_constraintStart_toStartOf="@id/img_slider"
-            app:layout_constraintTop_toBottomOf="@id/tv_services">
 
             <LinearLayout
                 android:id="@+id/remodel_cleaning_up_container"
@@ -107,13 +102,13 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/bg_card"
-                android:elevation="8dp"
+                android:elevation="7dp"
+                android:layout_marginStart="16dp"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toTopOf="@id/wet_cleaning_container"
                 app:layout_constraintEnd_toStartOf="@id/deep_cleaning_container"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-
+                app:layout_constraintTop_toBottomOf="@id/tv_services"
                 >
 
                 <FrameLayout
@@ -152,14 +147,14 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-
             <LinearLayout
                 android:id="@+id/deep_cleaning_container"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@drawable/bg_card"
-                android:elevation="19dp"
+                android:elevation="7dp"
                 android:orientation="vertical"
+                android:layout_marginEnd="16dp"
                 app:layout_constraintBottom_toBottomOf="@id/remodel_cleaning_up_container"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/remodel_cleaning_up_container"
@@ -202,21 +197,17 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-
             <LinearLayout
                 android:id="@+id/wet_cleaning_container"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
                 android:background="@drawable/bg_card"
-                android:elevation="19dp"
+                android:elevation="7dp"
                 android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="@id/extra_cleaning_container"
+                android:layout_marginBottom="12dp"
+               app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/remodel_cleaning_up_container"
-                app:layout_constraintStart_toStartOf="@id/remodel_cleaning_up_container"
-                app:layout_constraintTop_toBottomOf="@id/remodel_cleaning_up_container"
-                app:layout_constraintTop_toTopOf="@id/extra_cleaning_container">
+                app:layout_constraintStart_toStartOf="@id/remodel_cleaning_up_container">
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -255,20 +246,20 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-
             <LinearLayout
                 android:id="@+id/extra_cleaning_container"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
                 android:background="@drawable/bg_card"
-                android:elevation="19dp"
+                android:elevation="7dp"
 
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="@id/deep_cleaning_container"
                 app:layout_constraintStart_toStartOf="@id/deep_cleaning_container"
                 app:layout_constraintTop_toBottomOf="@id/deep_cleaning_container"
-                app:layout_constraintTop_toTopOf="@id/wet_cleaning_container">
+                app:layout_constraintTop_toTopOf="@id/wet_cleaning_container"
+
+                >
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -305,8 +296,6 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

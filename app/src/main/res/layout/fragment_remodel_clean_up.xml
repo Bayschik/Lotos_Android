@@ -299,7 +299,9 @@
                     android:hint="Какой у вас тип помещения"
                     android:paddingVertical="5dp"
                     android:paddingStart="10dp"
+                    android:inputType="text"
                     android:textSize="14sp"
+                    android:imeOptions="actionDone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/et_m2" />
@@ -355,15 +357,10 @@
         android:padding="20dp"
         android:src="@drawable/img_remodel_clean_up_services"
         android:visibility="gone"
+        android:elevation="2dp"
+        android:background="#80000000"
         />
 
-<!--    <ImageView-->
-<!--        android:layout_width="250dp"-->
-<!--        android:layout_height="250dp"-->
-<!--        android:src="@drawable/ic_about_us"-->
-<!--        android:scaleType="fitCenter"-->
-<!--        android:tint="@color/black"-->
-<!--        />-->
 
 
 
