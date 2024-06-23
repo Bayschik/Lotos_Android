@@ -1,84 +1,26 @@
 package kg.geekspro.android_lotos.ui.adapters.orderhistory
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.ItemOrderHistoryBinding
-import kg.geekspro.android_lotos.models.orderhistorymodels.OrderHistoryModel
+import kg.geekspro.android_lotos.ui.fragments.profile.order.OrderList
+import okhttp3.internal.notify
 
-class OrderHistoryAdapter : Adapter<OrderHistoryAdapter.OrderHistoryViewHolder>() {
+class OrderHistoryAdapter(val onClick:(id:Int)->Unit) : Adapter<OrderHistoryAdapter.OrderHistoryViewHolder>() {
 
-    private val orderList = arrayListOf(
-        OrderHistoryModel(
-            "21 марта, четверг",
-            "Уборка после ремонта",
-            "Чуй проспекти 12, блок 3, квартира 33",
-            "В ожидании"
-        ),
-        OrderHistoryModel(
-            "21 марта, четверг",
-            "Уборка после ремонта",
-            "Чуй проспекти 12, блок 3, квартира 33",
-            "Принято в обработку"
-        ),
-        OrderHistoryModel(
-            "21 марта, четверг",
-            "Уборка после ремонта",
-            "Чуй проспекти 12, блок 3, квартира 33",
-            "В работе"
-        ),
-        OrderHistoryModel(
-            "21 марта, четверг",
-            "Уборка после ремонта",
-            "Чуй проспекти 12, блок 3, квартира 33",
-            "Завершено"
-        ),
-        OrderHistoryModel(
-            "21 марта, четверг",
-            "Уборка после ремонта",
-            "Чуй проспекти 12, блок 3, квартира 33",
-            "Отменен"
-        ),
-        OrderHistoryModel(
-            "21 марта, четверг",
-            "Уборка после ремонта",
-            "Чуй проспекти 12, блок 3, квартира 33",
-            "Завершено"
-        ),
-        OrderHistoryModel(
-            "21 марта, четверг",
-            "Уборка после ремонта",
-            "Чуй проспекти 12, блок 3, квартира 33",
-            "Принято в обработку"
-        ),
-        OrderHistoryModel(
-            "21 марта, четверг",
-            "Уборка после ремонта",
-            "Чуй проспекти 12, блок 3, квартира 33",
-            "Завершено"
-        ),
-        OrderHistoryModel(
-            "21 марта, четверг",
-            "Уборка после ремонта",
-            "Чуй проспекти 12, блок 3, квартира 33",
-            "В ожидании"
-        ),
-        OrderHistoryModel(
-            "21 марта, четверг",
-            "Уборка после ремонта",
-            "Чуй проспекти 12, блок 3, квартира 33",
-            "Отменен"
-        ),
-        OrderHistoryModel(
-            "21 марта, четверг",
-            "Уборка после ремонта",
-            "Чуй проспекти 12, блок 3, квартира 33",
-            "Завершено"
-        ),
-    )
+    private val orderList = mutableListOf<OrderList.OrderListItem>()
+
+    fun getOrderList(order: List<OrderList.OrderListItem>) {
+        orderList.clear()
+        orderList.addAll(order)
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderHistoryViewHolder {
         return OrderHistoryViewHolder(
@@ -98,24 +40,25 @@ class OrderHistoryAdapter : Adapter<OrderHistoryAdapter.OrderHistoryViewHolder>(
 
     inner class OrderHistoryViewHolder(private val binding: ItemOrderHistoryBinding) :
         ViewHolder(binding.root) {
-        fun bind(orderHistoryModel: OrderHistoryModel) = with(binding) {
-            tvDateOfOrder.text = orderHistoryModel.date
-            tvHomeAddress.text = orderHistoryModel.homeAddress
-            tvTypeOfCleaning.text = orderHistoryModel.typeOfCleaning
+        fun bind(orderHistoryModel: OrderList.OrderListItem) = with(binding) {
+            val date = orderHistoryModel.scheduledData.split("T")[0]
+            tvDateOfOrder.text = date
+            tvHomeAddress.text = orderHistoryModel.address
+            tvTypeOfCleaning.text = orderHistoryModel.categoryTitle
             tvStatus.text = orderHistoryModel.status
-            if (orderHistoryModel.status == "В ожидании"){
-                statusCardView.setCardBackgroundColor(itemView.context.resources.getColor(R.color.yellow))
-            }else if (orderHistoryModel.status == "Принято в обработку"){
+             if (orderHistoryModel.status == "в_обработке"){
                 statusCardView.setCardBackgroundColor(itemView.context.resources.getColor(R.color.orange))
-            }else if (orderHistoryModel.status == "В работе"){
+            }else if (orderHistoryModel.status == "принято"){
                 statusCardView.setCardBackgroundColor(itemView.context.resources.getColor(R.color.purple))
-            }else if (orderHistoryModel.status == "Завершено"){
+            }else if (orderHistoryModel.status == "завершено"){
                 statusCardView.setCardBackgroundColor(itemView.context.resources.getColor(R.color.green))
-            }else if (orderHistoryModel.status == "Отменен"){
+            }else if (orderHistoryModel.status == "отменено"){
                 statusCardView.setCardBackgroundColor(itemView.context.resources.getColor(R.color.dark_black))
             }
+            itemView.setOnClickListener {
+                onClick(orderHistoryModel.id)
+            }
         }
-
     }
 
 }

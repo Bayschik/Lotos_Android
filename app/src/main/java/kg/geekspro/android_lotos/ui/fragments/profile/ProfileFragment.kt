@@ -1,9 +1,7 @@
 package kg.geekspro.android_lotos.ui.fragments.profile
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.AlertDialog
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -11,8 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -23,6 +22,7 @@ import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentProfileBinding
+import kg.geekspro.android_lotos.models.profile.Profile
 import kg.geekspro.android_lotos.ui.adapters.orderhistory.OrderHistoryAdapter
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
 import kg.geekspro.android_lotos.viewmodels.profileviewmodels.ProfileViewModel
@@ -35,18 +35,8 @@ class ProfileFragment : Fragment() {
     @Inject
     lateinit var pref: Pref
     private lateinit var dialog: BottomSheetDialog
-    private val adapter = OrderHistoryAdapter()
+    private val adapter = OrderHistoryAdapter(this::nextFragment)
     private val viewModel: ProfileViewModel by viewModels()
-
-    private val getCommentMedia =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val selectedFileUri = result.data?.data
-                pref.saveImage(selectedFileUri.toString())
-                Glide.with(binding.imgProfile).load(selectedFileUri.toString())
-                    .into(binding.imgProfile)
-            }
-        }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,40 +50,60 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
-            val accessToken = Token(
-                token = pref.getAccessToken()!!
-
-            )
+            var accessToken: Token
             val verifyToken = TokenVerify(
                 detail = "Token is invalid or expired",
                 code = "token_not_valid"
             )
-            viewModel.checkUser(accessToken).observe(viewLifecycleOwner) { token ->
-                if (token != verifyToken) {
-                    viewModel.getProfile(pref.getAccessToken()!!).observe(viewLifecycleOwner) {
-                        tvUserFullName.text = "${it.lastName} ${it.firstName}"
-                        btnPersonalData.setOnClickListener { findNavController().navigate(R.id.personalDataFragment) }
-                        setImageFromPhone()
-                        btnOrderHistory.setOnClickListener { showBottomNavSheet() }
-                        btnExit.setOnClickListener { showLogOut() }
-                        btnSafetyPassword.setOnClickListener {
-                            findNavController().navigate(R.id.safetyFragment)
-                        }
-                    }
+
+            with(pref.getAccessToken()) {
+                accessToken = Token(token = "Bearer ${this ?: ""}")
+                if (this == null) {
+                    findNavController().navigate(R.id.exitAccountFragment)
+                    Toast.makeText(requireContext(), "exit account", Toast.LENGTH_SHORT).show()
                 } else {
-                    val refreshToken = RefreshToken(
-                        refresh = pref.getRefresh()!!
-                    )
-                    viewModel.refreshToken(refreshToken).observe(viewLifecycleOwner) {
-                        pref.saveAccessToken(it.access)
-                        viewModel.getProfile(pref.getAccessToken()!!).observe(viewLifecycleOwner) {
-                            tvUserFullName.text = "${it.lastName} ${it.firstName}"
-                            btnPersonalData.setOnClickListener { findNavController().navigate(R.id.personalDataFragment) }
-                            setImageFromPhone()
-                            btnOrderHistory.setOnClickListener { showBottomNavSheet() }
-                            btnExit.setOnClickListener { showLogOut() }
-                            btnSafetyPassword.setOnClickListener {
-                                findNavController().navigate(R.id.safetyFragment)
+                    viewModel.checkUser(accessToken).observe(viewLifecycleOwner) { token ->
+                        if (token != verifyToken) {
+                            viewModel.getProfile(pref.getAccessToken()!!)
+                                .observe(viewLifecycleOwner) {
+                                    tvUserFullName.text = "${it.lastName} ${it.firstName}"
+                                    btnPersonalData.setOnClickListener {
+                                        findNavController().navigate(
+                                            R.id.personalDataFragment
+                                        )
+                                    }
+                                    if(it.photo.isNullOrEmpty()){
+                                        Glide.with(imgProfile).load(R.drawable.ic_profile_placeholder).into(imgProfile)
+                                    }else{
+                                        setImageFromPhone(it)
+                                    }
+                                    btnOrderHistory.setOnClickListener { showBottomNavSheet() }
+                                    btnExit.setOnClickListener { showLogOut() }
+                                    btnSafetyPassword.setOnClickListener {
+                                        findNavController().navigate(R.id.safetyFragment)
+                                    }
+                                }
+                        } else {
+                            val refreshToken = RefreshToken(
+                                refresh = pref.getRefresh()!!
+                            )
+                            viewModel.refreshToken(refreshToken).observe(viewLifecycleOwner) {
+                                pref.saveAccessToken(it.access)
+                                viewModel.getProfile(pref.getAccessToken()!!)
+                                    .observe(viewLifecycleOwner) {
+                                        tvUserFullName.text = "${it.lastName} ${it.firstName}"
+                                        btnPersonalData.setOnClickListener {
+                                            findNavController().navigate(
+                                                R.id.personalDataFragment
+                                            )
+                                        }
+                                        setImageFromPhone(it)
+                                        btnOrderHistory.setOnClickListener { showBottomNavSheet() }
+                                        btnExit.setOnClickListener { showLogOut() }
+                                        btnSafetyPassword.setOnClickListener {
+                                            findNavController().navigate(R.id.safetyFragment)
+                                        }
+                                    }
                             }
                         }
                     }
@@ -102,15 +112,10 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun setImageFromPhone() = with(binding) {
-        Glide.with(imgProfile).load(pref.getImage()).placeholder(R.drawable.ic_profile_placeholder)
+    private fun setImageFromPhone(model: Profile) = with(binding) {
+        Glide.with(imgProfile).load("https://lotos.pp.ua${model.photo}")
+            .placeholder(R.drawable.ic_profile_placeholder)
             .into(imgProfile)
-
-        imgProfile.setOnClickListener {
-            val intent = Intent(Intent.ACTION_PICK)
-            intent.type = "image/*"
-            getCommentMedia.launch(intent)
-        }
     }
 
     private fun showLogOut() {
@@ -126,7 +131,7 @@ class ProfileFragment : Fragment() {
         btnYes.setOnClickListener {
             alertShow.dismiss()
             viewModel.logOut().observe(viewLifecycleOwner) {
-                findNavController().navigate(R.id.action_profileFragment_to_logOutFragment)
+                findNavController().navigate(R.id.action_profileFragment_to_exitAccountFragment)
             }
         }
         btnNo.setOnClickListener {
@@ -141,14 +146,28 @@ class ProfileFragment : Fragment() {
     private fun showBottomNavSheet() {
         val bottomSheet = layoutInflater.inflate(R.layout.bottom_sheet_layout, null)
         val rvOrder = bottomSheet.findViewById<RecyclerView>(R.id.rv_order_history)
+        val noOrder = bottomSheet.findViewById<TextView>(R.id.tv_no_order)
         val imgArrowBack = bottomSheet.findViewById<ImageView>(R.id.img_order_back)
         imgArrowBack?.setOnClickListener {
             dialog.hide()
         }
-        rvOrder.adapter = adapter
         dialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
         dialog.setContentView(bottomSheet)
         dialog.show()
+        viewModel.getHistoryList().observe(viewLifecycleOwner) {
+            if (it.isNullOrEmpty()) {
+                noOrder.visibility = View.VISIBLE
+            } else {
+                noOrder.visibility = View.GONE
+                adapter.getOrderList(it)
+                rvOrder.adapter = adapter
+            }
+        }
+    }
+
+    private fun nextFragment(id: Int) {
+        findNavController().navigate(R.id.orderFragment, bundleOf("ORDER_ID" to id))
+        dialog.hide()
     }
 
 }

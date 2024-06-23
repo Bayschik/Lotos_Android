@@ -3,6 +3,7 @@ package kg.geekspro.android_lotos.ui.repositories.reposprofile
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import kg.geekspro.android_lotos.ReviewModel
 import kg.geekspro.android_lotos.models.orderhistorymodels.PersonalData
 import kg.geekspro.android_lotos.models.profile.Password
 import kg.geekspro.android_lotos.models.profile.Profile
@@ -12,6 +13,8 @@ import kg.geekspro.android_lotos.ui.fragments.login.LogIn
 import kg.geekspro.android_lotos.ui.fragments.profile.Token
 import kg.geekspro.android_lotos.ui.fragments.profile.TokenVerify
 import kg.geekspro.android_lotos.ui.fragments.profile.logOut.RefreshToken
+import kg.geekspro.android_lotos.ui.fragments.profile.order.Order
+import kg.geekspro.android_lotos.ui.fragments.profile.order.OrderList
 import kg.geekspro.android_lotos.ui.fragments.profile.password.create.PasswordCreate
 import kg.geekspro.android_lotos.ui.fragments.safety.safetyEmail.ChangeEmail
 import kg.geekspro.android_lotos.ui.fragments.safety.safetyEmail.Code
@@ -19,6 +22,8 @@ import kg.geekspro.android_lotos.ui.fragments.safety.safetyPassword.ChangePasswo
 import kg.geekspro.android_lotos.ui.interfaces.profileinterfaces.ApiService
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
 import okhttp3.Headers
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -49,6 +54,8 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
                         email.postValue(sessionId)
                         Log.d("onSuccessEmail", it.toString())
                     }
+                } else {
+                    email.postValue("Аккаунт уже зарегистрирован")
                 }
             }
 
@@ -59,31 +66,48 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
         return email
     }
 
+    fun googleAuth(): LiveData<Unit> {
+        val auth = MutableLiveData<Unit>()
+
+        api.googleAuth().enqueue(object : Callback<Unit> {
+            override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+                Log.d("auth", "auth is ok $response")
+            }
+
+            override fun onFailure(call: Call<Unit>, t: Throwable) {
+                Log.d("auth", "auth is not ok")
+            }
+
+        })
+        return auth
+    }
+
     fun confirmCode(code: VerificationCode): LiveData<String> {
-        val codde = MutableLiveData<String>()
+        val codeResult = MutableLiveData<String>()
         val session = pref.getSessionId()
 
         session?.let {
             api.confirmCode(it, code).enqueue(object : Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if (response.isSuccessful) {
-                        response.body().let { result ->
-                            codde.postValue(result!!)
-                            Log.d("отправка данных", result)
+                        response.body()?.let { result ->
+                            codeResult.postValue(result)
                             Log.d("onSuccessCode", result)
                         }
                     } else {
-                        Log.d("onCode", "Что-то пошло не так")
+                        codeResult.postValue("Неверный код")
+                        Log.d("onCode", "неверный код либо же что-то пошло не так")
                     }
                 }
 
                 override fun onFailure(call: Call<String>, t: Throwable) {
+                    codeResult.postValue(t.message)
                     Log.e("onCodeFailure", t.message.toString())
                 }
 
             })
         }
-        return codde
+        return codeResult
     }
 
 
@@ -98,6 +122,8 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
                             client.postValue(result!!)
                             Log.d("onSuccessCreate", result)
                         }
+                    }else{
+                        client.postValue(it)
                     }
                 }
 
@@ -140,33 +166,31 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
     fun logIn(logIn: LogIn): LiveData<PasswordCreate> {
         val logInValue = MutableLiveData<PasswordCreate>()
 
-        val session = pref.getSessionId()
-        session?.let {
-            api.logIn(logIn).enqueue(object : Callback<PasswordCreate> {
-                override fun onResponse(
-                    call: Call<PasswordCreate>,
-                    response: Response<PasswordCreate>
-                ) {
-                    if (response.isSuccessful) {
-                        response.body().let { result ->
-                            logInValue.postValue(result!!)
-                            pref.saveAccessToken(result.access)
-                            Log.d("onSuccessLogIn", result.toString())
-                        }
-                    } else {
-                        Log.d("logIn", "тчо-то пошло не так")
+        api.logIn(logIn).enqueue(object : Callback<PasswordCreate> {
+            override fun onResponse(
+                call: Call<PasswordCreate>,
+                response: Response<PasswordCreate>
+            ) {
+                if (response.isSuccessful) {
+                    response.body()?.let { result ->
+                        pref.saveRefreshToken(result.refresh)
+                        pref.saveAccessToken(result.access)
+                        logInValue.postValue(result)
+                        Log.d("onSuccessLogIn", result.toString())
                     }
+                } else {
+                    Log.d("logIn", "что-то пошло не так")
                 }
+            }
 
-                override fun onFailure(call: Call<PasswordCreate>, t: Throwable) {
-                    Log.e("onLogInFailure", t.message.toString())
-                }
-            })
-        }
+            override fun onFailure(call: Call<PasswordCreate>, t: Throwable) {
+                Log.e("onLogInFailure", t.message.toString())
+            }
+        })
         return logInValue
     }
 
-    fun getProfile(accessToken:String?=null): LiveData<Profile> {
+    fun getProfile(accessToken: String? = null): LiveData<Profile> {
         val profile = MutableLiveData<Profile>()
         api.getProfile("Bearer $accessToken").enqueue(object : Callback<Profile> {
             override fun onResponse(call: Call<Profile>, response: Response<Profile>) {
@@ -183,6 +207,44 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
             }
         })
         return profile
+    }
+
+    fun getOrderList(): LiveData<List<OrderList.OrderListItem>> {
+        val order = MutableLiveData<List<OrderList.OrderListItem>>()
+        api.getOrderList("Bearer ${pref.getAccessToken()}").enqueue(object : Callback<List<OrderList.OrderListItem>> {
+            override fun onResponse(call: Call<List<OrderList.OrderListItem>>, response: Response<List<OrderList.OrderListItem>>) {
+                if (response.isSuccessful) {
+                    response.body().let {
+                        order.postValue(it)
+                        Log.d("onSuccessOrder", it.toString())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<List<OrderList.OrderListItem>>, t: Throwable) {
+                Log.e("onOrderFailure", t.message.toString())
+            }
+        })
+        return order
+    }
+
+    fun getOrderId(id:Int): LiveData<Order> {
+        val order = MutableLiveData<Order>()
+        api.getOrderId(id,"Bearer ${pref.getAccessToken()}").enqueue(object : Callback<Order> {
+            override fun onResponse(call: Call<Order>, response: Response<Order>) {
+                if (response.isSuccessful) {
+                    response.body().let {
+                        order.postValue(it)
+                        Log.d("onSuccessOrder", it.toString())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<Order>, t: Throwable) {
+                Log.e("onOrderFailure", t.message.toString())
+            }
+        })
+        return order
     }
 
     fun logOut(): LiveData<Unit> {
@@ -209,26 +271,40 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
         return logOut
     }
 
-    fun putDataProfile(refactorData: Profile): LiveData<Profile> {
+    fun putDataProfile(
+        image: MultipartBody.Part,
+        firstName: RequestBody,
+        lastName: RequestBody,
+        dateOfBirth: RequestBody,
+        address: RequestBody
+    ): LiveData<Profile> {
         val putData = MutableLiveData<Profile>()
-
         val accessToken = pref.getAccessToken()!!
-        api.putProfile(refactorData, "Bearer $accessToken").enqueue(object : Callback<Profile> {
-            override fun onResponse(call: Call<Profile>, response: Response<Profile>) {
-                if (response.isSuccessful) {
-                    response.body().let {
-                        putData.postValue(it)
-                        Log.d("onSuccessPassword", it.toString())
+        api.putProfile(image, firstName, lastName, dateOfBirth, address, "Bearer $accessToken")
+            .enqueue(object : Callback<Profile> {
+                override fun onResponse(
+                    call: Call<Profile>,
+                    response: Response<Profile>
+                ) {
+                    if (response.isSuccessful) {
+                        response.body()?.let {
+                            putData.postValue(it)
+                            Log.d("putDataProfile", "Data sent successfully: $it")
+                        } ?: run {
+                            Log.e("putDataProfile", "Response body is null")
+                        }
+                    } else {
+                        Log.e("putDataProfile", "Unsuccessful response: ${response.code()}")
                     }
                 }
-            }
 
-            override fun onFailure(call: Call<Profile>, t: Throwable) {
-                Log.e("onPasswordFailure", t.message.toString())
-            }
-        })
+                override fun onFailure(call: Call<Profile>, t: Throwable) {
+                    Log.e("putDataProfile", "Failed to send profile data: ${t.message}")
+                }
+            })
         return putData
     }
+
 
     fun changeEmail(changeEmail: ChangeEmail): LiveData<Any> {
         val emailChange = MutableLiveData<Any>()
@@ -319,7 +395,7 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
                         user.postValue(it)
                         Log.d("onSuccessCheckUser", it.toString())
                     }
-                }else{
+                } else {
                     val verifyToken = TokenVerify(
                         detail = "Token is invalid or expired",
                         code = "token_not_valid"
@@ -340,7 +416,10 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
         val refresh = MutableLiveData<PasswordCreate>()
 
         api.refreshToken(refreshToken).enqueue(object : Callback<PasswordCreate> {
-            override fun onResponse(call: Call<PasswordCreate>, response: Response<PasswordCreate>) {
+            override fun onResponse(
+                call: Call<PasswordCreate>,
+                response: Response<PasswordCreate>
+            ) {
                 if (response.isSuccessful) {
                     response.body()?.let {
                         pref.saveAccessToken(it.access)
@@ -353,6 +432,28 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
 
             override fun onFailure(call: Call<PasswordCreate>, t: Throwable) {
                 Log.e("onRefreshFailure", t.message.toString())
+            }
+        })
+        return refresh
+    }
+
+    fun leaveReview(reviewModel: ReviewModel): LiveData<ReviewModel> {
+        val refresh = MutableLiveData<ReviewModel>()
+
+        api.leaveReview(reviewModel, pref.getAccessToken()!!).enqueue(object : Callback<ReviewModel> {
+            override fun onResponse(
+                call: Call<ReviewModel>,
+                response: Response<ReviewModel>
+            ) {
+                if (response.isSuccessful) {
+                    response.body()?.let {
+
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ReviewModel>, t: Throwable) {
+                Log.e("", t.message.toString())
             }
         })
         return refresh

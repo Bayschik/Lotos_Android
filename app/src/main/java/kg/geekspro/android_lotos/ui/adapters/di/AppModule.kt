@@ -7,6 +7,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kg.geekspro.android_lotos.ui.adapters.aboutusadapter.youtubeadapter.YoutubeAdapter
+import kg.geekspro.android_lotos.ui.interfaces.aboutusinterfaces.YouTubeApiService
 import kg.geekspro.android_lotos.ui.interfaces.fcmtoken.FcmApiService
 import kg.geekspro.android_lotos.ui.interfaces.profileinterfaces.ApiService
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
@@ -24,7 +26,7 @@ class AppModule {
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient):Retrofit{
         return Retrofit.Builder()
-            .baseUrl("http://209.38.228.54:88/")
+            .baseUrl("https://lotos.pp.ua/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
@@ -59,6 +61,10 @@ class AppModule {
         return retrofit.create(FcmApiService::class.java)
     }
 
+    @Provides
+    fun provideYoutubeApiService(retrofit: Retrofit):YouTubeApiService {
+        return retrofit.create(YouTubeApiService::class.java)
+    }
     @Provides
     fun providePreference(@ApplicationContext context: Context): SharedPreferences {
         return context.getSharedPreferences(Pref.PREF_NAME, Context.MODE_PRIVATE)

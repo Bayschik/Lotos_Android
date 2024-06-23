@@ -26,16 +26,6 @@ class PersonalDataFragment : Fragment() {
     @Inject
     lateinit var pref: Pref
 
-    private val getCommentMedia =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val selectedFileUri = result.data?.data
-                pref.saveImage(selectedFileUri.toString())
-                Glide.with(binding.imgPersonalDataProfile).load(selectedFileUri.toString())
-                    .into(binding.imgPersonalDataProfile)
-            }
-        }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,13 +38,6 @@ class PersonalDataFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-            Glide.with(imgPersonalDataProfile).load(pref.getImage()).placeholder(R.drawable.ic_black_profile).into(imgPersonalDataProfile)
-
-            imgPersonalDataProfile.setOnClickListener {
-                val intent = Intent(Intent.ACTION_PICK)
-                intent.type = "image/*"
-                getCommentMedia.launch(intent)
-            }
 
             imgArrowBack.setOnClickListener {findNavController().navigate(R.id.profileFragment)}
 
@@ -62,6 +45,7 @@ class PersonalDataFragment : Fragment() {
 
             viewModel.viewModelScope.launch {
                 viewModel.getProfileData(pref.getAccessToken()!!).observe(viewLifecycleOwner){profile->
+                    Glide.with(imgPersonalDataProfile).load("https://lotos.pp.ua${profile.photo}").placeholder(R.drawable.ic_black_profile).into(imgPersonalDataProfile)
                     tvOfficialName.text = profile.firstName
                     tvOfficialSurname.text = profile.lastName
                     tvOfficialDateOfBirth.text = profile.dateOfBirth
