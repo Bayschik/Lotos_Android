@@ -15,8 +15,6 @@ import kg.geekspro.android_lotos.R
 class ImagePagerAdapter(
     private val context: Context,
     private val images: List<Int>,
-    private val titles: List<String>,
-    private val descriptions: List<String>
 ) : PagerAdapter() {
 
     override fun getCount(): Int = images.size
@@ -27,10 +25,6 @@ class ImagePagerAdapter(
         val imageView = ImageView(context).apply {
             setImageResource(images[position])
             scaleType = ImageView.ScaleType.FIT_CENTER
-            setOnClickListener {
-                // Обработчик нажатия на картинку
-                onImageClick(position)
-            }
         }
         container.addView(imageView)
         return imageView
@@ -40,16 +34,6 @@ class ImagePagerAdapter(
         container.removeView(`object` as View)
     }
 
-    private fun onImageClick(position: Int) {
-        // Реализуйте переход на новый фрагмент
-        val activity = context as FragmentActivity
-        val fragmentManager: FragmentManager = activity.supportFragmentManager
-        val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
 
-        val newFragment = PromotionFragment.newInstance(images[position], titles[position], descriptions[position])
-        fragmentTransaction.replace(R.id.fragment_container, newFragment)
-        fragmentTransaction.addToBackStack(null)
-        fragmentTransaction.commit()
-    }
 }
 
