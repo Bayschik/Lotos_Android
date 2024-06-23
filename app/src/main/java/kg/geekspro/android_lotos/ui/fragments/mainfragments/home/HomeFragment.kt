@@ -5,16 +5,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.ViewPager
+import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentHomeBinding
+import kg.geekspro.android_lotos.viewmodels.mainviewmodel.MainViewModel
+import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
 
     private lateinit var imageAdapter: ImagePagerAdapter
+    private val viewModel by viewModels<MainViewModel>()
 
     private val images = arrayListOf(
         R.drawable.bg_promotions,
@@ -92,6 +99,12 @@ class HomeFragment : Fragment() {
 
         })
 
+        viewModel.loadFcm().observe(viewLifecycleOwner){
+            lifecycleScope.launch {
+                binding.tvCleaningAfter.text = it.results.joinToString { it.title }
+                binding.tvCleaningAfterPrice.text = it.results.joinToString { it.one_room }
+            }
+        }
 
         binding.remodelCleaningUpContainer.setOnClickListener {
             findNavController().navigate(R.id.remodelCleaningUpFragment)
@@ -124,8 +137,4 @@ class HomeFragment : Fragment() {
             View.VISIBLE
         }
     }
-
-
-
-
 }

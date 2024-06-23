@@ -306,5 +306,15 @@
         android:name="kg.geekspro.android_lotos.ReviewFragment"
         android:label="fragment_review"
         tools:layout="@layout/fragment_review" />
+    <fragment
+        android:id="@+id/promotionDetailFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.mainfragments.notifications.PromotionDetailFragment"
+        android:label="fragment_promotion_detail"
+        tools:layout="@layout/fragment_promotion_detail" />
+    <fragment
+        android:id="@+id/notificationReviewFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.mainfragments.notifications.NotificationReviewFragment"
+        android:label="fragment_notification_review"
+        tools:layout="@layout/fragment_notification_review" />
 
 </navigation>

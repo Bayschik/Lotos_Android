@@ -10,6 +10,7 @@ import dagger.hilt.components.SingletonComponent
 import kg.geekspro.android_lotos.ui.adapters.aboutusadapter.youtubeadapter.YoutubeAdapter
 import kg.geekspro.android_lotos.ui.interfaces.aboutusinterfaces.YouTubeApiService
 import kg.geekspro.android_lotos.ui.interfaces.fcmtoken.FcmApiService
+import kg.geekspro.android_lotos.ui.interfaces.maininterfeces.MainApiService
 import kg.geekspro.android_lotos.ui.interfaces.profileinterfaces.ApiService
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
 import okhttp3.OkHttpClient
@@ -59,6 +60,11 @@ class AppModule {
     @Provides
     fun provideFcmApiService(retrofit: Retrofit): FcmApiService {
         return retrofit.create(FcmApiService::class.java)
+    }
+
+    @Provides
+    fun provideMainApiService(retrofit: Retrofit): MainApiService {
+        return retrofit.create(MainApiService::class.java)
     }
 
     @Provides
