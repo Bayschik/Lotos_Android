@@ -7,11 +7,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
@@ -24,6 +24,7 @@ class OrderFragment : Fragment() {
     private lateinit var binding: FragmentOrderBinding
     private val viewModel: OrderViewModel by viewModels()
     private val adapter = OrderAdapter()
+    private val orderAdapter = WhatServicesAdapter()
     @Inject
     lateinit var pref: Pref
 
@@ -40,50 +41,53 @@ class OrderFragment : Fragment() {
         val id = arguments?.getInt("ORDER_ID")
         binding.apply {
             rvCleaningServices.adapter = adapter
-            viewModel.getOrderId(id!!).observe(viewLifecycleOwner) {
-                tvCleaningCategory.text = it.categoryTitle
-                tvCleaningPrice.text = "${it.price.substringBefore(".")} сом"
-                tvHomeAddress.text = it.address
-                tvDate.text = it.scheduledData
-                tvTime.text = it.timeTitle
-                tvStatus.text = it.status
-                if (it.status == "В ожидании") {
+            viewModel.getOrderId(id!!).observe(viewLifecycleOwner) {order->
+                tvCleaningCategory.text = order.categoryTitle
+                tvCleaningPrice.text = "${order.price.substringBefore(".")} сом"
+                tvHomeAddress.text = order.address
+                tvDate.text = order.scheduledData
+                tvTime.text = order.timeTitle
+                tvStatus.text = order.status
+                if (order.status == "В ожидании") {
                     statusCardView.setCardBackgroundColor(requireContext().resources.getColor(R.color.yellow))
-                } else if (it.status == "в_обработке") {
+                } else if (order.status == "в_обработке") {
                     statusCardView.setCardBackgroundColor(requireContext().resources.getColor(R.color.orange))
-                } else if (it.status == "принято") {
+                } else if (order.status == "принято") {
                     statusCardView.setCardBackgroundColor(requireContext().resources.getColor(R.color.purple))
-                } else if (it.status == "завершено") {
+                } else if (order.status == "завершено") {
                     btnLeaveReview.visibility = View.VISIBLE
-                    if (it.reviewStars != 0){
+                    if (order.reviewStars != 0){
                         ratingBar.visibility = View.VISIBLE
-                        ratingBar.rating = it.reviewStars.toFloat()
+                        ratingBar.rating = order.reviewStars.toFloat()
                     }
                     statusCardView.setCardBackgroundColor(requireContext().resources.getColor(R.color.green))
-                } else if (it.status == "отменено") {
+                } else if (order.status == "отменено") {
                     statusCardView.setCardBackgroundColor(requireContext().resources.getColor(R.color.dark_black))
                 }
-                adapter.order(it.servicesData)
+                adapter.order(order.servicesData)
+                tvWhatCleaning.setOnClickListener { showServices(order.categoryServices) }
             }
             imgBack.setOnClickListener {
                 findNavController().popBackStack()
-                findNavController().navigateUp()
+                findNavController().navigate(R.id.orderHistoryFragment)
             }
-            tvWhatCleaning.setOnClickListener { showLogOut() }
             btnLeaveReview.setOnClickListener { findNavController().navigate(R.id.leaveReviewFragment, bundleOf("id of order" to id)) }
         }
     }
 
 
-    private fun showLogOut() {
+    private fun showServices(order: String) {
         val dialog = layoutInflater.inflate(R.layout.alert_dialog_services, null)
+        val recyclerView = dialog.findViewById<RecyclerView>(R.id.rv_what_services)
 
         val alertDialog = AlertDialog.Builder(requireContext())
         alertDialog.setView(dialog)
         val alertShow = alertDialog.create()
 
-        alertShow.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        recyclerView.adapter = orderAdapter
+        orderAdapter.order(order)
 
+        alertShow.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         alertShow.show()
     }
 }
