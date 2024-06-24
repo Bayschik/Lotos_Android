@@ -34,9 +34,9 @@ okHttp = "4.12.0"
 roomKtx = "2.6.1"
 coroutines = "1.7.3"
 googleServices = "4.3.10"
-firebaseMessaging = "21.2.0"
+firebaseMessaging = "24.0.0"
 viewpager2 = "1.0.0"
-youtubeAndroidPlayerApi = "1.2.2"
+googleServicesVersion = "4.4.2"
 
 
 
@@ -84,6 +84,7 @@ androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = 
 google-services = { group = "com.google.gms", name = "google-services", version.ref = "googleServices" }
 firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging", version.ref = "firebaseMessaging" }
 youtube-android-player-api = { module = "com.google.android.youtube:youtube-android-player-api", version.ref = "youtubeAndroidPlayerApi" }
+gms-google-services = { group = "com.google.gms", name = "google-services", version.ref = "googleServicesVersion" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
