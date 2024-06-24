@@ -1,3 +1,5 @@
+package kg.geekspro.android_lotos.ui.repositories.repoaboutus.youtuberepo
+
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
@@ -30,9 +32,9 @@ class YouTubePagingSource(private val apiService: YouTubeApiService) : PagingSou
                     if (response.isSuccessful) {
                         val data = response.body()?.results ?: emptyList()
 
-                        Log.d("YouTubePagingSource", "Loaded data for page: $page, count: ${data.size}")
+                        Log.d("kg.geekspro.android_lotos.ui.repositories.repoaboutus.youtuberepo.YouTubePagingSource", "Loaded data for page: $page, count: ${data.size}")
                         data.forEach { video ->
-                            Log.d("YouTubePagingSource", "Video loaded: Title=${video.title}, URL=${video.url}")
+                            Log.d("kg.geekspro.android_lotos.ui.repositories.repoaboutus.youtuberepo.YouTubePagingSource", "Video loaded: Title=${video.title}, URL=${video.url}")
                         }
                         loadResult = LoadResult.Page(
                             data = data,
@@ -41,14 +43,14 @@ class YouTubePagingSource(private val apiService: YouTubeApiService) : PagingSou
                         )
                     } else {
                         val errorMessage = "Error loading data: ${response.code()} ${response.message()}"
-                        Log.e("YouTubePagingSource", errorMessage)
+                        Log.e("kg.geekspro.android_lotos.ui.repositories.repoaboutus.youtuberepo.YouTubePagingSource", errorMessage)
                         loadResult = LoadResult.Error(IOException(errorMessage))
                     }
                 } catch (e: IOException) {
-                    Log.e("YouTubePagingSource", "Error loading data", e)
+                    Log.e("kg.geekspro.android_lotos.ui.repositories.repoaboutus.youtuberepo.YouTubePagingSource", "Error loading data", e)
                     loadResult = LoadResult.Error(e)
                 } catch (e: Exception) {
-                    Log.e("YouTubePagingSource", "Unexpected error", e)
+                    Log.e("kg.geekspro.android_lotos.ui.repositories.repoaboutus.youtuberepo.YouTubePagingSource", "Unexpected error", e)
                     loadResult = LoadResult.Error(e)
                 }
             }
@@ -61,7 +63,7 @@ class YouTubePagingSource(private val apiService: YouTubeApiService) : PagingSou
             loadResult ?: LoadResult.Error(IOException("Unknown error"))
 
         } catch (e: Exception) {
-            Log.e("YouTubePagingSource", "Error loading data", e)
+            Log.e("kg.geekspro.android_lotos.ui.repositories.repoaboutus.youtuberepo.YouTubePagingSource", "Error loading data", e)
             LoadResult.Error(e)
         }
     }

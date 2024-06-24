@@ -4,7 +4,6 @@ plugins {
     kotlin("kapt")
     id("com.google.gms.google-services")
     alias(libs.plugins.daggerHiltPlugin)
-
 }
 
 android {
@@ -56,20 +55,20 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     // Gson
-    implementation (libs.gson)
+    implementation(libs.gson)
     // val nav_version = "2.7.7"
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     // Recyclerview
-    implementation (libs.androidx.recyclerview)
+    implementation(libs.androidx.recyclerview)
     // ViewModel
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     // LiveData
     implementation(libs.androidx.lifecycle.livedata.ktx)
     // Retrofit
-    implementation (libs.retrofit)
+    implementation(libs.retrofit)
     // Glide
-    implementation (libs.glide)
+    implementation(libs.glide)
     // circle Image
     implementation(libs.circelImage)
     //circle indicator
@@ -78,7 +77,7 @@ dependencies {
     implementation(libs.room)
     kapt(libs.roomCompiler)
     //Google API Client
-    implementation (libs.googleApiClient)
+    implementation(libs.googleApiClient)
     //implementation(libs.glide)
     // Import the Firebase BoM
     implementation(platform(libs.firebase.bom))
@@ -86,7 +85,7 @@ dependencies {
     // view pager2
     implementation(libs.androidx.viewpager2)
     // material - material
-    implementation (libs.material.vversion)
+    implementation(libs.material.vversion)
 
     implementation(libs.daggerHiltImpl)
     kapt(libs.daggerHiltKapt)
@@ -95,9 +94,10 @@ dependencies {
     //Coroutines
     implementation(libs.coroutines)
     //Paging
-    implementation (libs.androidx.paging.common.ktx)
-    implementation (libs.androidx.paging.runtime.ktx)
-    // library for youtube
-    implementation (libs.core.v1210)
-    implementation (libs.chromecast.sender)
+    implementation(libs.androidx.paging.common.ktx)
+    implementation(libs.androidx.paging.runtime.ktx)
+    // library for youtube player
+    implementation(libs.core.v1210)
+    implementation(libs.chromecast.sender)
+
 }

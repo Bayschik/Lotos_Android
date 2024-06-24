@@ -39,6 +39,9 @@
         <action
             android:id="@+id/action_aboutUsFragment_to_fragmentA"
             app:destination="@id/fragmentA" />
+        <action
+            android:id="@+id/action_aboutUsFragment_to_playFragment"
+            app:destination="@id/playFragment" />
     </fragment>
 
     <fragment
@@ -302,6 +305,11 @@
         android:name="kg.geekspro.android_lotos.ui.fragments.profile.order.OrderFragment"
         android:label="fragment_order"
         tools:layout="@layout/fragment_order" />
+    <fragment
+        android:id="@+id/playFragment"
+        android:name="kg.geekspro.android_lotos.ui.fragments.aboutus.PlayFragment"
+        android:label="fragment_play"
+        tools:layout="@layout/fragment_play" />
 
 
 </navigation>

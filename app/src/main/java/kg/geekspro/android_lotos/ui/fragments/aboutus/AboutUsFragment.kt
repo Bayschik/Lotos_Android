@@ -1,6 +1,9 @@
 package kg.geekspro.android_lotos.ui.fragments.aboutus
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +15,10 @@ import androidx.viewpager2.widget.ViewPager2
 import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentAboutUsBinding
+import kg.geekspro.android_lotos.models.aboutusmodels.youtubemodel.Result1
 import kg.geekspro.android_lotos.ui.adapters.aboutusadapter.youtubeadapter.YoutubeAdapter
 import kg.geekspro.android_lotos.ui.adapters.viewpageradapter.ViewPagerAdapter
+import kg.geekspro.android_lotos.viewmodels.aboutus.contactsviewmodel.WhatsAppViewModel
 import kg.geekspro.android_lotos.viewmodels.aboutus.youtubevideos.VideoViewModel
 import kotlinx.coroutines.launch
 
@@ -22,8 +27,18 @@ class AboutUsFragment : Fragment() {
 
     private lateinit var binding: FragmentAboutUsBinding
     private val viewModel by viewModels<VideoViewModel>()
-    //@Inject
-    private val adapter = YoutubeAdapter()
+    private val adapter = YoutubeAdapter(this::onClick)
+    private val wpViewModel by viewModels<WhatsAppViewModel>()
+    private var wp: String? = null
+    private var inst: String? = null
+    private var tel: String? = null
+    private fun onClick(result1: Result1) {
+        val bundle = Bundle().apply {
+            putString("url", result1.url)
+            putInt("id", result1.id)
+        }
+        findNavController().navigate(R.id.playFragment, bundle)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,17 +50,12 @@ class AboutUsFragment : Fragment() {
 
     val viewPager2 = activity?.findViewById<ViewPager2>(R.id.viewPager2inAboutUS)
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //initViewPager()
         initButtons()
         binding.rvInAboutUs.adapter = adapter
 
-//        binding.btnStoryFirst.setOnClickListener {
-//            findNavController().navigate(R.id.fragmentA)
-//        }
-        val fragmentList = arrayListOf<Fragment>(
+        val fragmentList = arrayListOf(
             ProfessionalMachAndEquipmentFragment(),
             TeamOfProfessionalsFragment(),
             WideAssortmentFragment()
@@ -57,6 +67,22 @@ class AboutUsFragment : Fragment() {
             }
         }
 
+        wpViewModel.loadWP().observe(viewLifecycleOwner) { respons ->
+            wp = respons.firstOrNull()?.url
+
+            Log.d("Kad", "asd:${wp}")
+
+        }
+
+        binding.btnWhatsApp.setOnClickListener {
+            wp?.let { whatsappUrl ->
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data = Uri.parse(whatsappUrl)
+                startActivity(intent)
+            }
+        }
+
+
         ViewPagerAdapter(
             fragmentList,
             requireActivity().supportFragmentManager,
@@ -64,22 +90,11 @@ class AboutUsFragment : Fragment() {
         )
     }
 
-//    private fun initViewPager() {
-//        viewPager2 = binding.viewPager2inAboutUS
-//
-////        viewPager = binding.viewPagerAboutUS
-////        viewPagerAdapter = AboutUsStoriesViewPagerAdapter(childFragmentManager, lifecycle)
-////        viewPager.adapter = viewPagerAdapter
-////        binding.indicator.setViewPager(viewPager)
-//    }
-
     private fun initButtons() {
         binding.btnStoryFirst.setOnClickListener {
             findNavController().navigate(R.id.professionalMachAndEquipmentFragment)
-            // fragmentA
         }
         binding.btnStorySecond.setOnClickListener {
-            //viewPager2?.setCurrentItem(1, true)
             findNavController().navigate(R.id.teamOfProfessionalsFragment)
         }
         binding.btnStoryThird.setOnClickListener {
@@ -87,38 +102,3 @@ class AboutUsFragment : Fragment() {
         }
     }
 }
-
-
-/*
-
-private var viewPager2: ViewPager2? = null
-    private fun initButtons() {
-        binding.btnStoryFirst.setOnClickListener {
-            viewPager2?.setCurrentItem(0, true)
-        }
-        binding.btnStorySecond.setOnClickListener {
-            viewPager2?.setCurrentItem(1, true)
-        }
-        binding.btnStoryThird.setOnClickListener {
-            viewPager2?.setCurrentItem(2, true)
-        }
-    }
- */
-
-//    private fun btn1setOnClickListener() {
-////        findNavController().navigate(R.id.btn_videoPlay1)
-//        val youtubeUrl ="https://www.youtube.com/watch?v=c4Y4BN4wJLU&list=RD0r-P9ierpTU&index=18"
-//        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(youtubeUrl))
-//        startActivity(intent)
-//    }
-
-//        fragmentList.apply {
-//            add(ProfessionalMachAndEquipmentFragment())
-//            add(TeamOfProfessionalsFragment())
-//            add(WideAssortmentFragment())
-//        }
-
-
-
-
-
