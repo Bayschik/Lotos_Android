@@ -45,14 +45,17 @@ class LogFragment : Fragment() {
                         password = etOfficialLogPassword.text.toString()
                     )
                     viewModel.logIn(log).observe(viewLifecycleOwner) {
-                        pref.onLogIn()
-                        Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
+                        if (it == null){
+                            etLogPassword.error = "Неверный пароль или почта"
+                        }else{
+                            pref.onLogIn()
+                            val navOptions = NavOptions.Builder()
+                                .setPopUpTo(R.id.logFragment, true)
+                                .build()
 
-                        val navOptions = NavOptions.Builder()
-                            .setPopUpTo(R.id.logFragment, true)
-                            .build()
-
-                        findNavController().navigate(R.id.homeFragment, null, navOptions)
+                            findNavController().navigate(R.id.homeFragment, null, navOptions)
+                        }
+                        //Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
                     }
                 }
             }

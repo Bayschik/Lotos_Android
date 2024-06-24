@@ -26,7 +26,9 @@ data class Order(
     @SerializedName("time_title")
     val timeTitle: String,
     @SerializedName("type_of_room")
-    val typeOfRoom: String
+    val typeOfRoom: String,
+    @SerializedName("review_stars")
+    val reviewStars: Int
 ) {
     data class ServicesData(
         @SerializedName("count")
