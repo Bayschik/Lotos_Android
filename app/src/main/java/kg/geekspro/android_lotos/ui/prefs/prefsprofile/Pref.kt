@@ -70,7 +70,5 @@ class Pref @Inject constructor(private val pref: SharedPreferences) {
         const val REFRESH_TOKEN = "refresh.token"
         const val ACCESS_TOKEN = "access.token"
         const val EMAIL_SESSION_ID = "email.session.id"
-
-
     }
 }

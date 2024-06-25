@@ -461,4 +461,26 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
         })
         return refresh
     }
+
+    fun deleteAccount(): LiveData<Any> {
+        val delete = MutableLiveData<Any>()
+
+        api.deleteAccount("Bearer ${pref.getAccessToken()!!}").enqueue(object : Callback<Any> {
+            override fun onResponse(
+                call: Call<Any>,
+                response: Response<Any>
+            ) {
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        delete.postValue("вышли из аккаунта")
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<Any>, t: Throwable) {
+                Log.e("onReviewFailure", t.message.toString())
+            }
+        })
+        return delete
+    }
 }

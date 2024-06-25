@@ -71,9 +71,7 @@ class ProfileFragment : Fragment() {
                                 btnOrderHistory.setOnClickListener { findNavController().navigate(R.id.orderHistoryFragment) }
                                 btnExit.setOnClickListener { showLogOut() }
                                 btnAgreement.setOnClickListener { findNavController().navigate(R.id.agreementsFragment) }
-                                btnSafetyPassword.setOnClickListener {
-                                    findNavController().navigate(R.id.safetyFragment)
-                                }
+                                btnSafetyPassword.setOnClickListener { findNavController().navigate(R.id.safetyFragment) }
                             }
                     } else {
                         val refreshToken = RefreshToken(

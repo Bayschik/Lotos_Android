@@ -58,8 +58,8 @@ class FillDataFragment : Fragment() {
                             Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT)
                                 .show()
                             if (it != "Пользователь с таким номером существует! Выберите другой номер."){
-                                findNavController().navigate(R.id.passwordCreateFragment, bundle)
                                 findNavController().popBackStack()
+                                findNavController().navigate(R.id.passwordCreateFragment, bundle)
                             }
                             if (etFillPhoneNumber.text.toString().length < 9){
                                 etFillPhoneNumberLayout.error = "Введите полный номер телефона"
@@ -80,7 +80,7 @@ class FillDataFragment : Fragment() {
                 val dialog = DatePickerDialog(
                     requireContext(),
                     R.style.CustomDatePickerDialog, { _, year, month, dayOfMonth ->
-                        binding.etFillDateOfBirth.setText("$dayOfMonth:${month + 1}:$year")
+                        binding.etFillDateOfBirth.setText("$dayOfMonth.${month + 1}.$year")
                     }, year, month, dayOfMonth
 
                 )
