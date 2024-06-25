@@ -163,6 +163,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_date_layout"
             app:prefixText="+996"
+            app:counterEnabled="true"
+            app:counterMaxLength="9"
             app:prefixTextColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText

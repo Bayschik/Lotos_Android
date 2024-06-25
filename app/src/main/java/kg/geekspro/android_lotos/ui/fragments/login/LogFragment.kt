@@ -47,6 +47,7 @@ class LogFragment : Fragment() {
                     viewModel.logIn(log).observe(viewLifecycleOwner) {
                         if (it == null){
                             etLogPassword.error = "Неверный пароль или почта"
+                            etLogEmail.error
                         }else{
                             pref.onLogIn()
                             val navOptions = NavOptions.Builder()
