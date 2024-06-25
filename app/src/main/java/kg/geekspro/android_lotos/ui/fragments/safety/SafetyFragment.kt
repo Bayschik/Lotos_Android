@@ -47,8 +47,8 @@ class SafetyFragment : Fragment() {
     private fun showDeleteAccount() {
         val dialog = layoutInflater.inflate(R.layout.alert_delete_account, null)
 
-        val btnYes = dialog.findViewById<MaterialButton>(R.id.btn_yes)
-        val btnNo = dialog.findViewById<MaterialButton>(R.id.btn_no)
+        val btnYes = dialog.findViewById<MaterialButton>(R.id.btn_delete_yes)
+        val btnNo = dialog.findViewById<MaterialButton>(R.id.btn_delete_no)
 
         val alertDialog = AlertDialog.Builder(requireContext())
         alertDialog.setView(dialog)
@@ -56,10 +56,12 @@ class SafetyFragment : Fragment() {
 
         btnYes.setOnClickListener {
             alertShow.dismiss()
-            Toast.makeText(requireContext(), "вы удалили аккаунт", Toast.LENGTH_SHORT).show()
+            pref.onLogOut()
+            findNavController().navigateUp()
             viewModel.deleteAccount().observe(viewLifecycleOwner) {
-                pref.onLogOut()
-                findNavController().navigate(R.id.exitAccountFragment)
+                if (it.equals("вышли из аккаунта")){
+                    Toast.makeText(requireContext(), "вы удалили аккаунт", Toast.LENGTH_SHORT).show()
+                }
             }
         }
         btnNo.setOnClickListener {

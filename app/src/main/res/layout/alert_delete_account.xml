@@ -26,7 +26,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_no"
+            android:id="@+id/btn_delete_no"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -40,7 +40,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_alert" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_yes"
+            android:id="@+id/btn_delete_yes"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -51,9 +51,9 @@
             android:textColor="@color/blue"
             android:textSize="16sp"
             app:cornerRadius="12dp"
-            app:layout_constraintEnd_toEndOf="@id/btn_no"
-            app:layout_constraintStart_toStartOf="@id/btn_no"
-            app:layout_constraintTop_toBottomOf="@id/btn_no"
+            app:layout_constraintEnd_toEndOf="@id/btn_delete_no"
+            app:layout_constraintStart_toStartOf="@id/btn_delete_no"
+            app:layout_constraintTop_toBottomOf="@id/btn_delete_no"
             app:strokeColor="@color/blue"
             app:strokeWidth="1dp" />
 
