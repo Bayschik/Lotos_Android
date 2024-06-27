@@ -21,6 +21,23 @@ class Pref @Inject constructor(private val pref: SharedPreferences) {
         pref.edit().putBoolean(LOG_OUT_KEY, true).apply()
     }
 
+    fun saveGmail(gmail: String) {
+        pref.edit().putString(GMAIL_KEY, gmail).apply()
+    }
+
+    fun getGmail(): String? {
+        return pref.getString(GMAIL_KEY, null)
+    }
+
+    fun saveNumber(number: String) {
+        pref.edit().putString(NUMBER_KEY, number).apply()
+    }
+
+    fun getNumber(): String? {
+        return pref.getString(NUMBER_KEY, null)
+    }
+
+
     fun onLogIn() {
         pref.edit().putBoolean(LOG_OUT_KEY, false).apply()
     }
@@ -66,6 +83,8 @@ class Pref @Inject constructor(private val pref: SharedPreferences) {
         const val PREF_NAME = "pref.name"
         const val SHOWED_KEY = "showed.key"
         const val LOG_OUT_KEY = "log.out.key"
+        const val GMAIL_KEY = "gmail.key"
+        const val NUMBER_KEY = "number.key"
         const val SESSION_ID = "session.id"
         const val REFRESH_TOKEN = "refresh.token"
         const val ACCESS_TOKEN = "access.token"

@@ -10,10 +10,14 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentSafetyPhoneNumberBinding
+import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SafetyPhoneNumberFragment : Fragment() {
     private lateinit var binding:FragmentSafetyPhoneNumberBinding
+    @Inject
+    lateinit var pref: Pref
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,6 +30,7 @@ class SafetyPhoneNumberFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
+            tvRule.text = "Текущий номер вашего мобильного телефона-+996${pref.getNumber()}? Удостоверьтесь, что ваша контактная информация указана верно, чтобы у вас было возможности сбрасывать пароль, получать уведомления"
             btnSaveNumber.setOnClickListener {
                 if (etFillPhoneNumberLayout.editText?.text.toString().isEmpty()){
                     Toast.makeText(requireContext(), "Пожалуйста введите ваш номер телефона", Toast.LENGTH_SHORT).show()

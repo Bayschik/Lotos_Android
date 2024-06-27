@@ -176,7 +176,7 @@ class RefactorDataFragment : Fragment() {
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    /*override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_STORAGE_PERMISSION) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -185,5 +185,5 @@ class RefactorDataFragment : Fragment() {
                 Toast.makeText(requireContext(), "Для выбора изображения необходимо разрешение", Toast.LENGTH_SHORT).show()
             }
         }
-    }
+    }*/
 }

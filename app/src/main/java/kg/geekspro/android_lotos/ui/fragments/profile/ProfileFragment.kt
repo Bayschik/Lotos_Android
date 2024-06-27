@@ -25,6 +25,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
+
     @Inject
     lateinit var pref: Pref
     private val viewModel: ProfileViewModel by viewModels()
@@ -71,30 +72,48 @@ class ProfileFragment : Fragment() {
                                 btnOrderHistory.setOnClickListener { findNavController().navigate(R.id.orderHistoryFragment) }
                                 btnExit.setOnClickListener { showLogOut() }
                                 btnAgreement.setOnClickListener { findNavController().navigate(R.id.agreementsFragment) }
-                                btnSafetyPassword.setOnClickListener { findNavController().navigate(R.id.safetyFragment) }
+                                btnSafetyPassword.setOnClickListener {
+                                    findNavController().navigate(
+                                        R.id.safetyFragment
+                                    )
+                                }
                             }
                     } else {
-                        val refreshToken = RefreshToken(
-                            refresh = pref.getRefresh()!!
-                        )
-                        viewModel.refreshToken(refreshToken).observe(viewLifecycleOwner) {
-                            pref.saveAccessToken(it.access)
-                            viewModel.getProfile(pref.getAccessToken()!!)
-                                .observe(viewLifecycleOwner) {
-                                    tvUserFullName.text = "${it.lastName} ${it.firstName}"
-                                    btnPersonalData.setOnClickListener {
-                                        findNavController().navigate(
-                                            R.id.personalDataFragment
-                                        )
+                        if (pref.getRefresh() == null) {
+                            pref.onLogOut()
+                            findNavController().popBackStack()
+                            findNavController().navigate(R.id.exitAccountFragment)
+                        } else {
+                            val refreshToken = RefreshToken(
+                                refresh = pref.getRefresh()!!
+                            )
+                            viewModel.refreshToken(refreshToken).observe(viewLifecycleOwner) {
+                                pref.saveAccessToken(it.access)
+                                viewModel.getProfile(pref.getAccessToken()!!)
+                                    .observe(viewLifecycleOwner) {
+                                        tvUserFullName.text = "${it.lastName} ${it.firstName}"
+                                        btnPersonalData.setOnClickListener {
+                                            findNavController().navigate(
+                                                R.id.personalDataFragment
+                                            )
+                                        }
+                                        setImageFromPhone(it)
+                                        btnOrderHistory.setOnClickListener {
+                                            findNavController().navigate(
+                                                R.id.orderHistoryFragment
+                                            )
+                                        }
+                                        btnExit.setOnClickListener { showLogOut() }
+                                        btnAgreement.setOnClickListener {
+                                            findNavController().navigate(
+                                                R.id.agreementsFragment
+                                            )
+                                        }
+                                        btnSafetyPassword.setOnClickListener {
+                                            findNavController().navigate(R.id.safetyFragment)
+                                        }
                                     }
-                                    setImageFromPhone(it)
-                                    btnOrderHistory.setOnClickListener { findNavController().navigate(R.id.orderHistoryFragment) }
-                                    btnExit.setOnClickListener { showLogOut() }
-                                    btnAgreement.setOnClickListener { findNavController().navigate(R.id.agreementsFragment) }
-                                    btnSafetyPassword.setOnClickListener {
-                                        findNavController().navigate(R.id.safetyFragment)
-                                    }
-                                }
+                            }
                         }
                     }
                 }
