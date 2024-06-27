@@ -18,13 +18,17 @@ import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentRegistrationBinding
 import kg.geekspro.android_lotos.models.registrationmodel.Registration
+import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
 import kg.geekspro.android_lotos.viewmodels.registrationviewmodel.RegistrationViewModel
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class RegistrationFragment : Fragment() {
     private lateinit var binding: FragmentRegistrationBinding
     private lateinit var googleApiClient: GoogleSignInClient
     private val viewModel: RegistrationViewModel by viewModels()
+    @Inject
+    lateinit var pref: Pref
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,6 +52,7 @@ class RegistrationFragment : Fragment() {
                     )
                     viewModel.verifyEmail(email).observe(viewLifecycleOwner) {
                         if (it != "Email уже зарегистрирован или ошибка сервера") {
+                            pref.saveGmail(etOfficialPhoneNumber.text.toString())
                             findNavController().navigate(
                                 R.id.verificationCodeFragment,
                                 bundleOf("PHONE_NUMBER" to etOfficialPhoneNumber.text.toString())

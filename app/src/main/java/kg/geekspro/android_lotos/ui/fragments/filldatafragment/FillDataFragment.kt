@@ -14,13 +14,17 @@ import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentFillDataBinding
 import kg.geekspro.android_lotos.models.orderhistorymodels.PersonalData
+import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
 import kg.geekspro.android_lotos.viewmodels.filldata.FillDataViewModel
 import java.util.Calendar
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class FillDataFragment : Fragment() {
     private lateinit var binding: FragmentFillDataBinding
     private val viewModel: FillDataViewModel by viewModels()
+    @Inject
+    lateinit var pref: Pref
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -57,6 +61,7 @@ class FillDataFragment : Fragment() {
                             bundle.putString("fcmToken", token)
                             Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT)
                                 .show()
+                            pref.saveNumber(etFillPhoneNumber.text.toString())
                             if (it != "Пользователь с таким номером существует! Выберите другой номер."){
                                 findNavController().popBackStack()
                                 findNavController().navigate(R.id.passwordCreateFragment, bundle)
