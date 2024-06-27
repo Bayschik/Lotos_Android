@@ -7,6 +7,7 @@ core = "{latest-version}"
 coreVersion = "12.1.0"
 firebaseBom = "32.8.1"
 gson = "2.10.1"
+gsonVersion = "2.11.0"
 kotlin = "1.9.23"
 coreKtx = "1.13.1"
 junit = "4.13.2"
@@ -37,6 +38,7 @@ googleServices = "4.3.10"
 firebaseMessaging = "24.0.0"
 viewpager2 = "1.0.0"
 googleServicesVersion = "4.4.2"
+youtubeAndroidPlayerApi = " 1.2.3"
 
 
 
@@ -58,6 +60,8 @@ firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "fir
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 circelImage = {module ="de.hdodenhof:circleimageview", version.ref = "circleImage"}
 circelIndicator = {module ="me.relex:circleindicator", version.ref = "circleIndicator"}
+google-gson = { module = "com.google.code.gson:gson", version.ref = "gsonVersion" }
+google-youtube-android-player-api = { module = "com.google.android.youtube:youtube-android-player-api", version.ref = "youtubeAndroidPlayerApi" }
 material-vversion = { module = "com.google.android.material:material", version.ref = "materialVersion" }
 okhttp-bom = { module = "com.squareup.okhttp3:okhttp-bom", version.ref = "okHttp" }
 room = {module ="androidx.room:room-runtime", version.ref = "room"}
