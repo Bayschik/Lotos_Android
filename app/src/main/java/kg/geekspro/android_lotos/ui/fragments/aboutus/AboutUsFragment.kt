@@ -101,4 +101,5 @@ class AboutUsFragment : Fragment() {
             findNavController().navigate(R.id.wideAssortmentFragment)
         }
     }
+    // i want to check my line
 }
