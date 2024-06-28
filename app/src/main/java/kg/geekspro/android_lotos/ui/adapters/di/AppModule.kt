@@ -10,6 +10,7 @@ import dagger.hilt.components.SingletonComponent
 import kg.geekspro.android_lotos.ui.interfaces.aboutusinterfaces.contactsinterface.WhatsAppInterface
 import kg.geekspro.android_lotos.ui.interfaces.aboutusinterfaces.youtubeinterface.YouTubeApiService
 import kg.geekspro.android_lotos.ui.interfaces.fcmtoken.FcmApiService
+import kg.geekspro.android_lotos.ui.interfaces.maininterfeces.MainApiService
 import kg.geekspro.android_lotos.ui.interfaces.profileinterfaces.ApiService
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
 import okhttp3.OkHttpClient
@@ -24,7 +25,7 @@ import javax.inject.Singleton
 class AppModule {
     @Provides
     @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+    fun provideRetrofit(okHttpClient: OkHttpClient):Retrofit{
         return Retrofit.Builder()
             .baseUrl("https://lotos.pp.ua/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -34,7 +35,7 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient {
+    fun provideOkHttpClient(interceptor:HttpLoggingInterceptor):OkHttpClient{
         return OkHttpClient.Builder()
             .writeTimeout(20, TimeUnit.SECONDS)
             .readTimeout(20, TimeUnit.SECONDS)
@@ -46,12 +47,11 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideLoggingInterceptor(): HttpLoggingInterceptor {
+    fun provideLoggingInterceptor():HttpLoggingInterceptor{
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
         return interceptor
     }
-
     @Provides
     fun provideApiService(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
@@ -63,7 +63,12 @@ class AppModule {
     }
 
     @Provides
-    fun provideYoutubeApiService(retrofit: Retrofit): YouTubeApiService {
+    fun provideMainApiService(retrofit: Retrofit): MainApiService {
+        return retrofit.create(MainApiService::class.java)
+    }
+
+    @Provides
+    fun provideYoutubeApiService(retrofit: Retrofit):YouTubeApiService {
         return retrofit.create(YouTubeApiService::class.java)
     }
 

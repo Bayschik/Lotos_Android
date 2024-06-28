@@ -51,17 +51,40 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <RatingBar
+            android:id="@+id/rating_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:progressTint="@color/yellow"
+            android:visibility="gone"
+            android:layout_marginVertical="16dp"
+            app:layout_constraintEnd_toEndOf="@id/img_back"
+            app:layout_constraintStart_toStartOf="@id/status_card_view"
+            app:layout_constraintTop_toBottomOf="@id/img_back" />
+
         <TextView
             android:id="@+id/tv_cleaning_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="@font/roboto_bold"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@id/status_card_view"
-            app:layout_constraintTop_toBottomOf="@id/status_card_view"
+            app:layout_constraintTop_toBottomOf="@id/rating_bar"
             tools:text="Уборка после ремонта" />
+
+        <TextView
+            android:id="@+id/tv_what_cleaning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto_bold"
+            android:textColor="@color/blue"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/tv_cleaning_category"
+            app:layout_constraintTop_toBottomOf="@id/tv_cleaning_category"
+            android:text="Что входит в уборку?" />
 
         <TextView
             android:id="@+id/tv_cleaning_price"
@@ -73,21 +96,21 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@id/img_back"
-            app:layout_constraintTop_toBottomOf="@id/img_back"
+            app:layout_constraintTop_toBottomOf="@id/rating_bar"
             tools:text="5000" />
 
         <TextView
             android:id="@+id/tv_additional_services"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:fontFamily="sans-serif-medium"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/roboto_bold"
             android:gravity="end"
+            android:text="Дополнительные услуги"
             android:textColor="@color/black"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@id/tv_cleaning_category"
-            app:layout_constraintTop_toBottomOf="@id/tv_cleaning_category"
-            android:text="Дополнительные услуги" />
+            app:layout_constraintStart_toStartOf="@id/tv_what_cleaning"
+            app:layout_constraintTop_toBottomOf="@id/tv_what_cleaning" />
 
         <TextView
             android:id="@+id/tv_additional_services_price"
@@ -96,11 +119,11 @@
             android:layout_marginTop="32dp"
             android:fontFamily="sans-serif-medium"
             android:gravity="end"
+            android:text="3000"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@id/tv_cleaning_price"
-            app:layout_constraintTop_toBottomOf="@id/tv_cleaning_price"
-            android:text="3000" />
+            app:layout_constraintTop_toBottomOf="@id/tv_what_cleaning" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_cleaning_services"
@@ -117,13 +140,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="@font/roboto_bold"
             android:gravity="end"
+            android:text="Адрес:"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@id/rv_cleaning_services"
-            app:layout_constraintTop_toBottomOf="@id/rv_cleaning_services"
-            android:text="Адрес:" />
+            app:layout_constraintTop_toBottomOf="@id/rv_cleaning_services" />
 
         <TextView
             android:id="@+id/tv_home_address"
@@ -143,13 +166,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="@font/roboto_bold"
             android:gravity="end"
+            android:text="Дата:"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@id/tv_home_address"
-            app:layout_constraintTop_toBottomOf="@id/tv_home_address"
-            android:text="Дата:" />
+            app:layout_constraintTop_toBottomOf="@id/tv_home_address" />
 
         <TextView
             android:id="@+id/tv_date"
@@ -168,14 +191,14 @@
             android:id="@+id/tv_additional_service_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="@font/roboto_bold"
             android:gravity="end"
+            android:text="Время:"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/tv_additional_service_date"
-            app:layout_constraintTop_toTopOf="@id/tv_additional_service_date"
-            android:text="Время:" />
+            app:layout_constraintTop_toTopOf="@id/tv_additional_service_date" />
 
         <TextView
             android:id="@+id/tv_time"
@@ -189,6 +212,23 @@
             app:layout_constraintStart_toStartOf="@id/tv_additional_service_time"
             app:layout_constraintTop_toBottomOf="@id/tv_additional_service_time"
             tools:text="11:04" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_leave_review"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="Оставить отзыв"
+            android:visibility="gone"
+            app:cornerRadius="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_time" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -28,9 +28,15 @@
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/black" />
 
+        <meta-data
+            android:name="com.google.android.gms.auth.api.credentials.CREDENTIALS"
+            android:value="@string/google_client_id"/>
+
         <activity
-            android:windowSoftInputMode="adjustPan"
+            android:windowSoftInputMode="adjustResize"
             android:name=".activity.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MyApp.MySplash"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

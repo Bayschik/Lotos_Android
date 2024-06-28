@@ -7,15 +7,20 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentLogBinding
+import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LogFragment : Fragment() {
     private lateinit var binding: FragmentLogBinding
     private val viewModel: LogInViewModel by viewModels()
+    @Inject
+    lateinit var pref:Pref
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,8 +45,18 @@ class LogFragment : Fragment() {
                         password = etOfficialLogPassword.text.toString()
                     )
                     viewModel.logIn(log).observe(viewLifecycleOwner) {
-                        Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
-                        findNavController().navigate(R.id.homeFragment)
+                        if (it == null){
+                            etLogPassword.error = "Неверный пароль или почта"
+                            etLogEmail.error
+                        }else{
+                            pref.onLogIn()
+                            val navOptions = NavOptions.Builder()
+                                .setPopUpTo(R.id.logFragment, true)
+                                .build()
+
+                            findNavController().navigate(R.id.homeFragment, null, navOptions)
+                        }
+                        //Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
                     }
                 }
             }

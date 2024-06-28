@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragments.mainfragments.remodel_clean_up.RemodelCleanUpFragment">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -71,6 +71,8 @@
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/tv_description"
                 app:layout_constraintTop_toBottomOf="@id/tv_description" />
+
+
 
             <TextView
                 android:id="@+id/tv_number_of_rooms"
@@ -266,6 +268,7 @@
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:hint="Не более 1000"
+                    android:inputType="number"
                     android:paddingVertical="5dp"
                     android:paddingStart="10dp"
                     android:textSize="14sp"
@@ -279,7 +282,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingEnd="10dp"
-                    android:text="М2"
+                    android:text="| М2"
                     android:textColor="@color/gray_"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="@id/et_m2"
@@ -296,7 +299,9 @@
                     android:hint="Какой у вас тип помещения"
                     android:paddingVertical="5dp"
                     android:paddingStart="10dp"
+                    android:inputType="text"
                     android:textSize="14sp"
+                    android:imeOptions="actionDone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/et_m2" />
@@ -329,18 +334,35 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_order"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
+        android:textColor="@color/white"
+        android:background="@drawable/bg_card"
+        android:textAllCaps="false"
         android:layout_marginBottom="10dp"
         android:backgroundTint="@color/blue"
-        android:text="Заказать"
+        android:text="Заказать: 0"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_remodel_clean_up_services"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        android:src="@drawable/img_remodel_clean_up_services"
+        android:visibility="gone"
+        android:elevation="2dp"
+        android:background="#80000000"
+        />
+
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,11 +11,15 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentSafetyEmailBinding
+import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SafetyEmailFragment : Fragment() {
     private lateinit var binding: FragmentSafetyEmailBinding
     private val viewModel: SafetyEmailViewModel by viewModels()
+    @Inject
+    lateinit var pref: Pref
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,6 +32,7 @@ class SafetyEmailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
+            tvRule.text = "Ваш текущий электронный адрес\n+${pref.getGmail()}? Удостоверьтесь, что ваша контактная информация указана верно, \nчтобы у вас была возможность сбрасывать\nпароль, получатьуведомления"
             btnSaveData.setOnClickListener {
                 if (etFillEmail.text.toString().isEmpty()) {
                     Toast.makeText(

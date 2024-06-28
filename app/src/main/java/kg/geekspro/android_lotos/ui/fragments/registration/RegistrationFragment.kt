@@ -18,13 +18,17 @@ import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentRegistrationBinding
 import kg.geekspro.android_lotos.models.registrationmodel.Registration
+import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
 import kg.geekspro.android_lotos.viewmodels.registrationviewmodel.RegistrationViewModel
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class RegistrationFragment : Fragment() {
     private lateinit var binding: FragmentRegistrationBinding
     private lateinit var googleApiClient: GoogleSignInClient
     private val viewModel: RegistrationViewModel by viewModels()
+    @Inject
+    lateinit var pref: Pref
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,26 +43,32 @@ class RegistrationFragment : Fragment() {
         binding.apply {
             btnContinue.setOnClickListener {
                 if (etOfficialPhoneNumber.text.toString().isEmpty()) {
-                    Toast.makeText(requireContext(), "Введите вашу почту", Toast.LENGTH_SHORT)
-                        .show()
+                    etSignInPhoneNumber.error = "Заполните поле"
+                } else if(!etOfficialPhoneNumber.text.toString().contains("@gmail.co")){
+                    etSignInPhoneNumber.error = "Введите знак @gmail.com"
                 } else {
                     val email = Registration(
                         email = etOfficialPhoneNumber.text.toString()
                     )
                     viewModel.verifyEmail(email).observe(viewLifecycleOwner) {
-                        Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
-                        findNavController().navigate(
-                            R.id.verificationCodeFragment,
-                            bundleOf("PHONE_NUMBER" to etOfficialPhoneNumber.text.toString())
-                        )
+                        if (it != "Email уже зарегистрирован или ошибка сервера") {
+                            pref.saveGmail(etOfficialPhoneNumber.text.toString())
+                            findNavController().navigate(
+                                R.id.verificationCodeFragment,
+                                bundleOf("PHONE_NUMBER" to etOfficialPhoneNumber.text.toString())
+                            )
+                        } else {
+                            etSignInPhoneNumber.error = it.toString()
+                            //Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             }
             btnGoogle.setOnClickListener {
-                //googleSignIn()
-                viewModel.googleAuth().observe(viewLifecycleOwner){
-                    findNavController().navigate(R.id.verificationCodeFragment)
-                }
+                googleSignIn()
+            }
+            tvAgreement.setOnClickListener {
+                findNavController().navigate(R.id.agreementsFragment)
             }
         }
     }
@@ -85,14 +95,13 @@ class RegistrationFragment : Fragment() {
                 val registration = Registration(
                     email = email!!
                 )
-                viewModel.verifyEmail(registration).observe(viewLifecycleOwner){
+                viewModel.verifyEmail(registration).observe(viewLifecycleOwner) {
                     Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
                     findNavController().navigate(
-                        R.id.verificationCodeFragment,
+                        R.id.homeFragment,
                         bundleOf("PHONE_NUMBER" to binding.etOfficialPhoneNumber.text.toString())
                     )
                 }
-
                 Toast.makeText(requireContext(), "Email: $email", Toast.LENGTH_SHORT).show()
             } catch (e: ApiException) {
                 Toast.makeText(requireContext(), e.statusCode, Toast.LENGTH_SHORT).show()
@@ -101,6 +110,6 @@ class RegistrationFragment : Fragment() {
     }
 
     companion object {
-        private const val RC_SIGN_IN = 100
+        private const val RC_SIGN_IN = 9001
     }
 }

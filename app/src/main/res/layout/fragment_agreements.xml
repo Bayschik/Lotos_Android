@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AgreementsFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/img_arrow_back"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_margin="12dp"
+            android:src="@drawable/ic_arrow_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/tv_lotos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:fontFamily="serif"
+            android:text="Lotos Cleaning"
+            android:textColor="#FF8086"
+            android:textSize="28sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_polytics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/agreement_text_color"
+            android:text="Политика конфиденциальности"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_lotos" />
+
+        <TextView
+            android:id="@+id/tv_first_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/agreement_text_color"
+            android:text="Это пользовательское соглашение (далее - \n'Соглашение') регулирует использование \nприложения и услуг компании 'Клининговая \nкомпания Лотос' (далее - 'Компания') \nПользователем (далее - 'Пользователь'). При использовании приложения и услуг Компании Пользователь  полтверждает свое согласие с условиями настоящего Соглашения."
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_polytics" />
+
+        <TextView
+            android:id="@+id/tv_second_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/agreement_text_color"
+            android:text="1. Определения \n1.1. Компания: ООО 'Клининговая компания Лотос', зарегистрированная по адресу [юридический адрес компании], ИНН [индивидуальный налоговый \nномер компании]."
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_first_agreement" />
+
+        <TextView
+            android:id="@+id/tv_third_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/agreement_text_color"
+            android:text="1.2. Пользователь: физическое лицо, использующее приложение Компании для заказа услуг клининга."
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_second_agreement" />
+
+        <TextView
+            android:id="@+id/tv_four_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/agreement_text_color"
+            android:text="2. Предмет соглашения \n2.1. Компания предоставляет Пользователю доступ \nк приложению для заказа услуг клининга."
+            android:textAlignment="textStart"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_third_agreement" />
+
+        <TextView
+            android:id="@+id/tv_five_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/agreement_text_color"
+            android:textAlignment="textStart"
+            android:text="2.2. Пользователь обязуется использовать услуги Компании в соответствии с условиями настоящего Соглашения."
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_four_agreement" />
+
+        <TextView
+            android:id="@+id/tv_six_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/agreement_text_color"
+            android:textAlignment="textStart"
+            android:text="3. Услуги \n3.1. Компания предоставляет следующие виды \nуслуг клининга (далее – 'Услуги'):"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_five_agreement" />
+
+        <TextView
+            android:id="@+id/tv_seven_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/agreement_text_color"
+            android:textAlignment="textStart"
+            android:text="уборка помещений,\nмойка окон,\nхимчистка ковров и мягкой мебели и т.д.\n3.2. Пользователь может оформлять заказы на Услуги через приложение Компании."
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_six_agreement" />
+
+        <TextView
+            android:id="@+id/tv_eight_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/agreement_text_color"
+            android:textAlignment="textStart"
+            android:text="4. Регистрация и учетная запись \n4.1. Для использования приложения и заказа Услуг Пользователь обязан пройти процедуру регистрации, \nпредоставив следующую информацию: ФИО, дата рождения, адрес проживания, электронная почта, номер телефона."
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_seven_agreement" />
+
+        <TextView
+            android:id="@+id/tv_nine_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/agreement_text_color"
+            android:textAlignment="textStart"
+            android:text="4.2. Пользователь обязан создать пароль для своей учетной записи. Пользователь несет ответственность \nза безопасность своего пароля и обязуется не разглашать его третьим лицам."
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_eight_agreement" />
+
+        <TextView
+            android:id="@+id/tv_ten_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/agreement_text_color"
+            android:textAlignment="textStart"
+            android:text="4.3. В случае утери пароля Пользователь может воспользоваться функцией восстановления пароля через приложение."
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_nine_agreement" />
+
+        <TextView
+            android:id="@+id/tv_eleven_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/agreement_text_color"
+            android:textAlignment="textStart"
+            android:text="5. Сбор и обработка персональных данных \n5.1. Компания собирает и обрабатывает персональные данные Пользователя (ФИО, дата рождения, адрес проживания, электронная почта, номер телефона) в целях оказания Услуг и связи с Пользователем."
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_ten_agreement" />
+
+        <TextView
+            android:id="@+id/tv_twelve_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/agreement_text_color"
+            android:textAlignment="textStart"
+            android:text="5.2. Компания обязуется использовать персональные данные Пользователя исключительно в рамках предоставления Услуг и не передавать их третьим лицам без согласия Пользователя, за исключением случаев, предусмотренных законодательством."
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_eleven_agreement" />
+
+        <TextView
+            android:id="@+id/tv_thirteen_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/agreement_text_color"
+            android:textAlignment="textStart"
+            android:text="6. Права и обязанности сторон \n6.1. Пользователь имеет право:"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_twelve_agreement" />
+
+        <TextView
+            android:id="@+id/tv_fourteen_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/agreement_text_color"
+            android:textAlignment="textStart"
+            android:text="оформлять заказы на Услуги через приложение Компании, \nполучать информацию о предоставляемых Услугах,обращаться в службу поддержки для решения вопросов.6.2. Компания обязуется:"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_thirteen_agreement" />
+
+        <TextView
+            android:id="@+id/tv_fifteen_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/agreement_text_color"
+            android:textAlignment="textStart"
+            android:text="предоставлять Услуги в соответствии с описанием и условиями,обеспечивать конфиденциальность персональных данных Пользователя,поддерживать работоспособность приложения и предоставлять возможность восстановления пароля. \n7. Ответственность сторон \n7.1. Пользователь несет ответственность за достоверность предоставленной информации при регистрации и за правомерность использования услуг Компании."
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_fourteen_agreement" />
+
+        <TextView
+            android:id="@+id/tv_sixteen_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/agreement_text_color"
+            android:textAlignment="textStart"
+            android:text="7.2. Компания не несет ответственности за неправильное использование Пользователем приложения или Услуг"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_fifteen_agreement" />
+
+        <TextView
+            android:id="@+id/tv_seventeen_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/agreement_text_color"
+            android:textAlignment="textStart"
+            android:text="8. Конфиденциальность и безопасность \n8.1. Компания обязуется обеспечивать безопасность и конфиденциальность персональных данных Пользователя в соответствии с действующим законодательством."
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_sixteen_agreement" />
+
+        <TextView
+            android:id="@+id/tv_eighteen_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/agreement_text_color"
+            android:textAlignment="textStart"
+            android:text="9. Изменения в условиях соглашения \n9.1. Компания оставляет за собой право вносить изменения в настоящее Соглашение. Пользователь будет уведомлен о внесенных изменениях путем размещения обновленного текста Соглашения в приложении."
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_seventeen_agreement" />
+
+        <TextView
+            android:id="@+id/tv_ninteen_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/agreement_text_color"
+            android:textAlignment="textStart"
+            android:text="9.2. Продолжение использования приложения после внесения изменений в Соглашение означает согласие Пользователя с такими изменениями."
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_eighteen_agreement" />
+
+        <TextView
+            android:id="@+id/tv_twenty_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/agreement_text_color"
+            android:textAlignment="textStart"
+            android:text="10. Контакты \n10.1. Пользователь может связаться с Компанией для получения поддержки или разрешения вопросов по следующим контактным данным, указанным в приложении."
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_ninteen_agreement" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

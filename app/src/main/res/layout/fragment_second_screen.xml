@@ -30,7 +30,7 @@
             android:fontFamily="@font/roboto_bold"
             android:padding="4dp"
             android:text="@string/tv_skip"
-            android:textColor="@color/black"
+            android:textColor="@color/skip_text_color"
             android:textSize="16sp"
             android:layout_margin="16dp"
             app:layout_constraintEnd_toEndOf="parent"

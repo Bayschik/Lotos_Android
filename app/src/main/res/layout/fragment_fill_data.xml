@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.fragments.filldatafragment.FillDataFragment"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    tools:context=".ui.fragments.filldatafragment.FillDataFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -63,7 +63,6 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="20dp"
             android:hint="Имя"
-            app:placeholderText="Введите ваше имя"
             android:textColorHint="@color/black"
             app:boxCornerRadiusBottomEnd="12dp"
             app:boxCornerRadiusBottomStart="12dp"
@@ -73,7 +72,8 @@
             app:endIconTint="@color/blue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_personal_data">
+            app:layout_constraintTop_toBottomOf="@id/tv_personal_data"
+            app:placeholderText="Введите ваше имя">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_fill_name"
@@ -90,7 +90,6 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="28dp"
             android:hint="Фамилия"
-            app:placeholderText="Введите вашу фамилию"
             android:textColorHint="@color/black"
             app:boxCornerRadiusBottomEnd="12dp"
             app:boxCornerRadiusBottomStart="12dp"
@@ -100,7 +99,8 @@
             app:endIconTint="@color/blue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_fill_name_layout">
+            app:layout_constraintTop_toBottomOf="@id/et_fill_name_layout"
+            app:placeholderText="Введите вашу фамилию">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_fill_surname"
@@ -122,6 +122,7 @@
             app:boxCornerRadiusBottomStart="12dp"
             app:boxCornerRadiusTopEnd="12dp"
             app:boxCornerRadiusTopStart="12dp"
+            app:counterMaxLength="10"
             app:endIconMode="clear_text"
             app:endIconTint="@color/blue"
             app:layout_constraintEnd_toEndOf="parent"
@@ -135,9 +136,11 @@
                 android:layout_height="match_parent"
                 android:clickable="false"
                 android:cursorVisible="false"
+                android:digits="0123456789-"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
-                android:inputType="date"
+                android:importantForAutofill="yes"
+                android:inputType="datetime"
                 android:textColor="@color/black" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -159,13 +162,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_date_layout"
-            app:prefixTextColor="@color/black"
-            app:prefixText="+996">
+            app:prefixText="+996"
+            app:counterEnabled="true"
+            app:counterMaxLength="9"
+            app:prefixTextColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_fill_phone_number"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:maxLength="9"
                 android:inputType="number"
                 android:textColor="@color/black" />
 
@@ -185,10 +191,10 @@
             app:boxCornerRadiusTopStart="12dp"
             app:endIconMode="clear_text"
             app:endIconTint="@color/blue"
-            app:placeholderText="Введите ваш адрес проживания"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_fill_phone_number_layout">
+            app:layout_constraintTop_toBottomOf="@id/et_fill_phone_number_layout"
+            app:placeholderText="Введите ваш адрес проживания">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_fill_address"
@@ -205,10 +211,10 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="32dp"
             android:insetTop="0dp"
-            app:cornerRadius="12dp"
             android:insetBottom="0dp"
             android:text="Сохранить"
             android:textSize="16sp"
+            app:cornerRadius="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_fill_address_layout" />

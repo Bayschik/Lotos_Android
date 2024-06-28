@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-medium"
-        android:text="Ваш текущий электронный адрес\n+ergeshovbaisan@gmail.com? Удостоверьтесь, что ваша контактная информация указана верно, \nчтобы у вас была возможность сбрасывать\nпароль, получатьуведомления"
+        tools:text="Ваш текущий электронный адрес\n+ergeshovbaisan@gmail.com? Удостоверьтесь, что ваша контактная информация указана верно, \nчтобы у вас была возможность сбрасывать\nпароль, получатьуведомления"
         android:textColor="@color/black"
         android:lineHeight="24dp"
         android:textSize="16sp"
