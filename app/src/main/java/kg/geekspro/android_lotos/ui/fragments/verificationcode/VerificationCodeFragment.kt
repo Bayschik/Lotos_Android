@@ -103,7 +103,7 @@ class VerificationCodeFragment : Fragment() {
         })
 
         currentEditText.setOnKeyListener { _, keyCode, event ->
-            if (keyCode == KeyEvent.KEYCODE_DEL && event.action == KeyEvent.ACTION_DOWN) {
+            if (keyCode == KeyEvent.KEYCODE_DEL || event.action == KeyEvent.ACTION_DOWN) {
                 if (currentEditText.text.isEmpty() && previousEditText != null) {
                     previousEditText.requestFocus()
                 }
