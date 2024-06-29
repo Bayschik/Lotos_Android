@@ -8,12 +8,24 @@
     tools:context=".ui.fragments.aboutus.TeamOfProfessionalsFragment">
 
 
+    <ImageView
+        android:id="@+id/btnBackStory2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="43dp"
+        android:layout_marginEnd="26dp"
+        android:src="@drawable/ic_arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <TextView
-        android:id="@+id/tvWideAssortment"
+        android:id="@+id/tvTeamOfProfessionals"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="43dp"
         android:layout_marginEnd="88dp"
         android:layout_marginBottom="18dp"
         android:fontFamily="@font/roboto_bold"
@@ -22,7 +34,6 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/tvWeAreUse"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -34,7 +45,6 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="540dp"
         android:fontFamily="@font/roboto_light"
-        android:paddingStart="16dp"
         android:text="В клининговой компании « Лотос» работают специалисты с опытом работы не менее трех лет, как справиться с поставленной задачей максимально быстро и эффективно. 
 Это один из главных наших секретов!"
         android:textColor="@color/black"
@@ -43,7 +53,7 @@
         app:layout_constraintBottom_toTopOf="@+id/icImgWideAssortment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvWideAssortment" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTeamOfProfessionals" />
 
     <ImageView
         android:id="@+id/icImgWideAssortment"
@@ -58,3 +68,5 @@
         app:layout_constraintTop_toBottomOf="@+id/tvWeAreUse" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+

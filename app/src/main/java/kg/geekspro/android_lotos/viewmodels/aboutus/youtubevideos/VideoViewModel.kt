@@ -7,15 +7,16 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kg.geekspro.android_lotos.models.aboutusmodels.youtubemodel.Result1
-import kg.geekspro.android_lotos.ui.repositories.repoaboutus.YouTubeRepositoryImpl
+import kg.geekspro.android_lotos.ui.repositories.repoaboutus.youtuberepo.YouTubeRepositoryImpl
 import javax.inject.Inject
+
 @HiltViewModel
 class VideoViewModel @Inject constructor(
     private val repository: YouTubeRepositoryImpl
 ) : ViewModel() {
 
+
     fun loadVideo(): LiveData<PagingData<Result1>> {
-        return repository.getPaginatedYouTubeData()
-            .cachedIn(viewModelScope)
+        return repository.getVideos().cachedIn(viewModelScope)
     }
 }

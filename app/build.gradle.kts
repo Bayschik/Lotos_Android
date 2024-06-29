@@ -98,7 +98,10 @@ dependencies {
     //Coroutines
     implementation(libs.coroutines)
     //Paging
-    implementation (libs.androidx.paging.common.ktx)
-    implementation (libs.androidx.paging.runtime.ktx)
+    implementation(libs.androidx.paging.common.ktx)
+    implementation(libs.androidx.paging.runtime.ktx)
+    // library for youtube player
+    implementation(libs.core.v1210)
+    implementation(libs.chromecast.sender)
 
 }

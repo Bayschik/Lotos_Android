@@ -57,12 +57,16 @@
             android:id="@+id/tvLorem"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="12dp"
             android:fontFamily="@font/roboto_bold"
-            android:padding="12dp"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:text="Lorem ipsum dolor sit amet consectetur. Sed accumsan molestie vulputate sed pellentesque sit. In vestibulum etiam sed id tristique et ut. Ultrices orci nunc dignissim morbi at arcu. In id vitae dignissim nisi non lacus scelerisque."
+            android:text="Наша миссия – предоставлять высококачественные клининговые услуги, создавая чистое и комфортное окружение для наших клиентов.\n\nЦели компаний:\n
+1. Обеспечение высокого уровня удовлетворенности клиентов.\n
+2. Постоянное совершенствование процессов и технологий.\n
+3. Развитие долгосрочных отношений с клиентами на основе доверия и прозрачности.\n
+4. Привлечение и поддержание высококвалифицированных сотрудников.\n
+5. Активное участие в устойчивом развитии и использование экологически чистых методов уборки."
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -75,7 +79,7 @@
             android:id="@+id/tvThreeReasons"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="12dp"
             android:background="#8006D8F3"
             android:fontFamily="@font/roboto_bold"
             android:padding="5dp"
@@ -144,7 +148,7 @@
         <TextView
             android:id="@+id/tvOurWork"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="#8006D8F3"
             android:fontFamily="@font/roboto_bold"
@@ -153,25 +157,40 @@
             android:text="Наши работы:"
             android:textColor="@color/black"
             android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/rvInAboutUs"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/viewPager2inAboutUS" />
 
 
         <androidx.recyclerview.widget.RecyclerView
+            android:orientation="vertical"
             android:id="@+id/rvInAboutUs"
+            android:padding="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="34dp"
-            android:padding="16dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/tvContacts"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvOurWork"
             tools:listitem="@layout/item_youtube_video" />
+
+        <TextView
+            android:id="@+id/tvContacts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="#8006D8F3"
+            android:fontFamily="@font/roboto_bold"
+            android:padding="5dp"
+            android:paddingStart="16dp"
+            android:text="Контакты:"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/btnWhatsApp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rvInAboutUs" />
 
 
         <ImageView
@@ -181,13 +200,13 @@
             android:layout_marginStart="150dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="18dp"
             android:orientation="horizontal"
             android:src="@drawable/ic_whatsapp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnTelephone"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rvInAboutUs"
+            app:layout_constraintTop_toBottomOf="@+id/tvContacts"
             app:layout_goneMarginStart="34dp" />
 
         <ImageView
@@ -212,8 +231,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/btnWhatsApp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btnTelephone"
-            app:layout_constraintTop_toTopOf="@+id/btnTelephone"
-            />
+            app:layout_constraintTop_toTopOf="@+id/btnTelephone" />
 
         <!--        <ImageView-->
         <!--            android:id="@+id/ivTelephone"-->

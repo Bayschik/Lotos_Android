@@ -3,18 +3,20 @@ package kg.geekspro.android_lotos.ui.adapters.aboutusadapter.youtubeadapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.view.menu.MenuView.ItemView
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.ItemYoutubeVideoBinding
 import kg.geekspro.android_lotos.models.aboutusmodels.youtubemodel.Result1
 
-class YoutubeAdapter : PagingDataAdapter<Result1, YoutubeAdapter.YouTubeViewHolder>(DiffCallback) {
+class YoutubeAdapter(private val itemClickListener: (Result1) -> Unit) :
+    PagingDataAdapter<Result1, YoutubeAdapter.YouTubeViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): YouTubeViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_youtube_video, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_youtube_video, parent, false)
         return YouTubeViewHolder(view)
     }
 
@@ -29,11 +31,10 @@ class YoutubeAdapter : PagingDataAdapter<Result1, YoutubeAdapter.YouTubeViewHold
 
         fun bind(result: Result1) {
             binding.apply {
-                Glide.with(itemView.context)
-                    .load(result.url)
-                    .into(btnYouTubeVideo1)
-
                 tvTitleYouTube.text = result.title
+            }
+            itemView.setOnClickListener {
+                itemClickListener(result)
             }
         }
     }
