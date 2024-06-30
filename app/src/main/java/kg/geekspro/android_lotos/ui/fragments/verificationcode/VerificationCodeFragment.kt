@@ -1,6 +1,5 @@
 package kg.geekspro.android_lotos.ui.fragments.verificationcode
 
-import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.Editable
@@ -46,10 +45,10 @@ class VerificationCodeFragment : Fragment() {
                     inputCode3.text.toString().isEmpty() ||
                     inputCode4.text.toString().isEmpty()
                 ) {
-                    inputCode1.error
-                    inputCode2.error
-                    inputCode3.error
-                    inputCode4.error
+                    inputCode1.error = " "
+                    inputCode2.error = " "
+                    inputCode3.error = " "
+                    inputCode4.error = " "
                     Toast.makeText(requireContext(), "Введите 4-значный код", Toast.LENGTH_SHORT)
                         .show()
                 } else {
@@ -59,30 +58,32 @@ class VerificationCodeFragment : Fragment() {
                     val data = VerificationCode(code = code)
 
                     viewModel.confirmCode(data).observe(viewLifecycleOwner) {
-                        Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
-                        if (it.toString() == "Неверный код"){
-                            val errorBackground: Drawable? = ContextCompat.getDrawable(requireContext(), R.drawable.code_red_border)
+                        if (it == "Неверный код") {
+                            val errorBackground: Drawable? = ContextCompat.getDrawable(
+                                requireContext(),
+                                R.drawable.code_red_border
+                            )
                             inputCode1.background = errorBackground
                             inputCode2.background = errorBackground
                             inputCode3.background = errorBackground
                             inputCode4.background = errorBackground
-                        }else{
-                            Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                        } else {
                             findNavController().navigate(R.id.fillDataFragment)
                         }
                     }
                 }
             }
             tvVerifyCode.text =
-                "Вставьте 4-значный код,отправленный в Gmail \nпо адресу $phoneNumber"
+                "Вставьте 4-значный код, отправленный в Gmail по адресу $phoneNumber"
         }
     }
 
     private fun setUpCodeInput() = with(binding) {
-        setupEditText(inputCode1,null,inputCode2)
-        setupEditText(inputCode2,inputCode1,inputCode3)
-        setupEditText(inputCode3,inputCode2,inputCode4)
-        setupEditText(inputCode4,inputCode3,null)
+        setupEditText(inputCode1, null, inputCode2)
+        setupEditText(inputCode2, inputCode1, inputCode3)
+        setupEditText(inputCode3, inputCode2, inputCode4)
+        setupEditText(inputCode4, inputCode3, null)
     }
 
     private fun setupEditText(
@@ -103,8 +104,10 @@ class VerificationCodeFragment : Fragment() {
         })
 
         currentEditText.setOnKeyListener { _, keyCode, event ->
-            if (keyCode == KeyEvent.KEYCODE_DEL || event.action == KeyEvent.ACTION_DOWN) {
-                if (currentEditText.text.isEmpty() && previousEditText != null) {
+            if (keyCode == KeyEvent.KEYCODE_DEL && event.action == KeyEvent.ACTION_DOWN) {
+                if (currentEditText.text.isNotEmpty()) {
+                    currentEditText.text.clear()
+                } else if (previousEditText != null) {
                     previousEditText.requestFocus()
                 }
                 return@setOnKeyListener true
