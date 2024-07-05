@@ -77,7 +77,7 @@ class LeaveReviewFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val id = arguments?.getInt("id of order")
         binding.apply {
-            ratingBar.stepSize = .5f
+            ratingBar.stepSize = 1.0f
             ratingBar.setOnRatingBarChangeListener { _, fl, _ ->
                 stars = fl
             }
