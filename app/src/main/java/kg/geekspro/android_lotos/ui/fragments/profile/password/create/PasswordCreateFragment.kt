@@ -26,6 +26,7 @@ class PasswordCreateFragment : Fragment() {
     @Inject
     lateinit var pref: Pref
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

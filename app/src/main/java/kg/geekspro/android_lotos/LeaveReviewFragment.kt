@@ -78,6 +78,7 @@ class LeaveReviewFragment : Fragment() {
         val id = arguments?.getInt("id of order")
         binding.apply {
             ratingBar.stepSize = 1.0f
+
             ratingBar.setOnRatingBarChangeListener { _, fl, _ ->
                 stars = fl
             }
