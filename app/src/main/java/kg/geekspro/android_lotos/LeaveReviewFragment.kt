@@ -82,12 +82,9 @@ class LeaveReviewFragment : Fragment() {
             ratingBar.setOnRatingBarChangeListener { _, fl, _ ->
                 stars = fl
             }
-            ibAddImage.setOnClickListener {
-                openGallery()
-            }
-            btnSendReview.setOnClickListener {
-                sendingData(id)
-            }
+            ibAddImage.setOnClickListener {openGallery()}
+            btnSendReview.setOnClickListener {sendingData(id)}
+            imgBack.setOnClickListener {findNavController().navigateUp()}
             if (imageList.size > 0) {
                 binding.ibAddImage.setColorFilter(
                     ContextCompat.getColor(

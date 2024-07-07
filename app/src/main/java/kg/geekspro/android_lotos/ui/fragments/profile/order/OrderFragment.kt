@@ -58,6 +58,7 @@ class OrderFragment : Fragment() {
                     btnLeaveReview.visibility = View.VISIBLE
                     if (order.reviewStars != 0){
                         ratingBar.visibility = View.VISIBLE
+                        btnLeaveReview.visibility = View.GONE
                         ratingBar.rating = order.reviewStars.toFloat()
                     }
                     statusCardView.setCardBackgroundColor(requireContext().resources.getColor(R.color.green))
