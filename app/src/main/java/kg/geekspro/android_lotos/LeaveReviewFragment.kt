@@ -16,8 +16,10 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.databinding.FragmentLeaveReviewBinding
+import kg.geekspro.android_lotos.ui.fragments.mainfragments.calendar.ImagesAdapter
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -36,6 +38,7 @@ class LeaveReviewFragment : Fragment() {
     private val imageList = mutableListOf<Uri>()
     private val viewModel: ReviewViewModel by viewModels()
     private lateinit var pickImage: ActivityResultLauncher<String>
+    private lateinit var imagesAdapter: ReviewImagesAdapter
     @Inject
     lateinit var pref: Pref
 
@@ -70,6 +73,10 @@ class LeaveReviewFragment : Fragment() {
                         )
                     }
                 }
+                binding.rvImages.visibility = View.VISIBLE
+                imagesAdapter = ReviewImagesAdapter(requireContext(), imageList)
+                binding.rvImages.layoutManager = GridLayoutManager(requireContext(), 3)
+                binding.rvImages.adapter = imagesAdapter
             }
     }
 
@@ -93,7 +100,7 @@ class LeaveReviewFragment : Fragment() {
                     ), PorterDuff.Mode.SRC_IN
                 )
             } else {
-                binding.ibAddImage.setColorFilter(
+            binding.ibAddImage.setColorFilter(
                     ContextCompat.getColor(
                         requireContext(),
                         R.color.gray_

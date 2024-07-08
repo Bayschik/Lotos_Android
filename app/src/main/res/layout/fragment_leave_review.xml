@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".LeaveReviewFragment">
 
     <ImageView
@@ -78,6 +78,16 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_images"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/btn_send_review"
+        app:layout_constraintEnd_toEndOf="@id/comment_container"
+        app:layout_constraintStart_toStartOf="@id/comment_container"
+        app:layout_constraintTop_toBottomOf="@id/comment_container" />
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_send_review"
         android:layout_width="match_parent"
@@ -91,7 +101,7 @@
         app:cornerRadius="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/comment_container" />
+        app:layout_constraintTop_toBottomOf="@id/rv_images" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
