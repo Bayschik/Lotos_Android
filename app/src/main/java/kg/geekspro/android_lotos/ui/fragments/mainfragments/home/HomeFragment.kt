@@ -12,6 +12,7 @@ import androidx.viewpager.widget.ViewPager
 import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentHomeBinding
+import kg.geekspro.android_lotos.models.mainmodels.ActionsModel
 import kg.geekspro.android_lotos.viewmodels.mainviewmodel.MainViewModel
 import kotlinx.coroutines.launch
 
@@ -21,16 +22,8 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
 
     private lateinit var imageAdapter: ImagePagerAdapter
-    private val viewModel by viewModels<MainViewModel>()
-
-    private val images = arrayListOf(
-        R.drawable.bg_promotions,
-        R.drawable.img_fg,
-        R.drawable.bg_promotions,
-        R.drawable.img_fg,
-        R.drawable.bg_promotions,
-        R.drawable.img_fg,
-    )
+    private val viewModel:MainViewModel by viewModels()
+    private val images = arrayListOf<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,9 +37,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        imageAdapter = ImagePagerAdapter(requireContext(), images)
-        binding.imgSlider.adapter = imageAdapter
-
 
 
         binding.btnNotification.setOnClickListener{
@@ -54,6 +44,13 @@ class HomeFragment : Fragment() {
         }
 
         updateButtonVisibility()
+
+        viewModel.loadActions().observe(viewLifecycleOwner){
+            images.add(it.banner)
+            imageAdapter = ImagePagerAdapter(requireContext(), images)
+            binding.imgSlider.adapter = imageAdapter
+        }
+
         binding.btnSlideRight.setOnClickListener {
             if (binding.imgSlider.currentItem < images.size - 1) {
                 binding.imgSlider.currentItem += 1

@@ -3,6 +3,7 @@ package kg.geekspro.android_lotos.ui.repositories.repomain
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import kg.geekspro.android_lotos.models.mainmodels.ActionsModel
 import kg.geekspro.android_lotos.models.mainmodels.MainEntities
 import kg.geekspro.android_lotos.ui.interfaces.maininterfeces.MainApiService
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
@@ -39,6 +40,28 @@ class RepositoryMain @Inject constructor(private val mainApiService: MainApiServ
         })
 
         return fcmAnswer
+    }
+
+    fun loadActions(): LiveData<ActionsModel.Result> {
+        val actions = MutableLiveData<ActionsModel.Result>()
+
+        mainApiService.getActions().enqueue(object :
+            Callback<ActionsModel.Result> {
+            override fun onResponse(call: Call<ActionsModel.Result>, response: Response<ActionsModel.Result>) {
+                if (response.isSuccessful) {
+                    actions.postValue(response.body())
+                    Log.d("Actions", "${response.body()}")
+                } else {
+                    Log.d("Actions", "actions didn't come")
+                }
+            }
+
+            override fun onFailure(call: Call<ActionsModel.Result>, t: Throwable) {
+                Log.e("Actions", "Error sending token", t)
+            }
+        })
+
+        return actions
     }
 
 }

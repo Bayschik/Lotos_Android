@@ -9,12 +9,14 @@ import androidx.viewpager.widget.PagerAdapter
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import com.bumptech.glide.Glide
 
 import kg.geekspro.android_lotos.R
+import kg.geekspro.android_lotos.models.mainmodels.ActionsModel
 
 class ImagePagerAdapter(
     private val context: Context,
-    private val images: List<Int>,
+    private val images: List<String>,
 ) : PagerAdapter() {
 
     override fun getCount(): Int = images.size
@@ -23,7 +25,7 @@ class ImagePagerAdapter(
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val imageView = ImageView(context).apply {
-            setImageResource(images[position])
+            Glide.with(context).load(images[position]).into(this)
             scaleType = ImageView.ScaleType.FIT_CENTER
         }
         container.addView(imageView)
