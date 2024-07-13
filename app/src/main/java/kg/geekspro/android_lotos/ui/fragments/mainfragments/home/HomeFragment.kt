@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -37,19 +38,18 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        viewModel.loadActions().observe(viewLifecycleOwner){
+            images.add(it.banner)
+            Toast.makeText(requireContext(), images.toString(), Toast.LENGTH_SHORT).show()
+            imageAdapter = ImagePagerAdapter(requireContext(), images)
+            binding.imgSlider.adapter = imageAdapter
+        }
 
         binding.btnNotification.setOnClickListener{
             findNavController().navigate(R.id.notificationsFragment)
         }
 
         updateButtonVisibility()
-
-        viewModel.loadActions().observe(viewLifecycleOwner){
-            images.add(it.banner)
-            imageAdapter = ImagePagerAdapter(requireContext(), images)
-            binding.imgSlider.adapter = imageAdapter
-        }
 
         binding.btnSlideRight.setOnClickListener {
             if (binding.imgSlider.currentItem < images.size - 1) {

@@ -12,8 +12,8 @@ import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
-class RepositoryMain @Inject constructor(private val mainApiService: MainApiService,
-                                         private val pref: Pref
+class RepositoryMain @Inject constructor(
+    private val mainApiService: MainApiService, private val pref: Pref
 ) {
 
     fun loadMain(): LiveData<MainEntities> {
@@ -28,8 +28,14 @@ class RepositoryMain @Inject constructor(private val mainApiService: MainApiServ
                     Log.d("MuhlisRepository", "Token sent successfully: ${response.body()}")
                     Log.d("MuhlisRepository", "Response data: ${response.body()?.toString()}")
                 } else {
-                    Log.e("MuhlisRepository", "Failed to send token: ${response.errorBody()?.string()}")
-                    Log.e("MuhlisRepository", "Response error: ${response.code()} ${response.message()}")
+                    Log.e(
+                        "MuhlisRepository",
+                        "Failed to send token: ${response.errorBody()?.string()}"
+                    )
+                    Log.e(
+                        "MuhlisRepository",
+                        "Response error: ${response.code()} ${response.message()}"
+                    )
                 }
             }
 
@@ -45,12 +51,14 @@ class RepositoryMain @Inject constructor(private val mainApiService: MainApiServ
     fun loadActions(): LiveData<ActionsModel.Result> {
         val actions = MutableLiveData<ActionsModel.Result>()
 
-        mainApiService.getActions().enqueue(object :
-            Callback<ActionsModel.Result> {
+        mainApiService.getActions().enqueue(object : Callback<ActionsModel.Result> {
             override fun onResponse(call: Call<ActionsModel.Result>, response: Response<ActionsModel.Result>) {
                 if (response.isSuccessful) {
-                    actions.postValue(response.body())
-                    Log.d("Actions", "${response.body()}")
+                    response.body().let {
+                        actions.postValue(it)
+                        Log.d("Actions", "${it?.banner}")
+                    }
+                    //actions.postValue(response.body())
                 } else {
                     Log.d("Actions", "actions didn't come")
                 }
