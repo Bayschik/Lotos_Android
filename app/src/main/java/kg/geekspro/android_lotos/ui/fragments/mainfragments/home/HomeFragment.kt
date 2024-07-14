@@ -1,6 +1,7 @@
 package kg.geekspro.android_lotos.ui.fragments.mainfragments.home
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -29,7 +30,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentHomeBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -39,8 +40,9 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.loadActions().observe(viewLifecycleOwner){
-            images.add(it.banner)
-            Toast.makeText(requireContext(), images.toString(), Toast.LENGTH_SHORT).show()
+            images.add(it.results.joinToString { it.banner })
+            //Toast.makeText(requireContext(), it.results[1].banner, Toast.LENGTH_SHORT).show()
+            Log.d("Images", images.toString())
             imageAdapter = ImagePagerAdapter(requireContext(), images)
             binding.imgSlider.adapter = imageAdapter
         }

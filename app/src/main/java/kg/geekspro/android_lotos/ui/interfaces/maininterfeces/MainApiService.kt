@@ -13,5 +13,5 @@ interface MainApiService {
     ): Call<MainEntities>
 
     @GET("api/v1/actions/")
-    fun getActions(): Call<ActionsModel.Result>
+    fun getActions(): Call<ActionsModel>
 }

@@ -5,13 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.viewpager.widget.PagerAdapter
-
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import com.bumptech.glide.Glide
-
-import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.models.mainmodels.ActionsModel
 
 class ImagePagerAdapter(

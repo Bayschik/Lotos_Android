@@ -48,15 +48,15 @@ class RepositoryMain @Inject constructor(
         return fcmAnswer
     }
 
-    fun loadActions(): LiveData<ActionsModel.Result> {
-        val actions = MutableLiveData<ActionsModel.Result>()
+    fun loadActions(): LiveData<ActionsModel> {
+        val actions = MutableLiveData<ActionsModel>()
 
-        mainApiService.getActions().enqueue(object : Callback<ActionsModel.Result> {
-            override fun onResponse(call: Call<ActionsModel.Result>, response: Response<ActionsModel.Result>) {
+        mainApiService.getActions().enqueue(object : Callback<ActionsModel> {
+            override fun onResponse(call: Call<ActionsModel>, response: Response<ActionsModel>) {
                 if (response.isSuccessful) {
                     response.body().let {
                         actions.postValue(it)
-                        Log.d("Actions", "${it?.banner}")
+                        Log.d("Actions", "${it?.results}")
                     }
                     //actions.postValue(response.body())
                 } else {
@@ -64,7 +64,7 @@ class RepositoryMain @Inject constructor(
                 }
             }
 
-            override fun onFailure(call: Call<ActionsModel.Result>, t: Throwable) {
+            override fun onFailure(call: Call<ActionsModel>, t: Throwable) {
                 Log.e("Actions", "Error sending token", t)
             }
         })

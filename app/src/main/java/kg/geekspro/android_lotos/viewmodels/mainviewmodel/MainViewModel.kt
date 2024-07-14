@@ -17,7 +17,7 @@ class MainViewModel @Inject constructor(private val repository: RepositoryMain):
         return repository.loadMain()
     }
 
-    fun loadActions() : LiveData<ActionsModel.Result> {
+    fun loadActions() : LiveData<ActionsModel> {
         return repository.loadActions()
     }
 }
