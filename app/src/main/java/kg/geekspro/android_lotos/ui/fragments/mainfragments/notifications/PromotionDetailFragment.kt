@@ -27,9 +27,9 @@ class PromotionDetailFragment : Fragment() {
 
         val notificationData = arguments?.getSerializable("notification") as Notification
 
-        binding.tvDate.text = notificationData.date
+        binding.tvDate.text = notificationData.createdAt
         binding.tvTitle.text = notificationData.title
-        binding.tvDescription.text = notificationData.description
+        binding.tvDescription.text = notificationData.desc
     }
 
 

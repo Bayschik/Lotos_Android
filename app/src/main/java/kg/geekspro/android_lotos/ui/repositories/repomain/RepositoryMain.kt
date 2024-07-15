@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import kg.geekspro.android_lotos.models.mainmodels.ActionsModel
 import kg.geekspro.android_lotos.models.mainmodels.MainEntities
+import kg.geekspro.android_lotos.ui.fragments.mainfragments.notifications.NotificationsModel
 import kg.geekspro.android_lotos.ui.interfaces.maininterfeces.MainApiService
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
 import retrofit2.Call
@@ -54,11 +55,10 @@ class RepositoryMain @Inject constructor(
         mainApiService.getActions().enqueue(object : Callback<ActionsModel> {
             override fun onResponse(call: Call<ActionsModel>, response: Response<ActionsModel>) {
                 if (response.isSuccessful) {
-                    response.body().let {
+                    response.body()?.let {
                         actions.postValue(it)
-                        Log.d("Actions", "${it?.results}")
+                        Log.e("Actions", it.results.toString())
                     }
-                    //actions.postValue(response.body())
                 } else {
                     Log.d("Actions", "actions didn't come")
                 }
@@ -70,6 +70,29 @@ class RepositoryMain @Inject constructor(
         })
 
         return actions
+    }
+
+    fun loadNotifications(): LiveData<NotificationsModel> {
+        val notifications = MutableLiveData<NotificationsModel>()
+
+        mainApiService.getNotifications("Bearer ${pref.getAccessToken()}").enqueue(object : Callback<NotificationsModel> {
+            override fun onResponse(call: Call<NotificationsModel>, response: Response<NotificationsModel>) {
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        notifications.postValue(it)
+                        Log.e("Actions", it.toString())
+                    }
+                } else {
+                    Log.d("Actions", "notifications didn't come")
+                }
+            }
+
+            override fun onFailure(call: Call<NotificationsModel>, t: Throwable) {
+                Log.e("Actions", "Error sending token", t)
+            }
+        })
+
+        return notifications
     }
 
 }

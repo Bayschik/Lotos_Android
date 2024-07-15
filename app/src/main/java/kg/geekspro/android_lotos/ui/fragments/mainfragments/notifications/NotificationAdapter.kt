@@ -17,10 +17,10 @@ class NotificationAdapter(
     val notificationList = ArrayList<Notification>()
     inner class NotificationViewHolder(val binding: NotificationItemsBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(notification: Notification){
-            binding.tvDate.text = notification.date
-            binding.tvTime.text = notification.time
+            binding.tvDate.text = notification.createdAt
+            binding.tvTime.text = notification.createdTime
             binding.tvTitle.text = notification.title
-            binding.tvDescription.text = notification.description
+            binding.tvDescription.text = notification.desc
 
             itemView.setOnClickListener{
                 onClick(notification)

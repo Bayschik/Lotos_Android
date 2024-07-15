@@ -2,11 +2,10 @@ package kg.geekspro.android_lotos.ui.fragments.mainfragments.home
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -14,24 +13,21 @@ import androidx.viewpager.widget.ViewPager
 import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentHomeBinding
-import kg.geekspro.android_lotos.models.mainmodels.ActionsModel
 import kg.geekspro.android_lotos.viewmodels.mainviewmodel.MainViewModel
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
-
     private lateinit var binding: FragmentHomeBinding
-
     private lateinit var imageAdapter: ImagePagerAdapter
-    private val viewModel:MainViewModel by viewModels()
+    private val viewModel: MainViewModel by viewModels()
     private val images = arrayListOf<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentHomeBinding.inflate(layoutInflater)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -39,15 +35,18 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.loadActions().observe(viewLifecycleOwner){
-            images.add(it.results.joinToString { it.banner })
-            //Toast.makeText(requireContext(), it.results[1].banner, Toast.LENGTH_SHORT).show()
-            Log.d("Images", images.toString())
-            imageAdapter = ImagePagerAdapter(requireContext(), images)
-            binding.imgSlider.adapter = imageAdapter
+        viewModel.loadActions().observe(viewLifecycleOwner) {actions->
+            actions.results.let {
+                images.clear() // Clear existing images if you want to refresh the list
+                images.addAll(it.map { result -> result.banner })
+                Log.d("Images", images.toString())
+                imageAdapter = ImagePagerAdapter(requireContext(), images)
+                binding.imgSlider.adapter = imageAdapter
+                binding.slideDotLL.setViewPager(binding.imgSlider)
+            }
         }
 
-        binding.btnNotification.setOnClickListener{
+        binding.btnNotification.setOnClickListener {
             findNavController().navigate(R.id.notificationsFragment)
         }
 
@@ -72,9 +71,12 @@ class HomeFragment : Fragment() {
         indicator.setViewPager(binding.imgSlider)
 
         binding.imgSlider.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrolled(position: Int,
-                                        positionOffset: Float,
-                                        positionOffsetPixels: Int) {}
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+            }
 
             override fun onPageSelected(position: Int) {
                 when (position) {
@@ -82,10 +84,12 @@ class HomeFragment : Fragment() {
                         binding.btnSlideLeft.visibility = View.GONE
                         binding.btnSlideRight.visibility = View.VISIBLE
                     }
+
                     images.size - 1 -> {
                         binding.btnSlideRight.visibility = View.GONE
                         binding.btnSlideLeft.visibility = View.VISIBLE
                     }
+
                     else -> {
                         binding.btnSlideRight.visibility = View.VISIBLE
                         binding.btnSlideLeft.visibility = View.VISIBLE
@@ -98,9 +102,9 @@ class HomeFragment : Fragment() {
 
         })
 
-        viewModel.loadFcm().observe(viewLifecycleOwner){
+        viewModel.loadFcm().observe(viewLifecycleOwner) {
             lifecycleScope.launch {
-                binding.tvCleaningAfter.text = it.results.joinToString { it.title }
+                binding.tvCleaningAfter.text = it.results[0].title
                 binding.tvCleaningAfterPrice.text = it.results.joinToString { it.one_room }
             }
         }
