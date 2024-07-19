@@ -3,18 +3,14 @@ package kg.geekspro.android_lotos.ui.fragments.mainfragments.notifications
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import kg.geekspro.android_lotos.databinding.ItemPriceListBinding
 import kg.geekspro.android_lotos.databinding.NotificationItemsBinding
-import kg.geekspro.android_lotos.models.mainmodels.CleaningService
 import kg.geekspro.android_lotos.models.mainmodels.Notification
-import kg.geekspro.android_lotos.ui.fragments.mainfragments.OnTotalPriceChangedListener
 
 class NotificationAdapter(
-    private val notifications: ArrayList<Notification>,
+    private val notifications: List<Notification>,
     private val onClick:(notification: Notification)->Unit,
     ): RecyclerView.Adapter<NotificationAdapter.NotificationViewHolder>() {
 
-    val notificationList = ArrayList<Notification>()
     inner class NotificationViewHolder(val binding: NotificationItemsBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(notification: Notification){
             binding.tvDate.text = notification.createdAt

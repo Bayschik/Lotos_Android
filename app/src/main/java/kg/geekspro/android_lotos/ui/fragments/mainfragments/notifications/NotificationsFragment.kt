@@ -14,7 +14,7 @@ import kg.geekspro.android_lotos.models.mainmodels.Notification
 class NotificationsFragment : Fragment() {
 
     lateinit var binding: FragmentNotificationsBinding
-    lateinit var adapter: NotificationAdapter
+    private lateinit var adapter: NotificationAdapter
     private val viewModel: NotificationViewModel by viewModels()
 //
 //    private val adapter = CartAdapter(
@@ -36,10 +36,10 @@ class NotificationsFragment : Fragment() {
 
         viewModel.loadNotifications().observe(viewLifecycleOwner) { notifications ->
             if (notifications.results.isNotEmpty()) {
+                adapter = NotificationAdapter(notificationList, ::onClick)
                 binding.rvNotifications.adapter = adapter
                 notifications?.results?.let { results ->
                     notificationList.clear()
-                    adapter = NotificationAdapter(notificationList, ::onClick)
                     results.forEach { result ->
                         val model = Notification(
                             title = result.title,

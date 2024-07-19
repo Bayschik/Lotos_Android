@@ -34,15 +34,18 @@ class MainActivity : AppCompatActivity() {
 
         handleIntent(intent)
 
-        if (intent.getBooleanExtra("openFragment", false)) {
-            openFragment(OrderHistoryFragment())
-        }
-
         FirebaseMessaging.getInstance().token.addOnSuccessListener { token ->
             Log.d("shamal", token)
         } // Don't touch!!!
 
         val navController = findNavController(R.id.nav_host_fragment)
+
+        if (intent != null && intent.hasExtra("fragmentToOpen")) {
+            val fragmentToOpen = intent.getStringExtra("fragmentToOpen")
+            if (fragmentToOpen.equals("MyFragment")) {
+                navController.navigate(R.id.orderHistoryFragment)
+            }
+        }
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
@@ -103,10 +106,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openFragment(fragment: Fragment) {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.nav_host_fragment, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
+
     }
 
     private fun handleIntent(intent: Intent?) {
