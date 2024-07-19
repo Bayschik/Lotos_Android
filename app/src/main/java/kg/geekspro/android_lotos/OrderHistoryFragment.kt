@@ -35,12 +35,12 @@ class OrderHistoryFragment : Fragment() {
                 findNavController().navigateUp()
             }
             viewModel.getHistoryList().observe(viewLifecycleOwner) {
-                if (it.isNullOrEmpty()) {
+                if (it == null) {
                     tvNoOrder.visibility = View.VISIBLE
                 } else {
-                    tvNoOrder.visibility = View.GONE
-                    adapter.getOrderList(it)
                     rvOrderHistory.adapter = adapter
+                    tvNoOrder.visibility = View.GONE
+                    adapter.getOrderList(it.results)
                 }
             }
         }

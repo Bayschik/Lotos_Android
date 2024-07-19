@@ -11,13 +11,14 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.ItemOrderHistoryBinding
 import kg.geekspro.android_lotos.ui.fragments.profile.order.OrderList
+import kg.geekspro.android_lotos.ui.fragments.profile.order.Orders
 import okhttp3.internal.notify
 
 class OrderHistoryAdapter(val onClick:(id:Int)->Unit) : Adapter<OrderHistoryAdapter.OrderHistoryViewHolder>() {
 
-    private val orderList = mutableListOf<OrderList.OrderListItem>()
+    private val orderList = mutableListOf<Orders.Result>()
 
-    fun getOrderList(order: List<OrderList.OrderListItem>) {
+    fun getOrderList(order: List<Orders.Result>) {
         orderList.clear()
         orderList.addAll(order)
         notifyDataSetChanged()
@@ -41,7 +42,7 @@ class OrderHistoryAdapter(val onClick:(id:Int)->Unit) : Adapter<OrderHistoryAdap
 
     inner class OrderHistoryViewHolder(private val binding: ItemOrderHistoryBinding) :
         ViewHolder(binding.root) {
-        fun bind(orderHistoryModel: OrderList.OrderListItem) = with(binding) {
+        fun bind(orderHistoryModel: Orders.Result) = with(binding) {
             val date = orderHistoryModel.scheduledData.split("T")[0]
             tvDateOfOrder.text = date
             tvHomeAddress.text = orderHistoryModel.address

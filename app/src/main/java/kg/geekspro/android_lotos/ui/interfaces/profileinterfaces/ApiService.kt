@@ -13,6 +13,7 @@ import kg.geekspro.android_lotos.ui.fragments.profile.logOut.LogOutMessage
 import kg.geekspro.android_lotos.ui.fragments.profile.logOut.RefreshToken
 import kg.geekspro.android_lotos.ui.fragments.profile.order.Order
 import kg.geekspro.android_lotos.ui.fragments.profile.order.OrderList
+import kg.geekspro.android_lotos.ui.fragments.profile.order.Orders
 import kg.geekspro.android_lotos.ui.fragments.profile.password.create.PasswordCreate
 import kg.geekspro.android_lotos.ui.fragments.registration.Model
 import kg.geekspro.android_lotos.ui.fragments.safety.safetyEmail.ChangeEmail
@@ -77,7 +78,7 @@ interface ApiService {
     @GET("api/v1/order/")
     fun getOrderList(
         @Header("Authorization") accessToken:String
-    ):Call<List<OrderList.OrderListItem>>
+    ):Call<Orders>
 
     @GET("api/v1/order/{id}/")
     fun getOrderId(

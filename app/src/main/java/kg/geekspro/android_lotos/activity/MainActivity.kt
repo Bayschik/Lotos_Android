@@ -1,21 +1,20 @@
 package kg.geekspro.android_lotos.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.AdapterView
-import android.widget.AdapterView.OnItemSelectedListener
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
 import com.google.firebase.messaging.FirebaseMessaging
+import kg.geekspro.android_lotos.OrderHistoryFragment
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.ActivityMainBinding
 import kg.geekspro.android_lotos.ui.prefs.prefsprofile.Pref
@@ -32,6 +31,12 @@ class MainActivity : AppCompatActivity() {
         installSplashScreen()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        handleIntent(intent)
+
+        if (intent.getBooleanExtra("openFragment", false)) {
+            openFragment(OrderHistoryFragment())
+        }
 
         FirebaseMessaging.getInstance().token.addOnSuccessListener { token ->
             Log.d("shamal", token)
@@ -95,6 +100,27 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.myToolbar)
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.bottomNavView.setupWithNavController(navController)
+    }
+
+    private fun openFragment(fragment: Fragment) {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.nav_host_fragment, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
+
+    private fun handleIntent(intent: Intent?) {
+        intent?.let {
+            if (it.getBooleanExtra("openFragment", false)) {
+                openFragment(OrderHistoryFragment())
+            }
+        }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        handleIntent(intent)
     }
 
 }

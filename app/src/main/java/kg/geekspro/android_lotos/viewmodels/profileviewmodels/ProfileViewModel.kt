@@ -9,6 +9,7 @@ import kg.geekspro.android_lotos.ui.fragments.profile.Token
 import kg.geekspro.android_lotos.ui.fragments.profile.TokenVerify
 import kg.geekspro.android_lotos.ui.fragments.profile.logOut.LogOutMessage
 import kg.geekspro.android_lotos.ui.fragments.profile.order.OrderList
+import kg.geekspro.android_lotos.ui.fragments.profile.order.Orders
 import kg.geekspro.android_lotos.ui.fragments.profile.password.create.PasswordCreate
 import kg.geekspro.android_lotos.ui.repositories.reposprofile.Repository
 import javax.inject.Inject
@@ -30,7 +31,7 @@ class ProfileViewModel @Inject constructor(private val repository: Repository) :
         return repository.refreshToken(refreshToken)
     }
 
-    fun getHistoryList():LiveData<List<OrderList.OrderListItem>>{
+    fun getHistoryList():LiveData<Orders>{
         return repository.getOrderList()
     }
 

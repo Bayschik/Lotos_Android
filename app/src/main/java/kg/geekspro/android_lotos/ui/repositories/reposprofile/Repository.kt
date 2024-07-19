@@ -16,6 +16,7 @@ import kg.geekspro.android_lotos.ui.fragments.profile.logOut.LogOutMessage
 import kg.geekspro.android_lotos.ui.fragments.profile.logOut.RefreshToken
 import kg.geekspro.android_lotos.ui.fragments.profile.order.Order
 import kg.geekspro.android_lotos.ui.fragments.profile.order.OrderList
+import kg.geekspro.android_lotos.ui.fragments.profile.order.Orders
 import kg.geekspro.android_lotos.ui.fragments.profile.password.create.PasswordCreate
 import kg.geekspro.android_lotos.ui.fragments.safety.safetyEmail.ChangeEmail
 import kg.geekspro.android_lotos.ui.fragments.safety.safetyEmail.Code
@@ -212,10 +213,10 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
         return profile
     }
 
-    fun getOrderList(): LiveData<List<OrderList.OrderListItem>> {
-        val order = MutableLiveData<List<OrderList.OrderListItem>>()
-        api.getOrderList("Bearer ${pref.getAccessToken()}").enqueue(object : Callback<List<OrderList.OrderListItem>> {
-            override fun onResponse(call: Call<List<OrderList.OrderListItem>>, response: Response<List<OrderList.OrderListItem>>) {
+    fun getOrderList(): LiveData<Orders> {
+        val order = MutableLiveData<Orders>()
+        api.getOrderList("Bearer ${pref.getAccessToken()}").enqueue(object : Callback<Orders> {
+            override fun onResponse(call: Call<Orders>, response: Response<Orders>) {
                 if (response.isSuccessful) {
                     response.body().let {
                         order.postValue(it)
@@ -224,7 +225,7 @@ class Repository @Inject constructor(private val api: ApiService, private val pr
                 }
             }
 
-            override fun onFailure(call: Call<List<OrderList.OrderListItem>>, t: Throwable) {
+            override fun onFailure(call: Call<Orders>, t: Throwable) {
                 Log.e("onOrderFailure", t.message.toString())
             }
         })
