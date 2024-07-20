@@ -3,6 +3,7 @@ package kg.geekspro.android_lotos.activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.isVisible
@@ -11,9 +12,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import dagger.hilt.android.AndroidEntryPoint
-
 import com.google.firebase.messaging.FirebaseMessaging
+import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.OrderHistoryFragment
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.ActivityMainBinding
@@ -23,7 +23,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     @Inject
-    lateinit var pref:Pref
+    lateinit var pref: Pref
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,8 +40,10 @@ class MainActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.nav_host_fragment)
 
-        if (intent != null && intent.hasExtra("fragmentToOpen")) {
+        if (intent != null || intent.hasExtra("fragmentToOpen")) {
             val fragmentToOpen = intent.getStringExtra("fragmentToOpen")
+            Log.d("Notification", fragmentToOpen!!)
+            Toast.makeText(this, fragmentToOpen, Toast.LENGTH_SHORT).show()
             if (fragmentToOpen.equals("MyFragment")) {
                 navController.navigate(R.id.orderHistoryFragment)
             }
@@ -86,16 +88,19 @@ class MainActivity : AppCompatActivity() {
                     Log.d("item", "home icon")
                     true
                 }
+
                 R.id.aboutUsFragment -> {
                     item.setIcon(R.drawable.ic_black_about_us)
                     Log.d("item", "about us icon")
                     true
                 }
+
                 R.id.profileFragment -> {
                     item.setIcon(R.drawable.ic_black_profile)
                     Log.d("item", "profile icon")
                     true
                 }
+
                 else -> true
             }
         }

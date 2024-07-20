@@ -25,7 +25,7 @@ class FirebaseNotification : FirebaseMessagingService() {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
-        val notificationBuilder = NotificationCompat.Builder(this, "Ваш заказ №2 завершен")
+        val notificationBuilder = NotificationCompat.Builder(this, "notify")
             .setContentTitle(remoteMessage.notification?.title)
             .setContentText(remoteMessage.notification?.body)
             .setSmallIcon(R.drawable.ic_notifications)
