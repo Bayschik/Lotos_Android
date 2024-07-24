@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.databinding.FragmentNotificationsBinding
 import kg.geekspro.android_lotos.models.mainmodels.Notification
@@ -53,6 +54,9 @@ class NotificationsFragment : Fragment() {
             }else{
                 binding.tvNotifications.visibility = View.VISIBLE
             }
+        }
+        binding.btnBackToHome.setOnClickListener {
+            findNavController().navigateUp()
         }
 
     }
