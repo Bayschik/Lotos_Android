@@ -14,7 +14,7 @@ import com.google.firebase.messaging.RemoteMessage
 import kg.geekspro.android_lotos.activity.MainActivity
 
 class FirebaseNotification : FirebaseMessagingService() {
-    override fun onMessageReceived(remoteMessage: RemoteMessage) {
+    /*override fun onMessageReceived(remoteMessage: RemoteMessage) {
         val intent = Intent(applicationContext, MainActivity::class.java).apply {
             // Add data about the target fragment
             putExtra("targetFragment", "exampleFragment")
@@ -45,10 +45,5 @@ class FirebaseNotification : FirebaseMessagingService() {
             notify(1, builder.build())
         }
     }
-
-    override fun onNewToken(token: String) {
-        super.onNewToken(token)
-        Log.d("FCM", "Refreshed token: $token")
-        // Send the new token to your server or save it locally
-    }
+     */
 }

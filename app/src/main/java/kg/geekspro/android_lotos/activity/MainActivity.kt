@@ -1,5 +1,8 @@
 package kg.geekspro.android_lotos.activity
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -29,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        createNotificationChannel()
 
         FirebaseMessaging.getInstance().token.addOnSuccessListener { token ->
             Log.d("shamal", token)
@@ -36,12 +40,12 @@ class MainActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.nav_host_fragment)
 
-        val targetFragment = intent.getStringExtra("targetFragment")
-        if (targetFragment != null) {
-            Toast.makeText(this, "targetFragment", Toast.LENGTH_SHORT).show()
-            navController.navigate(R.id.orderHistoryFragment)
-        }else{
-            Toast.makeText(this, "no targetFragment", Toast.LENGTH_SHORT).show()
+        intent?.extras?.let {
+            val targetFragment = it.getString("targetFragment")
+            if (targetFragment != null) {
+                Toast.makeText(this, "targetFragment", Toast.LENGTH_SHORT).show()
+                navController.navigate(R.id.orderHistoryFragment)
+            }
         }
 
         val appBarConfiguration = AppBarConfiguration(
@@ -75,6 +79,22 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.myToolbar)
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.bottomNavView.setupWithNavController(navController)
+    }
+
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                "notify",
+                "fcm_fallback_notification_channel",
+                NotificationManager.IMPORTANCE_HIGH
+            ).apply {
+                description = "Your Channel Description"
+            }
+
+            val notificationManager: NotificationManager =
+                getSystemService(NotificationManager::class.java)
+            notificationManager.createNotificationChannel(channel)
+        }
     }
 
 }

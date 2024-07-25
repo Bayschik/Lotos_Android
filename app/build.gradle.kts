@@ -54,7 +54,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
     // Gson
     implementation (libs.gson)
     //Splash Screen
@@ -76,9 +75,6 @@ dependencies {
     implementation(libs.circelImage)
     //circle indicator
     implementation(libs.circelIndicator)
-    //room
-    implementation(libs.room)
-    kapt(libs.roomCompiler)
     //Google API Client
     implementation (libs.googleApiClient)
     //implementation(libs.glide)

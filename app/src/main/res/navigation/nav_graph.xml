@@ -343,5 +343,10 @@
         android:name="kg.geekspro.android_lotos.OrderHistoryFragment"
         android:label="fragment_order_history"
         tools:layout="@layout/fragment_order_history" />
+    <fragment
+        android:id="@+id/actionsFragment"
+        android:name="kg.geekspro.android_lotos.ActionsFragment"
+        android:label="fragment_actions"
+        tools:layout="@layout/fragment_actions" />
 
 </navigation>

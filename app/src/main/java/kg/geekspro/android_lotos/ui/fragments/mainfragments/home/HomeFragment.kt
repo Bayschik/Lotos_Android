@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -37,6 +38,9 @@ class HomeFragment : Fragment() {
 
         viewModel.loadActions().observe(viewLifecycleOwner) {actions->
             actions.results.let {
+                binding.imgSlider.setOnClickListener {
+                    findNavController().navigate(R.id.actionsFragment, bundleOf("id" to it.id))
+                }
                 images.clear() // Clear existing images if you want to refresh the list
                 images.addAll(it.map { result -> result.banner })
                 Log.d("Images", images.toString())
@@ -44,6 +48,10 @@ class HomeFragment : Fragment() {
                 binding.imgSlider.adapter = imageAdapter
                 binding.slideDotLL.setViewPager(binding.imgSlider)
             }
+        }
+
+        binding.imgSlider.setOnClickListener{
+
         }
 
         binding.btnNotification.setOnClickListener {
@@ -124,6 +132,10 @@ class HomeFragment : Fragment() {
         binding.extraCleaningContainer.setOnClickListener {
             findNavController().navigate(R.id.extraCleaningFragment)
         }
+
+    }
+
+    private fun onClick(id: Int) {
 
     }
 
