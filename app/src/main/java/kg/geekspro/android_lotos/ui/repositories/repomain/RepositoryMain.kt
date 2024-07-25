@@ -3,6 +3,7 @@ package kg.geekspro.android_lotos.ui.repositories.repomain
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import kg.geekspro.android_lotos.ActionsByIdItem
 import kg.geekspro.android_lotos.models.mainmodels.ActionsModel
 import kg.geekspro.android_lotos.models.mainmodels.MainEntities
 import kg.geekspro.android_lotos.ui.fragments.mainfragments.notifications.NotificationsModel
@@ -93,6 +94,28 @@ class RepositoryMain @Inject constructor(
         })
 
         return notifications
+    }
+
+    fun loadActionsById(id:Int): LiveData<ActionsByIdItem> {
+        val actions = MutableLiveData<ActionsByIdItem>()
+
+        mainApiService.getActionsById(id).enqueue(object : Callback<ActionsByIdItem> {
+            override fun onResponse(call: Call<ActionsByIdItem>, response: Response<ActionsByIdItem>) {
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        actions.postValue(it)
+                    }
+                } else {
+                    Log.d("Actions", "actions didn't come")
+                }
+            }
+
+            override fun onFailure(call: Call<ActionsByIdItem>, t: Throwable) {
+                Log.e("Actions", "Error sending token", t)
+            }
+        })
+
+        return actions
     }
 
 }

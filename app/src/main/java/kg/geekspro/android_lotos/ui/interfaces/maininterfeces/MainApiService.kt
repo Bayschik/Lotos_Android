@@ -1,11 +1,13 @@
 package kg.geekspro.android_lotos.ui.interfaces.maininterfeces
 
+import kg.geekspro.android_lotos.ActionsByIdItem
 import kg.geekspro.android_lotos.models.mainmodels.ActionsModel
 import kg.geekspro.android_lotos.models.mainmodels.MainEntities
 import kg.geekspro.android_lotos.ui.fragments.mainfragments.notifications.NotificationsModel
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Path
 
 interface MainApiService {
     @GET("api/v1/category/")
@@ -20,4 +22,9 @@ interface MainApiService {
     fun getNotifications(
         @Header("Authorization") accessToken:String,
     ): Call<NotificationsModel>
+
+    @GET("api/v1/actions/{id}/")
+    fun getActionsById(
+        @Path("id") id:Int,
+    ): Call<ActionsByIdItem>
 }

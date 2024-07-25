@@ -37,21 +37,14 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.loadActions().observe(viewLifecycleOwner) {actions->
-            actions.results.let {
-                binding.imgSlider.setOnClickListener {
-                    findNavController().navigate(R.id.actionsFragment, bundleOf("id" to it.id))
-                }
+            actions.results.map {
                 images.clear() // Clear existing images if you want to refresh the list
-                images.addAll(it.map { result -> result.banner })
+                images.add(it.banner)
                 Log.d("Images", images.toString())
-                imageAdapter = ImagePagerAdapter(requireContext(), images)
+                imageAdapter = ImagePagerAdapter(requireContext(), images, this::onClick)
                 binding.imgSlider.adapter = imageAdapter
                 binding.slideDotLL.setViewPager(binding.imgSlider)
             }
-        }
-
-        binding.imgSlider.setOnClickListener{
-
         }
 
         binding.btnNotification.setOnClickListener {
@@ -135,10 +128,6 @@ class HomeFragment : Fragment() {
 
     }
 
-    private fun onClick(id: Int) {
-
-    }
-
     private fun updateButtonVisibility() {
         binding.btnSlideRight.visibility = if (binding.imgSlider.currentItem == images.size - 1) {
             View.GONE
@@ -151,5 +140,9 @@ class HomeFragment : Fragment() {
         } else {
             View.VISIBLE
         }
+    }
+
+    private fun onClick(id:Int){
+        findNavController().navigate(R.id.actionsFragment, bundleOf("id" to id))
     }
 }
