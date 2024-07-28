@@ -37,9 +37,9 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.loadActions().observe(viewLifecycleOwner) {actions->
-            actions.results.map {
+            actions.results.let {
                 images.clear() // Clear existing images if you want to refresh the list
-                images.add(it.banner)
+                images.addAll(it.map { it.banner })
                 Log.d("Images", images.toString())
                 imageAdapter = ImagePagerAdapter(requireContext(), images, this::onClick)
                 binding.imgSlider.adapter = imageAdapter

@@ -342,7 +342,12 @@
         android:id="@+id/orderHistoryFragment"
         android:name="kg.geekspro.android_lotos.OrderHistoryFragment"
         android:label="fragment_order_history"
-        tools:layout="@layout/fragment_order_history" />
+        tools:layout="@layout/fragment_order_history">
+
+        <deepLink
+            app:uri="https://lotos.pp.ua/api/v1/order/"/>
+
+    </fragment>
     <fragment
         android:id="@+id/actionsFragment"
         android:name="kg.geekspro.android_lotos.ActionsFragment"

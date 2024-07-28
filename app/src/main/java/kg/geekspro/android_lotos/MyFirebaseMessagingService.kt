@@ -2,15 +2,19 @@ package kg.geekspro.android_lotos
 
 import android.Manifest
 import android.app.Activity
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.navigation.NavDeepLinkBuilder
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import kg.geekspro.android_lotos.activity.MainActivity
@@ -29,16 +33,13 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         Log.d("FCM", "Message received from: ${message.from}")
 
         message.notification?.let {
-            val title = it.title ?: "Default Title"
-            val body = it.body ?: "Default Body"
-
-            showNotification(title, body, message.data)
+            sendNotification(it.title, it.body)
         }
     }
 
     private fun showNotification(title: String, body: String, data: Map<String, String>) {
         val intent = Intent(this, MainActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK
             putExtra("targetFragment", data["targetFragment"])
         }
         val pendingIntent: PendingIntent = PendingIntent.getActivity(
@@ -57,11 +58,11 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
         if (ActivityCompat.checkSelfPermission(
                 this,
-                android.Manifest.permission.POST_NOTIFICATIONS
+                Manifest.permission.POST_NOTIFICATIONS
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             ActivityCompat.requestPermissions(
-                applicationContext as Activity, arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 1
+                applicationContext as Activity, arrayOf(Manifest.permission.POST_NOTIFICATIONS), 1
             )
             return
         }
@@ -92,22 +93,43 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
      */
 
-    private fun getFirebaseMessage(title: String, body: String, pendingIntent: PendingIntent) {
-        val builder = NotificationCompat.Builder(this, "notify")
+    private fun sendNotification(title: String?, message: String?) {
+        val intent = Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            data = Uri.parse("https://lotos.pp.ua/api/v1/order/")
+        }
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+
+        val channelId = "notify"
+        val builder = NotificationCompat.Builder(this, channelId)
             .setSmallIcon(R.drawable.ic_notifications)
             .setContentTitle(title)
-            .setContentText(body)
+            .setContentText(message)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
 
-        val managerCompat = NotificationManagerCompat.from(this)
+        val notificationManager = NotificationManagerCompat.from(this)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(channelId, "fcm_fallback_notification_channel", NotificationManager.IMPORTANCE_HIGH).apply {
+                description = "Default Channel for App"
+            }
+            notificationManager.createNotificationChannel(channel)
+        }
         if (ActivityCompat.checkSelfPermission(
                 this,
                 Manifest.permission.POST_NOTIFICATIONS
             ) != PackageManager.PERMISSION_GRANTED
         ) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
             return
         }
-        managerCompat.notify(102, builder.build())
+        notificationManager.notify(0, builder.build())
     }
 }
