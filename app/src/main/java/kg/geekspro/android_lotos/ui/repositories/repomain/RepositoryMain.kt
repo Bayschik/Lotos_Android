@@ -58,7 +58,6 @@ class RepositoryMain @Inject constructor(
                 if (response.isSuccessful) {
                     response.body()?.let {
                         actions.postValue(it)
-                        Log.e("Actions", it.results.toString())
                     }
                 } else {
                     Log.d("Actions", "actions didn't come")

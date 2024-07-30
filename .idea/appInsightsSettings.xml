@@ -9,9 +9,9 @@
               <option name="connection">
                 <ConnectionSetting>
                   <option name="appId" value="kg.geekspro.android_lotos" />
-                  <option name="mobileSdkAppId" value="1:779191832858:android:dcdd3b126b13b6749a5ca3" />
-                  <option name="projectId" value="lotos-8ee76" />
-                  <option name="projectNumber" value="779191832858" />
+                  <option name="mobileSdkAppId" value="1:319354048286:android:6158f76cc90f0c125d830f" />
+                  <option name="projectId" value="androidlotos2" />
+                  <option name="projectNumber" value="319354048286" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

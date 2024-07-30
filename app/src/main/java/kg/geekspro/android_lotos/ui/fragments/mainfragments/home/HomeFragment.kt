@@ -14,6 +14,7 @@ import androidx.viewpager.widget.ViewPager
 import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
 import kg.geekspro.android_lotos.databinding.FragmentHomeBinding
+import kg.geekspro.android_lotos.models.mainmodels.ActionsModel
 import kg.geekspro.android_lotos.viewmodels.mainviewmodel.MainViewModel
 import kotlinx.coroutines.launch
 
@@ -22,7 +23,7 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var imageAdapter: ImagePagerAdapter
     private val viewModel: MainViewModel by viewModels()
-    private val images = arrayListOf<String>()
+    private val images = arrayListOf<ActionsModel.Result>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,9 +38,9 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.loadActions().observe(viewLifecycleOwner) {actions->
-            actions.results.let {
+            actions.results.map {
                 images.clear() // Clear existing images if you want to refresh the list
-                images.addAll(it.map { it.banner })
+                images.addAll(actions.results)
                 Log.d("Images", images.toString())
                 imageAdapter = ImagePagerAdapter(requireContext(), images, this::onClick)
                 binding.imgSlider.adapter = imageAdapter
@@ -141,7 +142,6 @@ class HomeFragment : Fragment() {
             View.VISIBLE
         }
     }
-
     private fun onClick(id:Int){
         findNavController().navigate(R.id.actionsFragment, bundleOf("id" to id))
     }
