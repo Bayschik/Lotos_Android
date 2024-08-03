@@ -15,6 +15,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         if (remoteMessage.data.isNotEmpty()) {
             // Extract data and Intent for navigation
             val intent = Intent(this, MainActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
                 putExtra("fragmentId", "desiredFragmentId")
             }
 
@@ -26,9 +27,11 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
             // Set up notification with pending intent
             val builder = NotificationCompat.Builder(this, "fcm_fallback_notification_channel")
+                .setSmallIcon(R.drawable.ic_notifications) // Установите значок уведомления
                 .setContentIntent(pendingIntent)
                 .setContentTitle(remoteMessage.notification?.title)
                 .setContentText(remoteMessage.notification?.body)
+                .setAutoCancel(true)
 
             // Show the notification
             val notificationManager =
