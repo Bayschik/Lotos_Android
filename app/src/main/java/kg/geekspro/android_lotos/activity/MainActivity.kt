@@ -72,8 +72,8 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavView.setupWithNavController(navController)
     }
 
-    private fun handleIntent(intent: Intent) {
-        val fragmentId = intent.getStringExtra("fragmentId")
+    private fun handleIntent(intent: Intent?=null) {
+        val fragmentId = intent?.getStringExtra("fragmentId")
         if (fragmentId == "desiredFragmentId") {
             // Переход к нужному фрагменту
             val navController = findNavController(R.id.nav_host_fragment)
