@@ -1,9 +1,7 @@
 package kg.geekspro.android_lotos
 
 import android.Manifest
-import android.app.NotificationManager
 import android.app.PendingIntent
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.util.Log
@@ -24,7 +22,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         if (remoteMessage.data.isNotEmpty()) {
             // Extract data and Intent for navigation
             val intent = Intent(this, MainActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP
                 putExtra("fragmentId", "desiredFragmentId")
             }
 
@@ -32,7 +30,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             // Create a pending intent
             val pendingIntent = PendingIntent.getActivity(
                 this, 0, intent,
-                PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )
 
             // Set up notification with pending intent

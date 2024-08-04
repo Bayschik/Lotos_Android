@@ -35,10 +35,6 @@ class MainActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.nav_host_fragment)
 
-        if (intent?.extras != null) {
-            handleIntent(intent)
-        }
-
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.homeFragment,
@@ -72,12 +68,14 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavView.setupWithNavController(navController)
     }
 
-    private fun handleIntent(intent: Intent?=null) {
-        val fragmentId = intent?.getStringExtra("fragmentId")
-        if (fragmentId == "desiredFragmentId") {
-            // Переход к нужному фрагменту
-            val navController = findNavController(R.id.nav_host_fragment)
-            navController.navigate(R.id.orderHistoryFragment)
+    private fun handleIntent(intent: Intent) {
+        if (intent.extras != null) {
+            val fragmentId = intent.getStringExtra("fragmentId")
+            if (fragmentId != null){
+                // Переход к нужному фрагменту
+                val navController = findNavController(R.id.nav_host_fragment)
+                navController.navigate(R.id.orderHistoryFragment)
+            }
         }
     }
 
