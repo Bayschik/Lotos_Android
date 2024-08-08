@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         } // Don't touch!!!
 
         val navController = findNavController(R.id.nav_host_fragment)
+        navController.handleDeepLink(intent)
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
@@ -68,7 +69,7 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavView.setupWithNavController(navController)
     }
 
-    private fun handleIntent(intent: Intent) {
+    /*private fun handleIntent(intent: Intent) {
         if (intent.extras != null) {
             val fragmentId = intent.getStringExtra("fragmentId")
             if (fragmentId != null){
@@ -77,10 +78,11 @@ class MainActivity : AppCompatActivity() {
                 navController.navigate(R.id.orderHistoryFragment)
             }
         }
-    }
+    }*/
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        handleIntent(intent)
+        val navController = findNavController(R.id.nav_host_fragment)
+        navController.handleDeepLink(intent)
     }
 }
