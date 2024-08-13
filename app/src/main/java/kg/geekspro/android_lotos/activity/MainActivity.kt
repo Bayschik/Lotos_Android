@@ -1,6 +1,5 @@
 package kg.geekspro.android_lotos.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -34,6 +33,11 @@ class MainActivity : AppCompatActivity() {
         } // Don't touch!!!
 
         val navController = findNavController(R.id.nav_host_fragment)
+
+        if (intent.hasExtra("fragment_name")) {
+            val fragmentName = intent.getStringExtra("fragment_name")
+            navController.navigate(R.id.orderHistoryFragment)
+        }
         navController.handleDeepLink(intent)
 
         val appBarConfiguration = AppBarConfiguration(
@@ -67,22 +71,5 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.myToolbar)
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.bottomNavView.setupWithNavController(navController)
-    }
-
-    /*private fun handleIntent(intent: Intent) {
-        if (intent.extras != null) {
-            val fragmentId = intent.getStringExtra("fragmentId")
-            if (fragmentId != null){
-                // Переход к нужному фрагменту
-                val navController = findNavController(R.id.nav_host_fragment)
-                navController.navigate(R.id.orderHistoryFragment)
-            }
-        }
-    }*/
-
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
-        val navController = findNavController(R.id.nav_host_fragment)
-        navController.handleDeepLink(intent)
     }
 }

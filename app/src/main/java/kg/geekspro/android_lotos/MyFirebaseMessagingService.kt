@@ -1,16 +1,13 @@
 package kg.geekspro.android_lotos
 
-import android.Manifest
+import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.util.Log
-import androidx.core.app.ActivityCompat
+import android.media.RingtoneManager
+import android.os.Build
 import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
-import androidx.navigation.NavDeepLinkBuilder
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import kg.geekspro.android_lotos.activity.MainActivity
@@ -22,76 +19,52 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
-        super.onMessageReceived(remoteMessage)
+        // Handle FCM
+        val notificationTitle = remoteMessage.data["title"]
+        val notificationBody = remoteMessage.data["body"]
 
-        // Получение данных из уведомления
-        val destination = remoteMessage.data["destination"]
+        // Create a notification channel for Android Oreo and above
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channelId = "notify"
+            val channelName = "fcm_fallback_notification_channel"
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(channelId, channelName, importance)
+            val notificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
 
-        // Создание интента для навигации
-        val pendingIntent = NavDeepLinkBuilder(applicationContext)
-            .setGraph(R.navigation.nav_graph)
-            .setDestination(destinationFragmentId(destination))
-            .createPendingIntent()
+        }
 
-        // Создание уведомления
-        val notificationBuilder = NotificationCompat.Builder(this, "default_channel")
-            .setContentTitle(remoteMessage.notification?.title)
-            .setContentText(remoteMessage.notification?.body)
-            .setSmallIcon(R.drawable.ic_notifications)
-            .setContentIntent(pendingIntent)
+        // Create the notification
+        val intent = Intent(this, MainActivity::class.java)
+        // Replace with your activity
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+
+        val pendingIntent = PendingIntent.getActivity(
+            this, 0, intent,
+            PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+
+        val notificationBuilder = NotificationCompat.Builder(
+            this,
+            "notify"
+        )
+            .setSmallIcon(R.drawable.ic_notifications) // Replace with your icon
+            .setContentTitle(notificationTitle)
+            .setContentText(notificationBody)
             .setAutoCancel(true)
+            .setSound(defaultSoundUri)
+            .setContentIntent(pendingIntent)
 
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        val notificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
         notificationManager.notify(0, notificationBuilder.build())
+
     }
 
-    private fun destinationFragmentId(destination: String?): Int {
-        return when(destination) {
-            "fragmentA" -> R.id.orderHistoryFragment
-            "fragmentB" -> R.id.orderFragment
-            else -> R.id.orderFragment
-        }
-    }
 
-    /*override fun onMessageReceived(remoteMessage: RemoteMessage) {
-        if (remoteMessage.data.isNotEmpty()) {
-            // Extract data and Intent for navigation
-            val intent = Intent(this, MainActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP
-                putExtra("fragmentId", "desiredFragmentId")
-            }
-
-            Log.d("Notification", "${remoteMessage.messageId}")
-            // Create a pending intent
-            val pendingIntent = PendingIntent.getActivity(
-                this, 0, intent,
-                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-            )
-
-            // Set up notification with pending intent
-            val builder = NotificationCompat.Builder(this, "notify")
-                .setSmallIcon(R.drawable.ic_notifications) // Установите значок уведомления
-                .setContentIntent(pendingIntent)
-                .setContentTitle(remoteMessage.notification?.title)
-                .setContentText(remoteMessage.notification?.body)
-                .setAutoCancel(true)
-
-            // Show the notification
-            val notificationManager = NotificationManagerCompat.from(this)
-            if (ActivityCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.POST_NOTIFICATIONS
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-                return notificationManager.notify(0, builder.build())
-            }
-        }
-    }*/
 }
