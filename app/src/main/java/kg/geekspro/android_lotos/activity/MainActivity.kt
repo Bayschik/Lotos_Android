@@ -1,5 +1,6 @@
 package kg.geekspro.android_lotos.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -34,11 +35,13 @@ class MainActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.nav_host_fragment)
 
-        if (intent.hasExtra("fragment_name")) {
-            val fragmentName = intent.getStringExtra("fragment_name")
-            navController.navigate(R.id.orderHistoryFragment)
+        intent?.extras?.let { bundle ->
+            val fragmentToOpen = bundle.getString("fragment")
+            if (fragmentToOpen == "orderHistory") {
+                // Навигация на нужный фрагмент
+                navController.navigate(R.id.orderHistoryFragment)
+            }
         }
-        navController.handleDeepLink(intent)
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
@@ -71,5 +74,30 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.myToolbar)
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.bottomNavView.setupWithNavController(navController)
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+
+        // Повторная проверка при новом интенте
+        intent.extras?.let { bundle ->
+            val fragmentToOpen = bundle.getString("fragment")
+            if (fragmentToOpen == "orderHistory") {
+                val navController = findNavController(R.id.nav_host_fragment)
+                navController.navigate(R.id.orderHistoryFragment)
+            }
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        intent.extras?.let { bundle ->
+            val fragmentToOpen = bundle.getString("fragment")
+            if (fragmentToOpen == "orderHistory") {
+                val navController = findNavController(R.id.nav_host_fragment)
+                navController.navigate(R.id.orderHistoryFragment)
+            }
+        }
     }
 }
