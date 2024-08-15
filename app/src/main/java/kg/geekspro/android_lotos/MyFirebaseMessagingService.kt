@@ -4,18 +4,89 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
-import android.os.Bundle
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.navigation.NavDeepLinkBuilder
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import kg.geekspro.android_lotos.activity.MainActivity
-import kotlin.math.log
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(message: RemoteMessage) {
+        super.onMessageReceived(message)
+
+
+        /*val pendingIntent = NavDeepLinkBuilder(this)
+            .setGraph(R.navigation.nav_graph)
+            .setDestination(R.id.orderHistoryFragment)
+            .createPendingIntent()
+
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        // ID канала уведомлений
+        val channelId = "notify"
+
+        // Создание канала уведомлений (для Android 8.0 и выше)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                channelId,
+                "fcm_fallback_notification_channel",
+                NotificationManager.IMPORTANCE_DEFAULT
+            ).apply {
+                description = "Channel Description"
+            }
+            notificationManager.createNotificationChannel(channel)
+        }
+
+        val notification = NotificationCompat.Builder(this, channelId)
+            .setSmallIcon(R.drawable.ic_notifications) // Замените на ваш значок
+            .setContentTitle("Order Update") // Пример заголовка
+            .setContentText("Your order has been updated!") // Пример текста
+            .setContentIntent(pendingIntent)
+            .setAutoCancel(true) // Автоматическое скрытие уведомления при нажатии
+            .build()
+
+        notificationManager.notify(0, notification)
+         */
+        sendNotification(this,message.notification?.title!!,message.notification?.body!!,R.id.orderHistoryFragment)
+    }
+
+
+    private fun sendNotification(context: Context, title: String, message: String, destinationId: Int) {
+        val notificationId = System.currentTimeMillis().toInt()
+
+        // Create notification channel (for Android 8.0+)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channelId = "notify"
+            val channelName = "fcm_fallback_notification_channel"
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(channelId, channelName, importance)
+            val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+
+        // Create PendingIntent
+        val pendingIntent = NavDeepLinkBuilder(context)
+            .setGraph(R.navigation.nav_graph)
+            .setDestination(destinationId)
+            .createPendingIntent()
+
+        // Build the notification
+        val builder = NotificationCompat.Builder(context, "notify")
+            .setSmallIcon(R.drawable.ic_notifications)
+            .setContentTitle(title)
+            .setContentText(message)
+            .setContentIntent(pendingIntent)
+            .setAutoCancel(true)
+
+        // Show the notification
+        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        notificationManager.notify(notificationId, builder.build())
+
+    }
+
+    /*override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
         Log.d("NOTIFICATION", "onMessageReceived: ${message.notification?.channelId}")
 
@@ -55,6 +126,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         // Показать уведомление
         notificationManager.notify(0, notificationBuilder.build())
     }
+     */
 
     /*override fun onMessageReceived(remoteMessage: RemoteMessage) {
         // Handle FCM
