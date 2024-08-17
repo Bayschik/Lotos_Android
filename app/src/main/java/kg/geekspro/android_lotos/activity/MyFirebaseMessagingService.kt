@@ -1,23 +1,113 @@
-package kg.geekspro.android_lotos
+package kg.geekspro.android_lotos.activity
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.os.Build
-import android.util.Log
+import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import androidx.navigation.NavDeepLinkBuilder
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import kg.geekspro.android_lotos.R
+
+const val channelId = "notification_channel"
+const val chanelName = "kg.geekspro.android_lotos"
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
-    override fun onMessageReceived(message: RemoteMessage) {
+    override fun onMessageReceived(remoteMessage: RemoteMessage) {
+        //receive the notification
+        if (remoteMessage.getNotification() != null) {
+            generateNotification(
+                remoteMessage.notification!!.title!!,
+                remoteMessage.notification!!.body!!
+            )
+        }
+    }
+
+    //generate the notification
+    fun generateNotification(title: String, message: String) {
+
+        //create intent because when the user click on notification, the app will open
+        val intent = Intent(this, MainActivity::class.java)
+
+        //clear all the activities and put this(MainActivity) at the top priority
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        //we use this pending activity only once( it will destroy after used once)
+        val pendingIntent = PendingIntent.getActivity(this, 0, intent,
+            PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE)
+
+        //We use channel id , channel name (after Oreo update)
+        //we create notification using NotificationBuilder
+        var builder: NotificationCompat.Builder =
+            NotificationCompat.Builder(applicationContext, channelId)
+                //set icons,autoCancel , OnlyAlertOnce
+                .setSmallIcon(R.drawable.ic_notifications)
+                .setAutoCancel(true)
+                .setOnlyAlertOnce(true)
+                .setContentIntent(pendingIntent)
+
+        //attach the builder with the notification layout(create getRemoteView method)
+
+        //notificationManager( Android allows to put notification into the titleBar of your application)
+        val notificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        //check user version must be greater than OreoVersion which is Code O(oh not zero)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            //create an notificationChannel( all notifications must be assigned to a channel)
+            val notificationChannel =
+                NotificationChannel(channelId, chanelName, NotificationManager.IMPORTANCE_HIGH)
+            notificationManager.createNotificationChannel(notificationChannel)
+        }
+        //get notify
+        notificationManager.notify(0, builder.build())
+    }
+
+    /*override fun onMessageReceived(remoteMessage: RemoteMessage) {
+        remoteMessage.data.also { data ->
+            val title = data["title"]
+            val message = data["message"]
+            val builder = if (Build.VERSION_CODES.O <= Build.VERSION.SDK_INT) {
+                NotificationCompat.Builder(this, CHANNEL_ID)
+            }
+            else {
+                NotificationCompat.Builder(this)
+            }
+            val notification = builder
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setGrap
+                .setContentTitle(title)
+                .setContentText(message)
+                .build()
+            val nm = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            nm.notify(0, notification)
+        }
+    }
+    override fun onNewToken(instanceToken: String) {
+        Log.i("SampleFCM", "token: $instanceToken")
+        val nm = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        if (Build.VERSION_CODES.O <= Build.VERSION.SDK_INT) {
+            var channel = nm.getNotificationChannel(CHANNEL_ID)
+            if (channel == null) {
+                channel = NotificationChannel(
+                    CHANNEL_ID,
+                    "fcm_callback_notification_channel",
+                    NotificationManager.IMPORTANCE_HIGH)
+                nm.createNotificationChannel(channel)
+            }
+        }
+    }*/
+
+    /*override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
 
 
-        /*val pendingIntent = NavDeepLinkBuilder(this)
-            .setGraph(R.navigation.nav_graph)
+        val pendingIntent = NavDeepLinkBuilder(this)
+            .setGraph(R.navigation.nav_notification)
             .setDestination(R.id.orderHistoryFragment)
             .createPendingIntent()
 
@@ -47,44 +137,12 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             .build()
 
         notificationManager.notify(0, notification)
-         */
-        sendNotification(this,message.notification?.title!!,message.notification?.body!!,R.id.orderHistoryFragment)
-    }
 
+        sendNotification(this,message.notification?.title!!,message.notification?.body!!,
+            R.id.orderHistoryFragment
+        )
+    }*/
 
-    private fun sendNotification(context: Context, title: String, message: String, destinationId: Int) {
-        val notificationId = System.currentTimeMillis().toInt()
-
-        // Create notification channel (for Android 8.0+)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channelId = "notify"
-            val channelName = "fcm_fallback_notification_channel"
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(channelId, channelName, importance)
-            val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
-        }
-
-        // Create PendingIntent
-        val pendingIntent = NavDeepLinkBuilder(context)
-            .setGraph(R.navigation.nav_graph)
-            .setDestination(destinationId)
-            .createPendingIntent()
-
-        // Build the notification
-        val builder = NotificationCompat.Builder(context, "notify")
-            .setSmallIcon(R.drawable.ic_notifications)
-            .setContentTitle(title)
-            .setContentText(message)
-            .setContentIntent(pendingIntent)
-            .setAutoCancel(true)
-
-        // Show the notification
-        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        notificationManager.notify(notificationId, builder.build())
-
-    }
 
     /*override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)

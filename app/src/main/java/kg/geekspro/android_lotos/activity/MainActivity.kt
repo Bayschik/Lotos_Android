@@ -10,6 +10,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
@@ -35,13 +36,16 @@ class MainActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.nav_host_fragment)
 
-        intent?.extras?.let { bundle ->
-            val fragmentToOpen = bundle.getString("fragment")
-            if (fragmentToOpen == "orderHistory") {
-                // Навигация на нужный фрагмент
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
                 navController.navigate(R.id.orderHistoryFragment)
+                Log.w("NOTIFICATION", "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
             }
-        }
+            // Get new FCM registration token
+            val token = task.result
+            Log.e("myToken", "" + token)
+        })
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
