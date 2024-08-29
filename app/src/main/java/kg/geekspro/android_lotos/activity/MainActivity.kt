@@ -36,16 +36,12 @@ class MainActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.nav_host_fragment)
 
-        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-            if (!task.isSuccessful) {
+        intent?.extras?.let {
+            val targetFragment = it.getString("targetFragment")
+            if (targetFragment != null) {
                 navController.navigate(R.id.orderHistoryFragment)
-                Log.w("NOTIFICATION", "Fetching FCM registration token failed", task.exception)
-                return@OnCompleteListener
             }
-            // Get new FCM registration token
-            val token = task.result
-            Log.e("myToken", "" + token)
-        })
+        }
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
@@ -78,30 +74,5 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.myToolbar)
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.bottomNavView.setupWithNavController(navController)
-    }
-
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
-        setIntent(intent)
-
-        // Повторная проверка при новом интенте
-        intent.extras?.let { bundle ->
-            val fragmentToOpen = bundle.getString("fragment")
-            if (fragmentToOpen == "orderHistory") {
-                val navController = findNavController(R.id.nav_host_fragment)
-                navController.navigate(R.id.orderHistoryFragment)
-            }
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        intent.extras?.let { bundle ->
-            val fragmentToOpen = bundle.getString("fragment")
-            if (fragmentToOpen == "orderHistory") {
-                val navController = findNavController(R.id.nav_host_fragment)
-                navController.navigate(R.id.orderHistoryFragment)
-            }
-        }
     }
 }
