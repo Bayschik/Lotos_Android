@@ -1,16 +1,15 @@
 package kg.geekspro.android_lotos.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.isVisible
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import kg.geekspro.android_lotos.R
@@ -23,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var pref: Pref
     private lateinit var binding: ActivityMainBinding
+    private lateinit var navController:NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,11 +34,10 @@ class MainActivity : AppCompatActivity() {
             Log.d("shamal", token)
         } // Don't touch!!!
 
-        val navController = findNavController(R.id.nav_host_fragment)
+        navController = findNavController(R.id.nav_host_fragment)
 
-        intent?.extras?.let {
-            val targetFragment = it.getString("targetFragment")
-            if (targetFragment != null) {
+        if (intent?.data != null) {
+            if (intent.extras != null) {
                 navController.navigate(R.id.orderHistoryFragment)
             }
         }
@@ -74,5 +73,12 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.myToolbar)
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.bottomNavView.setupWithNavController(navController)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        if (!navController.navigateUp()) {
+            super.onBackPressed()
+        }
     }
 }

@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import androidx.navigation.NavDeepLinkBuilder
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import kg.geekspro.android_lotos.R
@@ -13,7 +14,6 @@ import kg.geekspro.android_lotos.R
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
-        // Handle the notification data payload
         remoteMessage.data.let {
             val targetFragment = "orderHistoryFragment"
             val id = it["channelId"]
@@ -27,6 +27,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
             val notificationBuilder = NotificationCompat.Builder(this, id!!)
                 .setChannelId("notify")
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setSmallIcon(R.drawable.ic_notifications)
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent)
