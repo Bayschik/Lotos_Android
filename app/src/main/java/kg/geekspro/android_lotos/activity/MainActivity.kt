@@ -1,5 +1,6 @@
 package kg.geekspro.android_lotos.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -22,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var pref: Pref
     private lateinit var binding: ActivityMainBinding
-    private lateinit var navController:NavController
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,9 +38,7 @@ class MainActivity : AppCompatActivity() {
         navController = findNavController(R.id.nav_host_fragment)
 
         if (intent?.data != null) {
-            if (intent.extras != null) {
-                navController.navigate(R.id.orderHistoryFragment)
-            }
+            navController.navigate(R.id.orderHistoryFragment)
         }
 
         val appBarConfiguration = AppBarConfiguration(
@@ -75,10 +74,15 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavView.setupWithNavController(navController)
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        if (!navController.navigateUp()) {
-            super.onBackPressed()
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        handleIntent(intent)
+    }
+
+    private fun handleIntent(intent: Intent) {
+        val fragmentToLoad = intent.getStringExtra("fragmentToLoad")
+        if (fragmentToLoad == "desiredFragment") {
+            findNavController(R.id.nav_host_fragment).navigate(R.id.orderHistoryFragment)
         }
     }
 }
