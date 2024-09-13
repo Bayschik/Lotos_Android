@@ -9,19 +9,30 @@ import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.os.bundleOf
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import kg.geekspro.android_lotos.R
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
+    override fun onNewToken(token: String) {
+        super.onNewToken(token)
+        Log.d("Token", token)
+    }
+
     @SuppressLint("MissingPermission")
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         remoteMessage.let {
             val id = it.data["channelId"]
-
+            val map:Map<String, String> ?= null
             val intent = Intent(this, OrdersActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                if (data!=null){
+                    val extras = bundleOf(
+                        OPEN to (map?.get(OPEN) ?: "open_fragment")
+                    )
+                }
             }
             /*val resultPendingIntent: PendingIntent? = TaskStackBuilder.create(this).run {
                 // Add the intent, which inflates the back stack.
@@ -31,7 +42,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                     PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
             }*/
 
-            val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+            val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE)
 
             val notificationBuilder = NotificationCompat.Builder(this, id!!)
                 .setSmallIcon(R.drawable.ic_notifications)
@@ -59,4 +70,9 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         Log.d("Notification", "${remoteMessage.notification?.channelId}")
         Log.d("Notification", "${remoteMessage.notification?.body}")
     }
+
+    companion object{
+        const val OPEN = "open_fragment"
+    }
 }
+
