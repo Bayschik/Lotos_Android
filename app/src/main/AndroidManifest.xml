@@ -20,6 +20,8 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
 
+
+
         <activity
             android:name=".activity.OrdersActivity"
             android:parentActivityName=".activity.MainActivity"
